@@ -1,0 +1,29 @@
+[tool.poetry]
+name = "dummy_django_blog"
+version = "0.1.0"
+description = "dummy django recap to publish on render"
+authors = ["memphis-tools <rn@github.com>"]
+license = "MIT"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = ">3.11,<3.13"
+django = ">4.2.0"
+gunicorn = "^22.0.0"
+pillow = "^10.4.0"
+django-bootstrap-icons = "^0.9.0"
+pytest = "^8.2.2"
+django-pytest = "^0.2.0"
+coverage = "6.5.0"
+pylint = "^3.2.5"
+django-bootstrap-v5 = "1.0.11"
+python-dotenv = "^1.0.1"
+whitenoise = "^6.7.0"
+pytest-django = "^4.8.0"
+flake8-html = "^0.4.3"
+coveralls = "3.3.1"
+pytest-mock = "^3.14.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

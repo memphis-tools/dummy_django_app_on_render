@@ -1,0 +1,25 @@
+services:
+  - type: web
+    name: dummy_django_blog_on_render
+    plan: free
+    region: frankfurt
+    runtime: python
+    buildCommand: "./docker-compose-deployment.sh cloud"
+    startCommand: "./venv/bin/python -m gunicorn -b :8000 oc_projet13.wsgi:application"
+    envVars:
+      - key: WEB_CONCURRENCY
+        value: 4
+      - key: PYTHON_VERSION
+        value: 3.11.9
+      - key: POETRY_VERSION
+        value: 1.8.3
+      - key: PORT
+        value: 8000
+      - key: SECRET_KEY
+        generateValue: true
+      - key: DJANGO_ADMIN_LOGIN
+        value: admin
+      - key: DJANGO_ADMIN_PASSWORD
+        generateValue: true
+      - key: DJANGO_ADMIN_EMAIL
+        value: admin@bluelake.fr

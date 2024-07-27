@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% load bootstrap_icons %}
+
+{% block title %}PHOTO ADD PAGE{% endblock title %}
+
+{% block content %}
+<div class="container d-flex flex-column align-items-center justify-content-center">
+  {% md_icon "publish" size="1.5rem" %}
+  <h2>AJOUTER UNE PHOTO</h2>
+  <div class="w-50">
+      <form class="form d-flex flex-column w-100" action="" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <label for="title_photo">{{ form.title_photo.label }}</label>
+        <input type="text" id="title_photo" name="title_photo" required>
+        <label for="caption">{{ form.caption.label }}</label>
+        <textarea  type="text" id="caption" name="caption" rows="2 required"></textarea>
+        <input class="pt-3" type="file" name="image" accept="image/*" id="id_image" required>
+        <input type="hidden" name="edit_photo" value="True">
+        <div class="pt-3 button_container d-flex justify-content-start">
+          <button type="submit" class="btn btn-primary">PUBLIER</button>
+        </div>
+      </form>
+      <div class="login_options mt-2 mb-5 d-flex flex-column justify-content-around align-items-center">
+        <a class="btn btn-primary mt-3" href="{% url 'feed' %}">RETOUR ACCUEIL</a>
+      </div>
+  </div>
+</div>
+{% endblock content %}

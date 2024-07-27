@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load bootstrap_icons %}
+
+{% block title %}HOME PAGE{% endblock title %}
+
+{% block content %}
+<div class="container-fluid home-container d-flex flex-column align-items-center justify-content-center">
+    <div class="w-90 home-elements">
+        <div class="w-75 home-subelements d-flex flex-column">
+            <h2>LES PETITS MEURTRES D'AGATHA CHRISTIE SAISON 2</h2>
+            <p>Un univers glamour et coloré des années 50's. Le Commissaire Laurence, macho mais irrésistible, enquête sur les mystères inventés par la reine du crime Agatha Christie.</p>
+            <p>2013-2020 27 épisodes</p>
+            <a href="{% url 'home' %}">COMEDIE</a>
+        </div>
+        <button type="button" class="btn btn-primary">
+            <a href="{% url 'login' %}">CONNECTEZ VOUS POUR PARTICIPER AU BLOG</a>
+        </button>
+    </div>
+</div>
+{% endblock content %}

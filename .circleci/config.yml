@@ -1,0 +1,121 @@
+version: 2.1
+
+orbs:
+  python: circleci/python@2.1.1
+  browser-tools: circleci/browser-tools@1.2.3
+
+workflows:
+  dummy_django_app_on_render_workflow:
+    jobs:
+      - test:
+         filters:
+            branches:
+              ignore:
+                - amelioration/lint_flake8_readme
+      - lint:
+          requires:
+            - test
+          filters:
+            branches:
+              ignore:
+                - amelioration/lint_flake8_readme
+      - build_and_publish:
+          requires:
+            - test
+            - lint
+          filters:
+            branches:
+               only:
+                - development
+                - main
+      - deploy:
+          requires:
+            - build_and_publish
+          filters:
+            branches:
+               only:
+                - main
+
+jobs:
+  test:
+    docker:
+      - image: cimg/python:3.12.3
+    steps:
+      - checkout
+      - python/install-packages:
+          pkg-manager: poetry
+      - run:
+          name: Run Tests
+          command: |
+            export IS_TESTING=True
+            poetry run coverage run -m pytest ./dummy_django_blog/
+            poetry run coverage report
+            poetry run coverage html
+      - store_artifacts:
+          path: htmlcov
+  lint:
+    docker:
+      - image: cimg/python:3.12.3
+    steps:
+      - checkout
+      - python/install-packages:
+          pip-dependency-file: ./dummy_django_blog/requirements.txt
+          pkg-manager: poetry
+      - run:
+          name: Run flake8
+          command: poetry run flake8 --max-line-length=127 --count --statistics|| true
+
+  build_and_publish:
+    docker:
+      - image: docker:25.0
+    steps:
+      - checkout
+      - setup_remote_docker:
+          version: default
+      - run:
+          name: Install dependencies
+          command: |
+            apk update && \
+            apk upgrade && \
+            apk add --no-cache \
+              py-pip \
+              curl \
+              docker-compose
+      - run:
+          name: login to docker_hub
+          command: docker login -u memphistools --password $DOCKER_HUB_PASSWORD
+      - run:
+          name: build images
+          command: docker-compose -f docker-compose.dev.yml build
+      - run:
+          name: list images
+          command: docker image ls
+      - run:
+          name: tag nginx image
+          command: docker tag project-nginx:latest memphistools/public_repo:dummy_django_app_on_render_nginx
+      - run:
+          name: tag django-gunicorn image
+          command: docker tag project-django:latest memphistools/public_repo:dummy_django_app_on_render_django
+      - run:
+          name: push nginx image on dockerhub
+          command: docker push memphistools/public_repo:dummy_django_app_on_render_nginx
+      - run:
+          name: push web image on dockerhub
+          command: docker push memphistools/public_repo:dummy_django_app_on_render_django
+  deploy:
+    docker:
+      - image: docker:25.0
+    steps:
+      - checkout
+      - setup_remote_docker:
+          version: default
+      - run:
+          name: Install dependencies
+          command: |
+            apk update && \
+            apk upgrade && \
+            apk add --no-cache \
+              curl
+      - run:
+          name: order render to rebuild application
+          command: curl $RENDER_DEPLOY_HOOK_URL

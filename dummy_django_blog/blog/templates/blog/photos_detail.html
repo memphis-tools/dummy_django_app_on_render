@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% load bootstrap_icons %}
+
+{% block title %}PHOTO PAGE{% endblock title %}
+
+{% block content %}
+<div class="container d-flex flex-column align-items-center justify-content-center">
+  {% md_icon "details" size="1.5rem" %}
+  <h2>PHOTO</h2>
+  <p>TITLE: {{ photo.title_photo }}</p>
+  <p>UPLOADER: {{ photo.uploader }}</p>
+  <p>LEGENDE: {{ photo.caption }}</p>
+  <img src="{{ photo.image.url }}" alt="a dummy photo">
+  <div class="login_options mt-2 mb-5 d-flex flex-column justify-content-around align-items-center">
+    <a class="btn btn-primary mt-3" href="{% url 'feed' %}">RETOUR ACCUEIL</a>
+    {% if request.user == photo.uploader %}
+    <div class="options_container d-flex flex-column">
+      <a class="btn btn-primary m-3" href="{% url 'photos_update' photo.id %}">MODIFIER PHOTO</a>
+      <a class="btn btn-primary" href="{% url 'photos_delete' photo.id %}">SUPPRIMER PHOTO</a>
+    </div>
+    {% endif %}
+  </div>
+</div>
+{% endblock content %}

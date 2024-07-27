@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% load bootstrap_icons %}
+
+{% block title %}SIGNIN PAGE{% endblock title %}
+
+{% block content %}
+<div class="container-fluid signin-container d-flex flex-column align-items-center justify-content-center">
+  {% md_icon "shape-square-plus" size="1.5rem" %}
+  <h2>INSCRIPTION</h2>
+  <div class="w-80 d-flex flex-row">
+      <form class="form" action="" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">S'INSCRIRE</button>
+      </form>
+  </div>
+</div>
+{% endblock content %}

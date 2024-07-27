@@ -1,0 +1,20 @@
+[run]
+branch = True
+source =
+  authentication
+  blog
+
+[report]
+omit = dummy_django_blog/blog/management/*, \
+  */__init__.py, \
+  */admin.py, \
+  */apps.py, \
+  */forms.py, \
+  */migrations/*, \
+  */models.py, \
+  */templatetags/*, \
+  dummy_django_blog/*/tests/*, \
+  */validators.py
+
+[xml]
+output = coverage.xml

@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% load bootstrap_icons %}
+
+{% block title %}ERROR PAGE{% endblock title %}
+
+{% block content %}
+<div class="container px-5 py-5 text-center">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            {% md_icon "alert-circle-outline" size="1.5rem" %}
+            <h1 class="page-header-ui-title mb-3 display-6">Oups nous avons une erreur {{ error_code }}.</h1>
+            {% md_icon "bug" size="1.5rem" %}
+            <p>Page {{ request.path }} n'existe pas.</p>
+        </div>
+    </div>
+    <div class="login_options mt-3 d-flex flex-column justify-content-around align-items-center">
+      <a class="btn btn-primary mt-3" href="{% url 'feed' %}">RETOUR ACCUEIL</a>
+    </div>
+</div>
+
+{% endblock content %}

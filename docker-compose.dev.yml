@@ -1,0 +1,33 @@
+services:
+  django:
+    build:
+      context: ./dummy_django_blog
+      dockerfile: Dockerfile
+    container_name: django
+    command:
+      sh -c "gunicorn dummy_django_blog.wsgi:application --bind 0.0.0.0:8000"
+    volumes:
+      - static_volume:/home/dummy-operator/web/staticfiles
+      - media_volume:/home/dummy-operator/web/media
+    expose:
+      - 8000
+    environment:
+      - IS_TESTING=False
+      - DEBUG=False
+      - SECRET_KEY
+      - DJANGO_ALLOWED_HOSTS
+
+  nginx:
+    build: ./nginx
+    container_name: nginx
+    volumes:
+      - static_volume:/home/dummy-operator/web/staticfiles
+      - media_volume:/home/dummy-operator/web/media
+    ports:
+      - 5555:8080
+    depends_on:
+      - django
+
+volumes:
+  static_volume:
+  media_volume:

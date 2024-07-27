@@ -1,0 +1,31 @@
+services:
+  django:
+    image: memphistools/public_repo:dummy_django_app_on_render_django
+    container_name: django
+    command:
+      sh -c "gunicorn dummy_django_blog.wsgi:application --bind 0.0.0.0:8000"
+    volumes:
+      - static_volume:/home/dummy-operator/web/staticfiles
+      - media_volume:/home/dummy-operator/web/media
+    expose:
+      - 8000
+    environment:
+      - IS_TESTING
+      - DEBUG
+      - SECRET_KEY
+      - DJANGO_ALLOWED_HOSTS
+
+  nginx:
+    image: memphistools/public_repo:dummy_django_app_on_render_nginx
+    container_name: nginx
+    volumes:
+      - static_volume:/home/dummy-operator/web/staticfiles
+      - media_volume:/home/dummy-operator/web/media
+    ports:
+      - 5555:8080
+    depends_on:
+      - django
+
+volumes:
+  static_volume:
+  media_volume:

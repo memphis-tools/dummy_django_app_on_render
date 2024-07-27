@@ -1,0 +1,177 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+body {
+  height: 100vh;
+  background-image: linear-gradient(to right, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0.75) 20%, rgba(0, 0, 0, 0) 100%), url("../../vendors/img/les_petits_meurtres_saison_2_sans_titre.jpg");
+  background-position: center;
+  background-size: cover;
+  background-attachment: fixed;
+  color: white;
+}
+
+body a,
+body button,
+body .dropdown-item {
+  color: white;
+}
+
+.sticky-top {
+  background-color: black;
+}
+
+.navbar-blur .navbar {
+  backdrop-filter: blur(10px);
+}
+
+.navbar-nav {
+  width: 100%;
+  margin-left: auto;
+  z-index: 10;
+}
+
+.navbar-nav .dropdown-menu {
+  background-color: black;
+}
+
+.navbar-custom {
+  background-color: transparent;
+  border: none;
+  box-shadow: none;
+}
+
+.navbar-collapse {
+  justify-content: flex-end;
+}
+
+.navbar-collapse {
+  transition: opacity 0.3s ease;
+}
+
+.navbar-collapse.show {
+  opacity: 1;
+}
+
+.navbar-collapse.collapsing {
+  opacity: 0;
+}
+
+.navbar-toggler {
+  position: absolute;
+  top: 10px;
+  right: 2%;
+  padding: 5px 5px;
+}
+
+.navbar-brand {
+  font-family: "Caveat", cursive;
+  font-optical-sizing: auto;
+  font-weight: 700;
+  font-style: normal;
+  font-size: 2rem;
+  color: white !important;
+}
+
+.nav-link {
+  padding: 0;
+  display: flex;
+  justify-content: flex-start;
+  font-family: "Roboto Mono", monospace;
+  font-optical-sizing: auto;
+  font-weight: 500;
+  font-style: normal;
+  text-transform: uppercase;
+}
+
+.nav-link a {
+  text-decoration: none;
+}
+
+.nav-link a:hover,
+.nav-link a:active{
+  color: blue;
+}
+
+.image_profile {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
+
+.dropdown-menu {
+  border: 0px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: "Arsenal SC", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+footer {
+  bottom: 0;
+  position: fixed;
+  color: white;
+  background-color: black;
+}
+
+.card-carousel {
+  margin: 0;
+  padding: 0 5%;
+  width: 450px;
+  background: linear-gradient( rgb(0, 0, 0, 0.36), rgba(61, 131, 127, 0.56) );
+}
+
+.carousel-control-prev {
+  left: -25%;
+}
+
+.carousel-control-next {
+  right: -15%;
+}
+
+.card {
+  margin: 0;
+  padding: 0;
+  width: 250px;
+  background: linear-gradient( rgb(0, 0, 0, 0.36), rgba(61, 131, 127, 0.56) );
+}
+
+.card-title {
+  margin-bottom: 0;
+}
+
+
+.photo_miniature {
+  width: 250px;
+  height: 180px;
+}
+
+.home-elements h2 {
+  font-size: 2rem;
+}
+
+.home-subelements a {
+  text-decoration: underline;
+  font-style: normal;
+  font-weight: 300;
+}
+
+.bg-dark {
+  background-color: rgba(33, 37, 41, 0.6) !important;
+}
+
+
+@media (max-width: 576px) {
+  .carousel-control-prev {
+    left: -5%;
+  }
+
+  .carousel-control-next {
+    right: -5%;
+  }
+}

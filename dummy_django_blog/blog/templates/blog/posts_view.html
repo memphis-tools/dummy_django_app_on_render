@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% load bootstrap_icons %}
+{% load blog_tags %}
+
+{% block title %}POSTS PAGE{% endblock title %}
+
+{% block content %}
+<div class="container d-flex flex-column">
+    <div class="w-100 d-flex flex-row justify-content-center">
+      {% md_icon "details" size="1.5rem" %}
+      <h2>BILLETS</h2>
+    </div>
+    <div class="d-flex flex-column align-items-start justify-content-around">
+        {% if page_obj|length > 0 %}
+          {% for post in page_obj %}
+            <p>Titre: {{ post.title }}</p>
+            <p>Auteurs: {{ post.contributors.all|join:", " }}</p>
+            <p>Publié le: {{ post.created_at }}</p>
+            <p>Description: {{ post.content }}</p>
+            <figure>
+              <img src="{{ post.image.image.url }}" alt="a dummy photo">
+              <figcaption>{{ post.image.caption }}</figcaption>
+            </figure>
+            <div class="options_container d-flex flex-row">
+              <a class="btn btn-primary m-3" href="{% url 'posts_update' post.id %}">MODIFIER BILLET</a>
+              <a class="btn btn-primary m-3" href="{% url 'posts_delete' post.id %}">SUPPRIMER BILLET</a>
+            </div>
+          {% endfor %}
+        {% else %}
+          <a class="btn btn-primary" href="{% url 'posts_add' %}">PAS DE BILLETS, SOYEZ NOTRE HEROS, AJOUTEZ EN UN !</a>
+        {% endif %}
+    </div>
+    <div class="d-flex">
+        {% include "blog/partials/page_navigator.html" %}
+    </div>
+    <div class="login_options mt-2 mb-5 d-flex flex-column justify-content-around align-items-center">
+        <a class="btn btn-primary mt-3" href="{% url 'feed' %}">RETOUR ACCUEIL</a>
+    </div>
+</div>
+{% endblock content %}

@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% load bootstrap_icons %}
+
+{% block title %}CONTACT PAGE{% endblock title %}
+
+{% block content %}
+<div class="container-fluid mailadmin-container d-flex flex-column align-items-center justify-content-center">
+  {% md_icon "account-box-outline" size="1.5rem" %}
+  <h2>CONTACT</h2>
+  <div class="w-50">
+      <form class="form d-flex flex-column" action="" method="post">
+        {% csrf_token %}
+        <label for="username">
+          {{ form.username.label }}
+        </label>
+        <input type="text" id="username" name="username">
+        <label for="email">
+          {{ form.email.label }}
+        </label>
+        <input type="email" id="email" name="email">
+        <label for="message">
+          {{ form.message.label }}
+        </label>
+        <textarea  type="text" id="message" name="message" rows="5"></textarea>
+        <div class="pt-3 button_container d-flex justify-content-start">
+          <button type="submit" class="btn btn-primary">ENVOYER MAIL</button>
+        </div>
+      </form>
+      <div class="login_options mt-2 mb-5 d-flex flex-column justify-content-around align-items-center">
+        <a class="btn btn-primary mt-3" href="{% url 'feed' %}">RETOUR ACCUEIL</a>
+      </div>
+    </div>
+</div>
+{% endblock content %}

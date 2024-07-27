@@ -1,0 +1,20 @@
+<div class="w-100 d-flex flex-column align-items-center">
+  <div class="d-flex">
+    <span>
+      Page {{ page_obj.number }} sur {{ page_obj.paginator.num_pages }}
+    </span>
+  </div>
+  <div class="d-flex flex-column justify-content-between">
+      <span>
+        {% if page_obj.has_previous %}
+          <a href="?page=1">Premières</a>
+          <a href="?page={{ page_obj.previous_page_number }}">Précédentes</a>
+        {% endif %}
+
+        {% if page_obj.has_next %}
+          <a href="?page={{ page_obj.next_page_number }}">Prochaines</a>
+          <a href="?page={{ page_obj.paginator.num_pages }}">Dernières</a>
+        {% endif %}
+      </span>
+  </div>
+</div>
