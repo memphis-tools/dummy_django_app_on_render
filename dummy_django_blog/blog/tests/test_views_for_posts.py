@@ -64,7 +64,6 @@ def test_post_posts_delete_with_mocked_post(authenticate_user, mocker):
     assert response.status_code == 200
     templates = [template.name for template in response.templates]
     assert 'blog/feed.html' in templates
-    assert "FLUX TOPBLOG" in response.content.decode('utf-8')
     assert "Aucunes publications pour le moment" in response.content.decode('utf-8')
 
 

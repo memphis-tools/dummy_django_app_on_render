@@ -10,8 +10,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <meta name="description" content="Press People est une application web de type blog autour des personnalités du monde du spectacle.">
-    <meta name="keywords" content="blog, spectacle, python, django, html5, css3, js">
+    <meta name="description" content="Application web de type blog autour de la série Les Petits Meurtres d'Agatha Christie, saison 2.">
+    <meta name="keywords" content="blog, python, django, html5, css3, js">
     <meta name="generator" content="Django">
     <meta name="author" content="Tommy Doe">
     <link rel="icon" type="image/x-icon" href="{% static 'favicon.ico' %}">
@@ -20,7 +20,7 @@
     <!-- Google fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Arsenal+SC:ital,wght@0,400;0,700;1,400;1,700&family=Caveat:wght@400..700&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Arsenal+SC:ital,wght@0,400;0,700;1,400;1,700&family=Caveat:wght@400..700&family=family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
 </head>
 <body>
     <header>
@@ -42,70 +42,69 @@
                     MENU
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNav">
-                    <div id="navbar-nav" class="navbar-nav ml-auto">
-                      {% if user.is_authenticated %}
-                          <div class="nav-link dropdown">
-                              <a class="nav-item dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                  {% if user.image_profile.url == "default_profile.png" %}
-                                    <img class="image_profile rounded-pill" src="{% static 'assets/img/default_profile.png' %}" alt="photo de profil">
-                                  {% else %}
-                                    <img class="image_profile" src="{{ user.image_profile.url }}" alt="{{ user.image_profile }}">
-                                  {% endif %}
-                                  {{ user.username }}
-                              </a>
-                              <ul class="dropdown-menu">
-                                  <li><a class="dropdown-item" href="#">voir profile</a></li>
-                                  <li><a class="dropdown-item" href="{% url 'follow_user' %}">abonnements</a></li>
-                                  <li><a class="dropdown-item" href="{% url 'update_profile_image' %}">modifier profile</a></li>
-                                  <li><a class="dropdown-item" href="{% url 'password_change' %}">modifier mot de passe</a></li>
-                                  <li><a class="dropdown-item" href="{% url 'logout' %}">logout</a></li>
-                              </ul>
+                      <div id="navbar-nav" class="navbar-nav ml-auto">
+                          {% if user.is_authenticated %}
+                              <div class="nav-link">
+                                      <a class="nav-item" href="{% url 'feed' %}">home</a>
+                              </div>
+                              <div class="nav-link dropdown custom-dropdown">
+                                  <a class="navbar-item dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                      photos
+                                  </a>
+                                  <ul class="dropdown-menu">
+                                      <h6 class="dropdown-header">photos</h6>
+                                      <li><a class="dropdown-item" href="{% url 'photos' %}">voir photos</a></li>
+                                      <li><a class="dropdown-item" href="{% url 'photos_add' %}">ajouter une photo</a></li>
+                                      <li><a class="dropdown-item" href="{% url 'photos_add_multiple' %}">ajouter des photos</a></li>
+                                  </ul>
+                              </div>
+                              <div class="nav-link dropdown custom-dropdown">
+                                  <a class="nav-item dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">billets</a>
+                                  <ul class="dropdown-menu">
+                                      <h6 class="dropdown-header">billets</h6>
+                                      <li><a class="dropdown-item" href="{% url 'posts' %}">voir billets</a></li>
+                                      <li><a class="dropdown-item" href="{% url 'posts_add' %}">ajouter un billet</a></li>
+                                  </ul>
+                              </div>
+                          {% else %}
+                              <div class="nav-link">
+                                  <a class="nav-item" href="{% url 'home' %}">home</a>
+                              </div>
+                          {% endif %}
+                          <div class="nav-link">
+                              <a class="nav-item" href="{% url 'about' %}">a propos</a>
                           </div>
-                        {% endif %}
-                        <div class="nav-link">
-                            {% if user.is_authenticated %}
-                                <a class="nav-item" href="{% url 'feed' %}">home</a>
-                            {% else %}
-                                <a class="nav-item" href="{% url 'home' %}">home</a>
-                            {% endif %}
-                        </div>
-                        <div class="nav-link dropdown">
-                            <a class="navbar-item dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                photos
-                            </a>
-                            <ul class="dropdown-menu">
-                                <h6 class="dropdown-header">photos</h6>
-                                <li><a class="dropdown-item" href="{% url 'photos' %}">voir photos</a></li>
-                                <li><a class="dropdown-item" href="{% url 'photos_add' %}">ajouter une photo</a></li>
-                                <li><a class="dropdown-item" href="{% url 'photos_add_multiple' %}">ajouter des photos</a></li>
-                            </ul>
-                        </div>
-                        <div class="nav-link dropdown">
-                            <a class="nav-item dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">billets</a>
-                            <ul class="dropdown-menu">
-                                <h6 class="dropdown-header">billets</h6>
-                                <li><a class="dropdown-item" href="{% url 'posts' %}">voir billets</a></li>
-                                <li><a class="dropdown-item" href="{% url 'posts_add' %}">ajouter un billet</a></li>
-                            </ul>
-                        </div>
-                        <div class="nav-link">
-                            <a class="nav-item" href="{% url 'about' %}">a propos</a>
-                        </div>
-                        {% if not user.is_authenticated %}
-                            <div class="nav-link">
-                                <a class="nav-item" href="{% url 'login' %}">login</a>
-                            </div>
-                            <div class="nav-link">
-                                <a class="nav-item" href="{% url 'signin' %}">signin</a>
-                            </div>
-                            <div class="nav-link">
-                                <a class="nav-item" href="{% url 'password_reset' %}">mot de passe oublié</a>
-                            </div>
-                        {% endif %}
-                        <div class="nav-link">
-                            <a class="nav-item" href="{% url 'contact_admin' %}">contacter un admin</a>
-                        </div>
-                    </div>
+                          {% if not user.is_authenticated %}
+                              <div class="nav-link">
+                                  <a class="nav-item" href="{% url 'login' %}">login</a>
+                              </div>
+                              <div class="nav-link">
+                                  <a class="nav-item" href="{% url 'signin' %}">signin</a>
+                              </div>
+                          {% endif %}
+                          <div class="nav-link">
+                              <a class="nav-item" href="{% url 'contact_admin' %}">contacter un admin</a>
+                          </div>
+                          <div class="nav-link dropdown custom-dropdown user-dropdown">
+                              {% if user.is_authenticated %}
+                                  <a class="nav-item dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                      {% if user.image_profile.url == "default_profile.png" %}
+                                          <img class="image_profile rounded-pill" src="{% static 'assets/img/default_profile.png' %}" alt="photo de profil">
+                                      {% else %}
+                                          <img class="image_profile" src="{{ user.image_profile.url }}" alt="{{ user.image_profile }}">
+                                      {% endif %}
+                                      {{ user.username }}
+                                  </a>
+                                  <ul class="dropdown-menu">
+                                      <li><a class="dropdown-item" href="#">voir profile</a></li>
+                                      <li><a class="dropdown-item" href="{% url 'follow_user' %}">abonnements</a></li>
+                                      <li><a class="dropdown-item" href="{% url 'update_profile_image' %}">modifier profile</a></li>
+                                      <li><a class="dropdown-item" href="{% url 'password_change' %}">modifier mot de passe</a></li>
+                                      <li><a class="dropdown-item" href="{% url 'logout' %}">logout</a></li>
+                                  </ul>
+                              {% endif %}
+                          </div>
+                      </div>
                 </div>
             </div>
         </nav>

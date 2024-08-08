@@ -3,7 +3,7 @@ from django.conf import settings
 from django.utils.timezone import now
 from PIL import Image
 
-from .validators import MustContainsSpecialChar
+from .validators import MustContainsDigit
 
 
 class Photo(models.Model):
@@ -13,7 +13,7 @@ class Photo(models.Model):
         ]
     title_photo = models.CharField("titre photo", max_length=125)
     caption = models.CharField("legende", max_length=350)
-    uploader = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, on_delete=models.CASCADE)
+    uploader = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, on_delete=models.SET_NULL)
     created_at = models.DateTimeField(default=now)
     image = models.ImageField("photo")
     starred = models.BooleanField(default=False)
@@ -30,7 +30,7 @@ class Photo(models.Model):
 
 
 class Post(models.Model):
-    title = models.CharField("titre billet", max_length=200, validators=[MustContainsSpecialChar()])
+    title = models.CharField("titre billet", max_length=200, validators=[MustContainsDigit()])
     contributors = models.ManyToManyField(
         settings.AUTH_USER_MODEL,
         through="Contributor",
@@ -38,7 +38,7 @@ class Post(models.Model):
     )
     created_at = models.DateTimeField(default=now)
     content = models.CharField("description", max_length=2500)
-    image = models.ForeignKey(Photo, null=True, on_delete=models.SET_NULL)
+    image = models.ForeignKey(Photo, null=True, on_delete=models.SET_NULL, default="assets/img/les_petits_meurtres_la_fin.png")
     starred = models.BooleanField(default=False)
     word_count = models.IntegerField(default=0)
 

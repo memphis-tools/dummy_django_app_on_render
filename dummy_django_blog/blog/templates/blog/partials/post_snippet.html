@@ -4,19 +4,12 @@
 <div class="d-block card-carousel d-flex flex-column">
     <h3>Billet</h3>
     <figure>
-      <img class="photo_miniature class-img-top" src="{{ post.image.image.url }}" alt="a dummy post image">
-      <figcaption><i>{{ photo.caption }}</i></figcaption>
+        <img class="photo_miniature class-img-top" src="{{ post.image.image.url }}" alt="a post image">
+        <figcaption><i>{{ photo.caption }}</i></figcaption>
     </figure>
     <div class="card-body">
         <p class="card-title">{{ post.title }}</p>
         <p class="card-text">Auteurs: {{ post.contributors.all|join:", " }}</p>
         <p class="card-text">{{ post.created_at|format_created_date }}</p>
-        <div class="options_container d-flex flex-column">
-            <a class="btn btn-primary m-3" href="{% url 'posts_detail' post.id %}">DETAIL BILLET</a>
-            {% if request.user in post.contributors.all %}
-                <a class="btn btn-primary m-3" href="{% url 'posts_update' post.id %}">MODIFIER BILLET</a>
-                <a class="btn btn-primary" href="{% url 'posts_delete' post.id %}">SUPPRIMER BILLET</a>
-            {% endif %}
-        </div>
     </div>
 </div>

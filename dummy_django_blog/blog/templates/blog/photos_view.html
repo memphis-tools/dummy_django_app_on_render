@@ -5,38 +5,34 @@
 {% block title %}PHOTOS PAGE{% endblock title %}
 
 {% block content %}
-<div class="container photos-container d-flex flex-column">
-    <div class="w-100 d-flex flex-row justify-content-center">
+<div class="container">
+    <div class="w-100 d-flex flex-column align-items-center">
       {% md_icon "details" size="1.5rem" %}
       <h2>PHOTOS</h2>
     </div>
-    <div class="content_container d-flex flex-row justify-content-around flex-wrap">
+    <div class="d-flex flex-row justify-content-around flex-wrap photos-container">
         {% if page_obj|length > 0 %}
-          {% for photo in page_obj %}
-          <div class="card d-flex flex-column align-items-center justify-content-start">
-            <figure>
-                <img class="photo_miniature class-img-top" src="{{ photo.image.url }}" alt="a dummy photo">
-                <figcaption><i>{{ photo.caption }}</i></figcaption>
-            </figure>
-            <div class="card-body">
-                <p class="card-title">{{ photo.title }}</p>
-                <p class="card-text">Proposée par {% get_poster photo.uploader %}</p>
-                <p class="card-text">{{ photo.created_at }}</p>
-                <a class="btn btn-primary m-3" href="{% url 'photos_detail' photo.id %}">DETAILS</a>
-                <div class="options_container d-flex flex-column">
-                  <a class="btn btn-primary m-3" href="{% url 'photos_update' photo.id %}">MODIFIER PHOTO</a>
-                  <a class="btn btn-primary m-3" href="{% url 'photos_delete' photo.id %}">SUPPRIMER PHOTO</a>
+            {% for photo in page_obj %}
+                <div class="card">
+                  <figure>
+                      <img class="photo_miniature class-img-top" src="{{ photo.image.url }}" alt="a dummy photo">
+                      <figcaption><i>{{ photo.caption }}</i></figcaption>
+                  </figure>
+                  <div class="card-body">
+                      <p class="card-title">{{ photo.title }}</p>
+                      <p class="card-text">Proposée par {% get_poster photo.uploader %}</p>
+                      <p class="card-text">{{ photo.created_at }}</p>
+                      <a class="btn btn-primary m-3" href="{% url 'photos_detail' photo.id %}">DETAILS</a>
+                    </div>
                 </div>
-              </div>
-          </div>
-          {% endfor %}
+            {% endfor %}
         {% else %}
-          <a class="btn btn-primary" href="{% url 'photos_add' %}">PAS DE PHOTOS, SOYEZ NOTRE HEROS, AJOUTEZ EN UNE !</a>
+            <a class="btn btn-primary" href="{% url 'photos_add' %}">PAS DE PHOTOS, SOYEZ NOTRE HEROS, AJOUTEZ EN UNE !</a>
         {% endif %}
     </div>
     {% include "blog/partials/page_navigator.html" %}
-    <div class="login_options mt-2 mb-5 d-flex flex-column justify-content-around align-items-center">
-      <a class="btn btn-primary mt-3" href="{% url 'feed' %}">RETOUR ACCUEIL</a>
+    <div class="mt-2 mb-5 d-flex flex-column justify-content-around align-items-center">
+        <a class="btn btn-primary mt-3" href="{% url 'feed' %}">RETOUR ACCUEIL</a>
     </div>
 </div>
 {% endblock content %}

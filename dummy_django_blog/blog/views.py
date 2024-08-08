@@ -14,6 +14,11 @@ from . import forms
 from . import models
 
 
+def about(request):
+    """A dummy about route"""
+    return render(request, "blog/about.html", context={})
+
+
 def contact_admin(request):
     """A dummy contact_admin route"""
     form = forms.ContactForm()
@@ -62,12 +67,6 @@ def feed(request):
     page = request.GET.get("page")
     page_obj = paginator.get_page(page)
     return render(request, "blog/feed.html", context={"page_obj": page_obj})
-
-
-@login_required
-def about(request):
-    """A dummy about route"""
-    return render(request, "blog/about.html", context={})
 
 
 @login_required
@@ -256,15 +255,23 @@ def post_and_photo_add(request):
 def posts_update(request, id):
     """A dummy posts_update route"""
     post = get_object_or_404(models.Post, id=id)
-    photo = get_object_or_404(models.Photo, id=post.image.id)
+    update_on_null_image = False
+    try:
+        photo = get_object_or_404(models.Photo, id=post.image.id)
+        edit_photo_form = forms.PhotoForm(instance=photo)
+    except AttributeError:
+        edit_photo_form = forms.PhotoForm()
+        update_on_null_image = True
     edit_post_form = forms.PostForm(instance=post)
-    edit_photo_form = forms.PhotoForm(instance=photo)
     delete_form = forms.PostDeleteForm()
     if request.method == "POST":
         if post.contributors.filter(id=request.user.id).exists() or request.user.is_staff:
             if "edit_post" in request.POST:
                 post_form = forms.PostForm(request.POST, instance=post)
-                photo_form = forms.PhotoForm(request.POST, request.FILES, instance=photo)
+                if not update_on_null_image:
+                    photo_form = forms.PhotoForm(request.POST, request.FILES, instance=photo)
+                else:
+                    photo_form = forms.PhotoForm(request.POST, request.FILES)
                 if all([post_form.is_valid(), photo_form.is_valid()]):
                     photo = photo_form.save(commit=False)
                     photo.uploader = request.user

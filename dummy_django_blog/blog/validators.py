@@ -6,15 +6,15 @@ def is_special_char(char):
     return char in string.punctuation
 
 
-class MustContainsSpecialChar:
+class MustContainsDigit:
     def __call__(self, title):
-        if not any(is_special_char(char) for char in title):
-            raise ValidationError("Au moins 1 caractère spécial dans le titre est attendu")
+        if not any(char.isdigit for char in title):
+            raise ValidationError("Au moins 1 chiffre attendu dans le titre")
 
     def get_help_text(self):
-        return "Au moins 1 caractère spécial dans le titre est attendu"
+        return "Au moins 1 chiffre attendu dans le titre"
 
     def deconstruct(self):
         return (
-            'blog.validators.MustContainsSpecialChar', [], {}
+            'blog.validators.MustContainsDigit', [], {}
         )

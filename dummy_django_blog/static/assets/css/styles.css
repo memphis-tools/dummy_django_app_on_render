@@ -35,7 +35,7 @@ body .dropdown-item {
 }
 
 .navbar-nav .dropdown-menu {
-  background-color: black;
+  background-color: transparent;
 }
 
 .navbar-custom {
@@ -61,10 +61,12 @@ body .dropdown-item {
 }
 
 .navbar-toggler {
+  color: pink;
   position: absolute;
   top: 10px;
   right: 2%;
-  padding: 5px 5px;
+  padding: 1% 1%;
+  margin-right: 6%;
 }
 
 .navbar-brand {
@@ -79,9 +81,8 @@ body .dropdown-item {
 .nav-link {
   padding: 0;
   display: flex;
-  justify-content: flex-start;
-  font-family: "Roboto Mono", monospace;
-  font-optical-sizing: auto;
+  justify-content: center;
+  font-family: "Ubuntu", sans-serif;
   font-weight: 500;
   font-style: normal;
   text-transform: uppercase;
@@ -103,7 +104,24 @@ body .dropdown-item {
 }
 
 .dropdown-menu {
-  border: 0px;
+  border: 1px dashed pink;
+}
+
+.dropdown-header {
+  display: flex;
+  justify-content: center;
+  color: pink;
+}
+
+.custom-dropdown {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.user-dropdown {
+  border-top: 1px solid white;
+  margin-top: 2%;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -112,26 +130,44 @@ h1, h2, h3, h4, h5, h6 {
     font-style: normal;
 }
 
-footer {
-  bottom: 0;
-  position: fixed;
-  color: white;
-  background-color: black;
+.feed-container {
+  display: flex;
+  flex-direction: row;
+  border: 1px dashed pink;
+  border-radius: 3%;
+  margin-top: 2%;
+  padding: 2% 1%;
+}
+
+.feed-intro {
+  padding: 5%;
+  font-size: 1.5rem;
+  font-family: "Caveat", cursive;
+  font-optical-sizing: auto;
+  font-weight: 700;
+  font-style: normal;
+}
+
+.feed-intro h3 {
+  font-family: "Caveat", cursive;
+  font-optical-sizing: auto;
+  font-weight: 700;
+  font-style: normal;
 }
 
 .card-carousel {
-  margin: 0;
+  margin: 0 20% 0 20%;
   padding: 0 5%;
   width: 450px;
   background: linear-gradient( rgb(0, 0, 0, 0.36), rgba(61, 131, 127, 0.56) );
 }
 
 .carousel-control-prev {
-  left: -25%;
+  right: -5%;
 }
 
 .carousel-control-next {
-  right: -15%;
+  right: -5%;
 }
 
 .card {
@@ -145,33 +181,88 @@ footer {
   margin-bottom: 0;
 }
 
-
 .photo_miniature {
   width: 250px;
   height: 180px;
+  border-radius:
 }
 
 .home-elements h2 {
   font-size: 2rem;
 }
 
-.home-subelements a {
-  text-decoration: underline;
+.home-elements-head {
+  margin-top: 5%;
+  margin-left: 5%;
+}
+
+.home-elements-sub {
+  margin: 2% 0% 10% 50%;
+}
+
+.home-elements-sub img {
+  width: 2%;
+}
+
+.home-elements-sub btn{
+  font-family: "Ubuntu", sans-serif;
+  font-weight: 500;
   font-style: normal;
-  font-weight: 300;
+  background-color: #221c1c8c;
+  border: 1px dashed white;
+}
+
+.home-head-elements {
+  font-family: "Ubuntu", sans-serif;
+  font-weight: 500;
+  font-style: normal;
+  margin-left: 5%;
+}
+
+.photos-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.photo-contaner {
+  width: 45%;
+  height: auto;
 }
 
 .bg-dark {
   background-color: rgba(33, 37, 41, 0.6) !important;
 }
 
+footer {
+  bottom: 0;
+  position: fixed;
+  color: white;
+  background-color: black;
+}
 
 @media (max-width: 576px) {
+  .home-elements-sub {
+    margin: 2% 0% 15% 50%;
+  }
+
+  .feed-container {
+    display: flex;
+    flex-direction: column;
+    border: 1px dashed pink;
+    border-radius: 3%;
+    margin-bottom: 10%
+  }
+
   .carousel-control-prev {
     left: -5%;
   }
 
   .carousel-control-next {
     right: -5%;
+  }
+
+  .photos-container {
+    display: flex;
+    flex-direction: row;
   }
 }

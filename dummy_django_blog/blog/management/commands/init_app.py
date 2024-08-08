@@ -155,16 +155,17 @@ class Command(BaseCommand):
             img = Image.open(f"./images_echantillons/billet_1.jpg")
             img.thumbnail(settings.IMAGE_PREFERED_SIZE)
             img = img.save(fp=f"./media/billet_1.jpg")
+
         photo_billet_1 = Photo.objects.create(
             title_photo="Photo épisode 1",
             caption=f"Crédits France Télévision",
-            uploader=uploaders_list[randint(0,1)],
+            uploader=user_1,
             image=f"./billet_1.jpg",
         )
         photo_billet_1.save()
 
         post = Post.objects.create(
-            title="Les petit$ meurtres",
+            title="s02-01 Les petits meurtres",
             content="""Le Dr Étienne Bousquet tient un centre de réinsertion pour les délinquants.
             Mais la présence de voyous perturbe sa famille.
             Lorsque deux meurtres sont commis, le nouveau commissaire, Swan Laurence, enquête avec, dans ses pattes, la trop curieuse journaliste Alice Avril.

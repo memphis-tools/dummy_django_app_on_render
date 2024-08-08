@@ -4,19 +4,12 @@
 <div class="d-block card-carousel d-flex flex-column">
     <h3>Photo</h3>
     <figure>
-        <img class="photo_miniature class-img-top" src="{{ photo.image.url }}" alt="a dummy photo">
+        <img class="photo_miniature class-img-top" src="{{ photo.image.url }}" alt="a photo">
         <figcaption><i>{{ photo.caption }}</i></figcaption>
     </figure>
     <div class="card-body">
         <p class="card-title">{{ photo.title_photo }}</p>
         <p class="card-text">Proposée par {% get_poster photo.uploader %}</p>
         <p class="card-text">{{ photo.created_at|format_created_date }}</p>
-        <div class="options_container d-flex flex-column">
-            <a class="btn btn-primary m-3" href="{% url 'photos_detail' photo.id %}">DETAILS</a>
-            {% if request.user == photo.uploader %}
-                <a class="btn btn-primary m-3" href="{% url 'photos_update' photo.id %}">MODIFIER PHOTO</a>
-                <a class="btn btn-primary" href="{% url 'photos_delete' photo.id %}">SUPPRIMER PHOTO</a>
-            {% endif %}
-        </div>
       </div>
 </div>
