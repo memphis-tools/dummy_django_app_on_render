@@ -5,14 +5,14 @@
 
 {% block content %}
 <div class="container d-flex flex-column align-items-center justify-content-center">
-  {% md_icon "delete-outline" size="1.5rem" %}
-  <h2>CONFIRMER SUPPRESSION BILLET: {{ post.title }}</h2>
-  <form class="form" action="" method="post">
-    {% csrf_token %}
-    <button type="submit" class="btn btn-primary">CONFIRMER SUPPRESSION</button>
-  </form>
-  <div class="login_options mt-2 mb-5 d-flex flex-column justify-content-around align-items-center">
-    <a class="btn btn-primary mt-3" href="{% url 'feed' %}">RETOUR ACCUEIL</a>
-  </div>
+    {% md_icon "delete-outline" size="1.5rem" %}
+    <h2>CONFIRMER SUPPRESSION BILLET: {{ post.title }}</h2>
+    <form class="form" action="" method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-primary">CONFIRMER SUPPRESSION</button>
+    </form>
+    <div class="mt-2 mb-5 d-flex flex-column justify-content-around align-items-center">
+        <a class="btn btn-primary mt-3" href="{% url 'feed' %}">RETOUR ACCUEIL</a>
+    </div>
 </div>
 {% endblock content %}

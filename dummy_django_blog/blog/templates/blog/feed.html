@@ -5,36 +5,48 @@
 {% block title %}FEED PAGE{% endblock title %}
 
 {% block content %}
-<div class="container-fluid feed-container d-flex flex-column align-items-center justify-content-center">
-  {% md_icon "home-circle-outline" size="1.5rem" %}
-  <h2>FLUX TOPBLOG</h2>
-  <div class="carousel slide d-flex flex-row justify-content-around flex-wrap" data-bs-ride="carousel" data-bs-wrap="true" id="dummy_carousel">
+<div class="container-fluid d-flex flex-column align-items-center justify-content-center">
+    <div class="w-100 d-flex flex-column align-items-center">
+        {% md_icon "home-circle-outline" size="1.5rem" %}
+    </div>
+    <div class="feed-container">
       {% if page_obj|length > 0 %}
-          <!-- The slideshow/carousel -->
-          <div class="carousel-inner">
-              {% for instance in page_obj %}
-                  <div class="carousel-item {% if forloop.first %}active{% endif %}">
-                  {% if instance|model_type == "Photo" %}
-                    {% include "blog/partials/photo_snippet.html" with photo=instance %}
-                  {% elif instance|model_type == "Post" %}
-                    {% include "blog/partials/post_snippet.html" with post=instance %}
-                  {% endif %}
-                   </div>
-              {% endfor %}
+          <div class="carousel-container">
+              <div class="carousel slide" data-bs-ride="carousel" data-bs-wrap="true" id="dummy_carousel">
+                  <!-- The slideshow/carousel -->
+                  <div class="carousel-inner">
+                      {% for instance in page_obj %}
+                          <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                              {% if instance|model_type == "Photo" %}
+                                  {% include "blog/partials/photo_snippet.html" with photo=instance %}
+                              {% elif instance|model_type == "Post" %}
+                                  {% include "blog/partials/post_snippet.html" with post=instance %}
+                              {% endif %}
+                          </div>
+                      {% endfor %}
+                  </div>
+                  <!-- Left and right controls/icons -->
+                  <button class="carousel-control-prev custom-prev" type="button" data-bs-target="#dummy_carousel" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon"></span>
+                  </button>
+                  <button class="carousel-control-next custom-next" type="button" data-bs-target="#dummy_carousel" data-bs-slide="next">
+                    <span class="carousel-control-next-icon"></span>
+                  </button>
+              </div>
           </div>
-          <!-- Left and right controls/icons -->
-          <button class="carousel-control-prev custom-prev" type="button" data-bs-target="#dummy_carousel" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon"></span>
-          </button>
-          <button class="carousel-control-next custom-next" type="button" data-bs-target="#dummy_carousel" data-bs-slide="next">
-            <span class="carousel-control-next-icon"></span>
-          </button>
+          <div class="d-flex flex-column justify-content-start feed-intro">
+              <h3>Quel trio Marlène-Laurence-Avril 👄 </h3>
+              <p><a href="{% url 'photos' %}">Retrouvez des photos</a></p>
+              <p><a href="{% url 'posts' %}">Retrouvez des billets</a></p>
+          </div>
       {% else %}
-        <p>Aucunes publications pour le moment</p>
+          <div class="nocontent-container d-flex flex-column">
+              <p>Aucunes publications pour le moment</p>
+              <p>SOYEZ NOTRE HERO !</p>
+              <a class="btn btn-primary" href="{% url 'photos_add' %}">AJOUTEZ UNE PHOTO</a>
+              <a class="btn btn-primary" href="{% url 'posts_add' %}">AJOUTEZ UN BILLET</a>
+          </div>
       {% endif %}
-  </div>
-  <div class="login_options mt-2 mb-5 d-flex flex-column justify-content-around align-items-center">
-      <a class="btn btn-primary mt-3" href="{% url 'feed' %}">RETOUR ACCUEIL</a>
-  </div>
+    </div>
 </div>
 {% endblock content %}

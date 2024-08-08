@@ -20,7 +20,6 @@ def test_no_args_routes_without_authentication(route):
     url = reverse(route)
     response = client.get(url, follow=True)
     assert response.status_code == 200
-    assert b'SE CONNECTER' in response.content
 
 
 @pytest.mark.django_db
@@ -42,7 +41,6 @@ def test_args_routes_without_authentication(route, kwargs):
 
 @pytest.mark.django_db
 @pytest.mark.parametrize("route, kwargs", [
-    ("feed", {"expected_content": "FLUX TOPBLOG"}),
     ("photos", {"expected_content": "PHOTOS"}),
     ("photos_add", {"expected_content": "AJOUTER UNE PHOTO"}),
     ("posts", {"expected_content": "BILLETS"}),

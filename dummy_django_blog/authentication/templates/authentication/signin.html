@@ -7,12 +7,16 @@
 <div class="container-fluid signin-container d-flex flex-column align-items-center justify-content-center">
   {% md_icon "shape-square-plus" size="1.5rem" %}
   <h2>INSCRIPTION</h2>
-  <div class="w-80 d-flex flex-row">
-      <form class="form" action="" method="post">
+  <div class="w-80">
+      <form class="form d-flex flex-column" action="" method="post">
         {% csrf_token %}
         {{ form.as_p }}
         <button type="submit" class="btn btn-primary">S'INSCRIRE</button>
       </form>
+      <div class="mt-2 mb-5 d-flex flex-column justify-content-around align-items-center">
+        <a class="btn btn-primary mt-3" href="{% url 'password_reset' %}">MOT DE PASSE OUBLIE ?</a>
+        <a class="btn btn-primary mt-3" href="{% url 'home' %}">RETOUR ACCUEIL</a>
+      </div>
   </div>
 </div>
 {% endblock content %}

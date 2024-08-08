@@ -24,8 +24,6 @@ So a dummy Django application for learning purposes, to practise. Focus is set o
 
 Also more tests and logging will be added later on.
 
-The dummy brand badge comes from [Sporcle](https://www.sporcle.com/).
-
 ## TECHNOLOGIES
 ---------------
 Python 3.11 and later

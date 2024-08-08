@@ -5,17 +5,24 @@
 {% block title %}HOME PAGE{% endblock title %}
 
 {% block content %}
-<div class="container-fluid home-container d-flex flex-column align-items-center justify-content-center">
-    <div class="w-90 home-elements">
-        <div class="w-75 home-subelements d-flex flex-column">
+<div class="container-fluid d-flex flex-column align-items-center justify-content-center">
+    <div class="w-90 home-elements d-flex flex-column">
+        <div class="w-75 home-elements-head">
             <h2>LES PETITS MEURTRES D'AGATHA CHRISTIE SAISON 2</h2>
-            <p>Un univers glamour et coloré des années 50's. Le Commissaire Laurence, macho mais irrésistible, enquête sur les mystères inventés par la reine du crime Agatha Christie.</p>
+            <p>
+              Dans l’ambiance glamour et vintage des années 1950-1960, retrouvez trois héros de charme réunis dans un cocktail unique et décalé mariant
+              polar et comédie avec Blandine Bellavoir dans le rôle d’Alice Avril, l’intrépide, curieuse et fonceuse reporter de La Voix du Nord,
+              Elodie Frenck dans le rôle de la délicieuse Marlène Leroy, la secrétaire dévouée, douce et naïve du Commissaire Laurence et Samuel Labarthe
+              dans le rôle de Swan Laurence, l’intelligent, calculateur et élégant commissaire.
+            </p>
             <p>2013-2020 27 épisodes</p>
             <a href="{% url 'home' %}">COMEDIE</a>
         </div>
-        <button type="button" class="btn btn-primary">
-            <a href="{% url 'login' %}">CONNECTEZ VOUS POUR PARTICIPER AU BLOG</a>
-        </button>
+        <div class="d-flex flex-row home-elements-sub">
+            <button type="button" class="btn btn-primary">
+                <a href="{% url 'login' %}">CONNECTEZ VOUS POUR PARTICIPER AU BLOG</a>
+            </button>
+      </div>
     </div>
 </div>
 {% endblock content %}
