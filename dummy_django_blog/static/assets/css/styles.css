@@ -33,6 +33,41 @@
   font-style: normal;
 }
 
+/* Django message */
+.django-messages li {
+  list-style: none;
+}
+
+.django-messages .success {
+    color: green;
+    background-color: #d4edda;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.django-messages .error {
+    color: red;
+    background-color: #f8d7da;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.django-messages .warning {
+    color: orange;
+    background-color: #fff3cd;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.django-messages .info {
+    color: blue;
+    background-color: #d1ecf1;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+/* End Django messages */
+
 body {
   height: 100vh;
   background-image: linear-gradient(to right, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0.75) 20%, rgba(0, 0, 0, 0) 100%), url("../../vendors/img/les_petits_meurtres_saison_2_sans_titre.jpg");

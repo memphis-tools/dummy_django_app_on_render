@@ -17,6 +17,17 @@
     <link rel="stylesheet" type="text/css" href="{% static 'assets/css/styles.css' %}">
 </head>
 <body>
+    <div class="django-messages">
+        {% if messages %}
+          <ul>
+              {% for message in messages %}
+                  <li class="{% if message.tags %}{{ message.tags }}{% endif %}">
+                      {{ message }}
+                  </li>
+              {% endfor %}
+          </ul>
+        {% endif %}
+    </div>
     <header>
         <nav class="navbar navbar-light navbar-light sticky-top navbar-custom">
             <div class="w-100 container-fluid">
