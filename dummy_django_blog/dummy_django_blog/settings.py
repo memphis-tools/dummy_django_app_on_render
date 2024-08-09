@@ -49,7 +49,6 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "authentication",
     "blog",
-    "bootstrap5",
     "django_bootstrap_icons",
 ]
 

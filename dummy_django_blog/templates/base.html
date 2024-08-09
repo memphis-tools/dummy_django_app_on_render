@@ -1,9 +1,5 @@
 {% load static %}
-{% load bootstrap5 %}
 {% load bootstrap_icons %}
-{% bootstrap_css %}
-{% bootstrap_javascript %}
-{% bootstrap_messages %}
 
 <!DOCTYPE html>
 <html lang="fr">
@@ -15,12 +11,10 @@
     <meta name="generator" content="Django">
     <meta name="author" content="Tommy Doe">
     <link rel="icon" type="image/x-icon" href="{% static 'favicon.ico' %}">
+    <!-- Bootstrap -->
+    <link rel="stylesheet" type="text/css" href="{% static 'vendors/css/bootstrap.min.css' %}">
     <!-- Custom css -->
     <link rel="stylesheet" type="text/css" href="{% static 'assets/css/styles.css' %}">
-    <!-- Google fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Arsenal+SC:ital,wght@0,400;0,700;1,400;1,700&family=Caveat:wght@400..700&family=family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
 </head>
 <body>
     <header>
@@ -120,10 +114,12 @@
       </div>
     </footer>
     <script src="{% static 'assets/js/scripts.js' %}"></script>
+    <!-- Bootstrap -->
+    <script src="{% static 'vendors/js/bootstrap.bundle.min.js' %}"></script>
     <!-- Popper -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="{% static 'vendors/js/popper.min.js' %}"></script>
     <!-- jquery -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="{% static 'vendors/js/jquery-1.12.4.min.js' %}"></script>
     <!-- custom blur for navbar -->
     <script>
     $(document).ready(function() {
