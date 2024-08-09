@@ -4,6 +4,69 @@
     box-sizing: border-box;
 }
 
+@font-face {
+  font-family: 'ArsenalSC';
+  src: url('../fonts/ArsenalSC-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Caveat';
+  src: url('../fonts/Caveat-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Caveat-large';
+  src: url('../fonts/Caveat-Medium.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+  font-size: 2rem;
+}
+
+@font-face {
+  font-family: 'Ubuntu';
+  src: url('../fonts/Ubuntu-Regular.ttf') format('truetype');
+  font-weight: 500;
+  font-style: normal;
+}
+
+/* Django message */
+.django-messages li {
+  list-style: none;
+}
+
+.django-messages .success {
+    color: green;
+    background-color: #d4edda;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.django-messages .error {
+    color: red;
+    background-color: #f8d7da;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.django-messages .warning {
+    color: orange;
+    background-color: #fff3cd;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.django-messages .info {
+    color: blue;
+    background-color: #d1ecf1;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+/* End Django messages */
 
 body {
   height: 100vh;
@@ -70,11 +133,11 @@ body .dropdown-item {
 }
 
 .navbar-brand {
-  font-family: "Caveat", cursive;
+  font-family: "Caveat-large", cursive;
   font-optical-sizing: auto;
   font-weight: 700;
   font-style: normal;
-  font-size: 2rem;
+  font-size: 24px;
   color: white !important;
 }
 
@@ -125,9 +188,10 @@ body .dropdown-item {
 }
 
 h1, h2, h3, h4, h5, h6 {
-    font-family: "Arsenal SC", sans-serif;
+    font-family: "ArsenalSC", sans-serif;
     font-weight: 400;
     font-style: normal;
+    color: white;
 }
 
 .feed-container {
@@ -142,14 +206,14 @@ h1, h2, h3, h4, h5, h6 {
 .feed-intro {
   padding: 5%;
   font-size: 1.5rem;
-  font-family: "Caveat", cursive;
+  font-family: "Caveat-large", cursive;
   font-optical-sizing: auto;
   font-weight: 700;
   font-style: normal;
 }
 
 .feed-intro h3 {
-  font-family: "Caveat", cursive;
+  font-family: "Caveat-large", cursive;
   font-optical-sizing: auto;
   font-weight: 700;
   font-style: normal;
@@ -185,6 +249,10 @@ h1, h2, h3, h4, h5, h6 {
   width: 250px;
   height: 180px;
   border-radius:
+}
+
+.home-elements {
+  color: white;
 }
 
 .home-elements h2 {

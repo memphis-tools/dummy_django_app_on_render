@@ -1,4 +1,4 @@
-FROM python:3.13.0b4-alpine3.20
+FROM python:3.12.5-alpine3.19
 
 RUN mkdir -p /home/dummy-operator; \
     addgroup -S dummy-operator; \
