@@ -1,6 +1,7 @@
 """the authentication app tests"""
 import os
 import pytest
+from django.conf import settings
 from django.urls import reverse
 from django.test import Client
 from authentication.models import User
@@ -77,3 +78,15 @@ def test_post_update_profile_image_with_authentication(authenticate_user):
     response = client.post(url, follow=True, data=form_data, **headers)
     assert response.status_code == 200
     assert "Image de profile mise à jour" in response.content.decode("utf-8")
+
+    media_path = settings.MEDIA_ROOT
+    for root, dirs, files in os.walk(media_path):
+        for file in files:
+            if file.startswith("dummy_image"):
+                os.remove(os.path.join(root, file))
+            elif file.startswith("billet_"):
+                os.remove(os.path.join(root, file))
+            elif file.startswith("photo_"):
+                os.remove(os.path.join(root, file))
+            elif file.startswith("dummy_image"):
+                os.remove(os.path.join(root, file))
