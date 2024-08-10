@@ -246,8 +246,8 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .photo_miniature {
-  width: 250px;
-  height: 180px;
+  width: 15%;
+  height: auto;
   border-radius:
 }
 
@@ -293,7 +293,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .photo-contaner {
-  width: 45%;
+  width: 80%;
   height: auto;
 }
 
