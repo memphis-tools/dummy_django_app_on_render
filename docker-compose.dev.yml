@@ -13,7 +13,7 @@ services:
       - 8000
     environment:
       - IS_TESTING=False
-      - DEBUG=False
+      - DEBUG
       - SECRET_KEY
       - DJANGO_ALLOWED_HOSTS
 
