@@ -61,7 +61,7 @@ For a local usage set an envrc file such like this:
 
     export SECRET_KEY="superSecretKey"
     export ALLOWED_HOSTS="192.168.1.5"
-    export DEBUG=False
+    export DEBUG=0
     export TIME_ZONE="Europe/Paris"
     export DOCKER_HUB_USER='yourDockerhubUsername'
     export DOCKER_HUB_PASSWORD='yourDockerhubPassword'
