@@ -4,6 +4,7 @@ import sys
 from pathlib import Path
 from dotenv import load_dotenv
 from datetime import timedelta
+import dj_database_url
 
 try:
     load_dotenv(".envrc")
@@ -27,8 +28,22 @@ if RENDER_EXTERNAL_HOSTNAME:
 else:
     if os.getenv("ALLOWED_HOSTS"):
         ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS").split(",")
+        # Database
+        DATABASES = {
+            'default': dj_database_url.config(
+                default=os.environ.get('DATABASE_URL'),
+                conn_max_age=600
+            )
+        }
     else:
         ALLOWED_HOSTS = ["localhost", "127.0.0.1"]
+    # Database
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / ('db.sqlite3'),
+        }
+    }
 
 CSRF_TRUSTED_ORIGINS = [f"http://{ALLOWED_HOSTS[0]}:5555"]
 
@@ -82,15 +97,6 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = "dummy_django_blog.wsgi.application"
-
-
-# Database
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / ('db.sqlite3'),
-    }
-}
 
 
 # Password validation

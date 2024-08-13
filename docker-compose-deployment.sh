@@ -71,7 +71,6 @@ else
       python manage.py collectstatic --no-input --clear
       export IS_TESTING=False
       python manage.py init_app
-      gunicorn dummy_django_blog.wsgi:application --bind 0.0.0.0:8000
       ;;
     "down_dev" )
       docker compose -f docker-compose.dev.yml down -v
