@@ -25,16 +25,16 @@ ALLOWED_HOSTS = [""]
 RENDER_EXTERNAL_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
 if RENDER_EXTERNAL_HOSTNAME:
     ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
+    # Database
+    DATABASES = {
+        'default': dj_database_url.config(
+            default=os.environ.get('DATABASE_URL'),
+            conn_max_age=600
+        )
+    }
 else:
     if os.getenv("ALLOWED_HOSTS"):
         ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS").split(",")
-        # Database
-        DATABASES = {
-            'default': dj_database_url.config(
-                default=os.environ.get('DATABASE_URL'),
-                conn_max_age=600
-            )
-        }
     else:
         ALLOWED_HOSTS = ["localhost", "127.0.0.1"]
     # Database
