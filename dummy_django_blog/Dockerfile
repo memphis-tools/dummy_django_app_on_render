@@ -16,9 +16,9 @@ WORKDIR $APP_HOME
 COPY ./requirements.txt .
 
 RUN apk update; \
+    apk add libpq; \
     apk add bash; \
     apk add sqlite; \
-    apk add libsqlite3-dev; \
     pip install -U pip; \
     pip install --no-cache -r requirements.txt
 

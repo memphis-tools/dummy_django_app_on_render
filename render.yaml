@@ -1,3 +1,9 @@
+databases:
+  - name: dummy_django_blog_on_render
+    user: admin
+    plan: free
+    region: frankfurt
+
 services:
   - type: web
     name: dummy_django_blog_on_render
@@ -5,8 +11,12 @@ services:
     region: frankfurt
     runtime: python
     buildCommand: "./docker-compose-deployment.sh cloud"
-    startCommand: "./venv/bin/python -m gunicorn -b :8000 oc_projet13.wsgi:application"
+    startCommand: "./venv/bin/python -m gunicorn -b :8000 dummy_django_blog.wsgi:application"
     envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: dummy_django_blog_on_render
+          property: connectionString
       - key: WEB_CONCURRENCY
         value: 4
       - key: PYTHON_VERSION
