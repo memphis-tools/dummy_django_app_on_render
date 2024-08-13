@@ -33,3 +33,9 @@ services:
         generateValue: true
       - key: DJANGO_ADMIN_EMAIL
         value: admin@bluelake.fr
+      - key: DEBUG
+        value: 0
+      - key: IS_TESTING
+        value: False
+      - key: TIME_ZONE
+        value: Europe/Paris
