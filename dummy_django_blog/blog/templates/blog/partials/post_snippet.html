@@ -3,12 +3,12 @@
 <section>
     <div class="d-flex flex-column" id="{{ post.id }}">
         <h3><a href="#{{ post.id }}">Billet</a></h3>
-        <div class="d-flex flex-row">
+        <div class="feed-item-elements">
             <figure>
                 <img class="photo_miniature class-img-top" src="{{ post.image.image.url }}" alt="a post image">
                 <figcaption><i>{{ photo.caption }}</i></figcaption>
             </figure>
-            <div class="">
+            <div class="feed-item-detail">
                 <p class="">{{ post.title }}</p>
                 <p class="">Auteurs: {{ post.contributors.all|join:", " }}</p>
                 <p class="">{{ post.created_at|format_created_date }}</p>

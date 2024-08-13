@@ -13,21 +13,23 @@
     <div class="d-flex flex-column align-items-start justify-content-around">
         {% if page_obj|length > 0 %}
             {% for post in page_obj %}
-                <p>Titre: {{ post.title }}</p>
-                <p>Auteurs: {{ post.contributors.all|join:", " }}</p>
-                <p>Publié le: {{ post.created_at }}</p>
-                <p>Description: {{ post.content }}</p>
-                <figure>
-                    <img src="{{ post.image.image.url }}" alt="episode photo">
-                    <figcaption>{{ post.image.caption }}</figcaption>
-                </figure>
-                <div class="mt-2 mb-5 d-flex flex-row justify-content-around align-items-center">
-                    {% if request.user in post.contributors.all %}
-                        <div class="options_container d-flex flex-row align-items-baseline">
-                            <a class="btn btn-primary m-3" href="{% url 'posts_update' post.id %}">MODIFIER BILLET</a>
-                            <a class="btn btn-primary" href="{% url 'posts_delete' post.id %}">SUPPRIMER BILLET</a>
-                        </div>
-                    {% endif %}
+                <div class="">
+                    <p>Titre: {{ post.title }}</p>
+                    <p>Auteurs: {{ post.contributors.all|join:", " }}</p>
+                    <p>Publié le: {{ post.created_at }}</p>
+                    <p>Description: {{ post.content }}</p>
+                    <figure>
+                        <img src="{{ post.image.image.url }}" alt="episode photo">
+                        <figcaption>{{ post.image.caption }}</figcaption>
+                    </figure>
+                    <div class="mt-2 mb-5 d-flex flex-row justify-content-around align-items-center">
+                        {% if request.user in post.contributors.all %}
+                            <div class="options_container d-flex flex-row align-items-baseline">
+                                <a class="btn btn-primary m-3" href="{% url 'posts_update' post.id %}">MODIFIER BILLET</a>
+                                <a class="btn btn-primary" href="{% url 'posts_delete' post.id %}">SUPPRIMER BILLET</a>
+                            </div>
+                        {% endif %}
+                    </div>
                 </div>
             {% endfor %}
         {% else %}

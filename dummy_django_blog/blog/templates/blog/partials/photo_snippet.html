@@ -3,12 +3,12 @@
 <section>
     <div class="d-flex flex-column" id="{{ photo.id }}">
         <h3><a href="#{{ photo.id }}">Photo</a></h3>
-        <div class="d-flex flex-row">
+        <div class="feed-item-elements">
             <figure>
                 <img class="photo_miniature class-img-top" src="{{ photo.image.url }}" alt="a photo">
                 <figcaption><i>{{ photo.caption }}</i></figcaption>
             </figure>
-            <div class="">
+            <div class="feed-item-detail">
                 <p class="">{{ photo.title_photo }}</p>
                 <p class="">Proposée par {% get_poster photo.uploader %}</p>
                 <p class="">{{ photo.created_at|format_created_date }}</p>
