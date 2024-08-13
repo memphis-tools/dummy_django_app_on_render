@@ -30,6 +30,7 @@ def contact_admin(request):
                 from_email=form.cleaned_data["email"],
                 message=form.cleaned_data["message"],
                 recipient_list=["sanjuro@localhost"],
+                fail_silently=False,
             )
             messages.add_message(
                 request, messages.INFO, "Mail envoyé vous aurez vite un retour"
