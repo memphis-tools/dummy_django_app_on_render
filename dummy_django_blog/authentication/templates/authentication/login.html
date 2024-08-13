@@ -8,7 +8,7 @@
   {% md_icon "login" size="1.5rem" %}
   <h2>CONNEXION</h2>
   <div class="w-50">
-      <form class="form d-flex flex-column" action="" method="post">
+      <form class="form d-flex flex-column login-form" action="" method="post">
         {% if form.errors %}
             {% for field, errors in form.errors.items %}
                 {% for error in errors %}
@@ -30,6 +30,6 @@
         <a class="btn btn-primary mt-3" href="{% url 'signin' %}">PAS ENCORE MEMBRE ?</a>
         <a class="btn btn-primary mt-3" href="{% url 'home' %}">RETOUR ACCUEIL</a>
       </div>
-    </div>
+  </div>
 </div>
 {% endblock content %}

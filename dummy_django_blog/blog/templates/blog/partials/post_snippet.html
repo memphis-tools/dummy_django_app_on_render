@@ -1,15 +1,18 @@
 {% load blog_tags %}
 
-
-<div class="d-block card-carousel d-flex flex-column">
-    <h3>Billet</h3>
-    <figure>
-        <img class="photo_miniature class-img-top" src="{{ post.image.image.url }}" alt="a post image">
-        <figcaption><i>{{ photo.caption }}</i></figcaption>
-    </figure>
-    <div class="card-body">
-        <p class="card-title">{{ post.title }}</p>
-        <p class="card-text">Auteurs: {{ post.contributors.all|join:", " }}</p>
-        <p class="card-text">{{ post.created_at|format_created_date }}</p>
+<section>
+    <div class="d-flex flex-column" id="{{ post.id }}">
+        <h3><a href="#{{ post.id }}">Billet</a></h3>
+        <div class="d-flex flex-row">
+            <figure>
+                <img class="photo_miniature class-img-top" src="{{ post.image.image.url }}" alt="a post image">
+                <figcaption><i>{{ photo.caption }}</i></figcaption>
+            </figure>
+            <div class="">
+                <p class="">{{ post.title }}</p>
+                <p class="">Auteurs: {{ post.contributors.all|join:", " }}</p>
+                <p class="">{{ post.created_at|format_created_date }}</p>
+            </div>
+        </div>
     </div>
-</div>
+</section>
