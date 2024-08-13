@@ -10,18 +10,18 @@
       {% md_icon "details" size="1.5rem" %}
       <h2>PHOTOS</h2>
     </div>
-    <div class="d-flex flex-row justify-content-around flex-wrap photos-container">
+    <div class="d-flex flex-column justify-content-around flex-wrap photos-container">
         {% if page_obj|length > 0 %}
             {% for photo in page_obj %}
-                <div class="card">
+                <div class="">
                   <figure>
                       <img class="photo_miniature class-img-top" src="{{ photo.image.url }}" alt="a dummy photo">
                       <figcaption><i>{{ photo.caption }}</i></figcaption>
                   </figure>
                   <div class="card-body">
-                      <p class="card-title">{{ photo.title }}</p>
-                      <p class="card-text">Proposée par {% get_poster photo.uploader %}</p>
-                      <p class="card-text">{{ photo.created_at }}</p>
+                      <p class="">{{ photo.title }}</p>
+                      <p class="">Proposée par {% get_poster photo.uploader %}</p>
+                      <p class="">{{ photo.created_at }}</p>
                       <a class="btn btn-primary m-3" href="{% url 'photos_detail' photo.id %}">DETAILS</a>
                     </div>
                 </div>

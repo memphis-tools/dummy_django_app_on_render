@@ -29,7 +29,7 @@ then
 else
   case $1 in
     "build" )
-      source .envrc
+      source .env
       echo "[INFO] We (re)build images and (re)initialize the application."
       docker compose -f docker-compose.dev.yml down -v
       sleep 1s
@@ -37,7 +37,7 @@ else
       sleep 1s
       ;;
     "publish" )
-      source .envrc
+      source .env
       echo "[INFO] We tag and (re)publish images on DockerHub."
       docker login -u $DOCKER_HUB_USER docker.io --password $DOCKER_HUB_PASSWORD
       docker tag dummy_django_app_on_render-nginx:latest memphistools/public_repo:dummy_django_app_on_render_nginx
@@ -46,14 +46,14 @@ else
       docker push memphistools/public_repo:dummy_django_app_on_render_nginx
       ;;
     "run_dev" )
-      source .envrc
+      source .env
       echo "[INFO] We (re)start application with local images."
       docker compose -f docker-compose.dev.yml down -v
       docker compose -f docker-compose.dev.yml up -d
       update_application
     	;;
     "run_prod" )
-      source .envrc
+      source .env
       echo "[INFO] We (re)start application with the dockerhub images."
       docker compose -f docker-compose.prod.yml down -v
       docker compose -f docker-compose.prod.yml up -d
