@@ -14,11 +14,6 @@ from . import forms
 from . import models
 
 
-def about(request):
-    """A dummy about route"""
-    return render(request, "blog/about.html", context={})
-
-
 def contact_admin(request):
     """A dummy contact_admin route"""
     form = forms.ContactForm()

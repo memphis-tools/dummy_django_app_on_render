@@ -126,10 +126,10 @@ USE_I18N = True
 USE_TZ = False
 
 # Static files (CSS, JavaScript, Images)
-STATIC_URL = "/static/"
+STATIC_URL = "static/"
 MAX_UPLOAD_SIZE = 5242880
 LOGIN_URL = "login"
-LOGOUT_URL = "logout"
+LOGOUT_URL = "home"
 LOGIN_REDIRECT_URL = "feed"
 LOGOUT_REDIRECT_URL = "home"
 MEDIA_URL = "/media/"

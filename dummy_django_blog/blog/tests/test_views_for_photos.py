@@ -2,6 +2,7 @@
 import os
 import re
 import pytest
+from datetime import datetime
 from django.urls import reverse
 from django.test import Client
 from django.core.files.uploadedfile import SimpleUploadedFile
@@ -28,6 +29,7 @@ def test_get_photos_detail_with_mocked_photo(authenticate_user, mocker):
     mock_photo = mocker.Mock()
     mock_photo.id = 1
     mock_photo.title = "test photo"
+    mock_photo.created_at = datetime.now()
     mocker.patch('blog.views.get_object_or_404', return_value=mock_photo)
     response = client.get(url)
     templates = [template.name for template in response.templates]

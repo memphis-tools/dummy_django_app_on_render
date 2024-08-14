@@ -7,7 +7,6 @@ from authentication.models import User
 @pytest.mark.django_db
 @pytest.mark.parametrize("route", [
     "feed",
-    "about",
     "photos",
     "photos_add",
     "photos_add_multiple",
@@ -92,16 +91,6 @@ def test_home():
     response = client.get(url)
     templates = [template.name for template in response.templates]
     assert 'blog/home.html' in templates
-
-
-@pytest.mark.django_db
-def test_about(authenticate_user):
-    client = Client()
-    client.login(username='pytest_user', password='p@ssword123')
-    url = reverse("about")
-    response = client.get(url)
-    templates = [template.name for template in response.templates]
-    assert 'blog/about.html' in templates
 
 
 @pytest.mark.django_db

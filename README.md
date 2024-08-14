@@ -60,7 +60,7 @@ Coveralls
 For a local usage set an envrc file such like this:
 
     export SECRET_KEY="superSecretKey"
-    export ALLOWED_HOSTS="192.168.1.5"
+    export ALLOWED_HOSTS="localhost,127.0.0.1"
     export DEBUG=0
     export TIME_ZONE="Europe/Paris"
     export DOCKER_HUB_USER='yourDockerhubUsername'
@@ -99,6 +99,10 @@ Once running locally, you can access the application at: http://localhost:5555/
 <img src="illustrations/dummy_django_app_on_render.png" width="100%%" height="auto">
 
 ## TO TEST IT
+
+    source .env
+
+    source .venv/bin/activate
 
     coverage run -m pytest dummy_django_blog/
 

@@ -12,6 +12,13 @@
 }
 
 @font-face {
+  font-family: 'ArsenalSC-Fat';
+  src: url('../fonts/ArsenalSC-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
   font-family: 'Caveat';
   src: url('../fonts/Caveat-Regular.ttf') format('truetype');
   font-weight: 400;
@@ -124,12 +131,13 @@ body .dropdown-item {
 }
 
 .navbar-toggler {
-  color: pink;
+  color: black;
   position: absolute;
   top: 10px;
   right: 2%;
   padding: 1% 1%;
   margin-right: 6%;
+  border: 1px solid pink;
 }
 
 .navbar-brand {
@@ -145,9 +153,7 @@ body .dropdown-item {
   padding: 0;
   display: flex;
   justify-content: center;
-  font-family: "Ubuntu", sans-serif;
-  font-weight: 500;
-  font-style: normal;
+  font-family: "ArsenalSC-Fat", sans-serif;
   text-transform: uppercase;
 }
 
@@ -160,6 +166,12 @@ body .dropdown-item {
   color: blue;
 }
 
+.dropdown-item {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
 .image_profile {
   width: 50px;
   height: 50px;
@@ -167,6 +179,7 @@ body .dropdown-item {
 }
 
 .dropdown-menu {
+  width: 100%;
   border: 1px dashed pink;
 }
 
@@ -183,7 +196,7 @@ body .dropdown-item {
 }
 
 .user-dropdown {
-  border-top: 1px solid white;
+  border-top: 1px solid pink;
   margin-top: 2%;
 }
 
@@ -196,6 +209,21 @@ h1, h2, h3, h4, h5, h6 {
 
 section {
   border-bottom: 1px dashed pink;
+  background-color: #0000007d;
+}
+
+.section btn {
+  background-color: #00000042;
+  border: 1px solid pink;
+}
+
+section .btn:hover {
+  background-color: #4f5e4ac7;
+  border: 1px solid pink;
+}
+
+.login-container {
+  margin-bottom: 10%;
 }
 
 .login-container .btn {
@@ -204,37 +232,97 @@ section {
   border: 1px solid pink;
 }
 
+.login-container .btn:hover {
+  color: white;
+  width: 100%;
+  background-color: #4f5e4ac7;
+  border: 1px solid pink;
+}
+
 .feed-container {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   border-radius: 3%;
-  margin: 0% 0% 0% 0%;
   padding: 2% 0%;
   width: 100%;
 }
 
-.feed-container-footer {
+.feed-items {
+  display: flex;
+  flex-direction: row;
   width: 100%;
-  margin-bottom: 5%;
+  border-bottom: 1px dashed pink;
+}
+
+.photos-feed-items {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  border-bottom: 1px dashed pink;
+}
+
+.posts-feed-items {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  border-bottom: 1px dashed pink;
 }
 
 .feed-item {
+  width: 20%;
   background-color: #00000054;
 }
 
+.feed-item p {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  color: pink;
+  text-transform: uppercase;
+  text-shadow: #E6CDDA 2px 0 10px;
+  font-size: 1rem;
+  margin: 0% 0%;
+}
+
+.feed-container btn,
+.feed-item btn {
+  background-color: #0000;
+  border: 1px solid white;
+}
+
+.feed-item btn:hover {
+  background-color: #4f5e4ac7;
+  border: 1px solid white;
+}
+
+
 .feed-item-elements {
+  display: flex;
+  flex-direction: column;
+}
+
+.photo-item-elements {
   display: flex;
   flex-direction: row;
 }
 
 .feed-item-detail {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   margin-left: 5%;
 }
 
-.feed-intro {
-  padding: 5% 10%;
+.feed-intro,
+.feed-section-photos,
+.feed-section-posts,
+.feed-section-personnages,
+.feed-section-a-propos,
+.feed-section-audiences,
+.feed-container-footer {
+  padding: 0% 5%;
   font-size: 1.5rem;
-  font-family: "Caveat-large", cursive;
+  font-family: "ArsenalSC-Fat", cursive;
   font-optical-sizing: auto;
   font-weight: 700;
   font-style: normal;
@@ -245,16 +333,70 @@ section {
   font-optical-sizing: auto;
   font-weight: 700;
   font-style: normal;
+  color: pink;
+}
+
+.feed-section-photos {
+  height: 100vh;
+  background-image: linear-gradient(to right, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0.75) 20%, rgba(0, 0, 0, 0) 100%), url("../../vendors/img/les_petits_meurtres_saison_2_feed_section_photos.jpg");
+  background-position: center;
+  background-size: cover;
+  background-attachment: fixed;
+}
+
+.feed-section-posts {
+  height: 100vh;
+  background-image: linear-gradient(to right, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0.75) 20%, rgba(0, 0, 0, 0) 100%), url("../../vendors/img/les_petits_meurtres_saison_2_feed_section_posts.jpg");
+  background-position: center;
+  background-size: cover;
+  background-attachment: fixed;
+}
+
+.feed-section-personnages {
+  height: 125vh;
+  background-image: linear-gradient(to right, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0.75) 20%, rgba(0, 0, 0, 0) 100%), url("../../vendors/img/les_petits_meurtres_saison_2_feed_section_personnages.jpg");
+  background-position: center;
+  background-size: cover;
+  background-attachment: fixed;
+}
+
+.feed-section-audiences {
+  height: 290vh;
+  background-image: linear-gradient(to right, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0.75) 20%, rgba(0, 0, 0, 0) 100%), url("../../vendors/img/les_petits_meurtres_saison_2_feed_section_audiences.jpg");
+  background-position: center;
+  background-size: cover;
+  background-attachment: fixed;
+}
+
+.feed-container-footer {
+  margin-bottom: 1%;
 }
 
 .feed-smileys {
+  color: pink;
   font-size: 1.5rem;
+  margin-right: 1%;
+}
+
+.feed-button-zone {
+  display: flex;
+  flex-direction: row;
+  padding: 1% 1%;
+}
+
+.feed-button-zone a{
+  text-decoration: none;
+}
+
+feed-button-zone a:hover {
+  color: pink;
 }
 
 .photo_miniature {
-  width: 100%%;
-  height: auto;
-  border-radius:
+  width: 100%;
+  height: 160px;
+  border-radius: 15px;
+  padding: 1% 1%;
 }
 
 .home-elements {
@@ -278,12 +420,16 @@ section {
   width: 2%;
 }
 
-.home-elements-sub btn{
-  font-family: "Ubuntu", sans-serif;
-  font-weight: 500;
-  font-style: normal;
+.home-elements-sub button {
+  font-family: "ArsenalSC", sans-serif;
+  color: white;
   background-color: #221c1c8c;
-  border: 1px dashed white;
+  border: 1px dashed pink;
+}
+
+.home-elements-sub button:hover {
+  color: white;
+  background-color: #ea9ef054;
 }
 
 .home-head-elements {
@@ -299,12 +445,137 @@ section {
 }
 
 .photo-contaner {
-  width: 80%;
+  width: 100%;
   height: auto;
+  border-radius: 15px;
 }
 
 .bg-dark {
   background-color: rgba(33, 37, 41, 0.6) !important;
+}
+
+/* PERSONNAGES */
+.personnages .section_container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.personnages_article {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: baseline;
+  flex-wrap: wrap;
+  text-align: center;
+  width: 80%;
+}
+
+.personnage_container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: baseline;
+  width: 50%;
+  font-size: 0.9em;
+}
+
+.personnages_article .personnage_container:nth-child(1) {
+  flex: 2;
+}
+
+.personnages_article .personnage_container:nth-child(2) {
+  flex: 2;
+  border-left: 1px dashed #85586F;
+  border-right: 1px dashed #85586F;
+}
+
+.personnages_article .personnage_container:nth-child(3) {
+  flex: 2;
+}
+
+.personnage_container h4 {
+  color: pink;
+  text-align: center;
+  text-shadow: #85586F 2px 0 10px;
+}
+
+.personnage_description p {
+  text-align: left;
+  font-size: 0.9rem;
+  font-family: "Ubuntu", sans-serif;
+  text-shadow: #85586F 2px 0 10px;
+}
+
+.personnage_container img{
+  width: 200px;
+  transition-duration: 0.7s;
+}
+
+.personnage_container img:hover{
+  width: 300px;
+  transition-duration: 0.7s;
+}
+
+.personnage_container figcaption{
+  font-size: 1rem;
+  font-family: "Ubuntu", sans-serif;
+}
+
+.personnage_description {
+  margin: 0 10px 0 10px;
+  font-size: 1.3em;
+  font-family: "Ubuntu", sans-serif;
+}
+
+/* A PROPOS */
+.a_propos_article {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.a_propos_container {
+  padding: 0 2% 3% 2%;
+  font-family: 'Ubuntu', sans-serif;
+  font-size: 0.9rem;
+  text-align: left;
+}
+
+.a_propos_container h4 {
+  font-size: 1.3rem;
+  font-family: "ArsenalSC-Fat", sans-serif;
+  text-shadow: #85586F 2px 0 10px;
+  text-transform: uppercase;
+}
+
+.a_propos_container p {
+  font-family: 'Ubuntu', sans-serif;
+  font-size: 1rem;
+  text-align: left;
+  padding: 0 0;
+  margin: 0 0;
+}
+
+/* AUDIENCES */
+.table {
+  color: pink;
+  margin-bottom: 5%;
+}
+
+.audiences .table th,
+.audiences .table tr,
+.audiences .table td {
+  color: #F8EDE3;
+}
+
+.audiences .table .topblog_tr:hover,
+.audiences .table .topblog_tr:focus {
+  background-color: #85586F;
 }
 
 footer {
@@ -312,6 +583,29 @@ footer {
   position: fixed;
   color: white;
   background-color: black;
+  z-index: 1;
+}
+
+footer p {
+  font-family: "ArsenalSC-Fat", sans-serif;
+  font-size: 1.25rem;
+  text-shadow: #85586F 2px 0 10px;
+}
+
+footer a {
+  display: flex;
+  flex-direction: row;
+  padding: 0% 1%;
+}
+
+.footer-image img {
+  width: 5%;
+}
+
+.social-icons img {
+    width: 30px;
+    height: 30px;
+    object-fit: contain; /* Ensures the image is scaled to fit within the specified dimensions */
 }
 
 @media (max-width: 576px) {
@@ -321,9 +615,15 @@ footer {
 
   .feed-container {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     border-radius: 3%;
-    margin-bottom: 10%
+    margin-bottom: 10%;
+    flex-wrap: wrap;
+  }
+
+  .feed-item {
+    width: 50%%;
+    background-color: #00000054;
   }
 
   .feed-item-elements {
@@ -331,8 +631,58 @@ footer {
     flex-direction: column;
   }
 
+  .photo-item-elements {
+    display: flex;
+    flex-direction: column;
+  }
+
   .photos-container {
     display: flex;
     flex-direction: row;
+  }
+
+  .personnages_article {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: baseline;
+    flex-wrap: nowrap;
+  }
+
+  .personnage_container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: baseline;
+    width: 100%;
+    font-size: 0.9em;
+  }
+
+  .personnage_container h4 {
+    text-align: center;
+  }
+
+  .personnage_container img{
+    width: 90%;
+    border-radius: 15px;
+  }
+
+  .personnage_container img:hover {
+    width: 90%;
+  }
+
+  /* AUDIENCES */
+  .audiences {
+    background-image: linear-gradient(rgba(0,0,0,0.8), rgba(0, 0, 0, 0.8)), url('../img/saison_2/audiences.jpg');
+    padding-bottom: 3%;
+  }
+
+  .audiences .table th,
+  .audiences .table tr,
+  .audiences .table td {
+    color: #F8EDE3;
+    font-size: 0.9em;
+    padding: 0;
   }
 }

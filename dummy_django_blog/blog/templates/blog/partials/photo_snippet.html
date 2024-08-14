@@ -1,18 +1,14 @@
 {% load blog_tags %}
 
-<section>
-    <div class="d-flex flex-column" id="{{ photo.id }}">
-        <h3><a href="#{{ photo.id }}">Photo</a></h3>
+
+<div class="d-flex flex-column vignette" id="{{ photo.id }}">
+    <a href="{% url 'photos_detail' photo.id %}">
         <div class="feed-item-elements">
             <figure>
-                <img class="photo_miniature class-img-top" src="{{ photo.image.url }}" alt="a photo">
-                <figcaption><i>{{ photo.caption }}</i></figcaption>
+                <a class="m-1" href="{% url 'photos_detail' photo.id %}">
+                    <img class="photo_miniature class-img-top" src="{{ photo.image.url }}" alt="a photo">
+                </a>
             </figure>
-            <div class="feed-item-detail">
-                <p class="">{{ photo.title_photo }}</p>
-                <p class="">Proposée par {% get_poster photo.uploader %}</p>
-                <p class="">{{ photo.created_at|format_created_date }}</p>
-            </div>
         </div>
-    </div>
-</section>
+    </a>
+</div>
