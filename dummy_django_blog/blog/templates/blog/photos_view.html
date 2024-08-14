@@ -1,38 +1,42 @@
 {% extends 'base.html' %}
-{% load bootstrap_icons %}
 {% load blog_tags %}
+{% load bootstrap_icons %}
 
 {% block title %}PHOTOS PAGE{% endblock title %}
 
 {% block content %}
-<div class="container">
-    <div class="w-100 d-flex flex-column align-items-center">
-        {% md_icon "details" size="1.5rem" %}
-        <h2>PHOTOS</h2>
-    </div>
-    <div class="d-flex flex-column justify-content-around flex-wrap photos-container">
-        {% if page_obj|length > 0 %}
-            {% for photo in page_obj %}
-                <div class="feed-item-elements">
-                  <figure>
-                      <img class="photo_miniature class-img-top" src="{{ photo.image.url }}" alt="a dummy photo">
-                      <figcaption><i>{{ photo.caption }}</i></figcaption>
-                  </figure>
-                  <div class="feed-item-detail">
-                      <p class="">{{ photo.title }}</p>
-                      <p class="">Proposée par {% get_poster photo.uploader %}</p>
-                      <p class="">{{ photo.created_at }}</p>
-                      <a class="btn btn-primary m-3" href="{% url 'photos_detail' photo.id %}">DETAILS</a>
+<section>
+    <div class="container-fluid d-flex flex-column">
+        <div class="w-100 d-flex flex-column align-items-center">
+            <i class="feed-smileys fa-solid fa-camera-retro"></i>
+            <h2>PHOTOS</h2>
+        </div>
+        <div class="d-flex flex-column align-items-start justify-content-around">
+            {% if page_obj|length > 0 %}
+                {% for photo in page_obj %}
+                    <div class="photos-feed-items">
+                      <figure>
+                          <img class="w-100 class-img-top" src="{{ photo.image.url }}" alt="a dummy photo">
+                          <figcaption><i>{{ photo.caption }}</i></figcaption>
+                      </figure>
+                      <div class="feed-item-detail">
+                          <p>{{ photo.title_photo }}</p>
+                          <p>Proposée par {% get_poster photo.uploader %}</p>
+                          <p>{{ photo.created_at }}</p>
+                          <a class="btn btn-primary m-3" href="{% url 'photos_detail' photo.id %}">DETAILS</a>
+                        </div>
                     </div>
-                </div>
-            {% endfor %}
-        {% else %}
-            <a class="btn btn-primary" href="{% url 'photos_add' %}">PAS DE PHOTOS, SOYEZ NOTRE HEROS, AJOUTEZ EN UNE !</a>
-        {% endif %}
+                {% endfor %}
+            {% else %}
+                <a class="btn btn-primary" href="{% url 'photos_add' %}">PAS DE PHOTOS, SOYEZ NOTRE HEROS, AJOUTEZ EN UNE !</a>
+            {% endif %}
+        </div>
+        <div class="d-flex">
+            {% include "blog/partials/page_navigator.html" %}
+        </div>
+        <div class="mt-2 mb-5 d-flex flex-column justify-content-around align-items-center">
+            <a class="btn btn-primary mt-3" href="{% url 'feed' %}">RETOUR ACCUEIL</a>
+        </div>
     </div>
-    {% include "blog/partials/page_navigator.html" %}
-    <div class="mt-2 mb-5 d-flex flex-column justify-content-around align-items-center">
-        <a class="btn btn-primary mt-3" href="{% url 'feed' %}">RETOUR ACCUEIL</a>
-    </div>
-</div>
+</section>
 {% endblock content %}

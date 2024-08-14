@@ -6,43 +6,500 @@
 
 {% block content %}
 <section>
-    <div class="w-100 d-flex flex-column align-items-center">
+    <div class="w-100 d-flex flex-column align-items-center" id ="feed-section">
         {% md_icon "home-circle-outline" size="1.5rem" %}
     </div>
-    <div class="d-flex flex-column justify-content-start feed-intro">
-        <h3>Quel trio & leurs complices</h3>
-        <p class="feed-smileys"> 👄 </p>
-        <p><a href="{% url 'photos' %}">Retrouvez des photos</a></p>
-        <p><a href="{% url 'posts' %}">Retrouvez des billets</a></p>
+    <div class="container-fluid d-flex flex-column justify-content-start feed-intro">
+      <div class="d-flex flex-row justify-content-center">
+          <h3>Quel trio & leurs complices !!</h3>
+      </div>
+      <div class="d-flex flex-row justify-content-around">
+          <div class="feed-button-zone d-flex align-items-center flex-nowrap">
+              <i class="feed-smileys fa-solid fa-camera-retro"></i>
+              <a href="#feed-section-photos" class="ms-2 text-nowrap">Retrouvez des photos</a>
+          </div>
+          <div class="feed-button-zone d-flex align-items-center flex-nowrap">
+              <i class="feed-smileys fa-solid fa-film"></i>
+              <a href="#feed-section-posts" class="ms-2 text-nowrap">Retrouvez des billets</a>
+          </div>
+          <div class="feed-button-zone d-flex align-items-center flex-nowrap">
+              <i class="feed-smileys fa-solid fa-people-group"></i>
+              <a href="#feed-section-personnages" class="ms-2 text-nowrap">Retrouvez les personnages</a>
+          </div>
+          <div class="feed-button-zone d-flex align-items-center flex-nowrap">
+              <i class="feed-smileys fa-solid fa-address-card"></i>
+              <a href="#feed-section-a-propos" class="ms-2 text-nowrap">A propos</a>
+          </div>
+          <div class="feed-button-zone d-flex align-items-center flex-nowrap">
+              <i class="feed-smileys fa-solid fa-chart-simple"></i>
+              <a href="#feed-section-audiences" class="ms-2 text-nowrap">Retrouvez les audiences</a>
+          </div>
+      </div>
     </div>
-</section>
-<div class="container-fluid d-flex flex-column align-items-center justify-content-center">
-    <div class="feed-container">
-        {% if page_obj|length > 0 %}
-            {% for instance in page_obj %}
-                <div class="feed-item">
-                    {% if instance|model_type == "Photo" %}
-                        {% include "blog/partials/photo_snippet.html" with photo=instance %}
-                    {% elif instance|model_type == "Post" %}
-                        {% include "blog/partials/post_snippet.html" with post=instance %}
-                    {% endif %}
+    <div class="container d-flex flex-row align-items-center justify-content-center">
+        <div class="feed-container">
+            {% if page_obj|length > 0 %}
+                {% for instance in page_obj %}
+                    <div class="feed-item">
+                        {% if instance|model_type == "Photo" %}
+                            {% include "blog/partials/photo_snippet.html" with photo=instance %}
+                        {% elif instance|model_type == "Post" %}
+                            {% include "blog/partials/post_snippet.html" with post=instance %}
+                        {% endif %}
+                    </div>
+                {% endfor %}
+            {% else %}
+                <div class="nocontent-container d-flex flex-column">
+                    <p>Aucunes publications pour le moment</p>
+                    <p>SOYEZ NOTRE HERO !</p>
+                    <a class="btn btn-primary" href="{% url 'photos_add' %}">AJOUTEZ UNE PHOTO</a>
+                    <a class="btn btn-primary" href="{% url 'posts_add' %}">AJOUTEZ UN BILLET</a>
                 </div>
-            {% endfor %}
-        {% else %}
-            <div class="nocontent-container d-flex flex-column">
-                <p>Aucunes publications pour le moment</p>
-                <p>SOYEZ NOTRE HERO !</p>
-                <a class="btn btn-primary" href="{% url 'photos_add' %}">AJOUTEZ UNE PHOTO</a>
-                <a class="btn btn-primary" href="{% url 'posts_add' %}">AJOUTEZ UN BILLET</a>
-            </div>
-        {% endif %}
-    </div>
-    <div class="feed-container-footer">
-        <div class="d-flex flex-row justify-content-around align-items-baseline">
-          <p><a href="{% url 'photos' %}">Retrouvez des photos</a></p>
-          <p><a href="{% url 'posts' %}">Retrouvez des billets</a></p>
+            {% endif %}
         </div>
     </div>
-</div>
-
+</section>
+<section>
+    <div class="container-fluid d-flex flex-column justify-content-start feed-section-photos" id="feed-section-photos">
+        <div class="d-flex flex-row justify-content-between">
+            <div class="feed-button-zone d-flex align-items-center flex-nowrap">
+                <i class="feed-smileys fa-solid fa-camera-retro"></i>
+                <a href="{% url 'photos' %}" class="ms-2 text-nowrap">Retrouvez des photos</a>
+            </div>
+            <div class="feed-button-zone">
+                <i class="w-100 feed-smileys fa-solid fa-house-heart"></i>
+                <a href="#navbar" class="ms-2 text-nowrap">Accueil</a>
+            </div>
+        </div>
+    </div>
+</section>
+<section>
+    <div class="container-fluid d-flex flex-column justify-content-start feed-section-posts" id="feed-section-posts">
+      <div class="d-flex flex-row justify-content-between">
+          <div class="feed-button-zone d-flex align-items-center flex-nowrap">
+              <i class="feed-smileys fa-solid fa-camera-retro"></i>
+              <a href="{% url 'posts' %}" class="ms-2 text-nowrap">Retrouvez des billets</a>
+          </div>
+          <div class="feed-button-zone d-flex align-items-center flex-nowrap">
+              <i class="feed-smileys fa-solid fa-house-heart"></i>
+              <a href="#navbar" class="ms-2 text-nowrap">Accueil</a>
+          </div>
+      </div>
+</section>
+<section class="personnages">
+    <div class="container-fluid d-flex flex-column justify-content-start feed-section-personnages" id="feed-section-personnages">
+        <div class="d-flex flex-row justify-content-between">
+            <div class="feed-button-zone d-flex align-items-center flex-nowrap">
+                <i class="feed-smileys fa-solid fa-people-group"></i>
+                <a href="#feed-section-personnages" class="ms-2 text-nowrap">Retrouvez les personnages</a>
+            </div>
+            <div class="feed-button-zone">
+                <i class="w-100 feed-smileys fa-solid fa-house-heart"></i>
+                <a href="#navbar" class="ms-2 text-nowrap">Accueil</a>
+            </div>
+        </div>
+        <div class="d-flex flex-row justify-content-center"><h3>PERSONNAGES</h3></div>
+        <div class="section_container">
+          <article class="personnages_article">
+            <div class="personnage_container">
+              <div class="personnage_legende">
+                <h4>Swan Laurence</h4>
+                <figure>
+                  <img src="/media/swan_laurence.png" alt="personnage image">
+                  <figcaption>Impitoyable commissaire</figcaption>
+                </figure>
+              </div>
+              <div class="personnage_description">
+                <p>
+                  Laurence est le commissaire du commissariat de Lille et l'un des personnages principaux.
+                  Froid et dur, il est cependant d'une grande intelligence, et son charisme fait succomber nombre de femmes.
+                  Il est souvent forcé de travailler avec Alice Avril, qu'il trouve souvent insupportable et trop curieuse bien qu'il tienne beaucoup à elle.
+                  Sa secrétaire est Marlène, qui est folle amoureuse de lui, mais Laurence est souvent rude avec elle, même s'il l'apprécie beaucoup.
+                  La femme dont il est vraiment amoureux est le premier médecin légiste, le docteur Euphrasie Maillol.
+                  Celle-ci meurt dans un accident d'avion. Lorsqu'il l'apprend, Laurence fait une grave dépression.
+                </p>
+              </div>
+            </div>
+            <div class="personnage_container">
+              <div class="personnage_legende">
+                <h4>Alice Avril</h4>
+                <figure>
+                  <img src="/media/alice_avril.jpg" alt="personnage image">
+                  <figcaption>L'impétueuse journaliste</figcaption>
+                </figure>
+              </div>
+              <div class="personnage_description">
+                <p>
+                  Avril est une jeune reporter à La Voix du Nord et l'un des personnages principaux.
+                  Envahissante et curieuse, elle est d'abord préposée à la rubrique du courrier du cœur puis finit par vouloir participer aux enquêtes de Laurence qu'elle trouve souvent hautain et froid mais qu'elle apprécie.
+                  Toujours à l'affût d'informations sur ses enquêtes, elle passe beaucoup de temps au bureau de Laurence et devient très vite la meilleure amie de sa secrétaire Marlène.
+                </p>
+              </div>
+            </div>
+            <div class="personnage_container">
+              <div class="personnage_legende">
+                <h4>Marlène Leroy</h4>
+                <figure>
+                  <img src="/media/marlene_leroy.jpg" alt="personnage image">
+                  <figcaption>L'incroyable secrétaire</figcaption>
+                </figure>
+              </div>
+              <div class="personnage_description">
+                <p>
+                  Marlène est la secrétaire personnelle de Laurence.
+                  Féminine, attentionnée et gentille, elle est cependant très naïve et est souvent utilisée par Laurence, qui la sait amoureuse de lui.
+                  Son icône est Marilyn Monroe et elle passe souvent plus de temps à se faire les ongles qu'à répondre aux appels.
+                  Elle prendra de plus en plus d'importance au fil des épisodes.
+                  Marlène est secrètement amoureuse de Laurence, et en dehors des heures de travail, passe la plupart de son temps avec Alice Avril qui deviendra rapidement sa meilleure amie.
+                </p>
+              </div>
+            </div>
+          </article>
+        </div>
+    </div>
+</section>
+<section class="a_propos">
+    <div class="container-fluid d-flex flex-column justify-content-start feed-section-a-propos" id="feed-section-a-propos">
+        <div class="d-flex flex-row justify-content-between">
+            <div class="feed-button-zone d-flex align-items-center flex-nowrap">
+                <i class="feed-smileys fa-solid fa-address-card"></i>
+                <a href="#feed-section-a-propos" class="ms-2 text-nowrap">A propos</a>
+            </div>
+            <div class="feed-button-zone">
+                <i class="w-100 feed-smileys fa-solid fa-house-heart"></i>
+                <a href="#navbar" class="ms-2 text-nowrap">Accueil</a>
+            </div>
+        </div>
+        <div class="section_container">
+            <article class="a_propos_article">
+                <div class="a_propos_container">
+                  <h4>Tournage</h4>
+                  <p>
+                    Le nouveau duo tourne le premier épisode de la deuxième saison (Jeux de glaces) du 25 mai au 25 juin 2012.
+                  </p>
+                  <p>
+                    Le deuxième épisode (Meurtre au champagne) est tourné du 22 octobre au 21 novembre 2012.
+                  </p>
+                  <p>
+                    Les onzième et douzième épisodes (Murder Party et L'Étrange Enlèvement du petit Bruno) sont tournés du 14 avril au 17 juin 2015.
+                  </p>
+                  <p>
+                    Le douzième épisode est notamment tourné au château d'Antoing, en Belgique27. Les treizième et quatorzième épisodes (Le Cheval pâle et L'Affaire Protheroe) sont tournés d'octobre à décembre 2015.
+                  </p>
+                  <p>
+                    Les quinzième et seizième épisodes (La Mystérieuse Affaire de Styles et Albert Major parlait trop) sont tournés quant à eux d'avril à juin 2016.
+                  </p>
+                  <p>
+                    Les deux épisodes suivants (Le miroir se brisa et L'Homme au complet marron) sont tournés d'octobre à décembre 2016, puis les épisodes 19 et 21, Crimes haute couture et Drame en trois actes sont tournés du 24 mai au 26 juillet 2017.
+                  </p>
+                  <p>
+                    Un épisode spécial Noël, Crime de Noël, s'est tourné tout au long du mois d'octobre pour une diffusion à Noël, puis un autre épisode intitulé Meurtres en solde, est tourné, notamment à la villa Cavrois, jusqu'au 1er décembre.
+                  </p>
+                  <p>
+                    Les vingt-troisième et vingt-quatrième épisodes (Mélodie mortelle et Ding Dingue Dong) sont tournés dans le Nord entre le 5 avril et le 7 juin 2018.
+                  </p>
+                  <p>
+                    Trois nouveaux épisodes sont tournés du 10 janvier au 24 avril 2019, dont un épisode spécial comédie musicale. En mars 2019, France 2 a annoncé que de nouveaux épisodes seront tournés en 2020.
+                  </p>
+                  <p>
+                    Fin octobre 2019, le quotidien régional La Voix du Nord annonce que l'épisode Un cadavre au petit déjeuner, tourné sous forme de comédie musicale et qui sera diffusé en 2020, viendra clore « définitivement » la série des Petits Meurtres d'Agatha Christie35, venant contredire les déclarations faites en mars 2019 par la chaîne.
+                    Cependant, quelques jours plus tard, France Télévisions annonce une nouvelle saison avec une nouvelle distribution, ancrant cette fois-ci les enquêtes dans les années 1970, le tournage est initialement prévu pour commencer début 2020.
+                  </p>
+                  <hr class="topblog_hr">
+                  <h4>Fiche technique</h4>
+                  <ul>
+                    <li>Titre&nbsp;: Les Petits Meurtres d'Agatha Christie</li>
+                    <li>Création&nbsp;: <a href="/wiki/Anne_Giafferi" title="Anne Giafferi">Anne Giafferi</a> et <a href="/wiki/Murielle_Magellan" title="Murielle Magellan">Murielle Magellan</a></li>
+                    <li>Réalisation&nbsp;: <a href="/wiki/%C3%89ric_Woreth" title="Éric Woreth">Éric Woreth</a> <small>(19 épisodes)</small>, <a href="/wiki/Nicolas_Picard-Dreyfuss" title="Nicolas Picard-Dreyfuss">Nicolas Picard-Dreyfuss</a> <small>(5 épisodes),</small> <a href="/wiki/Marc_Angelo" title="Marc Angelo">Marc Angelo</a> <small>(4 épisodes)</small>, <a href="/wiki/Rodolphe_Tissot" title="Rodolphe Tissot">Rodolphe Tissot</a> <small>(3 épisodes)</small>, <a href="/wiki/Olivier_Panchot" title="Olivier Panchot">Olivier Panchot</a> <small>(2 épisodes)</small>, <a href="/wiki/Christophe_Campos" title="Christophe Campos">Christophe Campos</a> <small>(2 épisodes)</small>, <a href="/wiki/Alexandre_Coffre" title="Alexandre Coffre">Alexandre Coffre</a> <small>(2 épisodes)</small>, Didier Bivel <small>(1 épisode)</small>, <a href="/wiki/St%C3%A9phane_Kappes" title="Stéphane Kappes">Stéphane Kappes</a> <small>(1 épisode)</small> et <a href="/wiki/Renaud_Bertrand" title="Renaud Bertrand">Renaud Bertrand</a> <small>(1 épisode)</small></li>
+                    <li>Scénario&nbsp;: Sylvie Simon <small>(14 épisodes)</small>, <a href="/wiki/Thierry_Debroux" title="Thierry Debroux">Thierry Debroux</a> <small>(8 épisodes)</small>, <a href="/wiki/Jean-Luc_Gaget" title="Jean-Luc Gaget">Jean-Luc Gaget</a> <small>(4 épisodes)</small>, <a href="/wiki/Zina_Modiano" title="Zina Modiano">Zina Modiano</a> <small>(3 épisodes)</small>, Jennifer Have (3 épisodes), Anne Peyrègne (1 épisode),<a href="/wiki/Pierre_Linhart" title="Pierre Linhart">Pierre Linhart</a> <small>(2 épisodes)</small>, <a href="/wiki/Anne_Giafferi" title="Anne Giafferi">Anne Giafferi</a> et Muriel Magellan <small>(1 épisode)</small>, Bruno Dega et Jeanne Le Guillou <small>(1 épisode)</small>, Catherine Hoffmann et Bertrand Lorel <small>(1 épisode)</small>, Flore Kosinetz et Hélène Lombard <small>(2 épisodes)</small>, Eliane Montane et Thomas Mansuy <small>(1 épisode)</small> d'après les romans d'<a href="/wiki/Agatha_Christie" title="Agatha Christie">Agatha Christie</a></li>
+                    <li>Décors&nbsp;: Moundji Gaceb Couture, Jimmy Vansteenkiste</li>
+                    <li>Costumes&nbsp;: Marie-Laure Lasson, Amandine Catala, Charlotte Betaillole, Sophie Dussaud</li>
+                    <li>Photographie&nbsp;: Bertrand Mouly</li>
+                    <li>Montage&nbsp;: Loïc Jaspard, Thierry Rouden</li>
+                    <li>Musique&nbsp;: <a href="/wiki/St%C3%A9phane_Moucha" title="Stéphane Moucha">Stéphane Moucha</a></li>
+                    <li>Casting&nbsp;: Michael Laguens</li>
+                    <li>Générique&nbsp;: Romain Segaud</li>
+                    <li>Production&nbsp;: Denis Carot et <a href="/wiki/Sophie_R%C3%A9vil" title="Sophie Révil">Sophie Révil</a></li>
+                    <li>Sociétés de production&nbsp;: Escazal Films, avec la participation de <a href="/wiki/France_T%C3%A9l%C3%A9visions" title="France Télévisions">France Télévisions</a></li>
+                    <li>Sociétés de distribution&nbsp;: <a href="/wiki/France_2" title="France 2">France 2</a> <small>(<a href="/wiki/France" title="France">France</a>)</small></li>
+                    <li>Pays d'origine&nbsp;: <a href="//commons.wikimedia.org/wiki/File:Flag_of_France.svg?uselang=fr" class="image" title="Drapeau de la France"><img alt="Drapeau de la France" src="//upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Flag_of_France.svg/20px-Flag_of_France.svg.png" decoding="async"  srcset="//upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Flag_of_France.svg/30px-Flag_of_France.svg.png 1.5x, //upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Flag_of_France.svg/40px-Flag_of_France.svg.png 2x" data-file-width="900" data-file-height="600" width="20" height="13"></a><a href="/wiki/France" title="France">France</a></li>
+                    <li>Langue originale&nbsp;: <a href="/wiki/Fran%C3%A7ais" title="Français">Français</a></li>
+                    <li>Format&nbsp;: couleur - <a href="/wiki/Format_16/9" title="Format 16/9">16/9</a> - <a href="/wiki/Haute_d%C3%A9finition" title="Haute définition">Haute définition</a> - <a href="/wiki/Son_st%C3%A9r%C3%A9ophonique" title="Son stéréophonique">son stéréo</a></li>
+                    <li>Genre&nbsp;: <a href="/wiki/Genre_policier" title="Genre policier">policier</a></li>
+                    <li>Durée&nbsp;: 90&nbsp;minutes par épisode</li>
+                    <li>Date de première diffusion&nbsp;: <a href="/wiki/France" title="France">France</a>&nbsp;: <time class="nowrap date-lien" datetime="2009-01-09" data-sort-value="2009-01-09"><a href="/wiki/9_janvier" title="9 janvier">9</a> <a href="/wiki/Janvier_2009" title="Janvier 2009">janvier</a> <a href="/wiki/2009_%C3%A0_la_t%C3%A9l%C3%A9vision" title="2009 à la télévision">2009</a></time></li>
+                    <li>Date de dernière diffusion&nbsp;: <a href="/wiki/France" title="France">France</a>&nbsp;: en production</li>
+                    <li>Public&nbsp;: Déconseillé aux moins de 10 ans.</li>
+                  </ul>
+                  <hr class="topblog_hr">
+                  <h4>Diffusion internationale</h4>
+                  <p>La série est diffusée dans plusieurs pays&nbsp;</p>
+                  <ul>
+                    <li><a href="//commons.wikimedia.org/wiki/File:Flag_of_France.svg?uselang=fr" class="image" title="Drapeau de la France"><img alt="Drapeau de la France" src="//upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Flag_of_France.svg/20px-Flag_of_France.svg.png" decoding="async"  srcset="//upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Flag_of_France.svg/30px-Flag_of_France.svg.png 1.5x, //upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Flag_of_France.svg/40px-Flag_of_France.svg.png 2x" data-file-width="900" data-file-height="600" width="20" height="13"></a><a href="/wiki/France" title="France">France</a>&nbsp;: depuis le <time class="nowrap" datetime="2009-01-09" data-sort-value="2009-01-09">9 janvier 2009</time> sur <a href="/wiki/France_2" title="France 2">France 2</a>, rediffusé sur <a href="/wiki/13e_rue" title="13e rue">13e rue</a> et <a href="/wiki/TV5_Monde" title="TV5 Monde">TV5 Monde</a>&nbsp;;</li>
+                    <li><span data-sort-value="Belgique"><span class="flagicon"><a href="//commons.wikimedia.org/wiki/File:Flag_of_Belgium_(civil).svg?uselang=fr" class="image" title="Drapeau de la Belgique"><img alt="Drapeau de la Belgique" src="//upload.wikimedia.org/wikipedia/commons/thumb/9/92/Flag_of_Belgium_%28civil%29.svg/20px-Flag_of_Belgium_%28civil%29.svg.png" decoding="async"  srcset="//upload.wikimedia.org/wikipedia/commons/thumb/9/92/Flag_of_Belgium_%28civil%29.svg/30px-Flag_of_Belgium_%28civil%29.svg.png 1.5x, //upload.wikimedia.org/wikipedia/commons/thumb/9/92/Flag_of_Belgium_%28civil%29.svg/40px-Flag_of_Belgium_%28civil%29.svg.png 2x" data-file-width="900" data-file-height="600" width="20" height="13"></a> </span><a href="/wiki/Belgique" title="Belgique">Belgique</a></span>&nbsp;: depuis le <time class="nowrap" datetime="2013-04-15" data-sort-value="2013-04-15">15 avril 2013</time> sur <a href="/wiki/La_Une" title="La Une">La Une</a></li>
+                    <li><span data-sort-value="Bresil"><span class="flagicon"><a href="//commons.wikimedia.org/wiki/File:Flag_of_Brazil.svg?uselang=fr" class="image" title="Drapeau du Brésil"><img alt="Drapeau du Brésil" src="//upload.wikimedia.org/wikipedia/commons/thumb/0/05/Flag_of_Brazil.svg/20px-Flag_of_Brazil.svg.png" decoding="async"  srcset="//upload.wikimedia.org/wikipedia/commons/thumb/0/05/Flag_of_Brazil.svg/30px-Flag_of_Brazil.svg.png 1.5x, //upload.wikimedia.org/wikipedia/commons/thumb/0/05/Flag_of_Brazil.svg/40px-Flag_of_Brazil.svg.png 2x" data-file-width="749" data-file-height="525" width="20" height="14"></a> </span><a href="/wiki/Br%C3%A9sil" title="Brésil">Brésil</a></span>&nbsp;: depuis le <time class="nowrap" datetime="2013-08-10" data-sort-value="2013-08-10">10 août 2013</time> sur <a href="/wiki/TV_Brasil" title="TV Brasil">TV Brasil</a>, sous le titre <i><span class="lang-pt" lang="pt">Os Pequenos Crimes de Agatha Christie</span></i></li>
+                    <li><span data-sort-value="Canada"><span class="flagicon"><a href="//commons.wikimedia.org/wiki/File:Flag_of_Canada.svg?uselang=fr" class="image" title="Drapeau du Canada"><img alt="Drapeau du Canada" src="//upload.wikimedia.org/wikipedia/commons/thumb/c/cf/Flag_of_Canada.svg/20px-Flag_of_Canada.svg.png" decoding="async"  srcset="//upload.wikimedia.org/wikipedia/commons/thumb/c/cf/Flag_of_Canada.svg/30px-Flag_of_Canada.svg.png 1.5x, //upload.wikimedia.org/wikipedia/commons/thumb/c/cf/Flag_of_Canada.svg/40px-Flag_of_Canada.svg.png 2x" data-file-width="1200" data-file-height="600" width="20" height="10"></a> </span><a href="/wiki/Canada" title="Canada">Canada</a></span>&nbsp;: sur <a href="/wiki/TV5_Qu%C3%A9bec_Canada" title="TV5 Québec Canada">TV5 Québec Canada</a></li>
+                    <li><span data-sort-value="Espagne"><span class="flagicon"><a href="//commons.wikimedia.org/wiki/File:Flag_of_Spain.svg?uselang=fr" class="image" title="Drapeau de l'Espagne"><img alt="Drapeau de l'Espagne" src="//upload.wikimedia.org/wikipedia/commons/thumb/9/9a/Flag_of_Spain.svg/20px-Flag_of_Spain.svg.png" decoding="async"  srcset="//upload.wikimedia.org/wikipedia/commons/thumb/9/9a/Flag_of_Spain.svg/30px-Flag_of_Spain.svg.png 1.5x, //upload.wikimedia.org/wikipedia/commons/thumb/9/9a/Flag_of_Spain.svg/40px-Flag_of_Spain.svg.png 2x" data-file-width="750" data-file-height="500" width="20" height="13"></a> </span><a href="/wiki/Espagne" title="Espagne">Espagne</a></span>&nbsp;: depuis 2013 sur <a href="/wiki/La_2" title="La 2">La 2</a>, sous le titre <i><span class="lang-es" lang="es">Los pequeños asesinatos de Agatha Christie</span></i></li>
+                    <li><span data-sort-value="Finlande"><span class="flagicon"><a href="//commons.wikimedia.org/wiki/File:Flag_of_Finland.svg?uselang=fr" class="image" title="Drapeau de la Finlande"><img alt="Drapeau de la Finlande" src="//upload.wikimedia.org/wikipedia/commons/thumb/b/bc/Flag_of_Finland.svg/20px-Flag_of_Finland.svg.png" decoding="async"  srcset="//upload.wikimedia.org/wikipedia/commons/thumb/b/bc/Flag_of_Finland.svg/30px-Flag_of_Finland.svg.png 1.5x, //upload.wikimedia.org/wikipedia/commons/thumb/b/bc/Flag_of_Finland.svg/40px-Flag_of_Finland.svg.png 2x" data-file-width="1800" data-file-height="1100" width="20" height="12"></a> </span><a href="/wiki/Finlande" title="Finlande">Finlande</a></span>&nbsp;: depuis le <time class="nowrap" datetime="2011-02-23" data-sort-value="2011-02-23">23 février 2011</time> sur la chaîne AVA, sous le titre <i><span class="lang-fi" lang="fi">Agatha Christien tarinat</span></i></li>
+                    <li><span data-sort-value="Suisse"><span class="flagicon"><a href="//commons.wikimedia.org/wiki/File:Flag_of_Switzerland.svg?uselang=fr" class="image" title="Drapeau de la Suisse"><img alt="Drapeau de la Suisse" src="//upload.wikimedia.org/wikipedia/commons/thumb/f/f3/Flag_of_Switzerland.svg/15px-Flag_of_Switzerland.svg.png" decoding="async"  srcset="//upload.wikimedia.org/wikipedia/commons/thumb/f/f3/Flag_of_Switzerland.svg/23px-Flag_of_Switzerland.svg.png 1.5x, //upload.wikimedia.org/wikipedia/commons/thumb/f/f3/Flag_of_Switzerland.svg/30px-Flag_of_Switzerland.svg.png 2x" data-file-width="512" data-file-height="512" width="15" height="15"></a> </span><a href="/wiki/Suisse" title="Suisse">Suisse</a></span>&nbsp;: sur <a href="/wiki/RTS_Un" title="RTS Un">RTS Un</a>&nbsp;;</li>
+                    <li><span data-sort-value="Allemagne"><span class="flagicon"><a href="//commons.wikimedia.org/wiki/File:Flag_of_Germany.svg?uselang=fr" class="image" title="Drapeau de l'Allemagne"><img alt="Drapeau de l'Allemagne" src="//upload.wikimedia.org/wikipedia/commons/thumb/b/ba/Flag_of_Germany.svg/20px-Flag_of_Germany.svg.png" decoding="async"  srcset="//upload.wikimedia.org/wikipedia/commons/thumb/b/ba/Flag_of_Germany.svg/30px-Flag_of_Germany.svg.png 1.5x, //upload.wikimedia.org/wikipedia/commons/thumb/b/ba/Flag_of_Germany.svg/40px-Flag_of_Germany.svg.png 2x" data-file-width="1000" data-file-height="600" width="20" height="12"></a> </span><a href="/wiki/Allemagne" title="Allemagne">Allemagne</a></span>&nbsp;: depuis le <time class="nowrap" datetime="2017-04-26" data-sort-value="2017-04-26">26 avril 2017</time> sur ONE&nbsp;;</li>
+                    <li><span data-sort-value="Italie"><span class="flagicon"><a href="//commons.wikimedia.org/wiki/File:Flag_of_Italy.svg?uselang=fr" class="image" title="Drapeau de l'Italie"><img alt="Drapeau de l'Italie" src="//upload.wikimedia.org/wikipedia/commons/thumb/0/03/Flag_of_Italy.svg/20px-Flag_of_Italy.svg.png" decoding="async"  srcset="//upload.wikimedia.org/wikipedia/commons/thumb/0/03/Flag_of_Italy.svg/30px-Flag_of_Italy.svg.png 1.5x, //upload.wikimedia.org/wikipedia/commons/thumb/0/03/Flag_of_Italy.svg/40px-Flag_of_Italy.svg.png 2x" data-file-width="1500" data-file-height="1000" width="20" height="13"></a> </span><a href="/wiki/Italie" title="Italie">Italie</a></span>&nbsp;: <time class="nowrap" datetime="2017-07-06" data-sort-value="2017-07-06">6 juillet 2017</time> sur <a href="/wiki/Fox_Crime" title="Fox Crime">Fox Crime</a> sous le titre <i>Little Murders by Agata Christie</i>&nbsp;;</li>
+                    <li><span data-sort-value="Australie"><span class="flagicon"><a href="//commons.wikimedia.org/wiki/File:Flag_of_Australia.svg?uselang=fr" class="image" title="Drapeau de l'Australie"><img alt="Drapeau de l'Australie" src="//upload.wikimedia.org/wikipedia/commons/thumb/b/b9/Flag_of_Australia.svg/20px-Flag_of_Australia.svg.png" decoding="async"  srcset="//upload.wikimedia.org/wikipedia/commons/thumb/b/b9/Flag_of_Australia.svg/30px-Flag_of_Australia.svg.png 1.5x, //upload.wikimedia.org/wikipedia/commons/thumb/b/b9/Flag_of_Australia.svg/40px-Flag_of_Australia.svg.png 2x" data-file-width="1280" data-file-height="640" width="20" height="10"></a> </span><a href="/wiki/Australie" title="Australie">Australie</a></span>&nbsp;: depuis 2018 sur <a href="/wiki/Special_Broadcasting_Service" title="Special Broadcasting Service">SBS</a> sous le titre <i>Agatha Christie's Criminal Games</i>&nbsp;;</li>
+                    <li><span class="nowrap"><span data-sort-value="États unis"><span class="flagicon"><a href="//commons.wikimedia.org/wiki/File:Flag_of_the_United_States.svg?uselang=fr" class="image" title="Drapeau des États-Unis"><img alt="Drapeau des États-Unis" src="//upload.wikimedia.org/wikipedia/commons/thumb/a/a4/Flag_of_the_United_States.svg/20px-Flag_of_the_United_States.svg.png" decoding="async"  srcset="//upload.wikimedia.org/wikipedia/commons/thumb/a/a4/Flag_of_the_United_States.svg/30px-Flag_of_the_United_States.svg.png 1.5x, //upload.wikimedia.org/wikipedia/commons/thumb/a/a4/Flag_of_the_United_States.svg/40px-Flag_of_the_United_States.svg.png 2x" data-file-width="1235" data-file-height="650" width="20" height="11"></a> </span><a href="/wiki/%C3%89tats-Unis" title="États-Unis">États-Unis</a></span></span>&nbsp;: depuis <time class="nowrap" datetime="2016-07" data-sort-value="2016-07">juillet 2016</time> sur MHz Choice sous le titre <i>Agatha Christie's Criminal Games</i>
+                    </ul>
+                  <hr class="topblog_hr">
+                  <h4>Récompenses</h4>
+                    <ul>
+                      <li>Festival des créations télévisuelles de Luchon2013&nbsp;: Pyrénées d’or de la meilleure série</li>
+                      <li>Festival de la fiction TV de La Rochelle 2013&nbsp;: Prix jeune espoir féminin pour <a href="#" title="Élodie Frenck">Élodie Frenck</a></li>
+                      <li>Festival de la fiction TV de La Rochelle 2017&nbsp;: Meilleure série 90 minutes ou collections</li>
+                    </ul>
+                </div>
+            </article>
+        </div>
+    </div>
+</section>
+<section class="audiences">
+    <div class="container-fluid d-flex flex-column justify-content-start feed-section-audiences" id="feed-section-audiences">
+        <div class="d-flex flex-row justify-content-between">
+            <div class="feed-button-zone d-flex align-items-center flex-nowrap">
+                <i class="feed-smileys fa-solid fa-chart-simple"></i>
+                <a href="#feed-section-audiences" class="ms-2 text-nowrap">Retrouvez les audiences</a>
+            </div>
+            <div class="feed-button-zone">
+                <i class="w-100 feed-smileys fa-solid fa-house-heart"></i>
+                <a href="#navbar" class="ms-2 text-nowrap">Accueil</a>
+            </div>
+        </div>
+        <div class="section_container">
+            <article class="audiences_article">
+                <table class="table">
+                    <tbody>
+                        <tr class="">
+                            <th scope="col">N°</th>
+                            <th scope="col">Titre</th>
+                            <th scope="col">Date de diffusion</th>
+                            <th scope="col">Téléspectateurs</th>
+                            <th scope="col">Part d'audience</th>
+                        </tr>
+                        <tr class="topblog_tr">
+                            <td>1</td>
+                            <td>Jeux de glaces</td>
+                            <td>vendredi <time class="nowrap" datetime="2013-03-29" data-sort-value="2013-03-29">29 mars 2013</time></td>
+                            <td>4&nbsp;636&nbsp;000</td>
+                            <td>18,5&nbsp;<abbr class="abbr" title="pourcent">%</abbr></td>
+                        </tr>
+                        <tr class="topblog_tr">
+                            <td>2</td>
+                            <td>Meurtre au champagne</td>
+                            <td>vendredi <time class="nowrap" datetime="2013-04-05" data-sort-value="2013-04-05">5 avril 2013</time>
+                            </td>
+                            <td>4&nbsp;246&nbsp;000</td>
+                            <td>16,8&nbsp;<abbr class="abbr" title="pourcent">%</abbr></td>
+                        </tr>
+                        <tr class="topblog_tr">
+                            <td>3</td>
+                            <td>Témoin muet</td>
+                            <td>vendredi <time class="nowrap" datetime="2013-11-22" data-sort-value="2013-11-22">22 novembre 2013</time>
+                            </td>
+                            <td>3&nbsp;927&nbsp;000</td>
+                            <td>15,4&nbsp;<abbr class="abbr" title="pourcent">%</abbr></td>
+                        </tr>
+                        <tr class="topblog_tr">
+                            <td>4</td>
+                            <td>Pourquoi pas Martin&nbsp;?</td>
+                            <td>vendredi <time class="nowrap" datetime="2013-12-27" data-sort-value="2013-12-27">27 décembre 2013</time>
+                            </td>
+                            <td>4 300 000</td>
+                            <td>17,3&nbsp;<abbr class="abbr" title="pourcent">%</abbr></td>
+                        </tr>
+                        <tr class="topblog_tr">
+                            <td>5</td>
+                            <td>Meurtre à la kermesse</td>
+                            <td>mercredi <time class="nowrap" datetime="2014-09-26" data-sort-value="2014-09-26">26 septembre 2014</time>
+                            </td>
+                            <td>3&nbsp;659&nbsp;000</td>
+                            <td>15,0&nbsp;<abbr class="abbr" title="pourcent">%</abbr></td>
+                        </tr>
+                        <tr class="topblog_tr">
+                            <td>6</td>
+                            <td>Cartes sur table</td>
+                            <td>mercredi <time class="nowrap" datetime="2014-10-03" data-sort-value="2014-10-03">3 octobre 2014</time>
+                            </td>
+                            <td>3&nbsp;793&nbsp;000</td>
+                            <td>15,4&nbsp;<abbr class="abbr" title="pourcent">%</abbr></td>
+                        </tr>
+                        <tr class="topblog_tr">
+                            <td>7</td>
+                            <td>Le crime ne paie pas</td>
+                            <td>vendredi <time class="nowrap" datetime="2014-10-10" data-sort-value="2014-10-10">10 octobre 2014</time>
+                            </td>
+                            <td>4&nbsp;035&nbsp;000</td>
+                            <td>16,7&nbsp;<abbr class="abbr" title="pourcent">%</abbr></td>
+                        </tr>
+                        <tr class="topblog_tr">
+                            <td>8</td>
+                            <td>Pension Vanilos</td>
+                            <td>vendredi <time class="nowrap" datetime="2015-08-28" data-sort-value="2015-08-28">28 août 2015</time>
+                            </td>
+                            <td>4&nbsp;160&nbsp;000</td>
+                            <td>19,8&nbsp;<abbr class="abbr" title="pourcent">%</abbr></td>
+                        </tr>
+                        <tr class="topblog_tr">
+                            <td>9</td>
+                            <td>Un meurtre est-il facile&nbsp;?</td>
+                            <td>vendredi <time class="nowrap" datetime="2015-09-04" data-sort-value="2015-09-04">4 septembre 2015</time>
+                            </td>
+                            <td>4&nbsp;340&nbsp;000</td>
+                            <td>18,6&nbsp;<abbr class="abbr" title="pourcent">%</abbr></td>
+                        </tr>
+                        <tr class="topblog_tr">
+                            <td>10</td>
+                            <td>Mademoiselle McGinty est morte</td>
+                            <td>vendredi <time class="nowrap" datetime="2015-09-11" data-sort-value="2015-09-11">11 septembre 2015</time>
+                            </td>
+                            <td>4&nbsp;330&nbsp;000</td>
+                            <td>18,7&nbsp;<abbr class="abbr" title="pourcent">%</abbr></td>
+                        </tr>
+                        <tr class="topblog_tr">
+                            <td>11</td>
+                            <td>Murder Party</td>
+                            <td>vendredi <time class="nowrap" datetime="2015-09-18" data-sort-value="2015-09-18">18 septembre 2015</time>
+                            </td>
+                            <td>4&nbsp;200&nbsp;000</td>
+                            <td>17,4&nbsp;<abbr class="abbr" title="pourcent">%</abbr></td>
+                        </tr>
+                        <tr class="topblog_tr">
+                            <td>12</td>
+                            <td>L'Étrange Enlèvement du petit Bruno</td>
+                            <td>vendredi <time class="nowrap" datetime="2016-08-26" data-sort-value="2016-08-26">26 août 2016</time>
+                            </td>
+                            <td>4&nbsp;169&nbsp;000</td>
+                            <td>21,1&nbsp;<abbr class="abbr" title="pourcent">%</abbr></td>
+                        </tr>
+                        <tr class="topblog_tr">
+                            <td>13</td>
+                            <td>Le Cheval pâle</td>
+                            <td>vendredi <time class="nowrap" datetime="2016-09-02" data-sort-value="2016-09-02">2 septembre 2016</time>
+                            </td>
+                            <td>4&nbsp;047&nbsp;000</td>
+                            <td>17,9&nbsp;<abbr class="abbr" title="pourcent">%</abbr></td>
+                        </tr>
+                        <tr class="topblog_tr">
+                            <td>14</td>
+                            <td>L'Affaire Protheroe</td>
+                            <td>vendredi <time class="nowrap" datetime="2016-09-09" data-sort-value="2016-09-09">9 septembre 2016</time>
+                            </td>
+                            <td>4&nbsp;173&nbsp;000</td>
+                            <td>18,7&nbsp;<abbr class="abbr" title="pourcent">%</abbr></td>
+                        </tr>
+                        <tr class="topblog_tr">
+                            <td>15</td>
+                            <td>La Mystérieuse Affaire de Styles</td>
+                            <td>vendredi <time class="nowrap" datetime="2016-09-16" data-sort-value="2016-09-16">16 septembre 2016</time>
+                            </td>
+                            <td>4&nbsp;553&nbsp;000</td>
+                            <td>19,1&nbsp;<abbr class="abbr" title="pourcent">%</abbr></td>
+                        </tr>
+                        <tr class="topblog_tr">
+                            <td>16</td>
+                            <td>Albert Major parlait trop</td>
+                            <td>vendredi <time class="nowrap" datetime="2016-09-23" data-sort-value="2016-09-23">23 septembre 2016</time>
+                            </td>
+                            <td>4&nbsp;147&nbsp;000</td>
+                            <td>17,6&nbsp;<abbr class="abbr" title="pourcent">%</abbr></td>
+                        </tr>
+                        <tr class="topblog_tr">
+                            <td>17  </td>
+                            <td>L'Homme au complet marron</td>
+                            <td>vendredi <time class="nowrap" datetime="2017-09-01" data-sort-value="2017-09-01"><abbr class="abbr" title="premier">1<sup>er</sup></abbr> septembre 2017</time>
+                            </td>
+                            <td>4&nbsp;659&nbsp;000</td>
+                            <td>20,6&nbsp;<abbr class="abbr" title="pourcent">%</abbr></td>
+                        </tr>
+                        <tr class="topblog_tr">
+                            <td>18</td>
+                            <td>Le miroir se brisa</td>
+                            <td>vendredi <time class="nowrap" datetime="2017-09-08" data-sort-value="2017-09-08">8 septembre 2017</time>
+                            </td>
+                            <td>4&nbsp;660&nbsp;000</td>
+                            <td>19,5&nbsp;<abbr class="abbr" title="pourcent">%</abbr></td>
+                        </tr>
+                        <tr class="topblog_tr">
+                            <td>19</td>
+                            <td>Crimes haute couture</td>
+                            <td>vendredi <time class="nowrap" datetime="2017-09-15" data-sort-value="2017-09-15">15 septembre 2017</time>
+                            </td>
+                            <td>4&nbsp;770&nbsp;000</td>
+                            <td>20,5&nbsp;<abbr class="abbr" title="pourcent">%</abbr></td>
+                        </tr>
+                        <tr class="topblog_tr">
+                            <td>20</td>
+                            <td>Le Crime de Noël</td>
+                            <td>vendredi <time class="nowrap" datetime="2017-12-22" data-sort-value="2017-12-22">22 décembre 2017</time>
+                            </td>
+                            <td>6&nbsp;063&nbsp;000</td>
+                            <td>25,3&nbsp;<abbr class="abbr" title="pourcent">%</abbr></td>
+                        </tr>
+                        <tr class="topblog_tr">
+                            <td>21</td>
+                            <td>Drame en trois actes</td>
+                            <td>vendredi <time class="nowrap" datetime="2018-08-31" data-sort-value="2018-08-31">31 août 2018</time>
+                            </td>
+                            <td>4&nbsp;537&nbsp;000</td>
+                            <td>22,2&nbsp;<abbr class="abbr" title="pourcent">%</abbr></td>
+                        </tr>
+                        <tr class="topblog_tr">
+                            <td>22</td>
+                            <td>Meurtres en solde</td>
+                            <td>vendredi <time class="nowrap" datetime="2018-09-07" data-sort-value="2018-09-07">7 septembre 2018</time>
+                            </td>
+                            <td>4 823 000</td>
+                            <td>23,5 <abbr class="abbr" title="pourcent">%</abbr></td>
+                        </tr>
+                        <tr class="topblog_tr">
+                            <td>23</td>
+                            <td>Mélodie mortelle</td>
+                            <td>vendredi <time class="nowrap" datetime="2018-09-28" data-sort-value="2018-09-28">28 septembre 2018</time>
+                            </td>
+                            <td>4 798 000</td>
+                            <td>22,7 <abbr class="abbr" title="pourcent">%</abbr></td>
+                        </tr>
+                        <tr class="topblog_tr">
+                            <td>24</td>
+                            <td>Ding Dingue Dong</td>
+                            <td>vendredi <time class="nowrap" datetime="2019-09-06" data-sort-value="2019-09-06">6 septembre 2019</time>
+                            </td>
+                            <td>4 533 000</td>
+                            <td>23,1 <abbr class="abbr" title="pourcent">%</abbr></td>
+                        </tr>
+                        <tr class="topblog_tr">
+                            <td>25</td>
+                            <td>L'Heure zéro</td>
+                            <td>vendredi <time class="nowrap" datetime="2019-09-13" data-sort-value="2019-09-13">13 septembre 2019</time>
+                            </td>
+                            <td>4 546 000</td>
+                            <td>23,8&nbsp;%</td>
+                        </tr>
+                        <tr class="topblog_tr">
+                            <td>26</td>
+                            <td>Rendez-vous avec la mort</td>
+                            <td>vendredi <time class="nowrap" datetime="2019-09-20" data-sort-value="2019-09-20">20 septembre 2019</time>
+                            </td>
+                            <td>4 590 000</td>
+                            <td>23&nbsp;%</td>
+                        </tr>
+                        <tr class="topblog_tr">
+                            <td>27</td>
+                            <td>Un cadavre au petit déjeuner</td>
+                            <td>vendredi <time class="nowrap" datetime="2020-10-16" data-sort-value="2020-10-16">16 octobre 2020</time></td>
+                            <td>4 822 000</td>
+                            <td>20,1%</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </article>
+        </div>
+    </div>
+</section>
 {% endblock content %}

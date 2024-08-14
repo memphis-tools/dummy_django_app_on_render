@@ -4,8 +4,8 @@
 {% block title %}DELETE PHOTO PAGE{% endblock title %}
 
 {% block content %}
-<div class="container d-flex flex-column align-items-center justify-content-center">
-    {% md_icon "delete-outline" size="1.5rem" %}
+<div class="container-fluid d-flex flex-column align-items-center justify-content-center">
+    <i class="feed-smileys fa-solid fa-camera-retro"></i>
     <h2>CONFIRMER SUPPRESSION PHOTO: {{ photo.title }}</h2>
     <form class="form" action="" method="post">
         {% csrf_token %}

@@ -25,7 +25,6 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("", blog.views.home, name="home"),
     path("home/", blog.views.home, name="home"),
-    path("about/", blog.views.about, name="about"),
     path("photos/", blog.views.photos_view, name="photos"),
     path("photos/add/", blog.views.photos_add, name="photos_add"),
     path("photos/add-multiple/", blog.views.photos_add_multiple, name="photos_add_multiple"),

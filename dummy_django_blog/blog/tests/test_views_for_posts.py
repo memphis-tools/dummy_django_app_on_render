@@ -1,5 +1,6 @@
 import os
 import pytest
+from datetime import datetime
 from django.urls import reverse
 from django.test import Client
 from django.core.files.uploadedfile import SimpleUploadedFile
@@ -25,6 +26,7 @@ def test_get_posts_detail_with_mocked_post(authenticate_user, mocker):
     mock_post.id = 1
     mock_post.title = "test post title"
     mock_post.content = "test post content"
+    mock_post.created_at = datetime.now()
     mocker.patch('blog.views.get_object_or_404', return_value=mock_post)
     response = client.get(url)
     templates = [template.name for template in response.templates]

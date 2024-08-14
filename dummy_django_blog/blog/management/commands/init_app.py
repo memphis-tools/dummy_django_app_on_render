@@ -88,7 +88,6 @@ class Command(BaseCommand):
 
         pattern = r"photo_.*|billet_.*"
         regex = re.compile(pattern)
-
         if os.getenv("IS_TESTING") == "True":
             for filename in os.listdir("./dummy_django_blog/media"):
                 if regex.match(filename):
@@ -116,45 +115,73 @@ class Command(BaseCommand):
             "Un des épisodes les plus sympas",
             "Un des épisodes les plus décalés",
             "Un des épisodes les plus inoubliables",
+            "Un des épisodes les plus regardés",
+            "Un des épisodes les plus rocambolesques",
+            "Un des épisodes les plus remarquables",
+            "Un des épisodes les plus rétro",
         ]
 
-        for photo_label in [
-            "photo_1",
-            "photo_2",
-            "photo_3",
-            "photo_4",
-            "photo_5",
-            "photo_6",
-            "photo_7",
-            "photo_8",
-            "photo_9",
-            "photo_10",
-            "photo_11",
-        ]:
+        for photo_id in range(1,55):
             if os.getenv("IS_TESTING") == "True":
-                img = Image.open(f"./dummy_django_blog/images_echantillons/{photo_label}.jpg")
+                img = Image.open(f"./dummy_django_blog/images_echantillons/photo_{photo_id}.jpg")
                 img.thumbnail(settings.IMAGE_PREFERED_SIZE)
-                img = img.save(fp=f"./dummy_django_blog/media/{photo_label}.jpg")
+                img = img.save(fp=f"./dummy_django_blog/media/photo_{photo_id}.jpg")
             else:
-                img = Image.open(f"./images_echantillons/{photo_label}.jpg")
+                img = Image.open(f"./images_echantillons/photo_{photo_id}.jpg")
                 img.thumbnail(settings.IMAGE_PREFERED_SIZE)
-                img = img.save(fp=f"./media/{photo_label}.jpg")
+                img = img.save(fp=f"./media/photo_{photo_id}.jpg")
             photo = Photo.objects.create(
                 title_photo=photos_titles_list[randint(0,5)],
                 caption=f"Crédits France Télévision",
                 uploader=uploaders_list[randint(0,1)],
-                image=f"./{photo_label}.jpg",
+                image=f"./photo_{photo_id}.jpg",
             )
             photo.save()
 
         if os.getenv("IS_TESTING") == "True":
+            img = Image.open(f"./dummy_django_blog/images_echantillons/default_profile.png")
+            img = img.save(fp=f"./dummy_django_blog/media/default_profile.png")
+
+            img = Image.open(f"./dummy_django_blog/images_echantillons/alice_avril.jpg")
+            img.thumbnail(settings.IMAGE_PREFERED_SIZE)
+            img = img.save(fp=f"./dummy_django_blog/media/alice_avril.jpg")
+
+            img = Image.open(f"./dummy_django_blog/images_echantillons/swan_laurence.png")
+            img.thumbnail(settings.IMAGE_PREFERED_SIZE)
+            img = img.save(fp=f"./dummy_django_blog/media/swan_laurence.png")
+
+            img = Image.open(f"./dummy_django_blog/images_echantillons/marlene_leroy.jpg")
+            img.thumbnail(settings.IMAGE_PREFERED_SIZE)
+            img = img.save(fp=f"./dummy_django_blog/media/marlene_leroy.jpg")
+
             img = Image.open(f"./dummy_django_blog/images_echantillons/billet_1.jpg")
             img.thumbnail(settings.IMAGE_PREFERED_SIZE)
             img = img.save(fp=f"./dummy_django_blog/media/billet_1.jpg")
+            img = Image.open(f"./dummy_django_blog/images_echantillons/billet_2.jpg")
+            img.thumbnail(settings.IMAGE_PREFERED_SIZE)
+            img = img.save(fp=f"./dummy_django_blog/media/billet_2.jpg")
         else:
+            img = Image.open(f"./images_echantillons/default_profile.png")
+            img = img.save(fp=f"./media/default_profile.png")
+
+            img = Image.open(f"./images_echantillons/alice_avril.jpg")
+            img.thumbnail(settings.IMAGE_PREFERED_SIZE)
+            img = img.save(fp=f"./media/alice_avril.jpg")
+
+            img = Image.open(f"./images_echantillons/swan_laurence.png")
+            img.thumbnail(settings.IMAGE_PREFERED_SIZE)
+            img = img.save(fp=f"./media/swan_laurence.png")
+
+            img = Image.open(f"./images_echantillons/marlene_leroy.jpg")
+            img.thumbnail(settings.IMAGE_PREFERED_SIZE)
+            img = img.save(fp=f"./media/marlene_leroy.jpg")
+
             img = Image.open(f"./images_echantillons/billet_1.jpg")
             img.thumbnail(settings.IMAGE_PREFERED_SIZE)
             img = img.save(fp=f"./media/billet_1.jpg")
+            img = Image.open(f"./images_echantillons/billet_2.jpg")
+            img.thumbnail(settings.IMAGE_PREFERED_SIZE)
+            img = img.save(fp=f"./media/billet_2.jpg")
 
         photo_billet_1 = Photo.objects.create(
             title_photo="Photo épisode 1",
@@ -162,10 +189,16 @@ class Command(BaseCommand):
             uploader=user_1,
             image=f"./billet_1.jpg",
         )
-        photo_billet_1.save()
+        photo_billet_2 = Photo.objects.create(
+            title_photo="Photo épisode 2",
+            caption=f"Crédits France Télévision",
+            uploader=user_2,
+            image=f"./billet_2.jpg",
+        )
+        photo_billet_2.save()
 
         post = Post.objects.create(
-            title="s02-01 Les petits meurtres",
+            title="Épisode 1 : Jeux de glaces",
             content="""Le Dr Étienne Bousquet tient un centre de réinsertion pour les délinquants.
             Mais la présence de voyous perturbe sa famille.
             Lorsque deux meurtres sont commis, le nouveau commissaire, Swan Laurence, enquête avec, dans ses pattes, la trop curieuse journaliste Alice Avril.
@@ -174,4 +207,15 @@ class Command(BaseCommand):
             image=photo_billet_1,
         )
         post.contributors.set([user_1]),
+        post.save()
+
+        post = Post.objects.create(
+            title="Épisode 2 : Meurtre au champagne",
+            content="""L'actrice Elvire Morenkova est empoisonnée lors d'une soirée mondaine.
+            Le commissaire Laurence soupçonne un meurtre alors que le suicide est la thèse la plus évidente.
+            Alice, de son côté, passe des auditions pour remplacer la victime.
+            Il s'avère rapidement qu'Elvire collectionnait les amants et que les mobiles ne manquent pas.""",
+            image=photo_billet_2,
+        )
+        post.contributors.set([user_2]),
         post.save()

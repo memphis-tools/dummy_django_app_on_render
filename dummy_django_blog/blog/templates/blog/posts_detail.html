@@ -1,30 +1,37 @@
 {% extends 'base.html' %}
+{% load blog_tags %}
 {% load bootstrap_icons %}
 
 {% block title %}POST PAGE{% endblock title %}
 
 {% block content %}
-<div class="container d-flex flex-column">
-    <div class="w-100 d-flex flex-column align-items-center">
-        {% md_icon "details" size="1.5rem" %}
-        <h2>BILLET</h2>
-    </div>
-    <div class="d-flex flex-column align-items-start justify-content-center">
-        <p>TITLE: {{ post.title }}</p>
-        <p>AUTEURS: {{ post.contributors.all|join:", " }}</p>
-        <p>CONTENU: {{ post.content }}</p>
-    </div>
-    <div class="d-flex flex-column">
-        <img src="{{ post.image.image.url }}" alt="a dummy photo">
-        <div class="mt-2 mb-5 d-flex flex-row justify-content-around align-items-center">
-            {% if request.user in post.contributors.all %}
-                <div class="options_container d-flex flex-row align-items-baseline">
-                    <a class="btn btn-primary m-3" href="{% url 'posts_update' post.id %}">MODIFIER BILLET</a>
-                    <a class="btn btn-primary" href="{% url 'posts_delete' post.id %}">SUPPRIMER BILLET</a>
-                </div>
-            {% endif %}
-            <a class="btn btn-primary mt-3" href="{% url 'feed' %}">RETOUR ACCUEIL</a>
+<section>
+    <div class="container-fluid d-flex flex-column">
+        <div class="w-100 d-flex flex-column align-items-center">
+            <i class="feed-smileys fa-solid fa-camera-retro"></i>
+            <h2>BILLET</h2>
+        </div>
+        <div class="d-flex flex-column align-items-start justify-content-center">
+            <p>Titre: {{ post.title }}</p>
+            <p>Auteurs: {{ post.contributors.all|join:", " }}</p>
+            <p>Publié: {{ post.created_at|format_created_date }}</p>
+            <p>Description: {{ post.content }}</p>
+        </div>
+        <div class="d-flex flex-column">
+            <figure>
+                <img class="photo-contaner" src="{{ post.image.image.url }}" alt="a dummy photo">
+                <figcaption><i>{{ post.image.caption }}</i></figcaption>
+            </figure>
+            <div class="mt-2 mb-5 d-flex flex-row justify-content-around align-items-center">
+                {% if request.user in post.contributors.all %}
+                    <div class="options_container d-flex flex-row align-items-baseline">
+                        <a class="btn btn-primary m-3" href="{% url 'posts_update' post.id %}">MODIFIER BILLET</a>
+                        <a class="btn btn-primary" href="{% url 'posts_delete' post.id %}">SUPPRIMER BILLET</a>
+                    </div>
+                {% endif %}
+                <a class="btn btn-primary mt-3" href="{% url 'feed' %}">RETOUR ACCUEIL</a>
+            </div>
         </div>
     </div>
-</div>
+</section>
 {% endblock content %}

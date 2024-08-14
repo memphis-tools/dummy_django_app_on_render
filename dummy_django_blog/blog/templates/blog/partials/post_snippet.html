@@ -1,18 +1,14 @@
 {% load blog_tags %}
 
-<section>
-    <div class="d-flex flex-column" id="{{ post.id }}">
-        <h3><a href="#{{ post.id }}">Billet</a></h3>
+
+<div class="d-flex flex-column vignette" id="{{ post.id }}">
+    <a href=""{% url 'posts_detail' post.id %}">
         <div class="feed-item-elements">
             <figure>
-                <img class="photo_miniature class-img-top" src="{{ post.image.image.url }}" alt="a post image">
-                <figcaption><i>{{ photo.caption }}</i></figcaption>
+                <a class="m-1" href="{% url 'posts_detail' post.id %}">
+                    <img class="photo_miniature class-img-top" src="{{ post.image.image.url }}" alt="a post image">
+                </a>
             </figure>
-            <div class="feed-item-detail">
-                <p class="">{{ post.title }}</p>
-                <p class="">Auteurs: {{ post.contributors.all|join:", " }}</p>
-                <p class="">{{ post.created_at|format_created_date }}</p>
-            </div>
         </div>
-    </div>
-</section>
+    </a>
+</div>
