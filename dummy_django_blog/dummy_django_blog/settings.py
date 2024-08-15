@@ -6,6 +6,7 @@ from dotenv import load_dotenv
 from datetime import timedelta
 import dj_database_url
 
+
 try:
     load_dotenv(".envrc")
 except FileNotFoundError as err:
@@ -91,6 +92,7 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
+                "dummy_django_blog.context_processors.media_url"
             ],
         },
     },
@@ -133,19 +135,15 @@ LOGOUT_URL = "home"
 LOGIN_REDIRECT_URL = "feed"
 LOGOUT_REDIRECT_URL = "home"
 MEDIA_URL = "/media/"
-MEDIA_ROOT = "media/"
-
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 AUTH_USER_MODEL = "authentication.User"
 
+STATICFILES_DIRS = [BASE_DIR.joinpath("static")]
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
 if not DEBUG and RENDER_EXTERNAL_HOSTNAME is not None:
-    STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-    MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-    STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
     STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-else:
-    STATICFILES_DIRS = [BASE_DIR.joinpath("static")]
-    STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-    MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
 
 # Default primary key field type
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
