@@ -8,7 +8,7 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group, Permission
 from PIL import Image
 from random import randint
-from blog.models import Photo, Post
+from blog.models import Contributor, Photo, Post
 
 
 def create_groups_and_permissions():
@@ -83,6 +83,9 @@ class Command(BaseCommand):
 
         current_users_size = User.objects.all().count()
         if current_users_size > 0:
+            Post.objects.all().delete()
+            Photo.objects.all().delete()
+            Contributor.objects.all().delete()
             User.objects.all().delete()
             now = datetime.utcnow()
 
@@ -121,7 +124,7 @@ class Command(BaseCommand):
             "Un des épisodes les plus rétro",
         ]
 
-        for photo_id in range(1,55):
+        for photo_id in range(1, 70):
             if os.getenv("IS_TESTING") == "True":
                 img = Image.open(f"./dummy_django_blog/images_echantillons/photo_{photo_id}.jpg")
                 img.thumbnail(settings.IMAGE_PREFERED_SIZE)
@@ -130,6 +133,7 @@ class Command(BaseCommand):
                 img = Image.open(f"./images_echantillons/photo_{photo_id}.jpg")
                 img.thumbnail(settings.IMAGE_PREFERED_SIZE)
                 img = img.save(fp=f"./media/photo_{photo_id}.jpg")
+
             photo = Photo.objects.create(
                 title_photo=photos_titles_list[randint(0,5)],
                 caption=f"Crédits France Télévision",
@@ -154,6 +158,18 @@ class Command(BaseCommand):
             img.thumbnail(settings.IMAGE_PREFERED_SIZE)
             img = img.save(fp=f"./dummy_django_blog/media/marlene_leroy.jpg")
 
+            img = Image.open(f"./dummy_django_blog/images_echantillons/tim_glissant.jpg")
+            img.thumbnail(settings.IMAGE_PREFERED_SIZE)
+            img = img.save(fp=f"./dummy_django_blog/media/tim_glissant.jpg")
+
+            img = Image.open(f"./dummy_django_blog/images_echantillons/ernest_tricard.jpg")
+            img.thumbnail(settings.IMAGE_PREFERED_SIZE)
+            img = img.save(fp=f"./dummy_django_blog/media/ernest_tricard.jpg")
+
+            img = Image.open(f"./dummy_django_blog/images_echantillons/euphrasie_maillol.jpg")
+            img.thumbnail(settings.IMAGE_PREFERED_SIZE)
+            img = img.save(fp=f"./dummy_django_blog/media/euphrasie_maillol.jpg")
+
             img = Image.open(f"./dummy_django_blog/images_echantillons/billet_1.jpg")
             img.thumbnail(settings.IMAGE_PREFERED_SIZE)
             img = img.save(fp=f"./dummy_django_blog/media/billet_1.jpg")
@@ -175,6 +191,18 @@ class Command(BaseCommand):
             img = Image.open(f"./images_echantillons/marlene_leroy.jpg")
             img.thumbnail(settings.IMAGE_PREFERED_SIZE)
             img = img.save(fp=f"./media/marlene_leroy.jpg")
+
+            img = Image.open(f"./images_echantillons/tim_glissant.jpg")
+            img.thumbnail(settings.IMAGE_PREFERED_SIZE)
+            img = img.save(fp=f"./media/tim_glissant.jpg")
+
+            img = Image.open(f"./images_echantillons/ernest_tricard.jpg")
+            img.thumbnail(settings.IMAGE_PREFERED_SIZE)
+            img = img.save(fp=f"./media/ernest_tricard.jpg")
+
+            img = Image.open(f"./images_echantillons/euphrasie_maillol.jpg")
+            img.thumbnail(settings.IMAGE_PREFERED_SIZE)
+            img = img.save(fp=f"./media/euphrasie_maillol.jpg")
 
             img = Image.open(f"./images_echantillons/billet_1.jpg")
             img.thumbnail(settings.IMAGE_PREFERED_SIZE)

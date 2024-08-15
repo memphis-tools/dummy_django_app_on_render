@@ -353,7 +353,7 @@ section .btn:hover {
 }
 
 .feed-section-personnages {
-  height: 125vh;
+  height: 250vh;
   background-image: linear-gradient(to right, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0.75) 20%, rgba(0, 0, 0, 0) 100%), url("../../vendors/img/les_petits_meurtres_saison_2_feed_section_personnages.jpg");
   background-position: center;
   background-size: cover;
@@ -482,19 +482,6 @@ feed-button-zone a:hover {
   font-size: 0.9em;
 }
 
-.personnages_article .personnage_container:nth-child(1) {
-  flex: 2;
-}
-
-.personnages_article .personnage_container:nth-child(2) {
-  flex: 2;
-  border-left: 1px dashed #85586F;
-  border-right: 1px dashed #85586F;
-}
-
-.personnages_article .personnage_container:nth-child(3) {
-  flex: 2;
-}
 
 .personnage_container h4 {
   color: pink;
@@ -509,13 +496,15 @@ feed-button-zone a:hover {
   text-shadow: #85586F 2px 0 10px;
 }
 
-.personnage_container img{
+.personnage_container img {
   width: 200px;
+  height: 150px;
   transition-duration: 0.7s;
 }
 
 .personnage_container img:hover{
   width: 300px;
+  height: 225px;
   transition-duration: 0.7s;
 }
 
@@ -586,6 +575,11 @@ footer {
   z-index: 1;
 }
 
+
+footer .d-flex {
+    flex: 1;
+}
+
 footer p {
   font-family: "ArsenalSC-Fat", sans-serif;
   font-size: 1.25rem;
@@ -598,13 +592,23 @@ footer a {
   padding: 0% 1%;
 }
 
-.footer-image img {
-  width: 5%;
+.footer-container {
+  padding-bottom: 25%;
+  position: relative;
+}
+
+.footer-image {
+  padding: 1% 0%;
+  position: absolute;
+  display: block;
+  margin: 0 auto;
+  max-width: 100%;
+  height: auto;
 }
 
 .social-icons img {
-    width: 30px;
-    height: 30px;
+    width: 20px;
+    height: 20px;
     object-fit: contain; /* Ensures the image is scaled to fit within the specified dimensions */
 }
 
@@ -664,12 +668,14 @@ footer a {
   }
 
   .personnage_container img{
-    width: 90%;
+    width: 200px;
+    height: auto;
     border-radius: 15px;
   }
 
   .personnage_container img:hover {
-    width: 90%;
+    width: 300px;
+    transition-duration: 0.7s;
   }
 
   /* AUDIENCES */

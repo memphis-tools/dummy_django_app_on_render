@@ -9,6 +9,7 @@ from django.core.mail import send_mail
 from django.contrib import messages
 from django.forms import formset_factory
 from django.core.paginator import Paginator
+from django.conf import settings
 
 from . import forms
 from . import models
@@ -62,7 +63,7 @@ def feed(request):
     paginator = Paginator(photos_and_posts, 5)
     page = request.GET.get("page")
     page_obj = paginator.get_page(page)
-    return render(request, "blog/feed.html", context={"page_obj": page_obj})
+    return render(request, "blog/feed.html", context={"page_obj": page_obj, "MEDIA_URL": settings.MEDIA_URL,})
 
 
 @login_required
