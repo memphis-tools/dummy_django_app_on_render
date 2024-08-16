@@ -72,7 +72,7 @@ else
       export IS_TESTING=False
       python manage.py init_app
       echo "DEBUG RENDER SIR, DIR CONTENT BELOW"
-      ls -l
+      ls -l media
       gunicorn dummy_django_blog.wsgi:application --bind 0.0.0.0:8000
       ;;
     "down_dev" )
