@@ -143,6 +143,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 if not DEBUG and RENDER_EXTERNAL_HOSTNAME is not None:
     STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+    MEDIA_URL = "https://dummy-django-app-on-render.onrender.com/media/"
 
 
 # Default primary key field type

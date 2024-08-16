@@ -353,7 +353,7 @@ section .btn:hover {
 }
 
 .feed-section-personnages {
-  height: 250vh;
+  height: 275vh;
   background-image: linear-gradient(to right, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0.75) 20%, rgba(0, 0, 0, 0) 100%), url("../../vendors/img/les_petits_meurtres_saison_2_feed_section_personnages.jpg");
   background-position: center;
   background-size: cover;
