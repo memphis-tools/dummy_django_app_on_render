@@ -104,8 +104,13 @@
                                       <li><a class="dropdown-item" href="{% url 'follow_user' %}">abonnements</a></li>
                                       <li><a class="dropdown-item" href="{% url 'update_profile_image' %}">modifier profile</a></li>
                                       <li><a class="dropdown-item" href="{% url 'password_change' %}">modifier mot de passe</a></li>
-                                      <li><a class="dropdown-item" href="{% url 'logout' %}">logout</a></li>
+                                      <li>
+                                          <a class="dropdown-item" href="#" onclick="document.getElementById('logout-form').submit(); return false;">logout</a>
+                                      </li>
                                   </ul>
+                                  <form id="logout-form" method="post" action="{% url 'logout' %}" style="display: none;">
+                                      {% csrf_token %}
+                                  </form>
                               {% endif %}
                           </div>
                       </div>
