@@ -142,14 +142,16 @@ STATICFILES_DIRS = [BASE_DIR.joinpath("static")]
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 if not DEBUG and RENDER_EXTERNAL_HOSTNAME is not None:
-    STORAGES = {
-        'staticfiles': {
-            'BACKEND': 'whitenoise.storage.CompressedManifestStaticFilesStorage',
-        },
-        'default': {
-            'BACKEND': 'django.core.files.storage.FileSystemStorage',
-        },
-    }
+    # Revert STORAGES to STATICFILES_STORAGE
+    STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+    # STORAGES = {
+    #     'staticfiles': {
+    #         'BACKEND': 'whitenoise.storage.CompressedManifestStaticFilesStorage',
+    #     },
+    #     'default': {
+    #         'BACKEND': 'django.core.files.storage.FileSystemStorage',
+    #     },
+    # }
 
 # Default primary key field type
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
