@@ -2,7 +2,7 @@
 
 
 <div class="d-flex flex-column vignette" id="{{ post.id }}">
-    <a href=""{% url 'posts_detail' post.id %}">
+    <a href="{% url 'posts_detail' post.id %}">
         <div class="feed-item-elements">
             <figure>
                 <a class="m-1" href="{% url 'posts_detail' post.id %}">

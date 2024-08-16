@@ -75,6 +75,10 @@ else
       ls -l
       ls -l media
       realpath media/billet_1.jpg
+      mkdir media_things
+      cp -rap media/ media_things
+      ls -l media_things
+      id render
       systemctl list-unit-files -t service
       gunicorn dummy_django_blog.wsgi:application --bind 0.0.0.0:8000
       ;;
