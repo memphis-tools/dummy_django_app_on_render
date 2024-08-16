@@ -71,7 +71,7 @@ else
       python manage.py collectstatic --no-input --clear
       export IS_TESTING=False
       python manage.py init_app
-      echo "DEBUG RENDER SIR, DIR CONTENT BELOW")
+      echo "DEBUG RENDER SIR, DIR CONTENT BELOW"
       ls -l
       gunicorn dummy_django_blog.wsgi:application --bind 0.0.0.0:8000
       ;;
