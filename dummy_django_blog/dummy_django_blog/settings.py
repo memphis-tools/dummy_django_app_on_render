@@ -135,7 +135,7 @@ LOGOUT_URL = "home"
 LOGIN_REDIRECT_URL = "feed"
 LOGOUT_REDIRECT_URL = "home"
 MEDIA_URL = "/media/"
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 AUTH_USER_MODEL = "authentication.User"
 
 STATICFILES_DIRS = [BASE_DIR.joinpath("static")]

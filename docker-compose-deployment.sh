@@ -71,6 +71,11 @@ else
       python manage.py collectstatic --no-input --clear
       export IS_TESTING=False
       python manage.py init_app
+      echo "DEBUG TIME SIR"
+      ls -l
+      ls -l media
+      realpath media/billet_1.jpg
+      systemctl list-unit-files -t service
       gunicorn dummy_django_blog.wsgi:application --bind 0.0.0.0:8000
       ;;
     "down_dev" )
