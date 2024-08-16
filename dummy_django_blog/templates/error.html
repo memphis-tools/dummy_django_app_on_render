@@ -13,6 +13,9 @@
             <p>Page {{ request.path }} n'existe pas.</p>
         </div>
     </div>
+    <h1>Error {{ error_code }}</h1>
+    <p>Sorry, the page you requested was not found.</p>
+    <pre>{{ traceback }}</pre>  <!-- Display the traceback --
     <div class="login_options mt-3 d-flex flex-column justify-content-around align-items-center">
       <a class="btn btn-primary mt-3" href="{% url 'feed' %}">RETOUR ACCUEIL</a>
     </div>
