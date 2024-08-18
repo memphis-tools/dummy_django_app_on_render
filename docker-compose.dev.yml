@@ -8,12 +8,11 @@ services:
       sh -c "gunicorn dummy_django_blog.wsgi:application --bind 0.0.0.0:8000"
     volumes:
       - static_volume:/home/dummy-operator/web/staticfiles
-      - media_volume:/home/dummy-operator/web/media
     expose:
       - 8000
     environment:
-      - IS_TESTING=False
-      - DEBUG=${DEBUG}
+      - IS_TESTING
+      - DEBUG
       - SECRET_KEY
       - DJANGO_ALLOWED_HOSTS
       - EMAIL_HOST
@@ -21,13 +20,15 @@ services:
       - EMAIL_USE_TLS
       - EMAIL_HOST_USER
       - EMAIL_HOST_PASSWORD
+      - AWS_ACCESS_KEY_ID
+      - AWS_SECRET_ACCESS_KEY
+      - AWS_DEFAULT_REGION
 
   nginx:
     build: ./nginx
     container_name: nginx
     volumes:
       - static_volume:/home/dummy-operator/web/staticfiles
-      - media_volume:/home/dummy-operator/web/media
     ports:
       - 5555:8080
     depends_on:
@@ -35,4 +36,3 @@ services:
 
 volumes:
   static_volume:
-  media_volume:

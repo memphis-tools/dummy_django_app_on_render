@@ -66,6 +66,7 @@ INSTALLED_APPS = [
     "authentication",
     "blog",
     "django_bootstrap_icons",
+    "storages",
 ]
 
 MIDDLEWARE = [
@@ -92,7 +93,6 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
-                "dummy_django_blog.context_processors.media_url"
             ],
         },
     },
@@ -127,31 +127,63 @@ TIME_ZONE = os.getenv("TIME_ZONE", "Europe/Paris")
 USE_I18N = True
 USE_TZ = False
 
-# Static files (CSS, JavaScript, Images)
-STATIC_URL = "static/"
+
 MAX_UPLOAD_SIZE = 5242880
 LOGIN_URL = "login"
 LOGOUT_URL = "home"
 LOGIN_REDIRECT_URL = "feed"
 LOGOUT_REDIRECT_URL = "home"
-MEDIA_URL = "/media/"
-MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 AUTH_USER_MODEL = "authentication.User"
 
+# Static files settings
+STATIC_URL = "static/"
 STATICFILES_DIRS = [BASE_DIR.joinpath("static")]
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
+# AWS settings
+AWS_ACCESS_KEY_ID = os.getenv("AWS_ACCESS_KEY_ID")
+AWS_SECRET_ACCESS_KEY = os.getenv("AWS_SECRET_ACCESS_KEY")
+AWS_STORAGE_BUCKET_NAME = "dummy-django-app-on-render"
+AWS_S3_REGION_NAME = os.getenv("AWS_DEFAULT_REGION")
+AWS_S3_CUSTOM_DOMAIN = f"{AWS_STORAGE_BUCKET_NAME}.s3.{AWS_S3_REGION_NAME}.amazonaws.com"
+AWS_S3_FILE_OVERWRITE = False
+AWS_DEFAULT_ACL = None
+AWS_S3_OBJECT_PARAMETERS = {'CacheControl': 'max-age=86400'}
+
+# Media files settings
+DEFAULT_FILE_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
+MEDIA_URL = f"https://{AWS_S3_CUSTOM_DOMAIN}/media/"
+
 if not DEBUG and RENDER_EXTERNAL_HOSTNAME is not None:
-    # Revert STORAGES to STATICFILES_STORAGE
-    STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-    # STORAGES = {
-    #     'staticfiles': {
-    #         'BACKEND': 'whitenoise.storage.CompressedManifestStaticFilesStorage',
-    #     },
-    #     'default': {
-    #         'BACKEND': 'django.core.files.storage.FileSystemStorage',
-    #     },
-    # }
+    STORAGES = {
+        "default": {
+            "BACKEND": "storages.backends.s3boto3.S3Boto3Storage",
+            "OPTIONS": {
+                "bucket_name": "dummy-django-app-on-render",
+                "custom_domain": f"{AWS_STORAGE_BUCKET_NAME}.s3.{AWS_S3_REGION_NAME}.amazonaws.com",
+            },
+        },
+        "staticfiles": {
+            "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+        },
+    }
+else:
+    if os.getenv("IS_TESTING") == "True":
+        DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
+        MEDIA_ROOT = ""
+    else:
+        STORAGES = {
+            "default": {
+                "BACKEND": "storages.backends.s3boto3.S3Boto3Storage",
+                "OPTIONS": {
+                    "bucket_name": "dummy-django-app-on-render",
+                    "custom_domain": f"{AWS_STORAGE_BUCKET_NAME}.s3.{AWS_S3_REGION_NAME}.amazonaws.com",
+                },
+            },
+            "staticfiles": {
+                "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
+            },
+        }
 
 # Default primary key field type
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
