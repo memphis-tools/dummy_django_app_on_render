@@ -9,8 +9,8 @@ services:
     expose:
       - 8000
     environment:
-      - IS_TESTING
-      - DEBUG
+      - IS_TESTING=${IS_TESTING}
+      - DEBUG=${DEBUG}
       - SECRET_KEY
       - DJANGO_ALLOWED_HOSTS
       - EMAIL_HOST
