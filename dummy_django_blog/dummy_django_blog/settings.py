@@ -170,7 +170,8 @@ if not DEBUG and RENDER_EXTERNAL_HOSTNAME is not None:
 else:
     if os.getenv("IS_TESTING") == "True":
         DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
-        MEDIA_ROOT = ""
+        MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+        STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
     else:
         STORAGES = {
             "default": {

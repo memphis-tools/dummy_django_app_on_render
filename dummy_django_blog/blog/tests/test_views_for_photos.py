@@ -166,8 +166,6 @@ def test_post_photos_add_with_real_image(authenticate_user, mocker):
     from blog.models import Photo
     assert Photo.objects.filter(title_photo="Test Photo", caption="This is a test photo").exists()
 
-    os.remove("dummy_django_blog/media/dummy_image.jpg")
-
 
 @pytest.mark.django_db
 def test_post_photos_add_multiple_with_real_image(authenticate_user, mocker):

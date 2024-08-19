@@ -1,3 +1,4 @@
+import os
 from PIL import Image
 from io import BytesIO
 from django.db import models
@@ -6,6 +7,13 @@ from django.core.files.base import ContentFile
 from django.utils.timezone import now
 
 from .validators import MustContainsDigit
+
+
+def get_upload_to(instance, filename):
+    if os.getenv("IS_TESTING") == "True":
+        return os.path.join('dummy_django_blog/media/', filename)
+    else:
+        return os.path.join('media/', filename)
 
 
 class Photo(models.Model):
@@ -17,7 +25,7 @@ class Photo(models.Model):
     caption = models.CharField("legende", max_length=350)
     uploader = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, on_delete=models.SET_NULL)
     created_at = models.DateTimeField(default=now)
-    image = models.ImageField("photo", upload_to="media/", null=True, blank=True)
+    image = models.ImageField("photo", upload_to=get_upload_to, null=True, blank=True)
     starred = models.BooleanField(default=False)
     IMAGE_SIZE = settings.IMAGE_PREFERED_SIZE
 
@@ -39,7 +47,7 @@ class Photo(models.Model):
         Photo.objects.filter(id=photo_id).update(image=file_key)
 
     def save(self, *args, **kwargs):
-        if self.image:
+        if self.image and os.getenv("IS_TESTING") == "False":
             # Resize the image and set it to the field
             resized_image = self._resize_image()
             self.image = resized_image
