@@ -74,7 +74,9 @@ else
       ls -l
       ls -l static
       ls -l staticfiles
-      ls -lR staticfiles
+      ls -lR staticfiles/vendors/css
+      ls -lR staticfiles/vendors/js
+      ls -lR staticfiles/vendors/img
       gunicorn dummy_django_blog.wsgi:application --bind 0.0.0.0:8000
       ;;
     "down_dev" )
