@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load static %}
 {% load blog_tags %}
 {% load bootstrap_icons %}
 
@@ -104,7 +105,7 @@
               <div class="personnage_legende">
                 <h4>Swan Laurence</h4>
                 <figure>
-                  <img src="{{ MEDIA_URL }}swan_laurence.png" alt="personnage image">
+                  <img src="{% static 'vendors/img/swan_laurence.png' %}" alt="personnage image">
                   <figcaption>Impitoyable commissaire</figcaption>
                 </figure>
               </div>
@@ -123,7 +124,7 @@
               <div class="personnage_legende">
                 <h4>Alice Avril</h4>
                 <figure>
-                  <img src="{{ MEDIA_URL }}alice_avril.jpg" alt="personnage image">
+                  <img src="{% static 'vendors/img/alice_avril.jpg' %}" alt="personnage image">
                   <figcaption>L'impétueuse journaliste</figcaption>
                 </figure>
               </div>
@@ -139,7 +140,7 @@
               <div class="personnage_legende">
                 <h4>Marlène Leroy</h4>
                 <figure>
-                  <img src="{{ MEDIA_URL }}marlene_leroy.jpg" alt="personnage image">
+                  <img src="{% static 'vendors/img/marlene_leroy.jpg' %}" alt="personnage image">
                   <figcaption>L'incroyable secrétaire</figcaption>
                 </figure>
               </div>
@@ -157,7 +158,7 @@
               <div class="personnage_legende">
                 <h4>Euphrasie Maillol</h4>
                 <figure>
-                  <img src="{{ MEDIA_URL }}euphrasie_maillol.jpg" alt="personnage image">
+                  <img src="{% static 'vendors/img/euphrasie_maillol.jpg' %}" alt="personnage image">
                   <figcaption>Une renversante médecin légiste</figcaption>
                 </figure>
               </div>
@@ -176,7 +177,7 @@
               <div class="personnage_legende">
                 <h4>Ernest Tricard</h4>
                 <figure>
-                  <img src="{{ MEDIA_URL }}ernest_tricard.jpg" alt="personnage image">
+                  <img src="{% static 'vendors/img/ernest_tricard.jpg' %}" alt="personnage image">
                   <figcaption>Mr Le Divisionnaire</figcaption>
                 </figure>
               </div>
@@ -193,7 +194,7 @@
               <div class="personnage_legende">
                 <h4>Tim Glissant</h4>
                 <figure>
-                  <img src="{{ MEDIA_URL }}tim_glissant.jpg" alt="personnage image">
+                  <img src="{% static 'vendors/img/tim_glissant.jpg' %}" alt="personnage image">
                   <figcaption>Un légiste au top</figcaption>
                 </figure>
               </div>

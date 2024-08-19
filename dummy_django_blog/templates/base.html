@@ -92,11 +92,9 @@
                           <div class="nav-link dropdown custom-dropdown user-dropdown">
                               {% if user.is_authenticated %}
                                   <a class="nav-item dropdown-toggle mt-3" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                      {% if user.image_profile.url == "default_profile.png" %}
-                                          <img class="image_profile rounded-pill" src="{% static 'assets/img/default_profile.png' %}" alt="photo de profil">
-                                      {% else %}
-                                          <img class="image_profile" src="{{ user.image_profile.url }}" alt="{{ user.image_profile }}">
-                                      {% endif %}
+
+                                      <img class="image_profile" src="{{ user.image_profile.url }}" alt="{{ user.image_profile }}">
+
                                       {{ user.username }}
                                   </a>
                                   <ul class="dropdown-menu">
@@ -127,7 +125,7 @@
         </div>
         <div class="d-flex flex-row justify-content-center">
             <a href="#navbar" alt="footer image">
-                <img class="footer-image d-flex flex-row justify-content-center" src="{% static 'assets/img/les_petits_meurtres_la_fin.png' %}" alt="footer image">
+                <img class="footer-image d-flex flex-row justify-content-center" src="{% static 'vendors/img/les_petits_meurtres_la_fin.png' %}" alt="footer image">
             </a>
             <a class="mx-2 social-icons" href="#"><img src="{% static 'assets/img/icons/facebook.png' %}" alt="social media icon"></a>
             <a class="mx-2 social-icons" href="#"><img src="{% static 'assets/img/icons/github.png' %}" alt="social media icon"></a>

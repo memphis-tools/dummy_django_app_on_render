@@ -1,6 +1,7 @@
 """the authentication app tests"""
 import os
 import pytest
+import shutil
 from django.conf import settings
 from django.urls import reverse
 from django.test import Client
@@ -80,13 +81,12 @@ def test_post_update_profile_image_with_authentication(authenticate_user):
     assert "Image de profile mise à jour" in response.content.decode("utf-8")
 
     media_path = settings.MEDIA_ROOT
-    for root, dirs, files in os.walk(media_path):
-        for file in files:
-            if file.startswith("dummy_image"):
-                os.remove(os.path.join(root, file))
-            elif file.startswith("billet_"):
-                os.remove(os.path.join(root, file))
-            elif file.startswith("photo_"):
-                os.remove(os.path.join(root, file))
-            elif file.startswith("dummy_image"):
-                os.remove(os.path.join(root, file))
+    dirs_to_remove = [
+        os.path.join(media_path, "media"),
+        os.path.join(media_path, "dummy_django_blog")
+    ]
+
+    # Remove the specified directories
+    for dir_path in dirs_to_remove:
+        if os.path.exists(dir_path):
+            shutil.rmtree(dir_path)

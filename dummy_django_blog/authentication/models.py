@@ -3,7 +3,7 @@ from django.contrib.auth.models import AbstractUser, Group
 
 
 def upload_to_avatars(instance, filename):
-    return 'avatars/{filename}'.format(filename=filename)
+    return 'media/{filename}'.format(filename=filename)
 
 
 class User(AbstractUser):
