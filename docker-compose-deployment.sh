@@ -71,6 +71,10 @@ else
       python manage.py collectstatic --no-input --clear
       export IS_TESTING=False
       python manage.py init_app
+      ls -l
+      ls -l static
+      ls -l staticfiles
+      ls -lR staticfiles
       gunicorn dummy_django_blog.wsgi:application --bind 0.0.0.0:8000
       ;;
     "down_dev" )
