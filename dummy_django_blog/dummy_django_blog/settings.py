@@ -6,6 +6,7 @@ from dotenv import load_dotenv
 from datetime import timedelta
 import dj_database_url
 
+from .storage import CustomStaticFilesStorage
 
 try:
     load_dotenv(".envrc")
@@ -157,6 +158,10 @@ MEDIA_URL = f"https://{AWS_S3_CUSTOM_DOMAIN}/media/"
 # Ignore Missing Source Maps
 WHITENOISE_AUTOREFRESH = True
 WHITENOISE_USE_FINDERS = True
+
+# Try avoid error Missing staticfiles manifest entry for 'favicon.ico'
+WHITENOISE_MANIFEST_STRICT = False
+
 
 if not DEBUG and RENDER_EXTERNAL_HOSTNAME is not None:
     STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
