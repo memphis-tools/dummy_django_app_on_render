@@ -6,6 +6,7 @@ from dotenv import load_dotenv
 from datetime import timedelta
 import dj_database_url
 
+from .storage import CustomStaticFilesStorage
 
 try:
     load_dotenv(".envrc")
@@ -158,6 +159,10 @@ MEDIA_URL = f"https://{AWS_S3_CUSTOM_DOMAIN}/media/"
 WHITENOISE_AUTOREFRESH = True
 WHITENOISE_USE_FINDERS = True
 
+# Try avoid error Missing staticfiles manifest entry for 'favicon.ico'
+WHITENOISE_MANIFEST_STRICT = False
+
+
 if not DEBUG and RENDER_EXTERNAL_HOSTNAME is not None:
     STORAGES = {
         "default": {
@@ -168,7 +173,8 @@ if not DEBUG and RENDER_EXTERNAL_HOSTNAME is not None:
             },
         },
         "staticfiles": {
-            "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+            # "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+            "BACKEND": "dummy_django_blog.storage.CustomStaticFilesStorage",
         },
     }
 else:
