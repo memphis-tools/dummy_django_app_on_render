@@ -24,7 +24,6 @@ import blog.views
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path('favicon.ico', RedirectView.as_view(url='/static/favicon.ico')),
     path("", blog.views.home, name="home"),
     path("home/", blog.views.home, name="home"),
     path("photos/", blog.views.photos_view, name="photos"),

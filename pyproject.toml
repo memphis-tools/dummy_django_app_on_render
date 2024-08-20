@@ -25,6 +25,7 @@ dj-database-url = "^2.1.0"
 whitenoise = {extras = ["brotli"], version = "^6.7.0"}
 psycopg = "^3.2.1"
 django-storages = {extras = ["boto3"], version = "^1.14.4"}
+zipp = "^3.20.0"
 
 [build-system]
 requires = ["poetry-core"]
