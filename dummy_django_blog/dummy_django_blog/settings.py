@@ -6,6 +6,7 @@ from dotenv import load_dotenv
 from datetime import timedelta
 import dj_database_url
 
+from .storage import CustomStaticFilesStorage
 
 try:
     load_dotenv(".envrc")
@@ -172,7 +173,8 @@ if not DEBUG and RENDER_EXTERNAL_HOSTNAME is not None:
             },
         },
         "staticfiles": {
-            "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+            # "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+            "BACKEND": "dummy_django_blog.storage.CustomStaticFilesStorage",
         },
     }
 else:
