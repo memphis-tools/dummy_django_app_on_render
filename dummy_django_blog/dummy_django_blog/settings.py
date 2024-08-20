@@ -159,18 +159,20 @@ WHITENOISE_AUTOREFRESH = True
 WHITENOISE_USE_FINDERS = True
 
 if not DEBUG and RENDER_EXTERNAL_HOSTNAME is not None:
-    STORAGES = {
-        "default": {
-            "BACKEND": "storages.backends.s3boto3.S3Boto3Storage",
-            "OPTIONS": {
-                "bucket_name": "dummy-django-app-on-render",
-                "custom_domain": f"{AWS_STORAGE_BUCKET_NAME}.s3.{AWS_S3_REGION_NAME}.amazonaws.com",
-            },
-        },
-        "staticfiles": {
-            "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
-        },
-    }
+    STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+    # STORAGES = {
+    #     "default": {
+    #         "BACKEND": "storages.backends.s3boto3.S3Boto3Storage",
+    #         "OPTIONS": {
+    #             "bucket_name": "dummy-django-app-on-render",
+    #             "custom_domain": f"{AWS_STORAGE_BUCKET_NAME}.s3.{AWS_S3_REGION_NAME}.amazonaws.com",
+    #         },
+    #     },
+    #     "staticfiles": {
+    #         # "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+    #         "BACKEND": "dummy_django_blog.storage.CustomStaticFilesStorage",
+    #     },
+    # }
 else:
     if os.getenv("IS_TESTING") == "True":
         DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
