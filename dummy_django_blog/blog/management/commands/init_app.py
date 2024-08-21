@@ -156,9 +156,12 @@ def remove_local_media_files():
     pattern = r"photo_.*|billet_.*"
     regex = re.compile(pattern)
     if os.getenv("IS_TESTING") == "True":
-        for filename in os.listdir("./dummy_django_blog/media"):
-            if regex.match(filename):
-                os.remove(f"./dummy_django_blog/media/{filename}")
+        try:
+            for filename in os.listdir("./dummy_django_blog/media"):
+                if regex.match(filename):
+                    os.remove(f"./dummy_django_blog/media/{filename}")
+        except Exception:
+            pass
     else:
         for filename in os.listdir("./media"):
             if regex.match(filename):
