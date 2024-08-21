@@ -1,4 +1,5 @@
 """Django settings"""
+
 import os
 import sys
 from pathlib import Path
@@ -23,13 +24,12 @@ DEBUG = os.getenv("DEBUG", "0").lower() in ["1", "true"]
 
 ALLOWED_HOSTS = [""]
 
-RENDER_EXTERNAL_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
+RENDER_EXTERNAL_HOSTNAME = os.environ.get("RENDER_EXTERNAL_HOSTNAME")
 if RENDER_EXTERNAL_HOSTNAME:
     ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
     DATABASES = {
-        'default': dj_database_url.config(
-            default=os.environ.get('DATABASE_URL'),
-            conn_max_age=600
+        "default": dj_database_url.config(
+            default=os.environ.get("DATABASE_URL"), conn_max_age=600
         )
     }
 else:
@@ -38,9 +38,9 @@ else:
     else:
         ALLOWED_HOSTS = ["localhost", "127.0.0.1"]
     DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': BASE_DIR / ('db.sqlite3'),
+        "default": {
+            "ENGINE": "django.db.backends.sqlite3",
+            "NAME": BASE_DIR / ("db.sqlite3"),
         }
     }
 
@@ -69,7 +69,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
-    'whitenoise.middleware.WhiteNoiseMiddleware',
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
@@ -106,7 +106,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
     {
         "NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",
-        "OPTIONS": {"min_length": 6}
+        "OPTIONS": {"min_length": 6},
     },
     {
         "NAME": "django.contrib.auth.password_validation.CommonPasswordValidator",
@@ -136,17 +136,19 @@ AUTH_USER_MODEL = "authentication.User"
 # Static files settings
 STATIC_URL = "static/"
 STATICFILES_DIRS = [BASE_DIR.joinpath("static")]
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 
 # AWS settings
 AWS_ACCESS_KEY_ID = os.getenv("AWS_ACCESS_KEY_ID")
 AWS_SECRET_ACCESS_KEY = os.getenv("AWS_SECRET_ACCESS_KEY")
 AWS_STORAGE_BUCKET_NAME = "dummy-django-app-on-render"
 AWS_S3_REGION_NAME = os.getenv("AWS_DEFAULT_REGION")
-AWS_S3_CUSTOM_DOMAIN = f"{AWS_STORAGE_BUCKET_NAME}.s3.{AWS_S3_REGION_NAME}.amazonaws.com"
+AWS_S3_CUSTOM_DOMAIN = (
+    f"{AWS_STORAGE_BUCKET_NAME}.s3.{AWS_S3_REGION_NAME}.amazonaws.com"
+)
 AWS_S3_FILE_OVERWRITE = False
 AWS_DEFAULT_ACL = None
-AWS_S3_OBJECT_PARAMETERS = {'CacheControl': 'max-age=86400'}
+AWS_S3_OBJECT_PARAMETERS = {"CacheControl": "max-age=86400"}
 
 # Media files settings
 DEFAULT_FILE_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
@@ -154,12 +156,12 @@ MEDIA_URL = f"https://{AWS_S3_CUSTOM_DOMAIN}/"
 
 
 if not DEBUG and RENDER_EXTERNAL_HOSTNAME is not None:
-    STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+    STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 else:
     if os.getenv("IS_TESTING") == "True":
-        DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
+        DEFAULT_FILE_STORAGE = "django.core.files.storage.FileSystemStorage"
         MEDIA_ROOT = os.path.join(BASE_DIR, "media")
-        STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
+        STATICFILES_STORAGE = "django.contrib.staticfiles.storage.StaticFilesStorage"
     else:
         STORAGES = {
             "default": {

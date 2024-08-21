@@ -12,4 +12,6 @@ class SigninForm(UserCreationForm):
 class ProfileImageUpdateForm(forms.ModelForm):
     class Meta:
         model = get_user_model()
-        fields = ["image_profile",]
+        fields = [
+            "image_profile",
+        ]

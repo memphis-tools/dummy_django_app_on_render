@@ -63,7 +63,14 @@ def feed(request):
     paginator = Paginator(photos_and_posts, 5)
     page = request.GET.get("page")
     page_obj = paginator.get_page(page)
-    return render(request, "blog/feed.html", context={"page_obj": page_obj, "MEDIA_URL": settings.MEDIA_URL,})
+    return render(
+        request,
+        "blog/feed.html",
+        context={
+            "page_obj": page_obj,
+            "MEDIA_URL": settings.MEDIA_URL,
+        },
+    )
 
 
 @login_required
@@ -127,7 +134,11 @@ def photos_update(request, id):
                 form = forms.PhotoDeleteForm(request.POST)
                 if form.is_valid():
                     return redirect("photos_delete", id=photo.id)
-    return render(request, "blog/photos_update.html", context={"photo": photo, "edit_form": edit_form, "delete_form": delete_form})
+    return render(
+        request,
+        "blog/photos_update.html",
+        context={"photo": photo, "edit_form": edit_form, "delete_form": delete_form},
+    )
 
 
 @login_required
@@ -155,7 +166,9 @@ def posts_delete(request, id):
     """A dummy posts_delete route"""
     post = get_object_or_404(models.Post, id=id)
     if request.method == "POST":
-        if post.contributors.filter(id=request.user.id).exists() or request.user.is_staff:
+        if (
+            post.contributors.filter(id=request.user.id).exists() or request.user.is_staff
+        ):
             post.delete()
             messages.add_message(request, messages.INFO, "Billet supprimé")
             return redirect("feed")
@@ -231,9 +244,7 @@ def post_and_photo_add(request):
             post.save()
             # Create the Contributor instance explicitly
             models.Contributor.objects.create(
-                contributor=request.user,
-                post=post,
-                contribution="Auteur principal"
+                contributor=request.user, post=post, contribution="Auteur principal"
             )
             messages.add_message(request, messages.INFO, "Billet ajouté")
             return redirect("feed")
@@ -262,11 +273,15 @@ def posts_update(request, id):
     edit_post_form = forms.PostForm(instance=post)
     delete_form = forms.PostDeleteForm()
     if request.method == "POST":
-        if post.contributors.filter(id=request.user.id).exists() or request.user.is_staff:
+        if (
+            post.contributors.filter(id=request.user.id).exists() or request.user.is_staff
+        ):
             if "edit_post" in request.POST:
                 post_form = forms.PostForm(request.POST, instance=post)
                 if not update_on_null_image:
-                    photo_form = forms.PhotoForm(request.POST, request.FILES, instance=photo)
+                    photo_form = forms.PhotoForm(
+                        request.POST, request.FILES, instance=photo
+                    )
                 else:
                     photo_form = forms.PhotoForm(request.POST, request.FILES)
                 if all([post_form.is_valid(), photo_form.is_valid()]):
@@ -295,8 +310,8 @@ def posts_update(request, id):
             "post": post,
             "edit_post_form": edit_post_form,
             "edit_photo_form": edit_photo_form,
-            "delete_form": delete_form
-        }
+            "delete_form": delete_form,
+        },
     )
 
 

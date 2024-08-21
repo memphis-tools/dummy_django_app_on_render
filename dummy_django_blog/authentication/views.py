@@ -11,11 +11,15 @@ def signin(request):
         form = forms.SigninForm(request.POST)
         if form.is_valid():
             form.save()
-            messages.add_message(request, messages.INFO, "Vous êtes maintenant inscrit(e)")
+            messages.add_message(
+                request, messages.INFO, "Vous êtes maintenant inscrit(e)"
+            )
             return redirect("home")
         else:
             messages.add_message(
-                request, messages.ERROR, "Inscription non réalisée, merci d'essayer de nouveau"
+                request,
+                messages.ERROR,
+                "Inscription non réalisée, merci d'essayer de nouveau",
             )
     return render(request, "authentication/signin.html", context={"form": form})
 
@@ -35,7 +39,7 @@ def update_profile_image(request):
             messages.add_message(
                 request,
                 messages.ERROR,
-                f"Image n'a pas pas pu etre mise à jour, merci de vérifier le format (.jpg) et d'essayer de nouveau",
+                "Image n'a pas pas pu etre mise à jour, merci de vérifier le format (.jpg) et d'essayer de nouveau",
             )
     return render(
         request, "authentication/update_profile_image.html", context={"form": form}
