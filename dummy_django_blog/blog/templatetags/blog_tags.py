@@ -24,7 +24,7 @@ def get_poster(context, user):
 def format_created_date(created_at):
     seconds_ago = (timezone.now() - created_at).total_seconds()
     if seconds_ago <= HOUR:
-        return f'Publié il y a {int(seconds_ago // MINUTE)} minute(s).'
+        return f"Publié il y a {int(seconds_ago // MINUTE)} minute(s)."
     elif seconds_ago <= DAY:
-        return f'Publié il y a {int(seconds_ago // HOUR)} heure(s).'
+        return f"Publié il y a {int(seconds_ago // HOUR)} heure(s)."
     return f'Publié le {created_at.strftime("%d %b %y à %Hh%M")}'

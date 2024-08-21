@@ -1,12 +1,11 @@
 """A dummy init script"""
+
 import os
 import re
 from io import BytesIO
 from PIL import Image
-from datetime import datetime
 import boto3
 from django.core.files.base import ContentFile
-from django.core.files.storage import default_storage
 from django.core.management.base import BaseCommand
 from django.conf import settings
 from django.contrib.auth import get_user_model
@@ -37,14 +36,15 @@ PHOTOS_TITLES_LIST = [
 
 # Initialize S3 client
 s3_client = boto3.client(
-    's3',
+    "s3",
     aws_access_key_id=settings.AWS_ACCESS_KEY_ID,
     aws_secret_access_key=settings.AWS_SECRET_ACCESS_KEY,
-    region_name=settings.AWS_S3_REGION_NAME
+    region_name=settings.AWS_S3_REGION_NAME,
 )
 
 # Define the S3 bucket name
 bucket_name = settings.AWS_STORAGE_BUCKET_NAME
+
 
 def file_exists_on_s3(file_key):
     s3_storage = S3Boto3Storage()
@@ -53,8 +53,8 @@ def file_exists_on_s3(file_key):
 
 def list_s3_contents():
     response = s3_client.list_objects_v2(Bucket=bucket_name)
-    if 'Contents' in response:
-        return [obj['Key'] for obj in response['Contents']]
+    if "Contents" in response:
+        return [obj["Key"] for obj in response["Contents"]]
     else:
         return []
 
@@ -116,13 +116,15 @@ def create_users(user_model) -> list:
             "email": "daisy.duck@localhost",
         },
     ]
-    user_model.objects.create_superuser(SUPERUSER_NAME, SUPERUSER_EMAIL, SUPERUSER_PASSWORD)
+    user_model.objects.create_superuser(
+        SUPERUSER_NAME, SUPERUSER_EMAIL, SUPERUSER_PASSWORD
+    )
     for new_user in users_list:
         user = user_model.objects.create_user(**new_user)
         user.follows.add(user)
 
     user_1 = user_model.objects.get(username="donald")
-    user_2  = user_model.objects.get(username="daisy")
+    user_2 = user_model.objects.get(username="daisy")
     return [user_1, user_2]
 
 
@@ -140,25 +142,33 @@ def purge_external_storage_content():
     response = s3_client.list_objects_v2(Bucket=settings.AWS_STORAGE_BUCKET_NAME)
 
     # Check if there are any objects to delete
-    objects = response.get('Contents', [])
+    objects = response.get("Contents", [])
     if objects:
         s3_client.delete_objects(
             Bucket=settings.AWS_STORAGE_BUCKET_NAME,
             Delete={
-                'Objects': [{'Key': obj['Key']} for obj in s3_client.list_objects_v2(Bucket=settings.AWS_STORAGE_BUCKET_NAME).get('Contents', [])]
-                }
+                "Objects": [
+                    {"Key": obj["Key"]}
+                    for obj in s3_client.list_objects_v2(
+                        Bucket=settings.AWS_STORAGE_BUCKET_NAME
+                    ).get("Contents", [])
+                ]
+            },
         )
         # Recreate the 'media/' folder by uploading an empty placeholder file
-        s3_client.put_object(Bucket=settings.AWS_STORAGE_BUCKET_NAME, Key='media/')
+        s3_client.put_object(Bucket=settings.AWS_STORAGE_BUCKET_NAME, Key="media/")
 
 
 def remove_local_media_files():
     pattern = r"photo_.*|billet_.*"
     regex = re.compile(pattern)
     if os.getenv("IS_TESTING") == "True":
-        for filename in os.listdir("./dummy_django_blog/media"):
-            if regex.match(filename):
-                os.remove(f"./dummy_django_blog/media/{filename}")
+        try:
+            for filename in os.listdir("./dummy_django_blog/media"):
+                if regex.match(filename):
+                    os.remove(f"./dummy_django_blog/media/{filename}")
+        except Exception:
+            pass
     else:
         for filename in os.listdir("./media"):
             if regex.match(filename):
@@ -171,9 +181,9 @@ def save_a_local_media_file(file_name, uploaders_list):
     img = img.save(fp=file_name)
     image_file_path = file_name
     photo = Photo.objects.create(
-        title_photo=PHOTOS_TITLES_LIST[randint(0,9)],
-        caption=f"Crédits France Télévision",
-        uploader=uploaders_list[randint(0,1)],
+        title_photo=PHOTOS_TITLES_LIST[randint(0, 9)],
+        caption="Crédits France Télévision",
+        uploader=uploaders_list[randint(0, 1)],
         image=image_file_path,
     )
     return photo
@@ -186,33 +196,35 @@ def save_a_s3_media_file(file_path, file_name, uploaders_list):
         img = Image.open(file_path)
         img.thumbnail(settings.IMAGE_PREFERED_SIZE)
         img_io = BytesIO()
-        img.save(img_io, format='JPEG')
-        img_io.seek(0)  # Reset stream position (since we prepared image format below with 'img.save')
+        img.save(img_io, format="JPEG")
+        img_io.seek(
+            0
+        )  # Reset stream position (since we prepared image format below with 'img.save')
 
         # Create ContentFile for the image
         image_file = ContentFile(img_io.getvalue(), file_name)
 
         # Create the Photo instance and let Django handle the upload to S3
         photo = Photo.objects.create(
-            title_photo=PHOTOS_TITLES_LIST[randint(0,9)],
+            title_photo=PHOTOS_TITLES_LIST[randint(0, 9)],
             caption="Crédits France Télévision",
-            uploader=uploaders_list[randint(0,1)],
+            uploader=uploaders_list[randint(0, 1)],
             image=image_file,
         )
         return photo
     else:
         # Create the Photo instance without image
         photo = Photo.objects.create(
-            title_photo=PHOTOS_TITLES_LIST[randint(0,9)],
+            title_photo=PHOTOS_TITLES_LIST[randint(0, 9)],
             caption="Crédits France Télévision",
-            uploader=uploaders_list[randint(0,1)],
+            uploader=uploaders_list[randint(0, 1)],
         )
         photo.attach_existing_image(photo.id, file_key)
         return photo
 
 
 def create_dummy_photos(uploaders_list):
-    for photo_id in range(1, TOTAL_PHOTOS+1):
+    for photo_id in range(1, TOTAL_PHOTOS + 1):
         if os.getenv("IS_TESTING") == "True":
             file_name = f"./dummy_django_blog/images_echantillons/photo_{photo_id}.jpg"
             save_a_local_media_file(file_name, uploaders_list)
@@ -224,22 +236,22 @@ def create_dummy_photos(uploaders_list):
 
 def save_dummy_default_profile(uploaders_list):
     if os.getenv("IS_TESTING") == "True":
-        file_name = f"./dummy_django_blog/images_echantillons/default_profile.png"
+        file_name = "./dummy_django_blog/images_echantillons/default_profile.png"
         img = Image.open(file_name)
         img = img.save(fp=file_name)
     else:
         s3_storage = S3Boto3Storage()
-        file_path = f"./images_echantillons/default_profile.png"
-        file_name = f"default_profile.png"
-        file_key = f"media/default_profile.png"
+        file_path = "./images_echantillons/default_profile.png"
+        file_name = "default_profile.png"
+        file_key = "media/default_profile.png"
         if not s3_storage.exists(file_key):
             img = Image.open(file_path)
             img_io = BytesIO()
-            img.save(img_io, format='JPEG')
+            img.save(img_io, format="JPEG")
             img_io.seek(0)  # Reset stream position
 
             # Create ContentFile for the image
-            image_file = ContentFile(img_io.getvalue(), f"default_profile.png")
+            image_file = ContentFile(img_io.getvalue(), "default_profile.png")
 
             # Manually upload the file to S3
             s3_storage.save(file_key, image_file)
@@ -247,24 +259,26 @@ def save_dummy_default_profile(uploaders_list):
 
 def create_dummy_posts(uploaders_list):
     if os.getenv("IS_TESTING") == "True":
-        file_name = f"./dummy_django_blog/images_echantillons/billet_1.jpg"
+        file_name = "./dummy_django_blog/images_echantillons/billet_1.jpg"
         photo_billet_1 = save_a_local_media_file(file_name, uploaders_list)
-        file_name = f"./dummy_django_blog/images_echantillons/billet_2.jpg"
+        file_name = "./dummy_django_blog/images_echantillons/billet_2.jpg"
         photo_billet_2 = save_a_local_media_file(file_name, uploaders_list)
     else:
-        file_path = f"./images_echantillons/billet_1.jpg"
-        file_name = f"billet_1.jpg"
+        file_path = "./images_echantillons/billet_1.jpg"
+        file_name = "billet_1.jpg"
         photo_billet_1 = save_a_s3_media_file(file_path, file_name, uploaders_list)
-        file_path = f"./images_echantillons/billet_2.jpg"
-        file_name = f"billet_2.jpg"
+        file_path = "./images_echantillons/billet_2.jpg"
+        file_name = "billet_2.jpg"
         photo_billet_2 = save_a_s3_media_file(file_path, file_name, uploaders_list)
 
     post = Post.objects.create(
         title="Épisode 1 : Jeux de glaces",
         content="""Le Dr Étienne Bousquet tient un centre de réinsertion pour les délinquants.
         Mais la présence de voyous perturbe sa famille.
-        Lorsque deux meurtres sont commis, le nouveau commissaire, Swan Laurence, enquête avec, dans ses pattes, la trop curieuse journaliste Alice Avril.
-        Si on y regarde d'un peu plus près, cette famille ne semble pas unie par les liens d'amour, et chacun des membres a un petit secret.
+        Lorsque deux meurtres sont commis, le nouveau commissaire,
+        Swan Laurence, enquête avec, dans ses pattes, la trop curieuse journaliste Alice Avril.
+        Si on y regarde d'un peu plus près, cette famille ne semble pas unie par les liens d'amour,
+        et chacun des membres a un petit secret.
         Les délinquants du centre ne sont peut-être pas les plus inquiétants...""",
     )
     post.contributors.set([uploaders_list[0]]),

@@ -13,23 +13,19 @@
 
 **This is dummy django blog application.**
 
-In the cloud context, application is hosted on [Render](https://render.com/) as a Python app. Docker, Gunicorn, Nginx are not needed.
-
-Because of a free plan we no static volumes. We use a dummy sqlite database. Also there are a lot of latencies.
+In the cloud context, application is hosted on [Render](https://render.com/) as a Python app, so Docker, Gunicorn, Nginx are not used.
 
 Locally you will run the application using Docker (with Gunicorn and Nginx).
 
 The CI-CD chain consists in using [Circle-ci](https://circleci.com/).
 
-So a dummy Django application for learning purposes, to practise. Focus is set on the backend, do not pay attention to the frontend (HTML, CSS & Javascript).
+A dummy Django application for learning purposes, to practise. Focus is set on the backend, do not pay attention to the frontend (HTML, CSS & Javascript).
 
 Also more tests and logging will be added later on.
 
 You can find this dummy blog app at https://dummy-django-app-on-render.onrender.com/
 
-**Due to the free usage plan, Render may spin down the app if it's not used. It will spin it back up, but this process can take about 1 minute.**
-
-To avoid creating a temporary free PostgreSQL service from Render, configure the app as a static website using SQLite3.
+**Because of a free instances plan, Render will spin down with inactivity, which can delay requests by 50 seconds or more.**
 
 ## TECHNOLOGIES
 ---------------
@@ -66,6 +62,14 @@ For a local usage set an envrc file such like this:
     export DOCKER_HUB_USER='yourDockerhubUsername'
     export DOCKER_HUB_PASSWORD='yourDockerhubPassword'
     export IS_TESTING=False
+    export AWS_ACCESS_KEY_ID="your_aws_access_key_id"
+    export AWS_SECRET_ACCESS_KEY="your_aws_secret_access_key"
+    export AWS_DEFAULT_REGION="your_aws_region"
+    export EMAIL_HOST="localhost"
+    export EMAIL_PORT=25
+    export EMAIL_USE_TLS=False
+    export EMAIL_HOST_USER="admin@django_app_on_render.dev"
+    export EMAIL_HOST_PASSWORD=""
 
 The Django settings.py will load the file (with load_dotenv).
 

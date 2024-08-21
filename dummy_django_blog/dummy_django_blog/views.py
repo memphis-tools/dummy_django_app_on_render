@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 
+
 def handler404(request, exception):
     """Return a custom 400 error HTML page."""
     context = {"error_code": 400, "request": request}

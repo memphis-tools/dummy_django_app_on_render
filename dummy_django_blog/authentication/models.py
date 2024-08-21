@@ -3,7 +3,7 @@ from django.contrib.auth.models import AbstractUser, Group
 
 
 def upload_to_avatars(instance, filename):
-    return 'media/{filename}'.format(filename=filename)
+    return "media/{filename}".format(filename=filename)
 
 
 class User(AbstractUser):
@@ -20,15 +20,14 @@ class User(AbstractUser):
         default="default_profile.png",
         upload_to=upload_to_avatars,
     )
-    role = models.CharField(max_length=25, choices=ROLES_CHOICES, default=CREATOR, verbose_name="role")
+    role = models.CharField(
+        max_length=25, choices=ROLES_CHOICES, default=CREATOR, verbose_name="role"
+    )
     follows = models.ManyToManyField(
         "self",
-        limit_choices_to={
-            "role": CREATOR,
-            "is_superuser": False
-        },
+        limit_choices_to={"role": CREATOR, "is_superuser": False},
         symmetrical=False,
-        verbose_name="abonnements"
+        verbose_name="abonnements",
     )
 
     def __str__(self):
