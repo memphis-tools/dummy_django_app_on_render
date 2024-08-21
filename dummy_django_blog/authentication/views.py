@@ -35,7 +35,7 @@ def update_profile_image(request):
             messages.add_message(
                 request,
                 messages.ERROR,
-                f"Image n'a pas pas pu etre mise à jour, merci de vérifier d'essayer de nouveau",
+                f"Image n'a pas pas pu etre mise à jour, merci de vérifier le format (.jpg) et d'essayer de nouveau",
             )
     return render(
         request, "authentication/update_profile_image.html", context={"form": form}
