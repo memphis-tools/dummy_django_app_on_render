@@ -6,7 +6,6 @@ from dotenv import load_dotenv
 from datetime import timedelta
 import dj_database_url
 
-from .storage import CustomStaticFilesStorage
 
 try:
     load_dotenv(".envrc")
@@ -27,7 +26,6 @@ ALLOWED_HOSTS = [""]
 RENDER_EXTERNAL_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
 if RENDER_EXTERNAL_HOSTNAME:
     ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
-    # Database
     DATABASES = {
         'default': dj_database_url.config(
             default=os.environ.get('DATABASE_URL'),
@@ -39,7 +37,6 @@ else:
         ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS").split(",")
     else:
         ALLOWED_HOSTS = ["localhost", "127.0.0.1"]
-    # Database
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.sqlite3',
@@ -155,29 +152,9 @@ AWS_S3_OBJECT_PARAMETERS = {'CacheControl': 'max-age=86400'}
 DEFAULT_FILE_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
 MEDIA_URL = f"https://{AWS_S3_CUSTOM_DOMAIN}/"
 
-# Ignore Missing Source Maps
-WHITENOISE_AUTOREFRESH = True
-WHITENOISE_USE_FINDERS = True
-
-# Try avoid error Missing staticfiles manifest entry for 'favicon.ico'
-WHITENOISE_MANIFEST_STRICT = False
-
 
 if not DEBUG and RENDER_EXTERNAL_HOSTNAME is not None:
     STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-    # STORAGES = {
-    #     "default": {
-    #         "BACKEND": "storages.backends.s3boto3.S3Boto3Storage",
-    #         "OPTIONS": {
-    #             "bucket_name": "dummy-django-app-on-render",
-    #             "custom_domain": f"{AWS_STORAGE_BUCKET_NAME}.s3.{AWS_S3_REGION_NAME}.amazonaws.com",
-    #         },
-    #     },
-    #     "staticfiles": {
-    #         # "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
-    #         "BACKEND": "dummy_django_blog.storage.CustomStaticFilesStorage",
-    #     },
-    # }
 else:
     if os.getenv("IS_TESTING") == "True":
         DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
