@@ -15,6 +15,4 @@ class MustContainsDigit:
         return "Au moins 1 chiffre attendu dans le titre"
 
     def deconstruct(self):
-        return (
-            'blog.validators.MustContainsDigit', [], {}
-        )
+        return ("blog.validators.MustContainsDigit", [], {})

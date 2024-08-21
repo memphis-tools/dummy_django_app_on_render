@@ -11,19 +11,20 @@ from .validators import MustContainsDigit
 
 def get_upload_to(instance, filename):
     if os.getenv("IS_TESTING") == "True":
-        return os.path.join('dummy_django_blog/media/', filename)
+        return os.path.join("dummy_django_blog/media/", filename)
     else:
-        return os.path.join('media/', filename)
+        return os.path.join("media/", filename)
 
 
 class Photo(models.Model):
     class Meta:
-        permissions = [
-            ('add_multiple_photos', 'Peut ajouter plusieurs photos')
-        ]
+        permissions = [("add_multiple_photos", "Peut ajouter plusieurs photos")]
+
     title_photo = models.CharField("titre photo", max_length=125)
     caption = models.CharField("legende", max_length=350)
-    uploader = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, on_delete=models.SET_NULL)
+    uploader = models.ForeignKey(
+        settings.AUTH_USER_MODEL, null=True, on_delete=models.SET_NULL
+    )
     created_at = models.DateTimeField(default=now)
     image = models.ImageField("photo", upload_to=get_upload_to, null=True, blank=True)
     starred = models.BooleanField(default=False)
@@ -55,11 +56,11 @@ class Photo(models.Model):
 
 
 class Post(models.Model):
-    title = models.CharField("titre billet", max_length=200, validators=[MustContainsDigit()])
+    title = models.CharField(
+        "titre billet", max_length=200, validators=[MustContainsDigit()]
+    )
     contributors = models.ManyToManyField(
-        settings.AUTH_USER_MODEL,
-        through="Contributor",
-        related_name="contributions"
+        settings.AUTH_USER_MODEL, through="Contributor", related_name="contributions"
     )
     created_at = models.DateTimeField(default=now)
     content = models.CharField("description", max_length=2500)
