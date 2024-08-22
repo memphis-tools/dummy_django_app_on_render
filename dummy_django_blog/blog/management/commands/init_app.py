@@ -170,9 +170,12 @@ def remove_local_media_files():
         except Exception:
             pass
     else:
-        for filename in os.listdir("./media"):
-            if regex.match(filename):
-                os.remove(f"./media/{filename}")
+        try:
+            for filename in os.listdir("./media"):
+                if regex.match(filename):
+                    os.remove(f"./media/{filename}")
+        except Exception:
+            pass
 
 
 def save_a_local_media_file(file_name, uploaders_list):
