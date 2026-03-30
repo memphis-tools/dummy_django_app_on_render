@@ -32,7 +32,7 @@ pluggy==1.6.0
 psycopg==3.3.3
 pycodestyle==2.14.0
 pyflakes==3.4.0
-Pygments==2.19.2
+Pygments==2.20.0
 pylint==4.0.5
 pytest==9.0.2
 pytest-django==4.12.0
