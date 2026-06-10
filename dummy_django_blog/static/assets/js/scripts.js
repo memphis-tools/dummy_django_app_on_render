@@ -1,5 +1,5 @@
 var footer_date = new Date();
-document.getElementById("footer_date").innerHTML = "Blog &copy;LesPetitsMeutres 2023-" + footer_date.getFullYear();
+document.getElementById("footer_date").innerHTML = "Blog &copy;LesPetitsMeurtres 2023-" + footer_date.getFullYear();
 
 document.addEventListener("DOMContentLoaded", function() {
     var toggler = document.querySelector(".navbar-toggler");

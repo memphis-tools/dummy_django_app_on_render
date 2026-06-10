@@ -9,9 +9,9 @@ import dj_database_url
 
 
 try:
-    load_dotenv(".envrc")
+    load_dotenv(".env")
 except FileNotFoundError as err:
-    print("File .envrc not found sir")
+    print("File .env not found sir")
     sys.exit(1)
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.

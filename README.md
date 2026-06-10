@@ -1,4 +1,4 @@
-![Screenshot](https://img.shields.io/badge/python-v3.11-blue?logo=python&logoColor=yellow)
+![Screenshot](https://img.shields.io/badge/python-v3.12.10-blue?logo=python&logoColor=yellow)
 ![Screenshot](https://img.shields.io/badge/docker-v26.1.4-blue?logo=docker&logoColor=yellow)
 ![Screenshot](https://img.shields.io/badge/django-v4.2-blue?logo=django&logoColor=yellow)
 ![Screenshot](https://img.shields.io/badge/gunicorn-v22.0-blue?logo=gunicorn&logoColor=yellow)
@@ -29,7 +29,7 @@ You can find this dummy blog app at https://dummy-django-app-on-render.onrender.
 
 ## TECHNOLOGIES
 ---------------
-Python 3.11 and later
+Python 3.12.10
 
 Sqlite3
 
@@ -53,7 +53,7 @@ Coveralls
     source $(poetry env info --path)/bin/activate
 
 ## EXECUTION PREQUISITES
-For a local usage set an envrc file such like this:
+For a local usage set a .env file such like this:
 
     export SECRET_KEY="superSecretKey"
     export ALLOWED_HOSTS="localhost,127.0.0.1"
