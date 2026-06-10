@@ -7,25 +7,23 @@
 
 {% block content %}
 <section>
-    <div class="w-100 d-flex flex-column align-items-center" id ="feed-section">
-        {% md_icon "home-circle-outline" size="1.5rem" %}
-    </div>
     <div class="container-fluid d-flex flex-column justify-content-start feed-intro">
-      <div class="d-flex flex-row justify-content-center">
+      <div class="d-flex flex-column align-items-center justify-content-center mt-2">
+          <i class="fa-solid fa-house" style="color: pink"></i>
           <h3>Quel trio & leurs complices !!</h3>
       </div>
-      <div class="d-flex flex-row justify-content-around">
+      <div class="app-submenu">
           <div class="feed-button-zone d-flex align-items-center flex-nowrap">
               <i class="feed-smileys fa-solid fa-camera-retro"></i>
-              <a href="#feed-section-photos" class="ms-2 text-nowrap">Retrouvez des photos</a>
+              <a href="#feed-section-photos" class="ms-2 text-nowrap">Photos</a>
           </div>
           <div class="feed-button-zone d-flex align-items-center flex-nowrap">
               <i class="feed-smileys fa-solid fa-film"></i>
-              <a href="#feed-section-posts" class="ms-2 text-nowrap">Retrouvez des billets</a>
+              <a href="#feed-section-posts" class="ms-2 text-nowrap">Billets</a>
           </div>
           <div class="feed-button-zone d-flex align-items-center flex-nowrap">
               <i class="feed-smileys fa-solid fa-people-group"></i>
-              <a href="#feed-section-personnages" class="ms-2 text-nowrap">Retrouvez les personnages</a>
+              <a href="#feed-section-personnages" class="ms-2 text-nowrap">Personnages</a>
           </div>
           <div class="feed-button-zone d-flex align-items-center flex-nowrap">
               <i class="feed-smileys fa-solid fa-address-card"></i>
@@ -33,7 +31,7 @@
           </div>
           <div class="feed-button-zone d-flex align-items-center flex-nowrap">
               <i class="feed-smileys fa-solid fa-chart-simple"></i>
-              <a href="#feed-section-audiences" class="ms-2 text-nowrap">Retrouvez les audiences</a>
+              <a href="#feed-section-audiences" class="ms-2 text-nowrap">Audiences</a>
           </div>
       </div>
     </div>
@@ -62,13 +60,13 @@
 </section>
 <section>
     <div class="container-fluid d-flex flex-column justify-content-start feed-section-photos" id="feed-section-photos">
-        <div class="d-flex flex-row justify-content-between">
+        <div class="d-flex flex-row justify-content-around">
             <div class="feed-button-zone d-flex align-items-center flex-nowrap">
                 <i class="feed-smileys fa-solid fa-camera-retro"></i>
                 <a href="{% url 'photos' %}" class="ms-2 text-nowrap">Retrouvez des photos</a>
             </div>
-            <div class="feed-button-zone">
-                <i class="w-100 feed-smileys fa-solid fa-house-heart"></i>
+            <div class="feed-button-zone d-flex align-items-center">
+                <i class="fa-solid fa-house" style="color: pink"></i>
                 <a href="#navbar" class="ms-2 text-nowrap">Accueil</a>
             </div>
         </div>
@@ -76,26 +74,26 @@
 </section>
 <section>
     <div class="container-fluid d-flex flex-column justify-content-start feed-section-posts" id="feed-section-posts">
-      <div class="d-flex flex-row justify-content-between">
+      <div class="d-flex flex-row justify-content-around">
           <div class="feed-button-zone d-flex align-items-center flex-nowrap">
               <i class="feed-smileys fa-solid fa-camera-retro"></i>
               <a href="{% url 'posts' %}" class="ms-2 text-nowrap">Retrouvez des billets</a>
           </div>
           <div class="feed-button-zone d-flex align-items-center flex-nowrap">
-              <i class="feed-smileys fa-solid fa-house-heart"></i>
+              <i class="fa-solid fa-house" style="color: pink"></i>
               <a href="#navbar" class="ms-2 text-nowrap">Accueil</a>
           </div>
       </div>
 </section>
 <section class="personnages">
     <div class="container-fluid d-flex flex-column justify-content-start feed-section-personnages" id="feed-section-personnages">
-        <div class="d-flex flex-row justify-content-between">
+        <div class="d-flex flex-row justify-content-around">
             <div class="feed-button-zone d-flex align-items-center flex-nowrap">
                 <i class="feed-smileys fa-solid fa-people-group"></i>
                 <a href="#feed-section-personnages" class="ms-2 text-nowrap">Retrouvez les personnages</a>
             </div>
             <div class="feed-button-zone">
-                <i class="w-100 feed-smileys fa-solid fa-house-heart"></i>
+                <i class="fa-solid fa-house" style="color: pink"></i>
                 <a href="#navbar" class="ms-2 text-nowrap">Accueil</a>
             </div>
         </div>
@@ -215,13 +213,13 @@
 </section>
 <section class="a_propos">
     <div class="container-fluid d-flex flex-column justify-content-start feed-section-a-propos" id="feed-section-a-propos">
-        <div class="d-flex flex-row justify-content-between">
+        <div class="d-flex flex-row justify-content-around">
             <div class="feed-button-zone d-flex align-items-center flex-nowrap">
                 <i class="feed-smileys fa-solid fa-address-card"></i>
                 <a href="#feed-section-a-propos" class="ms-2 text-nowrap">A propos</a>
             </div>
             <div class="feed-button-zone">
-                <i class="w-100 feed-smileys fa-solid fa-house-heart"></i>
+                <i class="fa-solid fa-house" style="color: pink"></i>
                 <a href="#navbar" class="ms-2 text-nowrap">Accueil</a>
             </div>
         </div>
@@ -316,13 +314,13 @@
 </section>
 <section class="audiences">
     <div class="container-fluid d-flex flex-column justify-content-start feed-section-audiences" id="feed-section-audiences">
-        <div class="d-flex flex-row justify-content-between">
+        <div class="d-flex flex-row justify-content-around">
             <div class="feed-button-zone d-flex align-items-center flex-nowrap">
                 <i class="feed-smileys fa-solid fa-chart-simple"></i>
                 <a href="#feed-section-audiences" class="ms-2 text-nowrap">Retrouvez les audiences</a>
             </div>
             <div class="feed-button-zone">
-                <i class="w-100 feed-smileys fa-solid fa-house-heart"></i>
+                <i class="fa-solid fa-house" style="color: pink"></i>
                 <a href="#navbar" class="ms-2 text-nowrap">Accueil</a>
             </div>
         </div>

@@ -5,7 +5,7 @@ RUN mkdir -p /home/dummy-operator; \
     adduser -S dummy-operator -G dummy-operator
 
 # create the appropriate directories
-ENV HOME=/home/dummy
+ENV HOME=/home/dummy-operator
 ENV APP_HOME=/home/dummy-operator/web
 RUN mkdir $APP_HOME; \
     mkdir /var/log/gunicorn; \

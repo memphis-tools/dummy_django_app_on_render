@@ -21,7 +21,7 @@
                 <img class="photo-contaner" src="{{ photo.image.url }}" alt="a dummy photo">
                 <figcaption><i>{{ photo.caption }}</i></figcaption>
             </figure>
-            <div class="mt-2 d-flex flex-column justify-content-around align-items-center">
+            <div class="mt-1 mb-4 d-flex flex-column justify-content-around align-items-center">
                 {% if request.user == photo.uploader %}
                     <div class="options_container d-flex flex-row align-items-baseline">
                         <a class="btn btn-primary m-3" href="{% url 'photos_update' photo.id %}">MODIFIER PHOTO</a>

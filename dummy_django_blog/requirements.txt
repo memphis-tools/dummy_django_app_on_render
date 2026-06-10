@@ -15,7 +15,6 @@ Django>=5.2.15
 django-bootstrap-icons>=0.9.0
 django-pytest>=0.2.0
 django-storages>=1.14.6
--e git+ssh://git@github.com/memphis-tools/dummy_django_app_on_render.git@43f485cfbb16a9681aea9cce6c8c0b77adaa358f#egg=dummy_django_blog
 flake8>=7.3.0
 flake8-html>=0.4.3
 gunicorn>=26.0.0
