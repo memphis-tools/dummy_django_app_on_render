@@ -6,152 +6,397 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <meta name="description" content="Application web de type blog autour de la série Les Petits Meurtres d'Agatha Christie, saison 2.">
-    <meta name="keywords" content="blog, python, django, html5, css3, js">
+    <meta name="description" content="Blog dédié aux aventures policières comiques des Petits Meurtres d'Agatha Christie - Saison 2">
+    <meta name="keywords" content="blog, python, django, html5, css3, agatha christie, les petits meurtres, série française">
     <meta name="generator" content="Django">
     <meta name="author" content="Tommy Doe">
+    <meta name="theme-color" content="#6d4aff">
+
     <link rel="icon" type="image/x-icon" href="{% static 'favicon.ico' %}">
-    <!--  FontAwesome -->
-    <link rel="stylesheet" type="text/css" href="{% static 'vendors/fontawesome-free-6.4.0-web/css/all.min.css' %}">
-    <!-- Bootstrap -->
+
+    <!-- Preload critical resources -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <!-- Google Fonts - Vintage typography for 50s-60s theme -->
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" type="text/css" href="{% static 'vendors/bootstrap-icons-1.10.0/font/bootstrap-icons.css' %}">
+
+    <!-- Bootstrap 5 -->
     <link rel="stylesheet" type="text/css" href="{% static 'vendors/css/bootstrap.min.css' %}">
-    <!-- Custom css -->
+
+    <!-- Custom CSS with vintage theme -->
     <link rel="stylesheet" type="text/css" href="{% static 'assets/css/styles.css' %}">
+
+    <!-- Critical inline CSS for performance -->
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --accent-gold: #d4af37;
+            --vintage-beige: #f5ebe0;
+            --sepia-brown: #8b7355;
+            --classic-black: #1a1a1a;
+        }
+
+        body {
+            font-family: 'Lora', serif;
+            background: linear-gradient(to bottom, var(--vintage-beige) 0%, #fffef8 100%);
+        }
+
+        .navbar-custom {
+            border-bottom: 3px double var(--accent-gold);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .navbar-brand {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+    </style>
+
+    {% block extra_css %}{% endblock extra_css %}
 </head>
 <body>
-    <div class="django-messages">
+    <!-- Django Messages - Enhanced Alert System -->
+    <div class="django-messages container mt-3">
         {% if messages %}
-          <ul>
+          <div class="alert-container">
               {% for message in messages %}
-                  <li class="{% if message.tags %}{{ message.tags }}{% endif %}">
+                  <div class="alert alert-{% if message.tags %}{{ message.tags }}{% else %}info{% endif %} alert-dismissible fade show shadow-sm" role="alert">
+                      {% if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
+                          <i class="bi bi-check-circle-fill me-2"></i>
+                      {% elif message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
+                          <i class="bi bi-exclamation-triangle-fill me-2"></i>
+                      {% elif message.level == DEFAULT_MESSAGE_LEVELS.WARNING %}
+                          <i class="bi bi-exclamation-circle-fill me-2"></i>
+                      {% else %}
+                          <i class="bi bi-info-circle-fill me-2"></i>
+                      {% endif %}
                       {{ message }}
-                  </li>
+                      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Fermer"></button>
+                  </div>
               {% endfor %}
-          </ul>
+          </div>
         {% endif %}
     </div>
+
+    <!-- Header Navigation -->
     <header>
-        <nav class="navbar navbar-light navbar-light sticky-top navbar-custom fixed*top" id="navbar">
-            <div class="w-100 container-fluid">
+        <nav class="navbar navbar-expand-lg navbar-light sticky-top navbar-custom" id="navbar" aria-label="Navigation principale">
+            <div class="container-fluid">
                 {% if user.is_authenticated %}
-                    <a class="navbar-brand" href="{% url 'feed' %}">
-                        <img src="{% static 'vendors/img/les_petits_meurtres_saison_2.png' %}" alt="LesTitsMeutres brand logo" width="60" height="60">
-                        LesPetitsMeutres
+                    <a class="navbar-brand" href="{% url 'feed' %}" aria-label="Accueil Les Petits Meurtres">
+                        <img src="{% static 'vendors/img/les_petits_meurtres_saison_2.png' %}"
+                             alt="Logo Les Petits Meurtres - Série policière"
+                             width="60"
+                             height="60"
+                             loading="lazy">
+                        <span class="ms-2">Les Petits Meurtres</span>
                     </a>
                 {% else %}
-                    <a class="navbar-brand" href="{% url 'home' %}">
-                        <img src="{% static 'vendors/img/les_petits_meurtres_saison_2.png' %}" alt="LesTitsMeutres brand logo" width="60" height="60">
-                        LesPetitsMeutres
+                    <a class="navbar-brand" href="{% url 'home' %}" aria-label="Accueil Les Petits Meurtres">
+                        <img src="{% static 'vendors/img/les_petits_meurtres_saison_2.png' %}"
+                             alt="Logo Les Petits Meurtres - Série policière"
+                             width="60"
+                             height="60"
+                             loading="lazy">
+                        <span class="ms-2">Les Petits Meurtres</span>
                     </a>
                 {% endif %}
-                <button id="navbar-toggler" class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggler button">
+
+                <button id="navbar-toggler"
+                        class="navbar-toggler"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#navbarNav"
+                        aria-controls="navbarNav"
+                        aria-expanded="false"
+                        aria-label="Basculer la navigation">
                     <span class="navbar-toggler-icon"></span>
-                    MENU
+                    <span class="visually-hidden">MENU</span>
                 </button>
+
                 <div class="collapse navbar-collapse" id="navbarNav">
-                      <div id="navbar-nav" class="navbar-nav ml-auto">
-                          {% if user.is_authenticated %}
-                              <div class="nav-link">
-                                  <a class="nav-item" href="{% url 'feed' %}">home</a>
-                              </div>
-                              <div class="nav-link dropdown custom-dropdown">
-                                  <a class="navbar-item dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                      photos
-                                  </a>
-                                  <ul class="dropdown-menu">
-                                      <h6 class="dropdown-header">photos</h6>
-                                      <li><a class="dropdown-item" href="{% url 'photos' %}">voir photos</a></li>
-                                      <li><a class="dropdown-item" href="{% url 'photos_add' %}">ajouter une photo</a></li>
-                                      <li><a class="dropdown-item" href="{% url 'photos_add_multiple' %}">ajouter des photos</a></li>
-                                  </ul>
-                              </div>
-                              <div class="nav-link dropdown custom-dropdown">
-                                  <a class="nav-item dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">billets</a>
-                                  <ul class="dropdown-menu">
-                                      <h6 class="dropdown-header">billets</h6>
-                                      <li><a class="dropdown-item" href="{% url 'posts' %}">voir billets</a></li>
-                                      <li><a class="dropdown-item" href="{% url 'posts_add' %}">ajouter un billet</a></li>
-                                  </ul>
-                              </div>
-                          {% else %}
-                              <div class="nav-link">
-                                  <a class="nav-item" href="{% url 'home' %}">home</a>
-                              </div>
-                          {% endif %}
-                          {% if not user.is_authenticated %}
-                              <div class="nav-link">
-                                  <a class="nav-item" href="{% url 'login' %}">login</a>
-                              </div>
-                              <div class="nav-link">
-                                  <a class="nav-item" href="{% url 'signin' %}">signin</a>
-                              </div>
-                          {% endif %}
-                          <div class="nav-link">
-                              <a class="nav-item" href="{% url 'contact_admin' %}">contacter un admin</a>
-                          </div>
-                          <div class="nav-link dropdown custom-dropdown user-dropdown">
-                              {% if user.is_authenticated %}
-                                  <a class="nav-item dropdown-toggle mt-3" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                      {% if user.image_profile.name == "default_profile.png" %}
-                                          <img class="image_profile rounded-pill" src="{% static 'vendors/img/default_profile.png' %}" alt="photo de profil">
-                                      {% else %}
-                                          <img class="image_profile" src="{{ user.image_profile.url }}" alt="{{ user.image_profile }}">
-                                      {% endif %}
-                                      {{ user.username }}
-                                  </a>
-                                  <ul class="dropdown-menu">
-                                      <li><a class="dropdown-item" href="#">voir profile</a></li>
-                                      <li><a class="dropdown-item" href="{% url 'follow_user' %}">abonnements</a></li>
-                                      <li><a class="dropdown-item" href="{% url 'update_profile_image' %}">modifier profile</a></li>
-                                      <li><a class="dropdown-item" href="{% url 'password_change' %}">modifier mot de passe</a></li>
-                                      <li>
-                                          <a class="dropdown-item" href="#" onclick="document.getElementById('logout-form').submit(); return false;">logout</a>
-                                      </li>
-                                  </ul>
-                                  <form id="logout-form" method="post" action="{% url 'logout' %}" style="display: none;">
-                                      {% csrf_token %}
-                                  </form>
-                              {% endif %}
-                          </div>
-                      </div>
+                    <ul id="navbar-nav" class="navbar-nav ms-auto">
+                        {% if user.is_authenticated %}
+                            <!-- Feed/Home -->
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'feed' %}" aria-current="page">
+                                    <i class="bi bi-house-door me-1"></i>Accueil
+                                </a>
+                            </li>
+
+                            <!-- Photos Dropdown -->
+                            <li class="nav-item dropdown custom-dropdown">
+                                <a class="nav-link dropdown-toggle"
+                                   href="#"
+                                   role="button"
+                                   data-bs-toggle="dropdown"
+                                   aria-expanded="false"
+                                   aria-haspopup="true">
+                                    <i class="bi bi-camera me-1"></i>Photos
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-end shadow">
+                                    <li><h6 class="dropdown-header"><i class="bi bi-images me-2"></i>Galerie Photos</h6></li>
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li>
+                                        <a class="dropdown-item" href="{% url 'photos' %}">
+                                            <i class="bi bi-eye me-2"></i>Voir photos
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" href="{% url 'photos_add' %}">
+                                            <i class="bi bi-plus-circle me-2"></i>Ajouter une photo
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" href="{% url 'photos_add_multiple' %}">
+                                            <i class="bi bi-camera-fill me-2"></i>Ajouter plusieurs photos
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+
+                            <!-- Posts/Billets Dropdown -->
+                            <li class="nav-item dropdown custom-dropdown">
+                                <a class="nav-link dropdown-toggle"
+                                   href="#"
+                                   role="button"
+                                   data-bs-toggle="dropdown"
+                                   aria-expanded="false"
+                                   aria-haspopup="true">
+                                    <i class="bi bi-newspaper me-1"></i>Billets
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-end shadow">
+                                    <li><h6 class="dropdown-header"><i class="bi bi-file-text me-2"></i>Articles</h6></li>
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li>
+                                        <a class="dropdown-item" href="{% url 'posts' %}">
+                                            <i class="bi bi-list-ul me-2"></i>Voir billets
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" href="{% url 'posts_add' %}">
+                                            <i class="bi bi-pencil-square me-2"></i>Ajouter un billet
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                        {% else %}
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'home' %}">
+                                    <i class="bi bi-house-door me-1"></i>Accueil
+                                </a>
+                            </li>
+                        {% endif %}
+
+                        <!-- Contact (always visible) -->
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'contact_admin' %}">
+                                <i class="bi bi-envelope me-1"></i>Contact
+                            </a>
+                        </li>
+
+                        {% if not user.is_authenticated %}
+                            <!-- Login/Register -->
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'login' %}">
+                                    <i class="bi bi-box-arrow-in-right me-1"></i>Connexion
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link btn btn-outline-primary ms-2" href="{% url 'signin' %}">
+                                    <i class="bi bi-person-plus me-1"></i>Inscription
+                                </a>
+                            </li>
+                        {% endif %}
+
+                        <!-- User Dropdown -->
+                        {% if user.is_authenticated %}
+                            <li class="nav-item dropdown custom-dropdown user-dropdown">
+                                <a class="nav-link dropdown-toggle"
+                                   href="#"
+                                   role="button"
+                                   data-bs-toggle="dropdown"
+                                   aria-expanded="false"
+                                   aria-haspopup="true">
+                                    {% if user.image_profile.name == "default_profile.png" %}
+                                        <img class="rounded-circle profile-img"
+                                             src="{% static 'vendors/img/default_profile.png' %}"
+                                             alt="Photo de profil par défaut"
+                                             width="32"
+                                             height="32">
+                                    {% else %}
+                                        <img class="rounded-circle profile-img"
+                                             src="{{ user.image_profile.url }}"
+                                             alt="Photo de profil de {{ user.username }}"
+                                             width="32"
+                                             height="32"
+                                             loading="lazy">
+                                    {% endif %}
+                                    <span class="ms-2 d-none d-md-inline">{{ user.username }}</span>
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-end shadow">
+                                    <li>
+                                        <a class="dropdown-item" href="#">
+                                            <i class="bi bi-person me-2"></i>Mon profil
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" href="{% url 'follow_user' %}">
+                                            <i class="bi bi-person-plus me-2"></i>Abonnements
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" href="{% url 'update_profile_image' %}">
+                                            <i class="bi bi-image me-2"></i>Modifier profil
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" href="{% url 'password_change' %}">
+                                            <i class="bi bi-key me-2"></i>Mot de passe
+                                        </a>
+                                    </li>
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li>
+                                        <form id="logout-form" method="post" action="{% url 'logout' %}">
+                                            {% csrf_token %}
+                                            <button type="submit" class="dropdown-item text-danger">
+                                                <i class="bi bi-box-arrow-right me-2"></i>Déconnexion
+                                            </button>
+                                        </form>
+                                    </li>
+                                </ul>
+                            </li>
+                        {% endif %}
+                    </ul>
                 </div>
             </div>
         </nav>
     </header>
-    <main>
+
+    <!-- Main Content Area -->
+    <main class="py-4">
         {% block content %}{% endblock content %}
     </main>
-    <footer class="w-100 footer-container">
-        <div class="d-flex flex-column align-items-center">
-            <p id="footer_date"></p>
-            <div class="d-flex flex-row justify-content-center">
-                <a class="mx-2 social-icons" href="#"><img src="{% static 'assets/img/icons/facebook.png' %}" alt="social media icon"></a>
-                <a class="mx-2 social-icons" href="#"><img src="{% static 'assets/img/icons/github.png' %}" alt="social media icon"></a>
-                <a class="mx-2 social-icons" href="#"><img src="{% static 'assets/img/icons/linkedin.png' %}" alt="social media icon"></a>
-                <a class="mx-2 social-icons" href="#"><img src="{% static 'assets/img/icons/tweeter.png' %}" alt="social media icon"></a>
+
+    <!-- Footer -->
+    <footer class="w-100 footer-container bg-dark text-light py-5">
+        <div class="container">
+            <!-- Row 1: Social Links | Copyright | Back to Top -->
+            <div class="row align-items-center">
+                <div class="col-md-4 text-center text-md-start mb-3 mb-md-0">
+                    <h5 class="mb-3" style="font-family: 'Playfair Display', serif;">Suivez-nous</h5>
+                    <div class="d-flex justify-content-center justify-content-md-start">
+                        <a class="mx-2 social-icons" href="#" aria-label="Facebook" target="_blank" rel="noopener noreferrer">
+                            <img src="{% static 'assets/img/icons/facebook.png' %}" alt="" width="32" height="32" loading="lazy">
+                        </a>
+                        <a class="mx-2 social-icons" href="#" aria-label="GitHub" target="_blank" rel="noopener noreferrer">
+                            <img src="{% static 'assets/img/icons/github.png' %}" alt="" width="32" height="32" loading="lazy">
+                        </a>
+                        <a class="mx-2 social-icons" href="#" aria-label="LinkedIn" target="_blank" rel="noopener noreferrer">
+                            <img src="{% static 'assets/img/icons/linkedin.png' %}" alt="" width="32" height="32" loading="lazy">
+                        </a>
+                        <a class="mx-2 social-icons" href="#" aria-label="Twitter" target="_blank" rel="noopener noreferrer">
+                            <img src="{% static 'assets/img/icons/twitter.png' %}" alt="" width="32" height="32" loading="lazy">
+                        </a>
+                    </div>
+                </div>
+
+                <div class="col-md-4 text-center mb-3 mb-md-0">
+                    <p id="footer_date" class="mb-0">© <span id="current_year"></span> Les Petits Meurtres Fan Blog</p>
+                    <small class="text-muted">Une aventure policière en France dans les années 1950-60</small>
+                </div>
+
+                <div class="col-md-4 text-center text-md-end">
+                    <a href="#navbar" class="btn btn-outline-light" aria-label="Retourner en haut de page">
+                        <i class="bi bi-arrow-up"></i> Haut de page
+                    </a>
+                </div>
+            </div>
+
+            <!-- Divider Line -->
+            <hr class="my-4 opacity-25">
+
+            <!-- Footer Brand Image -->
+            <div class="text-center">
+                <a href="#navbar" aria-label="Retour en haut">
+                    <img class="footer-image img-fluid"
+                         src="{% static 'vendors/img/les_petits_meurtres_la_fin.png' %}"
+                         alt="Image de fin - Les Petits Meurtres"
+                         style="max-height: 100px;"
+                         loading="lazy">
+                </a>
+            </div>
+
+            <!-- Legal Credits -->
+            <div class="text-center mt-4">
+                <small class="text-muted">
+                    Ceci est un site de fans non-officiel. Tous les droits appartiennent à leurs propriétaires respectifs.
+                    <br>Créé avec Django et passion pour les amateurs d'Agatha Christie 🕵️
+                </small>
+            </div>
+
+            <!-- Lumo Made Badge (Responsive) -->
+            <div class="text-center mt-3 pb-2">
+                <span class="lumo-badge shadow-sm">
+                    <i class="bi bi-sparkle me-1"></i>Lumo Made
+                    <a href="https://proton.me/lumo"
+                       target="_blank"
+                       rel="noopener noreferrer">
+                        <i class="bi bi-box-arrow-up-right ms-1" aria-hidden="true"></i>
+                    </a>
+                </span>
             </div>
         </div>
-
-        <div class="d-flex flex-row justify-content-center">
-            <a href="#navbar" alt="footer image">
-                <img class="footer-image d-flex flex-row justify-content-center" src="{% static 'vendors/img/les_petits_meurtres_la_fin.png' %}" alt="footer image">
-            </a>
-        </div>
     </footer>
-    <script src="{% static 'assets/js/scripts.js' %}"></script>
-    <!-- Bootstrap -->
-    <script src="{% static 'vendors/js/bootstrap.bundle.min.js' %}"></script>
-    <!-- Popper -->
-    <script src="{% static 'vendors/js/popper.min.js' %}"></script>
-    <!-- jquery -->
+
+    <!-- Scripts -->
+    {% block extra_js %}{% endblock extra_js %}
+
+    <!-- jQuery (Only if needed for legacy code) -->
     <script src="{% static 'vendors/js/jquery-1.12.4.min.js' %}"></script>
-    <!-- custom blur for navbar -->
+
+    <!-- Popper.js -->
+    <script src="{% static 'vendors/js/popper.min.js' %}"></script>
+
+    <!-- Bootstrap Bundle JS (includes Popper) -->
+    <script src="{% static 'vendors/js/bootstrap.bundle.min.js' %}"></script>
+
+    <!-- Custom Scripts -->
+    <script src="{% static 'assets/js/scripts.js' %}"></script>
+
+    <!-- Dynamic Footer Year -->
     <script>
-    $(document).ready(function() {
-      $('.navbar-toggler').click(function() {
-        $('body').toggleClass('navbar-blur');
-      });
+    document.addEventListener('DOMContentLoaded', function() {
+        // Set current year in footer
+        const yearElement = document.getElementById('current_year');
+        if (yearElement) {
+            yearElement.textContent = new Date().getFullYear();
+        }
+
+        // Navbar scroll effect
+        window.addEventListener('scroll', function() {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Auto-dismiss alerts after 5 seconds
+        setTimeout(function() {
+            const alerts = document.querySelectorAll('.alert:not(.alert-permanent)');
+            alerts.forEach(function(alert) {
+                const bsAlert = new bootstrap.Alert(alert);
+                bsAlert.close();
+            });
+        }, 5000);
     });
-  </script>
+    </script>
 </body>
 </html>
