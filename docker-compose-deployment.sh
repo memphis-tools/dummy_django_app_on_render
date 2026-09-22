@@ -14,7 +14,7 @@ function display_arg_error {
 }
 
 function update_application {
-  export IS_TESTING=False
+  export IS_TESTING=True
   docker compose -f docker-compose.dev.yml exec django python manage.py makemigrations authentication --noinput
   docker compose -f docker-compose.dev.yml exec django python manage.py makemigrations blog --noinput
   docker compose -f docker-compose.dev.yml exec django python manage.py migrate --noinput

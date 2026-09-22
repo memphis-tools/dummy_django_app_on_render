@@ -1,0 +1,157 @@
+{% load static %}
+{% load bootstrap_icons %}
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <meta name="description" content="Application web de type blog autour de la série Les Petits Meurtres d'Agatha Christie, saison 2.">
+    <meta name="keywords" content="blog, python, django, html5, css3, js">
+    <meta name="generator" content="Django">
+    <meta name="author" content="Tommy Doe">
+    <link rel="icon" type="image/x-icon" href="{% static 'favicon.ico' %}">
+    <!--  FontAwesome -->
+    <link rel="stylesheet" type="text/css" href="{% static 'vendors/fontawesome-free-6.4.0-web/css/all.min.css' %}">
+    <!-- Bootstrap -->
+    <link rel="stylesheet" type="text/css" href="{% static 'vendors/css/bootstrap.min.css' %}">
+    <!-- Custom css -->
+    <link rel="stylesheet" type="text/css" href="{% static 'assets/css/styles.css' %}">
+</head>
+<body>
+    <div class="django-messages">
+        {% if messages %}
+          <ul>
+              {% for message in messages %}
+                  <li class="{% if message.tags %}{{ message.tags }}{% endif %}">
+                      {{ message }}
+                  </li>
+              {% endfor %}
+          </ul>
+        {% endif %}
+    </div>
+    <header>
+        <nav class="navbar navbar-light navbar-light sticky-top navbar-custom fixed*top" id="navbar">
+            <div class="w-100 container-fluid">
+                {% if user.is_authenticated %}
+                    <a class="navbar-brand" href="{% url 'feed' %}">
+                        <img src="{% static 'vendors/img/les_petits_meurtres_saison_2.png' %}" alt="LesTitsMeutres brand logo" width="60" height="60">
+                        LesPetitsMeutres
+                    </a>
+                {% else %}
+                    <a class="navbar-brand" href="{% url 'home' %}">
+                        <img src="{% static 'vendors/img/les_petits_meurtres_saison_2.png' %}" alt="LesTitsMeutres brand logo" width="60" height="60">
+                        LesPetitsMeutres
+                    </a>
+                {% endif %}
+                <button id="navbar-toggler" class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggler button">
+                    <span class="navbar-toggler-icon"></span>
+                    MENU
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                      <div id="navbar-nav" class="navbar-nav ml-auto">
+                          {% if user.is_authenticated %}
+                              <div class="nav-link">
+                                  <a class="nav-item" href="{% url 'feed' %}">home</a>
+                              </div>
+                              <div class="nav-link dropdown custom-dropdown">
+                                  <a class="navbar-item dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                      photos
+                                  </a>
+                                  <ul class="dropdown-menu">
+                                      <h6 class="dropdown-header">photos</h6>
+                                      <li><a class="dropdown-item" href="{% url 'photos' %}">voir photos</a></li>
+                                      <li><a class="dropdown-item" href="{% url 'photos_add' %}">ajouter une photo</a></li>
+                                      <li><a class="dropdown-item" href="{% url 'photos_add_multiple' %}">ajouter des photos</a></li>
+                                  </ul>
+                              </div>
+                              <div class="nav-link dropdown custom-dropdown">
+                                  <a class="nav-item dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">billets</a>
+                                  <ul class="dropdown-menu">
+                                      <h6 class="dropdown-header">billets</h6>
+                                      <li><a class="dropdown-item" href="{% url 'posts' %}">voir billets</a></li>
+                                      <li><a class="dropdown-item" href="{% url 'posts_add' %}">ajouter un billet</a></li>
+                                  </ul>
+                              </div>
+                          {% else %}
+                              <div class="nav-link">
+                                  <a class="nav-item" href="{% url 'home' %}">home</a>
+                              </div>
+                          {% endif %}
+                          {% if not user.is_authenticated %}
+                              <div class="nav-link">
+                                  <a class="nav-item" href="{% url 'login' %}">login</a>
+                              </div>
+                              <div class="nav-link">
+                                  <a class="nav-item" href="{% url 'signin' %}">signin</a>
+                              </div>
+                          {% endif %}
+                          <div class="nav-link">
+                              <a class="nav-item" href="{% url 'contact_admin' %}">contacter un admin</a>
+                          </div>
+                          <div class="nav-link dropdown custom-dropdown user-dropdown">
+                              {% if user.is_authenticated %}
+                                  <a class="nav-item dropdown-toggle mt-3" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                      {% if user.image_profile.name == "default_profile.png" %}
+                                          <img class="image_profile rounded-pill" src="{% static 'vendors/img/default_profile.png' %}" alt="photo de profil">
+                                      {% else %}
+                                          <img class="image_profile" src="{{ user.image_profile.url }}" alt="{{ user.image_profile }}">
+                                      {% endif %}
+                                      {{ user.username }}
+                                  </a>
+                                  <ul class="dropdown-menu">
+                                      <li><a class="dropdown-item" href="#">voir profile</a></li>
+                                      <li><a class="dropdown-item" href="{% url 'follow_user' %}">abonnements</a></li>
+                                      <li><a class="dropdown-item" href="{% url 'update_profile_image' %}">modifier profile</a></li>
+                                      <li><a class="dropdown-item" href="{% url 'password_change' %}">modifier mot de passe</a></li>
+                                      <li>
+                                          <a class="dropdown-item" href="#" onclick="document.getElementById('logout-form').submit(); return false;">logout</a>
+                                      </li>
+                                  </ul>
+                                  <form id="logout-form" method="post" action="{% url 'logout' %}" style="display: none;">
+                                      {% csrf_token %}
+                                  </form>
+                              {% endif %}
+                          </div>
+                      </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <main>
+        {% block content %}{% endblock content %}
+    </main>
+    <footer class="w-100 footer-container">
+        <div class="d-flex flex-column align-items-center">
+            <p id="footer_date"></p>
+            <div class="d-flex flex-row justify-content-center">
+                <a class="mx-2 social-icons" href="#"><img src="{% static 'assets/img/icons/facebook.png' %}" alt="social media icon"></a>
+                <a class="mx-2 social-icons" href="#"><img src="{% static 'assets/img/icons/github.png' %}" alt="social media icon"></a>
+                <a class="mx-2 social-icons" href="#"><img src="{% static 'assets/img/icons/linkedin.png' %}" alt="social media icon"></a>
+                <a class="mx-2 social-icons" href="#"><img src="{% static 'assets/img/icons/tweeter.png' %}" alt="social media icon"></a>
+            </div>
+        </div>
+
+        <div class="d-flex flex-row justify-content-center">
+            <a href="#navbar" alt="footer image">
+                <img class="footer-image d-flex flex-row justify-content-center" src="{% static 'vendors/img/les_petits_meurtres_la_fin.png' %}" alt="footer image">
+            </a>
+        </div>
+    </footer>
+    <script src="{% static 'assets/js/scripts.js' %}"></script>
+    <!-- Bootstrap -->
+    <script src="{% static 'vendors/js/bootstrap.bundle.min.js' %}"></script>
+    <!-- Popper -->
+    <script src="{% static 'vendors/js/popper.min.js' %}"></script>
+    <!-- jquery -->
+    <script src="{% static 'vendors/js/jquery-1.12.4.min.js' %}"></script>
+    <!-- custom blur for navbar -->
+    <script>
+    $(document).ready(function() {
+      $('.navbar-toggler').click(function() {
+        $('body').toggleClass('navbar-blur');
+      });
+    });
+  </script>
+</body>
+</html>
