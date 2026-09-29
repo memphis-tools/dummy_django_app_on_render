@@ -38,7 +38,7 @@ workflows:
   healthcheck:
     triggers:
       - schedule:
-          cron: "*/30 * * * *"
+          cron: "0,15,30,45 * * * *"
           filters:
             branches:
               only:
@@ -138,5 +138,5 @@ jobs:
           name: Ping application on render.com
           command: |
             curl --fail --silent --show-error --max-time 30 \
-              https://dummy-django-app-on-render.onrender.com/ \
+              https://dummy-django-app-on-render.onrender.com/home/ \
               --output /dev/null

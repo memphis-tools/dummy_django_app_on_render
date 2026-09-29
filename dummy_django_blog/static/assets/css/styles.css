@@ -103,6 +103,7 @@ body .dropdown-item {
   flex-wrap: wrap;
   align-items: center;
   gap: 0 12px;
+  width: auto;
 }
 #navbar-nav .nav-link,
 #navbar-nav .custom-dropdown {
@@ -126,7 +127,7 @@ body .dropdown-item {
   background-color: #ea9ef054;
 }
 .navbar-nav {
-  width: 100%;
+  width: auto;
   margin-left: auto;
   z-index: 10;
 }
@@ -485,32 +486,14 @@ feed-button-zone a:hover {
   width: 22px;
   height: 22px;
 }
-.home-elements-sub {
-  margin: 2% 0% 5% 5%;
-}
 
-.home-elements-sub img {
-  width: 2%;
-}
 
-.home-elements-sub button {
-  font-family: "ArsenalSC", sans-serif;
-  color: white;
-  background-color: #221c1c8c;
-  border: 1px dashed pink;
-}
 
-.home-elements-sub button:hover {
-  color: white;
-  background-color: #ea9ef054;
-}
 
-.home-head-elements {
-  font-family: "Ubuntu", sans-serif;
-  font-weight: 500;
-  font-style: normal;
-  margin-left: 5%;
-}
+
+
+
+
 
 .photos-container {
   display: flex;
@@ -716,9 +699,6 @@ footer a {
     justify-content: space-around;
   }
 
-  .home-elements-sub {
-    margin: 2% 0% 5% 5%;
-  }
 
   .feed-container {
     display: flex;
