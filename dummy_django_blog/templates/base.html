@@ -84,15 +84,17 @@
                               <div class="nav-link">
                                   <a class="nav-item" href="{% url 'signin' %}">signin</a>
                               </div>
+                          {% endif %}
+                          <div class="nav-link">
+                              <a class="nav-item" href="{% url 'contact_admin' %}">contacter un admin</a>
+                          </div>
+                          {% if not user.is_authenticated %}
                               <div class="nav-link nav-cta">
                                   <button type="button" class="btn btn-primary navbar-cta-button">
                                       <a href="{% url 'login' %}">CONNECTEZ VOUS POUR PARTICIPER AU BLOG</a>
                                   </button>
                               </div>
                           {% endif %}
-                          <div class="nav-link">
-                              <a class="nav-item" href="{% url 'contact_admin' %}">contacter un admin</a>
-                          </div>
                           <div class="nav-link dropdown custom-dropdown user-dropdown">
                               {% if user.is_authenticated %}
                                   <a class="nav-item dropdown-toggle mt-3" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">

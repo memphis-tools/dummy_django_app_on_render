@@ -98,12 +98,21 @@ body .dropdown-item {
   backdrop-filter: blur(10px);
 }
 
+#navbar {
+  align-items: flex-start;
+}
+.navbar .container-fluid {
+  align-items: flex-start;
+}
 #navbar-nav {
   flex-direction: row;
   flex-wrap: wrap;
-  align-items: center;
-  gap: 0 12px;
+  align-items: flex-start;
+  gap: 4px 12px;
   width: auto;
+}
+.navbar-collapse {
+  align-items: flex-start;
 }
 #navbar-nav .nav-link,
 #navbar-nav .custom-dropdown {
@@ -124,7 +133,11 @@ body .dropdown-item {
   text-decoration: none;
 }
 .navbar-cta-button:hover {
-  background-color: #ea9ef054;
+  background-color: #ea9ef0;
+  color: white;
+}
+.navbar-cta-button:hover a {
+  color: white;
 }
 .navbar-nav {
   width: auto;
