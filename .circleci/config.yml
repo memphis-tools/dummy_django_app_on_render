@@ -35,6 +35,16 @@ workflows:
             branches:
                only:
                 - main
+  healthcheck:
+    triggers:
+      - schedule:
+          cron: "*/30 * * * *"
+          filters:
+            branches:
+              only:
+                - main
+    jobs:
+      - healthcheck
 
 jobs:
   test:
@@ -120,3 +130,13 @@ jobs:
       - run:
           name: order render to rebuild application
           command: curl $RENDER_DEPLOY_HOOK_URL
+  healthcheck:
+    docker:
+      - image: cimg/base:stable
+    steps:
+      - run:
+          name: Ping application on render.com
+          command: |
+            curl --fail --silent --show-error --max-time 30 \
+              https://dummy-django-app-on-render.onrender.com/ \
+              --output /dev/null
