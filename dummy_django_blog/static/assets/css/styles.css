@@ -712,6 +712,10 @@ footer a {
     height: 20px;
     object-fit: contain; /* Ensures the image is scaled to fit within the specified dimensions */
 }
+footer .social-icons,
+footer .footer-contact-admin {
+    padding-bottom: 10px;
+}
 
 
 @media (max-width: 991.98px) {
