@@ -27,3 +27,4 @@ jobs:
           else
             echo "::warning::Approbation refusee - verifier le parametre 'Allow GitHub Actions to approve pull requests' (Settings > Actions > General > Workflow permissions)"
           fi
+          gh pr merge --auto --merge "$PR_URL" || echo "::warning::Auto-merge non active - l'activer sur la PR ou verifier les permissions"
