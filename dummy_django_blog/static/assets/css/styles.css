@@ -417,6 +417,43 @@ feed-button-zone a:hover {
   margin-left: 5%;
 }
 
+.home-elements-middle {
+  position: relative;
+  margin: 1% 0% 0% 5%;
+  padding: 1.5% 2% 1% 2%;
+  max-width: 75%;
+  width: fit-content;
+  background-color: #221c1c8c;
+  border: 1px dashed #ea9ef0;
+  border-radius: 15px;
+  box-shadow: 4px 4px 0px #ea9ef054;
+}
+.home-elements-middle blockquote {
+  margin: 0;
+}
+.home-elements-middle p {
+  margin: 0;
+  font-size: 0.95rem;
+}
+.home-elements-middle cite {
+  display: block;
+  margin-top: 0.5%;
+  text-align: right;
+  font-size: 0.85rem;
+  color: #ea9ef0;
+}
+.heartbeat-icon {
+  position: absolute;
+  top: -14px;
+  left: -14px;
+  font-size: 1.5rem;
+  color: #ea9ef0;
+  background-color: #221c1c;
+  border: 1px dashed #ea9ef0;
+  border-radius: 50%;
+  padding: 4px;
+  transform: rotate(-20deg);
+}
 .home-elements-sub {
   margin: 2% 0% 5% 5%;
 }
