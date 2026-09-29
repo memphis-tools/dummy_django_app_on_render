@@ -103,6 +103,7 @@ body .dropdown-item {
   flex-wrap: wrap;
   align-items: center;
   gap: 0 12px;
+  width: auto;
 }
 #navbar-nav .nav-link,
 #navbar-nav .custom-dropdown {
@@ -126,7 +127,7 @@ body .dropdown-item {
   background-color: #ea9ef054;
 }
 .navbar-nav {
-  width: 100%;
+  width: auto;
   margin-left: auto;
   z-index: 10;
 }
