@@ -21,4 +21,9 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PR_URL: ${{ github.event.pull_request.html_url }}
-        run: gh pr review --approve "$PR_URL" --body "Auto-approbation - PR emise par Vibe ou dont le titre commence par docs/"
+        run: |
+          if gh pr review --approve "$PR_URL" --body "Auto-approbation - PR emise par Vibe ou dont le titre commence par docs/"; then
+            echo "PR auto-approuvee"
+          else
+            echo "::warning::Approbation refusee - verifier le parametre 'Allow GitHub Actions to approve pull requests' (Settings > Actions > General > Workflow permissions)"
+          fi
