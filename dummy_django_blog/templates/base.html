@@ -44,12 +44,7 @@
                         LesPetitsMeutres
                     </a>
                 {% endif %}
-                <button id="navbar-toggler" class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggler button">
-                    <span class="navbar-toggler-icon"></span>
-                    MENU
-                </button>
-                <div class="collapse navbar-collapse" id="navbarNav">
-                      <div id="navbar-nav" class="navbar-nav ml-auto">
+                <div id="navbar-nav" class="navbar-nav ml-auto">
                           {% if user.is_authenticated %}
                               <div class="nav-link">
                                   <a class="nav-item" href="{% url 'feed' %}">home</a>
@@ -113,8 +108,6 @@
                                   </form>
                               {% endif %}
                           </div>
-                      </div>
-                </div>
             </div>
         </nav>
     </header>
