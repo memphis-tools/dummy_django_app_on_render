@@ -13,8 +13,14 @@ jobs:
     if: |
       startsWith(github.head_ref, 'docs/') ||
       startsWith(github.head_ref, 'vibe/') ||
-      startsWith(github.head_ref, '[Snyk]') ||
-      startsWith(github.head_ref, '[Aikido] AI Fix')
+      (
+        startsWith(github.head_ref, '[Snyk]') &&
+        !contains(github.head_ref, 'alpine')
+      ) ||
+      (
+        startsWith(github.head_ref, '[Aikido] AI Fix') &&
+        !contains(github.head_ref, 'alpine')
+      )
     runs-on: ubuntu-latest
     steps:
       - name: Enable auto-merge
