@@ -16,7 +16,13 @@
               dans le rôle de Swan Laurence, l’intelligent, calculateur et élégant commissaire.
             </p>
             <p>2013-2020 27 épisodes</p>
-            <a href="{% url 'home' %}">COMEDIE</a>
+            <div class="home-comedie-row">
+                <a href="{% url 'home' %}">COMEDIE</a>
+                <button type="button" class="btn btn-primary navbar-cta-button home-signin-button">
+                    <a href="{% url 'signin' %}">INSCRIVEZ VOUS POUR PARTICIPER AU BLOG</a>
+                </button>
+                <img class="home-comedie-footer-image" src="{% static 'vendors/img/les_petits_meurtres_la_fin.png' %}" alt="footer image">
+            </div>
         </div>
         <div class="home-elements-middle">
             <span class="detective-magnifier">{% bs_icon 'search' %}</span>
