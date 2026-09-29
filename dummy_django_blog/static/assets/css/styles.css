@@ -76,7 +76,7 @@
 /* End Django messages */
 
 body {
-  height: 100vh;
+  min-height: 100vh;
   background-image: linear-gradient(to right, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0.75) 20%, rgba(0, 0, 0, 0) 100%), url("../../vendors/img/les_petits_meurtres_saison_2_sans_titre.jpg");
   background-position: center;
   background-size: cover;
@@ -671,9 +671,17 @@ feed-button-zone a:hover {
 }
 
 footer {
+  position: fixed;
+  left: 0;
+  right: 0;
   bottom: 0;
+  width: 100%;
   color: white;
   background-color: black;
+  z-index: 1030;
+}
+body {
+  padding-bottom: 90px;
 }
 
 
@@ -698,12 +706,6 @@ footer a {
   flex-direction: column;
 }
 
-.footer-image {
-  padding: 0% 0%;
-  margin: 0 auto;
-  max-width: 50%;
-  height: 100%;
-}
 
 .social-icons img {
     width: 20px;
