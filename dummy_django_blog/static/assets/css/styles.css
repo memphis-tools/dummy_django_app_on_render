@@ -108,6 +108,23 @@ body .dropdown-item {
 #navbar-nav .custom-dropdown {
   margin-left: 0;
 }
+.nav-cta {
+  margin-left: 12px;
+}
+.navbar-cta-button {
+  font-family: "ArsenalSC", sans-serif;
+  color: white;
+  background-color: #221c1c8c;
+  border: 1px dashed #ea9ef0;
+  white-space: normal;
+}
+.navbar-cta-button a {
+  color: white;
+  text-decoration: none;
+}
+.navbar-cta-button:hover {
+  background-color: #ea9ef054;
+}
 .navbar-nav {
   width: 100%;
   margin-left: auto;
@@ -452,17 +469,21 @@ feed-button-zone a:hover {
   font-size: 0.85rem;
   color: #ea9ef0;
 }
-.heartbeat-icon {
+.detective-magnifier {
   position: absolute;
-  top: -14px;
-  left: -14px;
-  font-size: 1.5rem;
+  top: -16px;
+  left: -16px;
   color: #ea9ef0;
   background-color: #221c1c;
   border: 1px dashed #ea9ef0;
   border-radius: 50%;
   padding: 4px;
   transform: rotate(-20deg);
+  line-height: 0;
+}
+.detective-magnifier svg {
+  width: 22px;
+  height: 22px;
 }
 .home-elements-sub {
   margin: 2% 0% 5% 5%;
@@ -661,6 +682,25 @@ footer a {
     object-fit: contain; /* Ensures the image is scaled to fit within the specified dimensions */
 }
 
+
+@media (max-width: 991.98px) {
+  #navbar-nav {
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: flex-start;
+    gap: 8px 0;
+  }
+  #navbar-nav .nav-link,
+  #navbar-nav .custom-dropdown {
+    width: 100%;
+  }
+  .nav-cta {
+    margin-left: 0;
+  }
+  .navbar-cta-button {
+    width: 100%;
+  }
+}
 @media (max-width: 820px) {
   .app-submenu {
     display: flex;
