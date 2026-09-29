@@ -13,13 +13,12 @@ jobs:
     runs-on: ubuntu-latest
     if: >-
       ${{
-        startsWith(github.head_ref, 'docs/') ||
-        startsWith(github.head_ref, 'vibe/') ||
-        contains(github.actor, 'vibe')
+        contains(github.actor, 'vibe') ||
+        startsWith(github.event.pull_request.title, 'docs/')
       }}
     steps:
       - name: Approve pull request
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PR_URL: ${{ github.event.pull_request.html_url }}
-        run: gh pr review --approve "$PR_URL" --body "Auto-approbation - PR Vibe ou branche docs/*"
+        run: gh pr review --approve "$PR_URL" --body "Auto-approbation - PR emise par Vibe ou dont le titre commence par docs/"
