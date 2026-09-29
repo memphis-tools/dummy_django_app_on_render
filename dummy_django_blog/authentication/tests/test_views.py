@@ -77,3 +77,69 @@ def test_post_update_profile_image_with_authentication(authenticate_user):
     response = client.post(url, follow=True, data=form_data, **headers)
     assert response.status_code == 200
     assert "Image de profile mise à jour" in response.content.decode("utf-8")
+
+
+# Added 2026-09-29 for coverage completion with Python/Django test suite.
+# Covers the invalid POST branch and invalid authenticated profile-image update.
+# Existing tests were reviewed to avoid duplicating their covered paths.
+
+
+@pytest.mark.django_db
+def test_post_signin_with_invalid_credentials_shows_form_errors():
+    client = Client()
+    url = reverse("signin")
+
+    response = client.post(
+        url,
+        data={
+            "username": "loulou",
+            "first_name": "loulou",
+            "last_name": "duck",
+            "email": "not-an-email",
+            "password1": "password1",
+            "password2": "different-password",
+            "role": "INVALID",
+        },
+    )
+
+    assert response.status_code == 200
+    assert response.context["form"].errors
+
+
+@pytest.mark.django_db
+def test_post_update_profile_image_with_invalid_form(authenticate_user, monkeypatch):
+    client = Client()
+    client.login(username="pytest_user", password="p@ssword123")
+
+    class InvalidForm:
+        def __init__(self, *args, **kwargs):
+            pass
+
+        def is_valid(self):
+            return False
+
+        @property
+        def errors(self):
+            return {}
+
+    monkeypatch.setattr(
+        "authentication.views.forms.ProfileImageUpdateForm",
+        InvalidForm,
+    )
+
+    response = client.post(
+        reverse("update_profile_image"),
+        data={"image_profile": "invalid"},
+    )
+
+    assert response.status_code == 200
+
+
+@pytest.mark.django_db
+def test_get_update_profile_image_with_authentication(authenticate_user):
+    client = Client()
+    client.login(username="pytest_user", password="p@ssword123")
+
+    response = client.get(reverse("update_profile_image"))
+
+    assert response.status_code == 200

@@ -142,3 +142,168 @@ def test_follow_user_with_valid_form(authenticate_user, mocker):
     templates = [template.name for template in response.templates]
     assert "blog/feed.html" in templates
     assert "Abonnement mis à jour" in response.content.decode("utf-8")
+
+
+# Added 2026-09-30 to complete blog/views.py branch coverage.
+# Existing tests were reviewed first; these tests target previously uncovered
+# branches without duplicating the existing happy paths.
+
+
+@pytest.mark.django_db
+def test_get_contact_admin(authenticate_user):
+    client = Client()
+    client.login(username="pytest_user", password="p@ssword123")
+
+    response = client.get(reverse("contact_admin"))
+
+    assert response.status_code == 200
+    assert "blog/contact_admin.html" in [template.name for template in response.templates]
+
+
+@pytest.mark.django_db
+def test_post_photos_delete_as_uploader(authenticate_user, mocker):
+    photo = mocker.MagicMock()
+    photo.id = 1
+    photo.uploader = "pytest_user"
+    photo.image.name = "test_image.jpg"
+
+    mocker.patch("blog.views.get_object_or_404", return_value=photo)
+    mocker.patch("blog.views.os.remove")
+    mocker.patch.object(photo, "delete")
+
+    client = Client()
+    client.login(username="pytest_user", password="p@ssword123")
+
+    response = client.post(
+        reverse("photos_delete", kwargs={"id": 1}),
+        follow=True,
+    )
+
+    assert response.status_code == 200
+    assert "Photo supprimée" in response.content.decode("utf-8")
+
+
+@pytest.mark.django_db
+def test_post_photos_delete_as_unauthorized_user(authenticate_user, mocker):
+    photo = mocker.MagicMock()
+    photo.id = 1
+    photo.uploader = "another_user"
+    photo.image.name = "test_image.jpg"
+
+    mocker.patch("blog.views.get_object_or_404", return_value=photo)
+    remove = mocker.patch("blog.views.os.remove")
+
+    client = Client()
+    client.login(username="pytest_user", password="p@ssword123")
+
+    response = client.post(
+        reverse("photos_delete", kwargs={"id": 1}),
+    )
+
+    assert response.status_code == 200
+    assert "blog/photos_delete.html" in [
+        template.name for template in response.templates
+    ]
+    remove.assert_not_called()
+
+
+@pytest.mark.django_db
+def test_post_photos_update_as_unauthorized_user(authenticate_user, mocker):
+    photo = mocker.MagicMock()
+    photo.id = 1
+    photo.uploader = "another_user"
+    photo.image.name = "test_image.jpg"
+
+    mocker.patch("blog.views.get_object_or_404", return_value=photo)
+
+    client = Client()
+    client.login(username="pytest_user", password="p@ssword123")
+
+    response = client.post(
+        reverse("photos_update", kwargs={"id": 1}),
+        data={"edit_photo": True},
+    )
+
+    assert response.status_code == 200
+    assert "blog/photos_update.html" in [
+        template.name for template in response.templates
+    ]
+
+
+@pytest.mark.django_db
+def test_post_photos_update_with_invalid_delete_form(authenticate_user, mocker):
+    photo = mocker.MagicMock()
+    photo.id = 1
+    photo.uploader = "pytest_user"
+    photo.image.name = "test_image.jpg"
+
+    mocker.patch("blog.views.get_object_or_404", return_value=photo)
+
+    class InvalidDeleteForm:
+        def __init__(self, *args, **kwargs):
+            pass
+
+        def is_valid(self):
+            return False
+
+    mocker.patch("blog.views.forms.PhotoDeleteForm", InvalidDeleteForm)
+
+    client = Client()
+    client.login(username="pytest_user", password="p@ssword123")
+
+    response = client.post(
+        reverse("photos_update", kwargs={"id": 1}),
+        data={"delete_photo": True},
+    )
+
+    assert response.status_code == 200
+    assert "blog/photos_update.html" in [
+        template.name for template in response.templates
+    ]
+
+
+@pytest.mark.django_db
+def test_post_posts_delete_as_unauthorized_user(authenticate_user, mocker):
+    post = mocker.MagicMock()
+    post.id = 1
+    post.contributors.filter.return_value.exists.return_value = False
+    post.delete = mocker.MagicMock()
+
+    mocker.patch("blog.views.get_object_or_404", return_value=post)
+
+    client = Client()
+    client.login(username="pytest_user", password="p@ssword123")
+
+    response = client.post(
+        reverse("posts_delete", kwargs={"id": 1}),
+    )
+
+    assert response.status_code == 200
+    assert "blog/posts_delete.html" in [
+        template.name for template in response.templates
+    ]
+    post.delete.assert_not_called()
+
+
+@pytest.mark.django_db
+def test_post_posts_update_with_post_without_photo(authenticate_user, mocker):
+    post = mocker.MagicMock()
+    post.id = 1
+    post.title = "test title"
+    post.content = "test content"
+    post.image = None
+    post.contributors.filter.return_value.exists.return_value = True
+
+    mocker.patch("blog.views.get_object_or_404", return_value=post)
+
+    client = Client()
+    client.login(username="pytest_user", password="p@ssword123")
+
+    response = client.get(
+        reverse("posts_update", kwargs={"id": 1}),
+    )
+
+    assert response.status_code == 200
+    assert "blog/posts_update.html" in [
+        template.name for template in response.templates
+    ]
