@@ -72,22 +72,20 @@
                                       <li><a class="dropdown-item" href="{% url 'posts_add' %}">ajouter un billet</a></li>
                                   </ul>
                               </div>
-                          {% else %}
+                          {% elif request.resolver_match.url_name != "home" %}
                               <div class="nav-link">
                                   <a class="nav-item" href="{% url 'home' %}">home</a>
                               </div>
-                          {% endif %}
-                          {% if not user.is_authenticated %}
                               <div class="nav-link">
                                   <a class="nav-item" href="{% url 'login' %}">login</a>
                               </div>
                               <div class="nav-link">
                                   <a class="nav-item" href="{% url 'signin' %}">signin</a>
                               </div>
+                              <div class="nav-link">
+                                  <a class="nav-item" href="{% url 'contact_admin' %}">contacter un admin</a>
+                              </div>
                           {% endif %}
-                          <div class="nav-link">
-                              <a class="nav-item" href="{% url 'contact_admin' %}">contacter un admin</a>
-                          </div>
                           {% if not user.is_authenticated %}
                               <div class="nav-link nav-cta">
                                   <button type="button" class="btn btn-primary navbar-cta-button">
@@ -95,8 +93,8 @@
                                   </button>
                               </div>
                           {% endif %}
+                          {% if user.is_authenticated %}
                           <div class="nav-link dropdown custom-dropdown user-dropdown">
-                              {% if user.is_authenticated %}
                                   <a class="nav-item dropdown-toggle mt-3" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                       {% if user.image_profile.name == "default_profile.png" %}
                                           <img class="image_profile rounded-pill" src="{% static 'vendors/img/default_profile.png' %}" alt="photo de profil">
@@ -117,8 +115,8 @@
                                   <form id="logout-form" method="post" action="{% url 'logout' %}" style="display: none;">
                                       {% csrf_token %}
                                   </form>
-                              {% endif %}
                           </div>
+                          {% endif %}
                 </div>
             </div>
         </nav>
@@ -134,6 +132,7 @@
                 <a class="mx-2 social-icons" href="#"><img src="{% static 'assets/img/icons/github.png' %}" alt="social media icon"></a>
                 <a class="mx-2 social-icons" href="#"><img src="{% static 'assets/img/icons/linkedin.png' %}" alt="social media icon"></a>
                 <a class="mx-2 social-icons" href="#"><img src="{% static 'assets/img/icons/tweeter.png' %}" alt="social media icon"></a>
+                <a class="mx-2 footer-contact-admin" href="{% url 'contact_admin' %}">{% bs_icon 'envelope' %} contacter un admin</a>
             </div>
         </div>
 

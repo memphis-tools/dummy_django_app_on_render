@@ -146,7 +146,8 @@ body .dropdown-item {
 }
 
 .navbar-nav .dropdown-menu {
-  background-color: transparent;
+  background-color: rgba(0, 0, 0, 0.9);
+  z-index: 1050;
 }
 
 .navbar-custom {
@@ -222,6 +223,8 @@ body .dropdown-item {
 .dropdown-menu {
   width: 100%;
   border: 1px dashed pink;
+  background-color: rgba(0, 0, 0, 0.9);
+  z-index: 1050;
 }
 
 .dropdown-header {
@@ -448,13 +451,34 @@ feed-button-zone a:hover {
 .home-elements {
   color: white;
 }
+.home-comedie-row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.home-signin-button {
+  white-space: normal;
+}
+.footer-contact-admin {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 6px;
+  text-decoration: none;
+}
+.footer-contact-admin svg {
+  width: 18px;
+  height: 18px;
+}
 
 .home-elements h2 {
   font-size: 2rem;
 }
 
 .home-elements-head {
-  margin-top: 5%;
+  margin-top: 1%;
   margin-left: 5%;
 }
 
