@@ -13,6 +13,7 @@ jobs:
     if: |
       startsWith(github.head_ref, 'docs/') ||
       startsWith(github.head_ref, 'vibe/') ||
+      startsWith(github.head_ref, 'snyk/') ||
       startsWith(github.head_ref, '[Aikido] AI Fix')
     runs-on: ubuntu-latest
     steps:
