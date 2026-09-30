@@ -137,8 +137,8 @@ body .dropdown-item {
   color: white;
 }
 .navbar-nav {
-  width: auto;
-  margin-left: auto;
+  width: 100%;
+  margin-left: 0;
   z-index: 10;
 }
 .navbar-nav-left {
@@ -165,7 +165,10 @@ body .dropdown-item {
 }
 
 .navbar-collapse {
-  justify-content: flex-end;
+  justify-content: space-between;
+}
+.nav-cta {
+  margin-left: auto;
 }
 
 .navbar-collapse {
@@ -248,7 +251,6 @@ body .dropdown-item {
 }
 
 .user-dropdown {
-  border-top: 1px solid pink;
   margin-top: 2%;
 }
 
@@ -726,11 +728,31 @@ footer .footer-contact-admin {
 
 
 @media (max-width: 991.98px) {
+  .user-dropdown {
+    border-top: 1px solid pink;
+    padding-top: 8px;
+  }
   #navbar-nav {
     flex-direction: column;
     flex-wrap: nowrap;
+    align-items: stretch;
+    gap: 8px 0;
+  }
+  .navbar-nav-left {
+    flex-direction: column;
     align-items: flex-start;
     gap: 8px 0;
+  }
+  .navbar-nav-left .nav-link,
+  .navbar-nav-left .custom-dropdown {
+    width: 100%;
+  }
+  .navbar-nav .navbar-nav-right {
+    margin-left: 0;
+    margin-top: 8px;
+  }
+  .navbar-nav-right .nav-item.dropdown-toggle {
+    margin-top: 0;
   }
   #navbar-nav .nav-link,
   #navbar-nav .custom-dropdown {
