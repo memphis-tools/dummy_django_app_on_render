@@ -435,3 +435,71 @@ document.addEventListener("DOMContentLoaded", function() {
     });
   }
 });
+
+document.addEventListener("DOMContentLoaded", function() {
+  var encartUser = (document.querySelector(".navbar-nav-right .nav-item") || {}).textContent || "";
+  encartUser = encartUser.trim().split(/\s+/)[0] || "chercheur anonyme";
+  var encartTexts = {
+    follow: [
+      "Choisir ses abonnements, " + encartUser + " : Marlène a sa liste, le commissaire a la sienne. Personne ne suit personne... pour l'instant !",
+      "Ici on choisit qui on suit, comme Laurence choisit ses enquêtes : avec soin, " + encartUser + " !",
+      "Abonnez-vous, " + encartUser + " ! Alice Avril ferait n'importe quoi pour une bonne source, pas vous ?"
+    ],
+    photo_add: [
+      "Ajouter une photo à notre enquête, " + encartUser + " ! Marlène a déjà préparé le scotch pour l'album.",
+      "Une nouvelle pièce à conviction, " + encartUser + " ? Le commissaire Laurence approuve (à condition qu'elle soit nette).",
+      "Vos photos valent celles de La Voix du Nord, " + encartUser + " ... presque !"
+    ],
+    photo_add_multiple: [
+      "Ajouter plein de photos d'un coup, " + encartUser + " : comme un album de Treets, on n'arrête plus la machine !",
+      "Enquête express, " + encartUser + " : plusieurs indices d'un seul geste, Marlène n'en revient pas.",
+      "Le Dr Maillol dit que tout va bien. Chargez les photos vite avant qu'il change d'avis, " + encartUser + " !"
+    ],
+    photo_delete: [
+      "Supprimer une pièce à conviction, " + encartUser + " ? Même le procureur Troisgros va faire la grimace.",
+      "Attention, " + encartUser + " : Alice Avril fouille toujours les corbeilles. Vraiment toujours.",
+      "Ce dossier d'enquête va maigrir, " + encartUser + " ... Marlène garde une copie sous son poster de Marilyn, on ne sait jamais."
+    ],
+    photo_update: [
+      "Mettre une photo à jour, " + encartUser + " : le commissaire Laurence corrige aussi ses rapports, enfin parfois.",
+      "Une petite retouche d'indice, " + encartUser + " ? La vérité est dans la Chambre, enfin dans la photo !",
+      "On réécrit l'enquête, " + encartUser + " ... discrètement, Alice Avril ne doit rien savoir."
+    ],
+    post_add: [
+      "Un nouveau billet, " + encartUser + " ! Pensez à mettre un chiffre dans le titre, sinon l'inspecteur Laurence refuse le rapport.",
+      "Racontez-nous tout, " + encartUser + " : Alice Avril n'aurait pas fait mieux... mais n'oubliez pas le chiffre dans le titre !",
+      "Publiez votre billet, " + encartUser + " ! Marlène, préparez la machine à écrire (et un chocolat chaud) !"
+    ],
+    post_delete: [
+      "Supprimer un billet, " + encartUser + " ? Classé sans suite par le commissariat, donc.",
+      "Ce billet va disparaître, " + encartUser + " ... comme le corps dans l'armoire. Motus et bouche cousue.",
+      "Classer l'affaire, " + encartUser + " ? Le procureur Troisgros signe, Marlène trie les copies (bonbon inclus)."
+    ],
+    post_update: [
+      "Mettre un billet à jour, " + encartUser + " : Laurence relit, Marlène tape à la machine, tout le monde travaille !",
+      "Modifier l'enquête, " + encartUser + " : le Dr Maillol certifie que c'est bon pour la santé.",
+      "Une version corrigée, " + encartUser + " ? Alice Avril aurait tué pour cette exclusivité... enfin, presque."
+    ],
+    signin: [
+      "Inscrivez-vous pour rejoindre l'équipe d'enquête, recrue ! Le commissariat de Lille cherche des talents.",
+      "Un nouveau badge à décrocher, recrue ! Marlène prépare déjà le Ruban adhésif pour votre dossier.",
+      "L'enquête vous attend, recrue : cachet, badge et Treets offerts le premier jour !"
+    ],
+    password_change: [
+      "Changer de mot de passe : même Marlène n'essaie pas de deviner celui du commissaire Laurence.",
+      "Nouveau mot de passe, ancien secret d'enquête : Alice Avril n'aura rien à écrire dans La Voix du Nord !",
+      "Un mot de passe bien gardé vaut mieux qu'un dossier mal fermé, camarade !"
+    ],
+    password_reset: [
+      "Un mot de passe égaré ? Même le grand Agatha admettrait : ça arrive aux meilleurs enquêteurs.",
+      "La mémoire des uns fait les énigmes des autres : réinitialisons tout ça, tranquille.",
+      "Indice : votre email. Enquête close en trois clics, promis !"
+    ]
+  };
+  document.querySelectorAll(".action-encart").forEach(function(box) {
+    var key = box.getAttribute("data-encart");
+    var pool = encartTexts[key];
+    if (!pool) { return; }
+    box.querySelector(".encart-text").textContent = pool[Math.floor(Math.random() * pool.length)];
+  });
+});

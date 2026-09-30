@@ -1,13 +1,15 @@
 {% extends 'base.html' %}
 {% load bootstrap_icons %}
-
 {% block title %}FOLLOW USER PAGE{% endblock title %}
-
 {% block content %}
-<div class="container-fluid d-flex flex-column align-items-center justify-content-center">
-  {% md_icon "account-star" size="1.5rem" %}
+<div class="container-fluid action-page d-flex flex-column align-items-center">
+  <i class="feed-smileys fa-solid fa-users"></i>
   <h2>SUIVRE UN/DES UTILISATEUR(S)</h2>
-  <div class="w-50 d-flex flex-column">
+  <div class="action-encart" data-encart="follow">
+      <span class="encart-icon"><i class="fa-solid fa-user-plus"></i></span>
+      <p class="encart-text"></p>
+  </div>
+  <div class="action-card w-50">
       <form class="form w-100 d-flex flex-column" action="" method="post">
         {% csrf_token %}
         <select name="follows" required id="id_follows" multiple>
@@ -19,8 +21,8 @@
           <button type="submit" class="btn btn-primary">METTRE A JOUR</button>
         </div>
       </form>
-      <div class="mt-2 mb-5 d-flex flex-column justify-content-around align-items-center">
-        <a class="btn btn-primary mt-3" href="{% url 'feed' %}">RETOUR ACCUEIL</a>
+      <div class="action-actions">
+        <a class="btn btn-primary" href="{% url 'feed' %}">RETOUR ACCUEIL</a>
       </div>
   </div>
 </div>
