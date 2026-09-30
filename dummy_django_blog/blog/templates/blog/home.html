@@ -17,10 +17,12 @@
             </p>
             <p>2013-2020 27 épisodes</p>
             <div class="home-comedie-row">
-                <a href="{% url 'home' %}">COMEDIE</a>
-                <button type="button" class="btn btn-primary navbar-cta-button home-signin-button">
-                    <a href="{% url 'signin' %}">INSCRIVEZ VOUS POUR PARTICIPER AU BLOG</a>
-                </button>
+                <div class="home-comedie-cta-zone">
+                    <a href="{% url 'home' %}">COMEDIE</a>
+                    <button type="button" class="btn btn-primary home-content-cta home-signin-button">
+                        <a href="{% url 'signin' %}">INSCRIVEZ VOUS POUR PARTICIPER AU BLOG</a>
+                    </button>
+                </div>
                 <img class="home-comedie-footer-image" src="{% static 'vendors/img/les_petits_meurtres_la_fin.png' %}" alt="footer image">
             </div>
         </div>
