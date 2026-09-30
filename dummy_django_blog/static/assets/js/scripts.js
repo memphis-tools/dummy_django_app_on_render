@@ -177,10 +177,16 @@ document.addEventListener("DOMContentLoaded", function() {
     });
   }
 
-  function showCallout(text) {
+  function showCallout(text, row) {
     var el = ensureCallout();
     el.innerHTML = text;
     el.classList.add("visible");
+    el.style.left = "";
+    el.style.top = "";
+    if (!row) return;
+    var rect = row.getBoundingClientRect();
+    el.style.left = Math.max(10, Math.min(window.innerWidth - el.offsetWidth - 10, rect.left + rect.width / 2 - el.offsetWidth / 2)) + "px";
+    el.style.top = Math.max(10, rect.top - el.offsetHeight - 14) + "px";
   }
 
   function hideCallout() {
@@ -281,7 +287,7 @@ document.addEventListener("DOMContentLoaded", function() {
         "Record d'audience : " + entry.score.pct.toLocaleString("fr-FR") + " % de part d'audience, " +
         entry.score.viewers.toLocaleString("fr-FR") + " téléspectateurs !<br>" +
         nextCritic();
-      showCallout(calloutHtml);
+      showCallout(calloutHtml, entry.row);
       scanRowTimer = setTimeout(function() {
         hideCallout();
         entry.row.classList.remove("feed-audiences-row-glow");
