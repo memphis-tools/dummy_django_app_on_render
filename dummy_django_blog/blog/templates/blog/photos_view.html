@@ -11,19 +11,25 @@
             <i class="feed-smileys fa-solid fa-camera-retro"></i>
             <h2>PHOTOS</h2>
         </div>
-        <div class="d-flex flex-column align-items-start justify-content-around">
+        <div class="photos-grid">
             {% if page_obj|length > 0 %}
                 {% for photo in page_obj %}
-                    <div class="photos-feed-items">
-                      <figure>
-                          <img class="w-100 class-img-top" src="{{ photo.image.url }}" alt="a dummy photo">
-                          <figcaption><i>{{ photo.caption }}</i></figcaption>
+                    <div class="photos-feed-items photos-grid-card">
+                      <figure class="photos-grid-figure">
+                          <img class="class-img-top" src="{{ photo.image.url }}" alt="a dummy photo">
                       </figure>
                       <div class="feed-item-detail">
-                          <p>{{ photo.title_photo }}</p>
-                          <p>Proposée par {% get_poster photo.uploader %}</p>
-                          <p>{{ photo.created_at }}</p>
-                          <a class="btn btn-primary m-3" href="{% url 'photos_detail' photo.id %}">DETAILS</a>
+                          <p class="photos-grid-title">{{ photo.title_photo }}</p>
+                          <p class="photos-grid-meta">Proposée par {% get_poster photo.uploader %}</p>
+                          <p class="photos-grid-meta">{{ photo.created_at }}</p>
+                          <div class="photos-grid-quote" data-quote-index="{{ forloop.counter0 }}">
+                              <span class="detective-magnifier">{% bs_icon 'chat-quote' %}</span>
+                              <blockquote>
+                                  <p class="photos-grid-quote-text"></p>
+                                  <p class="photos-grid-quote-author"></p>
+                              </blockquote>
+                          </div>
+                          <a class="btn btn-primary photos-grid-btn" href="{% url 'photos_detail' photo.id %}">DETAILS</a>
                         </div>
                     </div>
                 {% endfor %}

@@ -390,3 +390,48 @@ document.addEventListener("DOMContentLoaded", function() {
   document.getElementById("scroll-down").addEventListener("click", function() { smoothStep(window.scrollY + viewportStep()); });
   document.getElementById("scroll-full-bottom").addEventListener("click", function() { smoothStep(pageHeight() - window.innerHeight); });
 });
+
+document.addEventListener("DOMContentLoaded", function() {
+  var detailQuote = document.getElementById("post-detail-quote");
+  if (detailQuote) {
+    var quotes = [
+      { text: "Un des plaisirs de la vie, c'est de ne pas la prendre au sérieux.", author: "— adapté d'Agatha Christie, la reine du crime qui a inspiré toute la série" },
+      { text: "L'imagination est un bien précieux : elle permet de voir des crimes partout.", author: "— d'après Agatha Christie, dont les Petits Meurtres sont la 3e série préférée des Français" },
+      { text: "Très peu de gens s'intéressent à un meurtre tant qu'ils ne connaissent pas la victime.", author: "— librement inspiré d'Agatha Christie, lue religieusement par le commissariat de Lille" },
+      { text: "Un bon détective ne croit jamais aux coïncidences. Un excellent billet non plus.", author: "— La rédaction du Clairon de Lille, chroniqueur de tous les faits divers de la saison 2" },
+      { text: "Chaque lecteur est un enquêteur en puissance : son arme, l'index de la page.", author: "— Huguette Marthe Salsifi, Gala Télé-Police, qui tourne les pages comme on retourne un alibi" }
+    ];
+    var pick = quotes[Math.floor(Math.random() * quotes.length)];
+    detailQuote.querySelector(".post-detail-quote-text").textContent = "« " + pick.text + " »";
+    detailQuote.querySelector(".post-detail-quote-author").textContent = pick.author;
+  }
+
+  var gridQuotes = document.querySelectorAll(".photos-grid-quote");
+  if (gridQuotes.length) {
+    var byEpisode = {
+      "Jeux de glaces": { text: "Marlène, appelez le procureur Troisgros !", author: "— Commissaire Swan Laurence, épisode « Jeux de glaces »" },
+      "Meurtre au champagne": { text: "Vous saviez que la victime buvait du champagne ? J'en déduis que l'assassin trinque sans soif.", author: "— Alice Avril, épisode « Meurtre au champagne »" },
+      "Pension Vanilos": { text: "Ici, tout le monde ment poliment. C'est ce qu'on appelle une pension de famille.", author: "— Commissaire Swan Laurence, épisode « Pension Vanilos »" },
+      "Murder Party": { text: "Un meurtre par jeu ? J'ai connu des enquêtes qui commençaient moins bien.", author: "— Alice Avril, épisode « Murder Party »" }
+    };
+    var anyEpisode = [
+      { text: "Inutile de hurler, Marlène : le criminel n'écoute que la radio.", author: "— Commissaire Swan Laurence" },
+      { text: "Monsieur le commissaire, j'ai trouvé un indice ! … C'est un trombone.", author: "— Marlène Leroy, secrétaire dévouée" },
+      { text: "Je ne cite jamais mes sources, sauf quand elles inventent.", author: "— Alice Avril, La Voix du Nord" },
+      { text: "La science est formelle : le corps parle. Le reste, c'est de la littérature.", author: "— Dr Euphrasie Maillol, médecin légiste" },
+      { text: "Un témoin qui ne sait rien, c'est encore un témoin. Notez-le, Marlène.", author: "— Commissaire Swan Laurence" }
+    ];
+    gridQuotes.forEach(function(box) {
+      var caption = box.closest(".photos-grid-card");
+      var title = caption ? caption.querySelector(".photos-grid-title") : null;
+      var titleText = title ? title.textContent.trim() : "";
+      var pick = null;
+      Object.keys(byEpisode).forEach(function(ep) {
+        if (!pick && titleText.indexOf(ep) !== -1) pick = byEpisode[ep];
+      });
+      if (!pick) pick = anyEpisode[Math.floor(Math.random() * anyEpisode.length)];
+      box.querySelector(".photos-grid-quote-text").textContent = "« " + pick.text + " »";
+      box.querySelector(".photos-grid-quote-author").textContent = pick.author;
+    });
+  }
+});

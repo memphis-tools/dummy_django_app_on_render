@@ -84,7 +84,7 @@
                           {% endif %}
                           {% if user.is_authenticated %}
                           <div class="nav-link dropdown custom-dropdown user-dropdown navbar-nav-right">
-                                  <a class="nav-item dropdown-toggle mt-3" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                  <a class="nav-item dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                       <i class="fa-solid fa-user-secret nav-item-icon"></i>{{ user.username }}
                                   </a>
                                   <ul class="dropdown-menu">
@@ -116,9 +116,9 @@
         {% block content %}{% endblock content %}
     </main>
     <footer class="w-100 footer-container">
-        <div class="d-flex flex-column align-items-center">
+        <div class="d-flex flex-row align-items-center justify-content-center footer-row">
             <p id="footer_date"></p>
-            <div class="d-flex flex-row justify-content-center">
+            <div class="d-flex flex-row justify-content-center footer-socials">
                 <a class="mx-2 social-icons" href="#"><img src="{% static 'assets/img/icons/facebook.png' %}" alt="social media icon"></a>
                 <a class="mx-2 social-icons" href="#"><img src="{% static 'assets/img/icons/github.png' %}" alt="social media icon"></a>
                 <a class="mx-2 social-icons" href="#"><img src="{% static 'assets/img/icons/linkedin.png' %}" alt="social media icon"></a>
