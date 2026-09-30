@@ -1,0 +1,56 @@
+name: Rotate home quote
+
+on:
+  schedule:
+    - cron: "*/30 * * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: quote-rotation
+  cancel-in-progress: false
+
+jobs:
+  rotate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Rotate quote
+        run: python scripts/rotate_quote.py
+
+      - name: Check for changes
+        id: diff
+        run: |
+          if git diff --quiet; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Create pull request
+        if: steps.diff.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          TIMESTAMP=$(date -u +%Y%m%d%H%M)
+          BRANCH="docs/quote-rotation-${TIMESTAMP}"
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git checkout -b "$BRANCH"
+          git add dummy_django_blog/blog/templates/blog/home.html
+          git commit -m "docs: rotate home-elements-middle quote"
+          git push origin "$BRANCH"
+          gh pr create \
+            --head "$BRANCH" \
+            --title "docs/ rotate home-elements-middle quote" \
+            --body "Rotation automatique de la citation de la div \`home-elements-middle\` : épisode tiré au hasard sur la page Wikipédia de la saison 2, synopsis résumé, critique fictive renouvelée."
