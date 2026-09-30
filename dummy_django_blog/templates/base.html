@@ -134,6 +134,7 @@
             </div>
         </div>
     </footer>
+    {% if user.is_authenticated %}
     <nav class="site-scroll-nav" aria-label="Navigation rapide dans la page">
         <button type="button" class="scroll-nav-btn" id="scroll-full-top" aria-label="Tout en haut de la page" title="Remonter au sommet de l'enquête">
             <svg viewBox="0 0 32 32" role="img" aria-hidden="true">
@@ -160,6 +161,7 @@
             </svg>
         </button>
     </nav>
+    {% endif %}
     <script src="{% static 'assets/js/scripts.js' %}" defer></script>
     <!-- Bootstrap -->
     <script src="{% static 'vendors/js/bootstrap.bundle.min.js' %}" defer></script>

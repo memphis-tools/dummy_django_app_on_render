@@ -153,7 +153,7 @@ document.addEventListener("DOMContentLoaded", function() {
   var audiencesSection = document.getElementById("feed-section-audiences");
   if (!audiencesSection) return;
 
-  var idleDelay = 10000;
+  var idleDelay = 20000;
   var tourToken = 0;
   var idleTimer = null;
   var scanRowTimer = null;
@@ -273,6 +273,16 @@ document.addEventListener("DOMContentLoaded", function() {
     return critic;
   }
 
+  var episodeImgs = {
+    "La Mystérieuse Affaire de Styles": { img: "/static/vendors/img/chateau_tilques.jpg", source: "Château d'Écou à Tilques, décor de l'épisode — Photo : Wikimedia Commons (CC BY-SA)" },
+    "Meurtre à la kermesse": { img: "/static/vendors/img/chateau_wambrechies.jpg", source: "Château de Wambrechies (Nord) — Photo : Rémi Jouan, Wikimedia Commons (CC BY-SA)" }
+  };
+  function episodeImageFor(title) {
+    if (episodeImgs[title]) return episodeImgs[title];
+    var keys = Object.keys(episodeImgs);
+    var pick = keys[Math.floor(Math.random() * keys.length)];
+    return episodeImgs[pick];
+  }
   function revealTop(entry, token, done) {
     if (token !== tourToken) return;
     var title = entry.row.querySelectorAll("td")[1].textContent.trim();
@@ -283,10 +293,16 @@ document.addEventListener("DOMContentLoaded", function() {
       clearRowEffects();
       entry.row.scrollIntoView({ block: "center" });
       entry.row.classList.add("feed-audiences-row-glow");
-      var calloutHtml = "<strong>" + title + "</strong><br>" +
+      var episodeImg = episodeImageFor(title);
+      var calloutHtml = "<div class='feed-audiences-callout-flex'>" +
+        "<img class='feed-audiences-callout-img' src='" + episodeImg.img + "' alt='" + title + "'>" +
+        "<div class='feed-audiences-callout-body'>" +
+        "<strong>" + title + "</strong><br>" +
         "Record d'audience : " + entry.score.pct.toLocaleString("fr-FR") + " % de part d'audience, " +
         entry.score.viewers.toLocaleString("fr-FR") + " téléspectateurs !<br>" +
-        nextCritic();
+        nextCritic() + "<br>" +
+        "<span class='feed-audiences-callout-source'>Image : " + episodeImg.source + "</span>" +
+        "</div></div>";
       showCallout(calloutHtml, entry.row);
       scanRowTimer = setTimeout(function() {
         hideCallout();

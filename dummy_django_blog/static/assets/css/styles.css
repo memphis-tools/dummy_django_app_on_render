@@ -150,8 +150,10 @@ body .dropdown-item {
 .navbar-nav-left .custom-dropdown {
   margin-left: 0;
 }
+#navbar-nav .nav-link.navbar-nav-right,
 .navbar-nav .navbar-nav-right {
   margin-left: auto;
+  margin-right: 8px;
 }
 
 .navbar-nav .dropdown-menu {
@@ -217,9 +219,9 @@ body .dropdown-item {
 }
 
 .navbar-custom {
-  background-color: transparent;
+  background-color: #221c1cd9;
   border: none;
-  box-shadow: none;
+  box-shadow: 0 10px 30px 12px rgba(0, 0, 0, 0.85);
 }
 
 .navbar-collapse {
@@ -1186,7 +1188,7 @@ footer .footer-contact-admin {
   left: 50%;
   transform: translateX(-50%);
   z-index: 1080;
-  max-width: min(520px, 90vw);
+  max-width: min(640px, 92vw);
   padding: 14px 22px;
   background-color: #221c1cf2;
   border: 1px dashed #ea9ef0;
@@ -1695,4 +1697,44 @@ footer .footer-contact-admin {
   font-size: 0.72em;
   color: #ea9ef0;
   margin: 2px 0 0;
+}
+
+/* Info-bulle audiences : image de l'épisode + source */
+.feed-audiences-callout-flex {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 14px;
+  text-align: left;
+}
+.feed-audiences-callout-img {
+  flex: none;
+  width: 150px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 1px dashed #ea9ef0;
+  box-shadow: 3px 3px 0px #ea9ef054;
+}
+.feed-audiences-callout-body {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+.feed-audiences-callout-source {
+  font-size: 0.72em;
+  color: #ea9ef0;
+  font-family: "ArsenalSC", sans-serif;
+}
+
+/* Footer : boutons sociaux #ea9ef0 par défaut, blanc au survol */
+footer .social-icons img,
+footer .footer-mistral svg,
+footer .footer-contact-admin svg {
+  filter: invert(79%) sepia(36%) saturate(1378%) hue-rotate(216deg) brightness(96%) contrast(97%);
+  transition: filter 0.25s ease;
+}
+footer .social-icons:hover img,
+footer .footer-mistral:hover svg,
+footer .footer-contact-admin:hover svg {
+  filter: invert(100%) sepia(0%) saturate(0%) brightness(100%) contrast(100%);
 }
