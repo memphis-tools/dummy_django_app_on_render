@@ -159,6 +159,8 @@ document.addEventListener("DOMContentLoaded", function() {
   var scanRowTimer = null;
   var callout = null;
   var running = false;
+  var userScrollY = window.scrollY;
+  var topCursor = 0;
 
   function ensureCallout() {
     if (callout) return callout;
@@ -185,12 +187,17 @@ document.addEventListener("DOMContentLoaded", function() {
     if (callout) callout.classList.remove("visible");
   }
 
+  function saveUserPosition() {
+    userScrollY = window.scrollY;
+  }
+
   function cancelTour() {
     tourToken++;
     running = false;
     hideCallout();
     clearRowEffects();
     clearTimeout(scanRowTimer);
+    smoothScrollTo(userScrollY, 900, null, tourToken);
   }
 
   function smoothScrollTo(targetY, durationMs, done, token) {
@@ -227,29 +234,37 @@ document.addEventListener("DOMContentLoaded", function() {
     return { pct: pct, viewers: viewers };
   }
 
-  function topRows() {
+  function rankedRows() {
     var rows = Array.prototype.slice.call(audiencesSection.querySelectorAll(".topblog_tr"));
     return rows
       .map(function(row) { return { row: row, score: parseScore(row) }; })
       .filter(function(entry) { return entry.score !== null; })
-      .sort(function(a, b) { return b.score.pct - a.score.pct; })
-      .slice(0, 3);
+      .sort(function(a, b) { return b.score.pct - a.score.pct; });
   }
 
-  function revealTop(row, score, token, done) {
+  function nextTopGroup(ranked) {
+    var group = ranked.slice(topCursor, topCursor + 3);
+    if (group.length < 3 && ranked.length >= 3) {
+      group = group.concat(ranked.slice(0, 3 - group.length));
+    }
+    topCursor = (topCursor + 3) % Math.max(3, ranked.length);
+    return group;
+  }
+
+  function revealTop(entry, token, done) {
     if (token !== tourToken) return;
-    row.scrollIntoView({ block: "center" });
-    row.classList.add("feed-audiences-row-glow");
-    var title = row.querySelectorAll("td")[1].textContent.trim();
+    entry.row.scrollIntoView({ block: "center" });
+    entry.row.classList.add("feed-audiences-row-glow");
+    var title = entry.row.querySelectorAll("td")[1].textContent.trim();
     var calloutHtml = "<strong>" + title + "</strong><br>" +
-      "Record d'audience : " + score.pct.toLocaleString("fr-FR") + " % de part d'audience, " +
-      score.viewers.toLocaleString("fr-FR") + " téléspectateurs !<br>" +
+      "Record d'audience : " + entry.score.pct.toLocaleString("fr-FR") + " % de part d'audience, " +
+      entry.score.viewers.toLocaleString("fr-FR") + " téléspectateurs !<br>" +
       "Un épisode culte de la saison 2, à (re)voir absolument.";
     showCallout(calloutHtml);
     scanRowTimer = setTimeout(function() {
       hideCallout();
-      row.classList.remove("feed-audiences-row-glow");
-      row.classList.add("feed-audiences-row-scan");
+      entry.row.classList.remove("feed-audiences-row-glow");
+      entry.row.classList.add("feed-audiences-row-scan");
       if (done) done();
     }, 4200);
   }
@@ -270,18 +285,24 @@ document.addEventListener("DOMContentLoaded", function() {
 
   function runTour(token) {
     if (token !== tourToken) return;
-    var top = topRows();
+    var ranked = rankedRows();
+    if (ranked.length === 0) {
+      running = false;
+      scheduleIdle();
+      return;
+    }
+    var group = nextTopGroup(ranked);
     var allRows = Array.prototype.slice.call(audiencesSection.querySelectorAll(".topblog_tr"));
     smoothScrollTo(audiencesSection.getBoundingClientRect().top + window.scrollY - 70, 3000, function() {
       if (token !== tourToken) return;
       scanRows(allRows, 0, token, function() {
         if (token !== tourToken) return;
         clearRowEffects();
-        revealTop(top[0].row, top[0].score, token, function() {
+        revealTop(group[0], token, function() {
           if (token !== tourToken) return;
-          revealTop(top[1].row, top[1].score, token, function() {
+          revealTop(group[1], token, function() {
             if (token !== tourToken) return;
-            revealTop(top[2].row, top[2].score, token, function() {
+            revealTop(group[2] || group[0], token, function() {
               if (token !== tourToken) return;
               smoothScrollTo(0, 3000, function() {
                 if (token !== tourToken) return;
@@ -300,6 +321,7 @@ document.addEventListener("DOMContentLoaded", function() {
     if (running) return;
     idleTimer = setTimeout(function() {
       if (running) return;
+      saveUserPosition();
       running = true;
       tourToken++;
       runTour(tourToken);

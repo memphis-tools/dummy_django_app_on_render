@@ -109,7 +109,7 @@ body .dropdown-item {
   flex-wrap: wrap;
   align-items: flex-start;
   gap: 4px 12px;
-  width: auto;
+  width: 100%;
 }
 .navbar-collapse {
   align-items: flex-start;
@@ -1111,10 +1111,10 @@ footer .footer-contact-admin {
   position: relative;
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 4px;
   flex: 1 1 340px;
   max-width: 480px;
-  padding: 18px 22px;
+  padding: 10px 14px;
   background-color: #221c1c8c;
   border: 1px dashed #ea9ef0;
   border-radius: 12px;
@@ -1154,7 +1154,7 @@ footer .footer-contact-admin {
 
 .feed-actor-card-header .fa-solid {
   color: #ea9ef0;
-  font-size: 1.2em;
+  font-size: 1em;
 }
 
 .feed-actor-card-header h4 {
@@ -1162,25 +1162,27 @@ footer .footer-contact-admin {
   font-family: "ArsenalSC-Fat", "ArsenalSC", sans-serif;
   color: #ea9ef0;
   text-transform: uppercase;
-  letter-spacing: 1px;
-  font-size: 1.05em;
+  letter-spacing: 0.5px;
+  font-size: 0.9em;
 }
 
 .feed-actor-card-news {
   margin: 0;
   color: #f8ede3;
   font-family: "ArsenalSC", sans-serif;
-  font-size: 0.95em;
+  font-size: 0.78em;
+  line-height: 1.3;
 }
 
 .feed-actor-card-role {
   margin: 0;
   color: #f8ede3;
   font-family: "ArsenalSC", sans-serif;
-  font-size: 0.88em;
+  font-size: 0.74em;
   font-style: italic;
+  line-height: 1.25;
   border-top: 1px dashed #ea9ef06e;
-  padding-top: 8px;
+  padding-top: 5px;
 }
 
 .feed-audiences-row-glow {

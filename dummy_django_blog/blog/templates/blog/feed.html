@@ -37,6 +37,7 @@
         {% if strip_items %}
         <div class="feed-photos-strip-container">
             <div class="feed-photos-strip" style="--strip-items: {{ strip_items|length }}; --strip-duration: {{ strip_seconds }}s;">
+                {% for _ in "12345678"|make_list %}
                 {% for instance in strip_items %}
                     <a class="feed-strip-item" href="{% if instance|model_type == 'Photo' %}{% url 'photos_detail' instance.id %}{% else %}{% url 'posts_detail' instance.id %}{% endif %}">
                         {% if instance|model_type == "Photo" %}
@@ -46,14 +47,6 @@
                         {% endif %}
                     </a>
                 {% endfor %}
-                {% for instance in strip_items %}
-                    <a class="feed-strip-item" href="{% if instance|model_type == 'Photo' %}{% url 'photos_detail' instance.id %}{% else %}{% url 'posts_detail' instance.id %}{% endif %}" aria-hidden="true">
-                        {% if instance|model_type == "Photo" %}
-                            <img class="photo_miniature class-img-top" src="{{ instance.image.url }}" alt="">
-                        {% elif instance.image %}
-                            <img class="photo_miniature class-img-top" src="{{ instance.image.image.url }}" alt="">
-                        {% endif %}
-                    </a>
                 {% endfor %}
             </div>
         </div>
