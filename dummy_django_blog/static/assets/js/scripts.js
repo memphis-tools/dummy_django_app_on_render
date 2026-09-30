@@ -251,36 +251,58 @@ document.addEventListener("DOMContentLoaded", function() {
     return group;
   }
 
-  function revealTop(entry, token, done) {
-    if (token !== tourToken) return;
-    entry.row.scrollIntoView({ block: "center" });
-    entry.row.classList.add("feed-audiences-row-glow");
-    var title = entry.row.querySelectorAll("td")[1].textContent.trim();
-    var calloutHtml = "<strong>" + title + "</strong><br>" +
-      "Record d'audience : " + entry.score.pct.toLocaleString("fr-FR") + " % de part d'audience, " +
-      entry.score.viewers.toLocaleString("fr-FR") + " téléspectateurs !<br>" +
-      "Un épisode culte de la saison 2, à (re)voir absolument.";
-    showCallout(calloutHtml);
-    scanRowTimer = setTimeout(function() {
-      hideCallout();
-      entry.row.classList.remove("feed-audiences-row-glow");
-      entry.row.classList.add("feed-audiences-row-scan");
-      if (done) done();
-    }, 4200);
+  var critics = [
+    "Alice Pénélope Verneuil, La Voix du Nord : « Un épisode qui tient le téléspectateur en joue du générique au clap de fin. »",
+    "Gérard Ovide Braquo, Le Clairon de Lille : « On croyait avoir tout vu, le commissariat nous ressort une pépite. Du grand art. »",
+    "Joséphine Bertille Farpes, France Soir du Nord : « Un crime parfait de scénario : même le légiste n'a rien à redire. »",
+    "Norbert Camille Douille, Le Polar du Dimanche : « Enfin un meurtre élégant. Ma note ? Cinq loupes sur cinq. »",
+    "Huguette Marthe Salsifi, Gala Télé-Police : « Marlène a encore oublié le courrier du cœur, et nous, on a oublié de respirer. »",
+    "Rodolphe Anselme Picrate, Le Bulletin des Enquêtes : « La semaine prochaine, prenez un alibi : vous ne bougerez plus du canapé. »"
+  ];
+  var criticCursor = 0;
+
+  function nextCritic() {
+    var critic = critics[criticCursor % critics.length];
+    criticCursor++;
+    return critic;
   }
 
-  function scanRows(rows, index, token, done) {
+  function revealTop(entry, token, done) {
+    if (token !== tourToken) return;
+    var title = entry.row.querySelectorAll("td")[1].textContent.trim();
+    var rows = Array.prototype.slice.call(audiencesSection.querySelectorAll(".topblog_tr"));
+    clearRowEffects();
+    scanRows(rows, rows.indexOf(entry.row) + 1, token, function() {
+      if (token !== tourToken) return;
+      clearRowEffects();
+      entry.row.scrollIntoView({ block: "center" });
+      entry.row.classList.add("feed-audiences-row-glow");
+      var calloutHtml = "<strong>" + title + "</strong><br>" +
+        "Record d'audience : " + entry.score.pct.toLocaleString("fr-FR") + " % de part d'audience, " +
+        entry.score.viewers.toLocaleString("fr-FR") + " téléspectateurs !<br>" +
+        nextCritic();
+      showCallout(calloutHtml);
+      scanRowTimer = setTimeout(function() {
+        hideCallout();
+        entry.row.classList.remove("feed-audiences-row-glow");
+        entry.row.classList.add("feed-audiences-row-scan");
+        if (done) done();
+      }, 4200);
+    }, true);
+  }
+
+  function scanRows(rows, index, token, done, silent) {
     if (token !== tourToken) return;
     if (index >= rows.length) {
       if (done) done();
       return;
     }
     var row = rows[index];
-    row.scrollIntoView({ block: "center" });
+    row.scrollIntoView({ block: "center", behavior: silent ? "auto" : "smooth" });
     row.classList.add("feed-audiences-row-scan");
     scanRowTimer = setTimeout(function() {
-      scanRows(rows, index + 1, token, done);
-    }, 260);
+      scanRows(rows, index + 1, token, done, silent);
+    }, silent ? 90 : 260);
   }
 
   function runTour(token) {
@@ -339,4 +361,32 @@ document.addEventListener("DOMContentLoaded", function() {
   });
 
   scheduleIdle();
+});
+
+document.addEventListener("DOMContentLoaded", function() {
+  var scrollNav = document.querySelector(".site-scroll-nav");
+  if (!scrollNav) return;
+  var viewportStep = function() { return Math.max(240, window.innerHeight * 0.8); };
+  var pageHeight = function() { return Math.max(document.body.scrollHeight, document.documentElement.scrollHeight); };
+  var smoothStep = function(targetY) {
+    var maxY = pageHeight() - window.innerHeight;
+    var target = Math.max(0, Math.min(targetY, maxY));
+    var startY = window.scrollY;
+    var distance = target - startY;
+    if (Math.abs(distance) < 4) return;
+    var startTime = null;
+    var duration = Math.min(600, Math.max(220, Math.abs(distance) / 3));
+    function step(timestamp) {
+      if (startTime === null) startTime = timestamp;
+      var progress = Math.min(1, (timestamp - startTime) / duration);
+      var eased = progress < 0.5 ? 2 * progress * progress : 1 - Math.pow(-2 * progress + 2, 2) / 2;
+      window.scrollTo(0, startY + distance * eased);
+      if (progress < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  };
+  document.getElementById("scroll-full-top").addEventListener("click", function() { smoothStep(0); });
+  document.getElementById("scroll-up").addEventListener("click", function() { smoothStep(window.scrollY - viewportStep()); });
+  document.getElementById("scroll-down").addEventListener("click", function() { smoothStep(window.scrollY + viewportStep()); });
+  document.getElementById("scroll-full-bottom").addEventListener("click", function() { smoothStep(pageHeight() - window.innerHeight); });
 });
