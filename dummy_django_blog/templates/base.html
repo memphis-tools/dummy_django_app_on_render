@@ -50,27 +50,29 @@
                 <div class="collapse navbar-collapse" id="navbarNav">
                           <div id="navbar-nav" class="navbar-nav ml-auto">
                           {% if user.is_authenticated %}
-                              <div class="nav-link">
-                                  <a class="nav-item" href="{% url 'feed' %}">home</a>
-                              </div>
-                              <div class="nav-link dropdown custom-dropdown">
-                                  <a class="navbar-item dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                      photos
-                                  </a>
-                                  <ul class="dropdown-menu">
-                                      <h6 class="dropdown-header">photos</h6>
-                                      <li><a class="dropdown-item" href="{% url 'photos' %}">voir photos</a></li>
-                                      <li><a class="dropdown-item" href="{% url 'photos_add' %}">ajouter une photo</a></li>
-                                      <li><a class="dropdown-item" href="{% url 'photos_add_multiple' %}">ajouter des photos</a></li>
-                                  </ul>
-                              </div>
-                              <div class="nav-link dropdown custom-dropdown">
-                                  <a class="nav-item dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">billets</a>
-                                  <ul class="dropdown-menu">
-                                      <h6 class="dropdown-header">billets</h6>
-                                      <li><a class="dropdown-item" href="{% url 'posts' %}">voir billets</a></li>
-                                      <li><a class="dropdown-item" href="{% url 'posts_add' %}">ajouter un billet</a></li>
-                                  </ul>
+                              <div class="navbar-nav-left d-flex flex-row">
+                                  <div class="nav-link">
+                                      <a class="nav-item" href="{% url 'feed' %}">home</a>
+                                  </div>
+                                  <div class="nav-link dropdown custom-dropdown">
+                                      <a class="navbar-item dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                          photos
+                                      </a>
+                                      <ul class="dropdown-menu">
+                                          <h6 class="dropdown-header">photos</h6>
+                                          <li><a class="dropdown-item" href="{% url 'photos' %}">voir photos</a></li>
+                                          <li><a class="dropdown-item" href="{% url 'photos_add' %}">ajouter une photo</a></li>
+                                          <li><a class="dropdown-item" href="{% url 'photos_add_multiple' %}">ajouter des photos</a></li>
+                                      </ul>
+                                  </div>
+                                  <div class="nav-link dropdown custom-dropdown">
+                                      <a class="nav-item dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">billets</a>
+                                      <ul class="dropdown-menu">
+                                          <h6 class="dropdown-header">billets</h6>
+                                          <li><a class="dropdown-item" href="{% url 'posts' %}">voir billets</a></li>
+                                          <li><a class="dropdown-item" href="{% url 'posts_add' %}">ajouter un billet</a></li>
+                                      </ul>
+                                  </div>
                               </div>
                           {% endif %}
                           {% if not user.is_authenticated %}
@@ -81,7 +83,7 @@
                               </div>
                           {% endif %}
                           {% if user.is_authenticated %}
-                          <div class="nav-link dropdown custom-dropdown user-dropdown">
+                          <div class="nav-link dropdown custom-dropdown user-dropdown navbar-nav-right">
                                   <a class="nav-item dropdown-toggle mt-3" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                       {{ user.username }}
                                   </a>

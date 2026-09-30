@@ -141,6 +141,17 @@ body .dropdown-item {
   margin-left: auto;
   z-index: 10;
 }
+.navbar-nav-left {
+  align-items: flex-start;
+  gap: 4px 12px;
+}
+.navbar-nav-left .nav-link,
+.navbar-nav-left .custom-dropdown {
+  margin-left: 0;
+}
+.navbar-nav .navbar-nav-right {
+  margin-left: auto;
+}
 
 .navbar-nav .dropdown-menu {
   background-color: rgba(0, 0, 0, 0.9);
