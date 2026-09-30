@@ -34,44 +34,37 @@
               <a href="#feed-section-audiences" class="ms-2 text-nowrap">Audiences</a>
           </div>
       </div>
-        {% if photos_strip %}
+        {% if strip_items %}
         <div class="feed-photos-strip-container">
-            <div class="feed-photos-strip" style="--strip-items: {{ photos_strip|length }}; --strip-duration: {{ strip_seconds }}s;">
-                {% for photo in photos_strip %}
-                    <a class="feed-strip-item" href="{% url 'photos_detail' photo.id %}">
-                        <img class="photo_miniature class-img-top" src="{{ photo.image.url }}" alt="{{ photo.title_photo }}">
+            <div class="feed-photos-strip" style="--strip-items: {{ strip_items|length }}; --strip-duration: {{ strip_seconds }}s;">
+                {% for instance in strip_items %}
+                    <a class="feed-strip-item" href="{% if instance|model_type == 'Photo' %}{% url 'photos_detail' instance.id %}{% else %}{% url 'posts_detail' instance.id %}{% endif %}">
+                        {% if instance|model_type == "Photo" %}
+                            <img class="photo_miniature class-img-top" src="{{ instance.image.url }}" alt="{{ instance.title_photo }}">
+                        {% elif instance.image %}
+                            <img class="photo_miniature class-img-top" src="{{ instance.image.image.url }}" alt="{{ instance.title }}">
+                        {% endif %}
                     </a>
                 {% endfor %}
-                {% for photo in photos_strip %}
-                    <a class="feed-strip-item" href="{% url 'photos_detail' photo.id %}" aria-hidden="true">
-                        <img class="photo_miniature class-img-top" src="{{ photo.image.url }}" alt="">
+                {% for instance in strip_items %}
+                    <a class="feed-strip-item" href="{% if instance|model_type == 'Photo' %}{% url 'photos_detail' instance.id %}{% else %}{% url 'posts_detail' instance.id %}{% endif %}" aria-hidden="true">
+                        {% if instance|model_type == "Photo" %}
+                            <img class="photo_miniature class-img-top" src="{{ instance.image.url }}" alt="">
+                        {% elif instance.image %}
+                            <img class="photo_miniature class-img-top" src="{{ instance.image.image.url }}" alt="">
+                        {% endif %}
                     </a>
                 {% endfor %}
             </div>
         </div>
+        {% elif not page_obj|length %}
+            <div class="nocontent-container d-flex flex-column">
+                <p>Aucunes publications pour le moment</p>
+                <p>SOYEZ NOTRE HERO !</p>
+                <a class="btn btn-primary" href="{% url 'photos_add' %}">AJOUTEZ UNE PHOTO</a>
+                <a class="btn btn-primary" href="{% url 'posts_add' %}">AJOUTEZ UN BILLET</a>
+            </div>
         {% endif %}
-    </div>
-    <div class="container d-flex flex-row align-items-center justify-content-center">
-        <div class="feed-container">
-            {% if page_obj|length > 0 %}
-                {% for instance in page_obj %}
-                    <div class="feed-item">
-                        {% if instance|model_type == "Photo" %}
-                            {% include "blog/partials/photo_snippet.html" with photo=instance %}
-                        {% elif instance|model_type == "Post" %}
-                            {% include "blog/partials/post_snippet.html" with post=instance %}
-                        {% endif %}
-                    </div>
-                {% endfor %}
-            {% else %}
-                <div class="nocontent-container d-flex flex-column">
-                    <p>Aucunes publications pour le moment</p>
-                    <p>SOYEZ NOTRE HERO !</p>
-                    <a class="btn btn-primary" href="{% url 'photos_add' %}">AJOUTEZ UNE PHOTO</a>
-                    <a class="btn btn-primary" href="{% url 'posts_add' %}">AJOUTEZ UN BILLET</a>
-                </div>
-            {% endif %}
-        </div>
     </div>
 </section>
 <section>
@@ -93,6 +86,7 @@
                     <p><em>« Des scènes de crime aux coulisses du tournage : explorez la galerie photos des Petits Meurtres ! »</em></p>
                 </blockquote>
             </div>
+            <div class="feed-actors-spotlight" id="feed-actors-spotlight"></div>
             {% if sample_photos %}
             <div class="feed-encadre-photos-group d-flex">
                 {% for photo in sample_photos %}

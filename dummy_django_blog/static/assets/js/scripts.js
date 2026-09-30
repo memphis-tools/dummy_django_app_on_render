@@ -92,3 +92,229 @@ document.addEventListener("DOMContentLoaded", function() {
   });
   defaultProfile.replaceWith(svg);
 });
+
+document.addEventListener("DOMContentLoaded", function() {
+  var spotlight = document.getElementById("feed-actors-spotlight");
+  if (spotlight) {
+    var actors = [
+      {
+        icon: "fa-user-secret",
+        name: "Samuel Labarthe",
+        news: "On le retrouve en 2025 à l'affiche de « Flair de famille » sur France 2, dans la peau de François Flament, après avoir incarné François Mitterrand dans la série « Tapie » sur Netflix.",
+        role: "Vu dans les 27 épisodes de la saison 2 dans le rôle du commissaire Swan Laurence, notre détective flegmatique en trench-coat."
+      },
+      {
+        icon: "fa-newspaper",
+        name: "Blandine Bellavoir",
+        news: "Elle enchaîne les rôles : Cathou dans « Fortune de France » (2024) puis Clara Castella dans « Meurtres en Gironde » (2025), une collection que les fans de polars adorent.",
+        role: "Interprète d'Alice Avril, l'impétueuse journaliste de La Voix du Nord, dans les 27 épisodes de la saison 2."
+      },
+      {
+        icon: "fa-star",
+        name: "Élodie Frenck",
+        news: "Toujours très présente à la télévision : Diane Baccara dans « Commandant Saint-Barth » (2025) et à l'affiche du téléfilm « Meurtres à Pont-L'Évêque » de la collection France 3.",
+        role: "Marlène Leroy, la secrétaire dévouée et naïve du commissaire Laurence, récompensée par le prix jeune espoir féminin à La Rochelle en 2013."
+      },
+      {
+        icon: "fa-user-doctor",
+        name: "Natacha Lindinger",
+        news: "Retour en force sur TF1 en 2025 dans la série d'espionnage « Menace Imminente » aux côtés de Patrick Bruel, qui a réuni plus de 4,3 millions de téléspectateurs.",
+        role: "Le docteur Euphrasie Maillol, la légiste dominante dont le commissaire Laurence était follement amoureux, dans 4 épisodes de la saison 2."
+      }
+    ];
+    var picks = actors.slice();
+    picks.sort(function() { return Math.random() - 0.5; });
+    picks.slice(0, 2).forEach(function(actor) {
+      var card = document.createElement("div");
+      card.className = "feed-actor-card";
+      var header = document.createElement("div");
+      header.className = "feed-actor-card-header";
+      var icon = document.createElement("i");
+      icon.className = "fa-solid " + actor.icon;
+      var title = document.createElement("h4");
+      title.textContent = actor.name;
+      header.appendChild(icon);
+      header.appendChild(title);
+      var news = document.createElement("p");
+      news.className = "feed-actor-card-news";
+      news.textContent = actor.news;
+      var role = document.createElement("p");
+      role.className = "feed-actor-card-role";
+      role.textContent = actor.role;
+      card.appendChild(header);
+      card.appendChild(news);
+      card.appendChild(role);
+      spotlight.appendChild(card);
+    });
+  }
+});
+
+document.addEventListener("DOMContentLoaded", function() {
+  var audiencesSection = document.getElementById("feed-section-audiences");
+  if (!audiencesSection) return;
+
+  var idleDelay = 10000;
+  var tourToken = 0;
+  var idleTimer = null;
+  var scanRowTimer = null;
+  var callout = null;
+  var running = false;
+
+  function ensureCallout() {
+    if (callout) return callout;
+    callout = document.createElement("div");
+    callout.className = "feed-audiences-topcallout";
+    document.body.appendChild(callout);
+    return callout;
+  }
+
+  function clearRowEffects() {
+    var rows = audiencesSection.querySelectorAll(".topblog_tr");
+    rows.forEach(function(row) {
+      row.classList.remove("feed-audiences-row-scan", "feed-audiences-row-glow");
+    });
+  }
+
+  function showCallout(text) {
+    var el = ensureCallout();
+    el.innerHTML = text;
+    el.classList.add("visible");
+  }
+
+  function hideCallout() {
+    if (callout) callout.classList.remove("visible");
+  }
+
+  function cancelTour() {
+    tourToken++;
+    running = false;
+    hideCallout();
+    clearRowEffects();
+    clearTimeout(scanRowTimer);
+  }
+
+  function smoothScrollTo(targetY, durationMs, done, token) {
+    var startY = window.scrollY;
+    var distance = targetY - startY;
+    if (Math.abs(distance) < 4) {
+      if (done) done();
+      return;
+    }
+    var startTime = null;
+    function step(timestamp) {
+      if (token !== tourToken) return;
+      if (startTime === null) startTime = timestamp;
+      var progress = Math.min(1, (timestamp - startTime) / durationMs);
+      var eased = progress < 0.5 ? 2 * progress * progress : 1 - Math.pow(-2 * progress + 2, 2) / 2;
+      window.scrollTo(0, startY + distance * eased);
+      if (progress < 1) {
+        requestAnimationFrame(step);
+      } else if (done) {
+        done();
+      }
+    }
+    requestAnimationFrame(step);
+  }
+
+  function parseScore(row) {
+    var cells = row.querySelectorAll("td");
+    if (cells.length < 4) return null;
+    var pctText = cells[cells.length - 1].textContent.replace(",", ".").replace("%", "").trim();
+    var viewersText = cells[cells.length - 2].textContent.replace(/[^\d]/g, "");
+    var pct = parseFloat(pctText);
+    var viewers = parseInt(viewersText, 10);
+    if (isNaN(pct) || isNaN(viewers)) return null;
+    return { pct: pct, viewers: viewers };
+  }
+
+  function topRows() {
+    var rows = Array.prototype.slice.call(audiencesSection.querySelectorAll(".topblog_tr"));
+    return rows
+      .map(function(row) { return { row: row, score: parseScore(row) }; })
+      .filter(function(entry) { return entry.score !== null; })
+      .sort(function(a, b) { return b.score.pct - a.score.pct; })
+      .slice(0, 3);
+  }
+
+  function revealTop(row, score, token, done) {
+    if (token !== tourToken) return;
+    row.scrollIntoView({ block: "center" });
+    row.classList.add("feed-audiences-row-glow");
+    var title = row.querySelectorAll("td")[1].textContent.trim();
+    var calloutHtml = "<strong>" + title + "</strong><br>" +
+      "Record d'audience : " + score.pct.toLocaleString("fr-FR") + " % de part d'audience, " +
+      score.viewers.toLocaleString("fr-FR") + " téléspectateurs !<br>" +
+      "Un épisode culte de la saison 2, à (re)voir absolument.";
+    showCallout(calloutHtml);
+    scanRowTimer = setTimeout(function() {
+      hideCallout();
+      row.classList.remove("feed-audiences-row-glow");
+      row.classList.add("feed-audiences-row-scan");
+      if (done) done();
+    }, 4200);
+  }
+
+  function scanRows(rows, index, token, done) {
+    if (token !== tourToken) return;
+    if (index >= rows.length) {
+      if (done) done();
+      return;
+    }
+    var row = rows[index];
+    row.scrollIntoView({ block: "center" });
+    row.classList.add("feed-audiences-row-scan");
+    scanRowTimer = setTimeout(function() {
+      scanRows(rows, index + 1, token, done);
+    }, 260);
+  }
+
+  function runTour(token) {
+    if (token !== tourToken) return;
+    var top = topRows();
+    var allRows = Array.prototype.slice.call(audiencesSection.querySelectorAll(".topblog_tr"));
+    smoothScrollTo(audiencesSection.getBoundingClientRect().top + window.scrollY - 70, 3000, function() {
+      if (token !== tourToken) return;
+      scanRows(allRows, 0, token, function() {
+        if (token !== tourToken) return;
+        clearRowEffects();
+        revealTop(top[0].row, top[0].score, token, function() {
+          if (token !== tourToken) return;
+          revealTop(top[1].row, top[1].score, token, function() {
+            if (token !== tourToken) return;
+            revealTop(top[2].row, top[2].score, token, function() {
+              if (token !== tourToken) return;
+              smoothScrollTo(0, 3000, function() {
+                if (token !== tourToken) return;
+                clearRowEffects();
+                running = false;
+                scheduleIdle();
+              }, token);
+            });
+          });
+        });
+      });
+    }, token);
+  }
+
+  function scheduleIdle() {
+    if (running) return;
+    idleTimer = setTimeout(function() {
+      if (running) return;
+      running = true;
+      tourToken++;
+      runTour(tourToken);
+    }, idleDelay);
+  }
+
+  var userEvents = ["mousemove", "mousedown", "touchstart", "keydown", "wheel", "scroll"];
+  userEvents.forEach(function(eventName) {
+    window.addEventListener(eventName, function() {
+      if (running && eventName === "scroll") return;
+      clearTimeout(idleTimer);
+      if (running) cancelTour();
+      scheduleIdle();
+    }, { passive: true });
+  });
+
+  scheduleIdle();
+});
