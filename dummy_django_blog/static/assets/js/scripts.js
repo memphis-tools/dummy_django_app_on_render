@@ -401,15 +401,29 @@ document.addEventListener("DOMContentLoaded", function() {
   var detailQuote = document.getElementById("post-detail-quote");
   if (detailQuote) {
     var quotes = [
-      { text: "Un des plaisirs de la vie, c'est de ne pas la prendre au sérieux.", author: "— adapté d'Agatha Christie, la reine du crime qui a inspiré toute la série" },
-      { text: "L'imagination est un bien précieux : elle permet de voir des crimes partout.", author: "— d'après Agatha Christie, dont les Petits Meurtres sont la 3e série préférée des Français" },
-      { text: "Très peu de gens s'intéressent à un meurtre tant qu'ils ne connaissent pas la victime.", author: "— librement inspiré d'Agatha Christie, lue religieusement par le commissariat de Lille" },
-      { text: "Un bon détective ne croit jamais aux coïncidences. Un excellent billet non plus.", author: "— La rédaction du Clairon de Lille, chroniqueur de tous les faits divers de la saison 2" },
-      { text: "Chaque lecteur est un enquêteur en puissance : son arme, l'index de la page.", author: "— Huguette Marthe Salsifi, Gala Télé-Police, qui tourne les pages comme on retourne un alibi" }
+      { text: "Un des plaisirs de la vie, c'est de ne pas la prendre au sérieux.", author: "— adapté d'Agatha Christie", person: "Agatha Christie", img: "/static/vendors/img/agatha_christie.jpg", source: "Quote Investigator, 2010 ; portrait : Wikimedia Commons (domaine public)" },
+      { text: "L'imagination est un bien précieux : elle permet de voir des crimes partout.", author: "— d'après Agatha Christie", person: "Agatha Christie", img: "/static/vendors/img/agatha_christie.jpg", source: "L'Express, 2013 ; portrait : Wikimedia Commons (domaine public)" },
+      { text: "Très peu de gens s'intéressent à un meurtre tant qu'ils ne connaissent pas la victime.", author: "— librement inspiré d'Agatha Christie", person: "Agatha Christie", img: "/static/vendors/img/agatha_christie.jpg", source: "A Murder is Announced (1950) ; portrait : Wikimedia Commons (domaine public)" },
+      { text: "Un bon détective ne croit jamais aux coïncidences. Un excellent billet non plus.", author: "— La rédaction du Clairon de Lille", person: "Clairon de Lille (critique fictif)", img: "", source: "Chronique du Clairon de Lille, rubrique faits divers de la saison 2 (fiction)" },
+      { text: "Chaque lecteur est un enquêteur en puissance : son arme, l'index de la page.", author: "— Huguette Marthe Salsifi, Gala Télé-Police", person: "Huguette Marthe Salsifi (critique fictive)", img: "", source: "Gala Télé-Police, chronique télé (fiction)" }
     ];
     var pick = quotes[Math.floor(Math.random() * quotes.length)];
     detailQuote.querySelector(".post-detail-quote-text").textContent = "« " + pick.text + " »";
     detailQuote.querySelector(".post-detail-quote-author").textContent = pick.author;
+    if (pick.img) {
+    var portraitWrap = document.createElement("span");
+    portraitWrap.className = "quote-portrait-wrap";
+    var portrait = document.createElement("img");
+    portrait.src = pick.img;
+    portrait.alt = pick.person;
+    portrait.className = "quote-portrait";
+    portraitWrap.appendChild(portrait);
+    detailQuote.insertBefore(portraitWrap, detailQuote.firstChild);
+    }
+    var source = document.createElement("p");
+    source.className = "quote-source";
+    source.textContent = "Source : " + pick.source;
+    detailQuote.querySelector("blockquote").appendChild(source);
   }
 
   var gridQuotes = document.querySelectorAll(".photos-grid-quote");
@@ -419,6 +433,18 @@ document.addEventListener("DOMContentLoaded", function() {
       "Meurtre au champagne": { text: "Vous saviez que la victime buvait du champagne ? J'en déduis que l'assassin trinque sans soif.", author: "— Alice Avril, épisode « Meurtre au champagne »" },
       "Pension Vanilos": { text: "Ici, tout le monde ment poliment. C'est ce qu'on appelle une pension de famille.", author: "— Commissaire Swan Laurence, épisode « Pension Vanilos »" },
       "Murder Party": { text: "Un meurtre par jeu ? J'ai connu des enquêtes qui commençaient moins bien.", author: "— Alice Avril, épisode « Murder Party »" }
+    };
+    var castImgs = {
+      "Commissaire Swan Laurence": "/static/vendors/img/swan_laurence.png",
+      "Marlène Leroy": "/static/vendors/img/marlene_leroy.jpg",
+      "Alice Avril": "/static/vendors/img/alice_avril.jpg",
+      "Dr Euphrasie Maillol": "/static/vendors/img/euphrasie_maillol.jpg"
+    };
+    var episodeSource = {
+      "Jeux de glaces": "Saison 2, épisode 1 (France 2, 29 mars 2013) — Wikipédia",
+      "Meurtre au champagne": "Saison 2, épisode 2 (France 2, 5 avril 2013) — Wikipédia",
+      "Pension Vanilos": "Saison 2, épisode 8 (France 2, 28 août 2015) — Wikipédia",
+      "Murder Party": "Saison 2, épisode 11 (France 2, 18 septembre 2015) — Wikipédia"
     };
     var anyEpisode = [
       { text: "Inutile de hurler, Marlène : le criminel n'écoute que la radio.", author: "— Commissaire Swan Laurence" },
@@ -438,6 +464,24 @@ document.addEventListener("DOMContentLoaded", function() {
       if (!pick) pick = anyEpisode[Math.floor(Math.random() * anyEpisode.length)];
       box.querySelector(".photos-grid-quote-text").textContent = "« " + pick.text + " »";
       box.querySelector(".photos-grid-quote-author").textContent = pick.author;
+      var epKey = null;
+      Object.keys(byEpisode).forEach(function(ep) { if (!epKey && titleText.indexOf(ep) !== -1) epKey = ep; });
+      var person = pick.author.replace("— ", "").split(",")[0].trim();
+      var img = castImgs[person] || "";
+      if (img) {
+        var pw = document.createElement("span");
+        pw.className = "quote-portrait-wrap";
+        var im = document.createElement("img");
+        im.src = img;
+        im.alt = person;
+        im.className = "quote-portrait";
+        pw.appendChild(im);
+        box.insertBefore(pw, box.firstChild);
+      }
+      var srcEl = document.createElement("p");
+      srcEl.className = "quote-source";
+      srcEl.textContent = "Source : " + (epKey ? episodeSource[epKey] : "Les Petits Meurtres d'Agatha Christie, saison 2 (France 2) — citation de personnage");
+      box.querySelector("blockquote").appendChild(srcEl);
     });
   }
 });
@@ -495,6 +539,11 @@ document.addEventListener("DOMContentLoaded", function() {
       "Changer de mot de passe : même Marlène n'essaie pas de deviner celui du commissaire Laurence.",
       "Nouveau mot de passe, ancien secret d'enquête : Alice Avril n'aura rien à écrire dans La Voix du Nord !",
       "Un mot de passe bien gardé vaut mieux qu'un dossier mal fermé, camarade !"
+    ],
+    profile_update: [
+      "Changer de photo de profil, " + encartUser + " : Marlène dit qu'un portrait net, c'est déjà la moitié de l'enquête.",
+      "Nouveau visage, même talent, " + encartUser + " ! Le commissaire Laurence approuve votre souci du détail.",
+      "Mettez votre plus beau portrait au dossier, " + encartUser + " : format .jpg, sourire garant" + String.fromCharCode(233) + " !"
     ],
     password_reset: [
       "Un mot de passe égaré ? Même le grand Agatha admettrait : ça arrive aux meilleurs enquêteurs.",

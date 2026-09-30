@@ -101,26 +101,24 @@ body .dropdown-item {
   max-width: 100%;
 }
 .navbar .container-fluid {
-  align-items: flex-start;
+  align-items: center;
   max-width: 100%;
 }
 #navbar-nav {
   flex-direction: row;
   flex-wrap: wrap;
-  align-items: flex-start;
+  align-items: center;
   gap: 4px 12px;
   width: 100%;
 }
 .navbar-collapse {
-  align-items: flex-start;
+  align-items: center;
 }
 #navbar-nav .nav-link,
 #navbar-nav .custom-dropdown {
   margin-left: 0;
 }
-.nav-cta {
-  margin-left: 12px;
-}
+#navbar-nav .nav-cta {  margin-left: auto;}
 .navbar-cta-button {
   font-family: "ArsenalSC", sans-serif;
   color: white;
@@ -227,14 +225,8 @@ body .dropdown-item {
 .navbar-collapse {
   justify-content: space-between;
 }
-.nav-cta {
-  margin-left: auto;
-}
-@media (min-width: 992px) {
-  .navbar-nav .nav-cta {
-    margin-right: 8px;
-  }
-}
+#navbar-nav .nav-cta {  margin-left: auto;  margin-right: 8px;}
+
 
 .navbar-collapse {
   transition: opacity 0.3s ease;
@@ -827,9 +819,7 @@ footer .footer-contact-admin {
   #navbar-nav .custom-dropdown {
     width: 100%;
   }
-  .nav-cta {
-    margin-left: 0;
-  }
+  #navbar-nav .nav-cta {    margin-left: 0;  }
   .navbar-cta-button {
     width: 100%;
   }
@@ -1652,4 +1642,57 @@ footer .footer-contact-admin {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+/* Bouton d'action du contenu de la page /home/ (indépendant de la navbar) */
+.home-content-cta {
+  font-family: "ArsenalSC", sans-serif;
+  color: white;
+  background-color: #221c1c8c;
+  border: 1px dashed #ea9ef0;
+  white-space: normal;
+}
+.home-content-cta a {
+  color: white;
+  text-decoration: none;
+}
+.home-content-cta:hover {
+  background-color: #ea9ef0;
+}
+.home-content-cta:hover a {
+  color: white;
+}
+.home-comedie-row {
+  justify-content: space-between;
+  margin-top: 10px;
+}
+.home-comedie-row .home-comedie-cta-zone {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 12px;
+}
+.home-comedie-row .home-comedie-footer-image {
+  margin-left: 0;
+}
+
+/* Portraits cerclés joints aux encarts de citation */
+.quote-portrait {
+  flex: none;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px dashed #ea9ef0;
+  box-shadow: 2px 2px 0px #ea9ef054;
+}
+.action-encart .quote-portrait {
+  width: 40px;
+  height: 40px;
+}
+.quote-source {
+  font-family: "ArsenalSC", sans-serif;
+  font-size: 0.72em;
+  color: #ea9ef0;
+  margin: 2px 0 0;
 }
