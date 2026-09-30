@@ -70,6 +70,39 @@
                 <a href="#navbar" class="ms-2 text-nowrap">Accueil</a>
             </div>
         </div>
+        {% if photos_strip %}
+        <div class="feed-photos-strip-container">
+            <div class="feed-photos-strip" style="--strip-items: {{ photos_strip|length }};">
+                {% for photo in photos_strip %}
+                    <a class="feed-strip-item" href="{% url 'photos_detail' photo.id %}">
+                        <img class="photo_miniature class-img-top" src="{{ photo.image.url }}" alt="{{ photo.title_photo }}">
+                    </a>
+                {% endfor %}
+                {% for photo in photos_strip %}
+                    <a class="feed-strip-item" href="{% url 'photos_detail' photo.id %}" aria-hidden="true">
+                        <img class="photo_miniature class-img-top" src="{{ photo.image.url }}" alt="">
+                    </a>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+        <div class="feed-highlight">
+            <div class="feed-encadre home-elements-middle feed-encadre-photos">
+                <span class="detective-magnifier">{% bs_icon 'camera' %}</span>
+                <blockquote>
+                    <p><em>« Des scènes de crime aux coulisses du tournage : explorez la galerie photos des Petits Meurtres ! »</em></p>
+                </blockquote>
+            </div>
+            {% if sample_photos %}
+            <div class="feed-encadre-photos-group d-flex">
+                {% for photo in sample_photos %}
+                    <a class="feed-encadre-photo-item" href="{% url 'photos_detail' photo.id %}">
+                        <img class="photo_miniature class-img-top" src="{{ photo.image.url }}" alt="{{ photo.title_photo }}">
+                    </a>
+                {% endfor %}
+            </div>
+            {% endif %}
+        </div>
     </div>
 </section>
 <section>
@@ -83,6 +116,30 @@
               <i class="fa-solid fa-house" style="color: pink"></i>
               <a href="#navbar" class="ms-2 text-nowrap">Accueil</a>
           </div>
+      </div>
+      <div class="feed-highlight">
+          <div class="feed-encadre home-elements-middle feed-encadre-posts">
+              <span class="detective-magnifier">{% bs_icon 'journal-text' %}</span>
+              <blockquote>
+                  <p><em>&laquo; Nos enqu&ecirc;teurs de talent ont du neuf : lisez les billets les plus affolants du blog ! &raquo;</em></p>
+              </blockquote>
+          </div>
+          {% if sample_posts %}
+          <div class="feed-encadre-posts-group d-flex">
+              {% for post in sample_posts %}
+                  <a class="feed-case-file" href="{% url 'posts_detail' post.id %}">
+                      <span class="feed-case-file-tab">DOSSIER N&deg;{{ post.id }}</span>
+                      <span class="feed-case-file-body">
+                          {% if post.image %}<img class="photo_miniature class-img-top" src="{{ post.image.image.url }}" alt="{{ post.title }}">{% endif %}
+                          <span class="feed-case-file-text">
+                              <strong>{{ post.title|truncatechars:30 }}</strong>
+                              <em>{{ post.content|truncatechars:80 }}</em>
+                          </span>
+                      </span>
+                  </a>
+              {% endfor %}
+          </div>
+          {% endif %}
       </div>
 </section>
 <section class="personnages">
