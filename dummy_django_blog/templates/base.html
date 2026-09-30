@@ -129,6 +129,32 @@
 
 
     </footer>
+    <nav class="site-scroll-nav" aria-label="Navigation rapide dans la page">
+        <button type="button" class="scroll-nav-btn" id="scroll-full-top" aria-label="Tout en haut de la page" title="Remonter au sommet de l'enquête">
+            <svg viewBox="0 0 32 32" role="img" aria-hidden="true">
+                <path d="M6 10h4v14h4V10h4v14h4V10h4" fill="none" stroke="#ea9ef0" stroke-width="2" stroke-dasharray="3 2"/>
+                <path d="M16 4l6 6H10z" fill="#ea9ef0"/>
+            </svg>
+        </button>
+        <button type="button" class="scroll-nav-btn" id="scroll-up" aria-label="Monter" title="Monter d'un cran">
+            <svg viewBox="0 0 32 32" role="img" aria-hidden="true">
+                <path d="M9 14l7-7 7 7" fill="none" stroke="#ea9ef0" stroke-width="2.5" stroke-dasharray="4 3"/>
+                <path d="M9 20l7-7 7 7" fill="none" stroke="#ea9ef0" stroke-width="2.5" stroke-dasharray="4 3" opacity="0.55"/>
+            </svg>
+        </button>
+        <button type="button" class="scroll-nav-btn" id="scroll-down" aria-label="Descendre" title="Descendre d'un cran">
+            <svg viewBox="0 0 32 32" role="img" aria-hidden="true">
+                <path d="M9 18l7 7 7-7" fill="none" stroke="#ea9ef0" stroke-width="2.5" stroke-dasharray="4 3"/>
+                <path d="M9 12l7-7 7 7" fill="none" stroke="#ea9ef0" stroke-width="2.5" stroke-dasharray="4 3" opacity="0.55" transform="translate(0 13)"/>
+            </svg>
+        </button>
+        <button type="button" class="scroll-nav-btn" id="scroll-full-bottom" aria-label="Tout en bas de la page" title="Plonger au bas du dossier">
+            <svg viewBox="0 0 32 32" role="img" aria-hidden="true">
+                <path d="M6 22h4V8h4v14h4V8h4v14h4" fill="none" stroke="#ea9ef0" stroke-width="2" stroke-dasharray="3 2"/>
+                <path d="M16 28l6-6H10z" fill="#ea9ef0"/>
+            </svg>
+        </button>
+    </nav>
     <script src="{% static 'assets/js/scripts.js' %}"></script>
     <!-- Bootstrap -->
     <script src="{% static 'vendors/js/bootstrap.bundle.min.js' %}"></script>
