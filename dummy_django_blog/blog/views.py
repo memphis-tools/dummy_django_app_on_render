@@ -65,6 +65,7 @@ def feed(request):
     page = request.GET.get("page")
     page_obj = paginator.get_page(page)
     photos_strip = list(models.Photo.objects.order_by("-created_at"))
+    strip_seconds = min(600, 20 * len(photos_strip))
     sample_photos = random.sample(photos_strip, min(3, len(photos_strip)))
     all_posts = list(models.Post.objects.all())
     sample_posts = random.sample(all_posts, min(3, len(all_posts)))
@@ -74,6 +75,7 @@ def feed(request):
         context={
             "page_obj": page_obj,
             "photos_strip": photos_strip,
+            "strip_seconds": strip_seconds,
             "sample_photos": sample_photos,
             "sample_posts": sample_posts,
             "MEDIA_URL": settings.MEDIA_URL,

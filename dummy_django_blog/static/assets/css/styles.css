@@ -838,7 +838,7 @@ footer .footer-contact-admin {
   flex-direction: row;
   flex-wrap: nowrap;
   width: fit-content;
-  animation: feed-photos-strip-scroll 60s linear infinite;
+  animation: feed-photos-strip-scroll var(--strip-duration, 90s) linear infinite;
 }
 .feed-photos-strip .feed-strip-item {
   flex: 0 0 auto;
