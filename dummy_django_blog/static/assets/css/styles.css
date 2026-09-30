@@ -265,6 +265,26 @@ section .btn:hover {
   background-color: #4f5e4ac7;
   border: 1px solid pink;
 }
+.btn,
+.btn-primary {
+  font-family: "ArsenalSC", sans-serif;
+  color: white;
+  background-color: #221c1c8c;
+  border: 1px dashed #ea9ef0;
+  white-space: normal;
+}
+.btn a,
+.btn-primary a {
+  color: white;
+  text-decoration: none;
+}
+.btn:hover,
+.btn-primary:hover,
+.btn:hover a,
+.btn-primary:hover a {
+  background-color: #ea9ef0;
+  color: white;
+}
 
 .login-container {
   margin-bottom: 0%;

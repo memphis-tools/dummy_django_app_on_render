@@ -72,19 +72,6 @@
                                       <li><a class="dropdown-item" href="{% url 'posts_add' %}">ajouter un billet</a></li>
                                   </ul>
                               </div>
-                          {% elif request.resolver_match.url_name != "home" %}
-                              <div class="nav-link">
-                                  <a class="nav-item" href="{% url 'home' %}">home</a>
-                              </div>
-                              <div class="nav-link">
-                                  <a class="nav-item" href="{% url 'login' %}">login</a>
-                              </div>
-                              <div class="nav-link">
-                                  <a class="nav-item" href="{% url 'signin' %}">signin</a>
-                              </div>
-                              <div class="nav-link">
-                                  <a class="nav-item" href="{% url 'contact_admin' %}">contacter un admin</a>
-                              </div>
                           {% endif %}
                           {% if not user.is_authenticated %}
                               <div class="nav-link nav-cta">
