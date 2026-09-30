@@ -2,7 +2,7 @@ name: Auto-merge my documentation PRs
 
 on:
   pull_request:
-    types: [opened, synchronize, reopened]
+    types: [opened, synchronize, reopened, ready_for_review]
 
 permissions:
   contents: write
@@ -11,15 +11,17 @@ permissions:
 jobs:
   auto-merge:
     if: |
-      startsWith(github.head_ref, 'docs/') ||
-      startsWith(github.head_ref, 'vibe/') ||
-      (
-        startsWith(github.head_ref, '[Snyk]') &&
-        !contains(github.head_ref, 'alpine')
-      ) ||
-      (
-        startsWith(github.head_ref, '[Aikido] AI Fix') &&
-        !contains(github.head_ref, 'alpine')
+      !github.event.pull_request.draft && (
+        startsWith(github.head_ref, 'docs/') ||
+        startsWith(github.head_ref, 'vibe/') ||
+        (
+          startsWith(github.head_ref, '[Snyk]') &&
+          !contains(github.head_ref, 'alpine')
+        ) ||
+        (
+          startsWith(github.head_ref, '[Aikido] AI Fix') &&
+          !contains(github.head_ref, 'alpine')
+        )
       )
     runs-on: ubuntu-latest
     steps:
