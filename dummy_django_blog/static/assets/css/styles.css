@@ -97,9 +97,12 @@ body .dropdown-item {
 
 #navbar {
   align-items: flex-start;
+  width: 100%;
+  max-width: 100%;
 }
 .navbar .container-fluid {
   align-items: flex-start;
+  max-width: 100%;
 }
 #navbar-nav {
   flex-direction: row;
@@ -226,6 +229,11 @@ body .dropdown-item {
 }
 .nav-cta {
   margin-left: auto;
+}
+@media (min-width: 992px) {
+  .navbar-nav .nav-cta {
+    margin-right: 8px;
+  }
 }
 
 .navbar-collapse {
@@ -759,6 +767,13 @@ footer p {
   font-family: "ArsenalSC-Fat", sans-serif;
   font-size: 1.25rem;
   text-shadow: #85586F 2px 0 10px;
+}
+#footer_date {
+  animation: footer-glow 3s ease-in-out infinite;
+}
+@keyframes footer-glow {
+  0%, 100% { text-shadow: #ea9ef0 0 0 6px, #ea9ef0 0 0 2px, #85586F 2px 0 10px; }
+  50% { text-shadow: #ea9ef0 0 0 16px, #ea9ef0 0 0 30px, #ea9ef0 0 0 48px, #85586F 2px 0 10px; }
 }
 
 footer a {
