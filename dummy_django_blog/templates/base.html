@@ -116,18 +116,23 @@
         {% block content %}{% endblock content %}
     </main>
     <footer class="w-100 footer-container">
-        <div class="d-flex flex-row align-items-center justify-content-center footer-row">
+        <div class="footer-row">
             <p id="footer_date"></p>
             <div class="d-flex flex-row justify-content-center footer-socials">
-                <a class="mx-2 social-icons" href="#"><img src="{% static 'assets/img/icons/facebook.png' %}" alt="social media icon"></a>
-                <a class="mx-2 social-icons" href="#"><img src="{% static 'assets/img/icons/github.png' %}" alt="social media icon"></a>
-                <a class="mx-2 social-icons" href="#"><img src="{% static 'assets/img/icons/linkedin.png' %}" alt="social media icon"></a>
-                <a class="mx-2 social-icons" href="#"><img src="{% static 'assets/img/icons/tweeter.png' %}" alt="social media icon"></a>
+                <a class="mx-2 social-icons" href="#" aria-label="facebook"><img src="{% static 'assets/img/icons/facebook.png' %}" alt="Facebook"></a>
+                <a class="mx-2 social-icons" href="#" aria-label="github"><img src="{% static 'assets/img/icons/github.png' %}" alt="GitHub"></a>
+                <a class="mx-2 social-icons" href="#" aria-label="linkedin"><img src="{% static 'assets/img/icons/linkedin.png' %}" alt="LinkedIn"></a>
+                <a class="mx-2 social-icons" href="#" aria-label="twitter"><img src="{% static 'assets/img/icons/tweeter.png' %}" alt="Twitter/X"></a>
+                <a class="mx-2 social-icons footer-mistral" href="https://chat.mistral.ai" target="_blank" rel="noopener noreferrer" title="Discuter avec l'IA de Mistral sur chat.mistral.ai" aria-label="Mistral AI" data-bs-toggle="tooltip" data-bs-placement="top">
+                    <svg viewBox="0 0 32 32" width="20" height="20" role="img" aria-hidden="true">
+                        <rect x="3" y="3" width="26" height="26" rx="6" fill="#221c1c" stroke="#ea9ef0" stroke-width="1.5" stroke-dasharray="4 3"/>
+                        <path d="M9 22l4-12h2.5l4 12h-2.3l-.9-3h-4.3l-.9 3zm3.7-4.8h3l-1.5-5z" fill="#ea9ef0"/>
+                        <circle cx="23" cy="10" r="1.6" fill="#ea9ef0"/>
+                    </svg>
+                </a>
                 <a class="mx-2 footer-contact-admin" href="{% url 'contact_admin' %}" title="Envoyer un mail à un admin" aria-label="contacter un admin" data-bs-toggle="tooltip" data-bs-placement="top">{% bs_icon 'envelope-fill' %}</a>
             </div>
         </div>
-
-
     </footer>
     <nav class="site-scroll-nav" aria-label="Navigation rapide dans la page">
         <button type="button" class="scroll-nav-btn" id="scroll-full-top" aria-label="Tout en haut de la page" title="Remonter au sommet de l'enquête">
