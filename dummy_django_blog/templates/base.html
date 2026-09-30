@@ -52,25 +52,25 @@
                           {% if user.is_authenticated %}
                               <div class="navbar-nav-left d-flex flex-row">
                                   <div class="nav-link">
-                                      <a class="nav-item" href="{% url 'feed' %}">home</a>
+                                      <a class="nav-item" href="{% url 'feed' %}"><i class="fa-solid fa-house nav-item-icon"></i>home</a>
                                   </div>
                                   <div class="nav-link dropdown custom-dropdown">
                                       <a class="navbar-item dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                          photos
+                                          <i class="fa-solid fa-camera-retro nav-item-icon"></i>photos
                                       </a>
                                       <ul class="dropdown-menu">
-                                          <h6 class="dropdown-header">photos</h6>
-                                          <li><a class="dropdown-item" href="{% url 'photos' %}">voir photos</a></li>
-                                          <li><a class="dropdown-item" href="{% url 'photos_add' %}">ajouter une photo</a></li>
-                                          <li><a class="dropdown-item" href="{% url 'photos_add_multiple' %}">ajouter des photos</a></li>
+                                          <h6 class="dropdown-header"><i class="fa-solid fa-camera-retro"></i> photos</h6>
+                                          <li><a class="dropdown-item" href="{% url 'photos' %}"><i class="fa-solid fa-images"></i>voir photos</a></li>
+                                          <li><a class="dropdown-item" href="{% url 'photos_add' %}"><i class="fa-solid fa-square-plus"></i>ajouter une photo</a></li>
+                                          <li><a class="dropdown-item" href="{% url 'photos_add_multiple' %}"><i class="fa-solid fa-clone"></i>ajouter des photos</a></li>
                                       </ul>
                                   </div>
                                   <div class="nav-link dropdown custom-dropdown">
-                                      <a class="nav-item dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">billets</a>
+                                      <a class="nav-item dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fa-solid fa-film nav-item-icon"></i>billets</a>
                                       <ul class="dropdown-menu">
-                                          <h6 class="dropdown-header">billets</h6>
-                                          <li><a class="dropdown-item" href="{% url 'posts' %}">voir billets</a></li>
-                                          <li><a class="dropdown-item" href="{% url 'posts_add' %}">ajouter un billet</a></li>
+                                          <h6 class="dropdown-header"><i class="fa-solid fa-film"></i> billets</h6>
+                                          <li><a class="dropdown-item" href="{% url 'posts' %}"><i class="fa-solid fa-book-open"></i>voir billets</a></li>
+                                          <li><a class="dropdown-item" href="{% url 'posts_add' %}"><i class="fa-solid fa-pen-nib"></i>ajouter un billet</a></li>
                                       </ul>
                                   </div>
                               </div>
@@ -85,7 +85,7 @@
                           {% if user.is_authenticated %}
                           <div class="nav-link dropdown custom-dropdown user-dropdown navbar-nav-right">
                                   <a class="nav-item dropdown-toggle mt-3" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                      {{ user.username }}
+                                      <i class="fa-solid fa-user-secret nav-item-icon"></i>{{ user.username }}
                                   </a>
                                   <ul class="dropdown-menu">
                                       <li class="user-dropdown-profile">
@@ -95,12 +95,12 @@
                                               <img class="image_profile navbar-profile-in-menu" src="{{ user.image_profile.url }}" alt="{{ user.image_profile }}">
                                           {% endif %}
                                       </li>
-                                      <li><a class="dropdown-item" href="#">voir profile</a></li>
-                                      <li><a class="dropdown-item" href="{% url 'follow_user' %}">abonnements</a></li>
-                                      <li><a class="dropdown-item" href="{% url 'update_profile_image' %}">modifier profile</a></li>
-                                      <li><a class="dropdown-item" href="{% url 'password_change' %}">modifier mot de passe</a></li>
+                                      <li><a class="dropdown-item" href="#"><i class="fa-solid fa-id-badge"></i>voir profile</a></li>
+                                      <li><a class="dropdown-item" href="{% url 'follow_user' %}"><i class="fa-solid fa-users"></i>abonnements</a></li>
+                                      <li><a class="dropdown-item" href="{% url 'update_profile_image' %}"><i class="fa-solid fa-user-pen"></i>modifier profile</a></li>
+                                      <li><a class="dropdown-item" href="{% url 'password_change' %}"><i class="fa-solid fa-key"></i>modifier mot de passe</a></li>
                                       <li>
-                                          <a class="dropdown-item" href="#" onclick="document.getElementById('logout-form').submit(); return false;">logout</a>
+                                          <a class="dropdown-item" href="#" onclick="document.getElementById('logout-form').submit(); return false;"><i class="fa-solid fa-door-open"></i>logout</a>
                                       </li>
                                   </ul>
                                   <form id="logout-form" method="post" action="{% url 'logout' %}" style="display: none;">

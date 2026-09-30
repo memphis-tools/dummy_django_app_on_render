@@ -51,32 +51,44 @@ document.addEventListener("DOMContentLoaded", function() {
   var defaultProfile = document.querySelector(".user-dropdown-profile .navbar-profile-in-menu");
   if (!defaultProfile) return;
   if (!/default_profile\.png$/.test(defaultProfile.getAttribute("src"))) return;
+  var badges = [
+    { shapes: [
+      { tag: "path", attrs: { d: "M32 6l5.5 12.4L50.7 20l-9.4 9.1 2.4 13.1L32 36.2 20.3 42.2l2.4-13.1-9.4-9.1 13.2-1.6z", fill: "#ea9ef0", stroke: "#221c1c", "stroke-width": "2" } },
+      { tag: "circle", attrs: { cx: "32", cy: "32", r: "28", fill: "none", stroke: "#ea9ef0", "stroke-width": "2", "stroke-dasharray": "6 5" } }
+    ] },
+    { shapes: [
+      { tag: "circle", attrs: { cx: "32", cy: "32", r: "27", fill: "#221c1c8c", stroke: "#ea9ef0", "stroke-width": "2" } },
+      { tag: "path", attrs: { d: "M32 12l3.6 7.3 8 1.2-5.8 5.7 1.4 8L32 30.4l-7.2 3.8 1.4-8-5.8-5.7 8-1.2z", fill: "#ea9ef0" } },
+      { tag: "path", attrs: { d: "M18 40h28M20 46h24", stroke: "#ea9ef0", "stroke-width": "2", "stroke-dasharray": "4 3", fill: "none" } }
+    ] },
+    { shapes: [
+      { tag: "circle", attrs: { cx: "32", cy: "32", r: "27", fill: "#221c1c8c", stroke: "#ea9ef0", "stroke-width": "2", "stroke-dasharray": "5 4" } },
+      { tag: "circle", attrs: { cx: "32", cy: "24", r: "5", fill: "#ea9ef0" } },
+      { tag: "path", attrs: { d: "M20 46c2-9 7-13 12-13s10 4 12 13z", fill: "#ea9ef0" } }
+    ] },
+    { shapes: [
+      { tag: "circle", attrs: { cx: "32", cy: "32", r: "27", fill: "#221c1c8c", stroke: "#ea9ef0", "stroke-width": "2" } },
+      { tag: "circle", attrs: { cx: "32", cy: "32", r: "6", fill: "none", stroke: "#ea9ef0", "stroke-width": "3" } },
+      { tag: "path", attrs: { d: "M32 8v10M32 46v10M8 32h10M46 32h10M15 15l7 7M42 42l7 7M49 15l-7 7M22 42l-7 7", stroke: "#ea9ef0", "stroke-width": "2.5", fill: "none" } }
+    ] },
+    { shapes: [
+      { tag: "circle", attrs: { cx: "32", cy: "32", r: "27", fill: "#221c1c8c", stroke: "#ea9ef0", "stroke-width": "2" } },
+      { tag: "path", attrs: { d: "M22 14h20v6h-4l-2 22h8l-2 8H24l-2-8h8l-2-22h-4z", fill: "#ea9ef0" } }
+    ] }
+  ];
+  var badge = badges[Math.floor(Math.random() * badges.length)];
   var ns = "http://www.w3.org/2000/svg";
   var svg = document.createElementNS(ns, "svg");
   svg.setAttribute("viewBox", "0 0 64 64");
   svg.setAttribute("class", "navbar-default-profile-badge");
   svg.setAttribute("role", "img");
   svg.setAttribute("aria-label", "badge policier");
-  var star = document.createElementNS(ns, "path");
-  star.setAttribute("d", "M32 6l5.5 12.4L50.7 20l-9.4 9.1 2.4 13.1L32 36.2 20.3 42.2l2.4-13.1-9.4-9.1 13.2-1.6z");
-  star.setAttribute("fill", "#ea9ef0");
-  star.setAttribute("stroke", "#221c1c");
-  star.setAttribute("stroke-width", "2");
-  svg.appendChild(star);
-  var ring = document.createElementNS(ns, "circle");
-  ring.setAttribute("cx", "32");
-  ring.setAttribute("cy", "32");
-  ring.setAttribute("r", "28");
-  ring.setAttribute("fill", "none");
-  ring.setAttribute("stroke", "#ea9ef0");
-  ring.setAttribute("stroke-width", "2");
-  ring.setAttribute("stroke-dasharray", "6 5");
-  svg.appendChild(ring);
-  var patch = document.createElementNS(ns, "path");
-  patch.setAttribute("d", "M12 46h40v10a4 4 0 0 1-4 4H16a4 4 0 0 1-4-4z");
-  patch.setAttribute("fill", "#221c1c8c");
-  patch.setAttribute("stroke", "#ea9ef0");
-  patch.setAttribute("stroke-dasharray", "4 3");
-  svg.appendChild(patch);
+  badge.shapes.forEach(function(shape) {
+    var el = document.createElementNS(ns, shape.tag);
+    Object.keys(shape.attrs).forEach(function(key) {
+      el.setAttribute(key, shape.attrs[key]);
+    });
+    svg.appendChild(el);
+  });
   defaultProfile.replaceWith(svg);
 });
