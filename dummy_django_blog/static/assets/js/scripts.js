@@ -232,7 +232,7 @@ document.addEventListener("DOMContentLoaded", function() {
   function parseScore(row) {
     var cells = row.querySelectorAll("td");
     if (cells.length < 4) return null;
-    var pctText = cells[cells.length - 1].textContent.replace(",", ".").replace("%", "").trim();
+    var pctText = cells[cells.length - 1].textContent.replace(/,/g, ".").replace(/%/g, "").trim();
     var viewersText = cells[cells.length - 2].textContent.replace(/[^\d]/g, "");
     var pct = parseFloat(pctText);
     var viewers = parseInt(viewersText, 10);
