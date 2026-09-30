@@ -34,6 +34,22 @@
               <a href="#feed-section-audiences" class="ms-2 text-nowrap">Audiences</a>
           </div>
       </div>
+        {% if photos_strip %}
+        <div class="feed-photos-strip-container">
+            <div class="feed-photos-strip" style="--strip-items: {{ photos_strip|length }}; --strip-duration: {{ strip_seconds }}s;">
+                {% for photo in photos_strip %}
+                    <a class="feed-strip-item" href="{% url 'photos_detail' photo.id %}">
+                        <img class="photo_miniature class-img-top" src="{{ photo.image.url }}" alt="{{ photo.title_photo }}">
+                    </a>
+                {% endfor %}
+                {% for photo in photos_strip %}
+                    <a class="feed-strip-item" href="{% url 'photos_detail' photo.id %}" aria-hidden="true">
+                        <img class="photo_miniature class-img-top" src="{{ photo.image.url }}" alt="">
+                    </a>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
     </div>
     <div class="container d-flex flex-row align-items-center justify-content-center">
         <div class="feed-container">
@@ -70,22 +86,6 @@
                 <a href="#navbar" class="ms-2 text-nowrap">Accueil</a>
             </div>
         </div>
-        {% if photos_strip %}
-        <div class="feed-photos-strip-container">
-            <div class="feed-photos-strip" style="--strip-items: {{ photos_strip|length }};">
-                {% for photo in photos_strip %}
-                    <a class="feed-strip-item" href="{% url 'photos_detail' photo.id %}">
-                        <img class="photo_miniature class-img-top" src="{{ photo.image.url }}" alt="{{ photo.title_photo }}">
-                    </a>
-                {% endfor %}
-                {% for photo in photos_strip %}
-                    <a class="feed-strip-item" href="{% url 'photos_detail' photo.id %}" aria-hidden="true">
-                        <img class="photo_miniature class-img-top" src="{{ photo.image.url }}" alt="">
-                    </a>
-                {% endfor %}
-            </div>
-        </div>
-        {% endif %}
         <div class="feed-highlight">
             <div class="feed-encadre home-elements-middle feed-encadre-photos">
                 <span class="detective-magnifier">{% bs_icon 'camera' %}</span>
@@ -141,6 +141,7 @@
           </div>
           {% endif %}
       </div>
+</div>
 </section>
 <section class="personnages">
     <div class="container-fluid d-flex flex-column justify-content-start feed-section-personnages" id="feed-section-personnages">
