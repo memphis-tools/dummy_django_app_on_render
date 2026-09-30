@@ -94,9 +94,6 @@ body .dropdown-item {
   background-color: black;
 }
 
-.navbar-blur .navbar {
-  backdrop-filter: blur(10px);
-}
 
 #navbar {
   align-items: flex-start;
@@ -317,12 +314,6 @@ section .btn:hover {
   width: 100%;
 }
 
-.feed-items {
-  display: flex;
-  flex-direction: row;
-  width: 100%;
-  border-bottom: 1px dashed pink;
-}
 
 .photos-feed-items {
   display: flex;
@@ -370,10 +361,6 @@ section .btn:hover {
   flex-direction: column;
 }
 
-.photo-item-elements {
-  display: flex;
-  flex-direction: row;
-}
 
 .feed-item-detail {
   display: flex;
@@ -387,8 +374,7 @@ section .btn:hover {
 .feed-section-posts,
 .feed-section-personnages,
 .feed-section-a-propos,
-.feed-section-audiences,
-.feed-container-footer {
+.feed-section-audiences {
   padding: 0% 0%;
   font-size: 1.5rem;
   font-family: "ArsenalSC-Fat", cursive;
@@ -436,9 +422,6 @@ section .btn:hover {
   background-attachment: fixed;
 }
 
-.feed-container-footer {
-  margin-bottom: 1%;
-}
 
 .feed-smileys {
   color: pink;
@@ -561,10 +544,6 @@ feed-button-zone a:hover {
 
 
 
-.photos-container {
-  display: flex;
-  flex-direction: column;
-}
 
 .photo-contaner {
   width: 100%;
@@ -572,9 +551,6 @@ feed-button-zone a:hover {
   border-radius: 15px;
 }
 
-.bg-dark {
-  background-color: rgba(33, 37, 41, 0.6) !important;
-}
 
 /* PERSONNAGES */
 .personnages .section_container {
@@ -798,15 +774,7 @@ footer .footer-contact-admin {
     max-height: 260px;
   }
 
-  .photo-item-elements {
-    display: flex;
-    flex-direction: column;
-  }
 
-  .photos-container {
-    display: flex;
-    flex-direction: row;
-  }
 
   .personnages_article {
     display: flex;
@@ -859,4 +827,105 @@ footer .footer-contact-admin {
     font-size: 0.9em;
     padding: 0;
   }
+}
+.feed-photos-strip-container {
+  overflow: hidden;
+  width: 100%;
+  margin: 2% 0;
+}
+.feed-photos-strip {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  width: fit-content;
+  animation: feed-photos-strip-scroll 30s linear infinite;
+}
+.feed-photos-strip .feed-strip-item {
+  flex: 0 0 auto;
+  margin: 0 8px;
+}
+.feed-photos-strip .feed-strip-item img {
+  height: 90px;
+  width: auto;
+  border-radius: 8px;
+  border: 1px dashed #ea9ef0;
+}
+@keyframes feed-photos-strip-scroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+.feed-highlight {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 2% auto;
+  width: 100%;
+}
+.feed-encadre {
+  margin: 1% 0% 1% 0%;
+  max-width: 75%;
+}
+.feed-encadre-photos-group {
+  justify-content: center;
+  gap: 12px;
+  margin-top: 1%;
+}
+.feed-encadre-photo-item img {
+  height: 80px;
+  width: auto;
+  border-radius: 8px;
+  border: 1px dashed #ea9ef0;
+  transform: rotate(-2deg);
+  box-shadow: 4px 4px 0px #ea9ef054;
+}
+.feed-encadre-photo-item:nth-child(2) img { transform: rotate(2deg); }
+.feed-encadre-photo-item:nth-child(3) img { transform: rotate(-1deg); }
+.feed-encadre-posts-group {
+  justify-content: center;
+  gap: 16px;
+  margin-top: 1.5%;
+  flex-wrap: wrap;
+}
+.feed-case-file {
+  display: flex;
+  flex-direction: column;
+  width: 220px;
+  text-decoration: none;
+  color: white;
+  background-color: #221c1c8c;
+  border: 1px dashed #ea9ef0;
+  border-radius: 4px 4px 10px 10px;
+  box-shadow: 4px 4px 0px #ea9ef054;
+  overflow: hidden;
+}
+.feed-case-file-tab {
+  background-color: #ea9ef0;
+  color: #221c1c;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  padding: 2px 8px;
+  border-radius: 4px 4px 0 0;
+  width: fit-content;
+}
+.feed-case-file-body {
+  display: flex;
+  flex-direction: column;
+  padding: 8px;
+  gap: 6px;
+}
+.feed-case-file-body img {
+  height: 80px;
+  width: 100%;
+  object-fit: cover;
+  border-radius: 4px;
+}
+.feed-case-file-text {
+  display: flex;
+  flex-direction: column;
+  font-size: 0.8rem;
+  line-height: 1.2;
+}
+.feed-case-file-text em {
+  color: #ea9ef0;
 }

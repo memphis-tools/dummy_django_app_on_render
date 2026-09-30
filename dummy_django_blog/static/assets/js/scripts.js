@@ -18,7 +18,6 @@ function close_menu() {
   var last_nav_link = nav_links[nav_links.length - 1];
   menu_parent.removeChild(last_nav_link);
   menu.classList.remove('show');
-  $('body').removeClass("navbar-blur");
 }
 
 

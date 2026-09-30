@@ -1,6 +1,7 @@
 """The dummy blog routes"""
 
 import os
+import random
 from itertools import chain
 from django.db.models import Q
 from django.shortcuts import render, redirect, get_object_or_404
@@ -63,11 +64,18 @@ def feed(request):
     paginator = Paginator(photos_and_posts, 5)
     page = request.GET.get("page")
     page_obj = paginator.get_page(page)
+    photos_strip = list(models.Photo.objects.order_by("-created_at"))
+    sample_photos = random.sample(photos_strip, min(3, len(photos_strip)))
+    all_posts = list(models.Post.objects.all())
+    sample_posts = random.sample(all_posts, min(3, len(all_posts)))
     return render(
         request,
         "blog/feed.html",
         context={
             "page_obj": page_obj,
+            "photos_strip": photos_strip,
+            "sample_photos": sample_photos,
+            "sample_posts": sample_posts,
             "MEDIA_URL": settings.MEDIA_URL,
         },
     )
