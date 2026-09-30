@@ -1,18 +1,23 @@
 {% extends 'base.html' %}
 {% load bootstrap_icons %}
-
 {% block title %}DELETE POST PAGE{% endblock title %}
-
 {% block content %}
-<div class="container-fluid d-flex flex-column align-items-center justify-content-center">
-    <i class="feed-smileys fa-solid fa-camera-retro"></i>
-    <h2>CONFIRMER SUPPRESSION BILLET: {{ post.title }}</h2>
-    <form class="form" action="" method="post">
-        {% csrf_token %}
-        <button type="submit" class="btn btn-primary">CONFIRMER SUPPRESSION</button>
-    </form>
-    <div class="mt-2 mb-5 d-flex flex-column justify-content-around align-items-center">
-        <a class="btn btn-primary mt-3" href="{% url 'feed' %}">RETOUR ACCUEIL</a>
+<div class="container-fluid action-page d-flex flex-column align-items-center">
+    <i class="feed-smileys fa-solid fa-trash"></i>
+    <h2>CONFIRMER SUPPRESSION BILLET</h2>
+    <div class="action-encart" data-encart="post_delete">
+        <span class="encart-icon"><i class="fa-solid fa-trash"></i></span>
+        <p class="encart-text"></p>
+    </div>
+    <div class="action-card">
+        <p class="action-card-item-title">{{ post.title }}</p>
+        <form class="form" action="" method="post">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-primary">CONFIRMER SUPPRESSION</button>
+        </form>
+        <div class="action-actions">
+            <a class="btn btn-primary" href="{% url 'feed' %}">RETOUR ACCUEIL</a>
+        </div>
     </div>
 </div>
 {% endblock content %}
