@@ -83,14 +83,16 @@
                           {% if user.is_authenticated %}
                           <div class="nav-link dropdown custom-dropdown user-dropdown">
                                   <a class="nav-item dropdown-toggle mt-3" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                      {% if user.image_profile.name == "default_profile.png" %}
-                                          <img class="image_profile rounded-pill" src="{% static 'vendors/img/default_profile.png' %}" alt="photo de profil">
-                                      {% else %}
-                                          <img class="image_profile" src="{{ user.image_profile.url }}" alt="{{ user.image_profile }}">
-                                      {% endif %}
                                       {{ user.username }}
                                   </a>
                                   <ul class="dropdown-menu">
+                                      <li class="user-dropdown-profile">
+                                          {% if user.image_profile.name == "default_profile.png" %}
+                                              <img class="image_profile rounded-pill navbar-profile-in-menu" src="{% static 'vendors/img/default_profile.png' %}" alt="photo de profil">
+                                          {% else %}
+                                              <img class="image_profile navbar-profile-in-menu" src="{{ user.image_profile.url }}" alt="{{ user.image_profile }}">
+                                          {% endif %}
+                                      </li>
                                       <li><a class="dropdown-item" href="#">voir profile</a></li>
                                       <li><a class="dropdown-item" href="{% url 'follow_user' %}">abonnements</a></li>
                                       <li><a class="dropdown-item" href="{% url 'update_profile_image' %}">modifier profile</a></li>
