@@ -309,7 +309,7 @@ document.addEventListener("DOMContentLoaded", function() {
         entry.row.classList.remove("feed-audiences-row-glow");
         entry.row.classList.add("feed-audiences-row-scan");
         if (done) done();
-      }, 4200);
+      }, 3000);
     }, true);
   }
 
@@ -520,6 +520,11 @@ document.addEventListener("DOMContentLoaded", function() {
       "Ajouter plein de photos d'un coup, " + encartUser + " : comme un album de Treets, on n'arrête plus la machine !",
       "Enquête express, " + encartUser + " : plusieurs indices d'un seul geste, Marlène n'en revient pas.",
       "Le Dr Maillol dit que tout va bien. Chargez les photos vite avant qu'il change d'avis, " + encartUser + " !"
+    ],
+    photo_detail: [
+      "Pièce à conviction numérotée, " + encartUser + " : observez bien, le détail est dans l'objectif !",
+      "Une photo vaut mille indices, " + encartUser + " : le commissaire Laurence l'a punaisée au mur du commissariat.",
+      "Dossier photo classé, " + encartUser + " : Marlène a déjà préparé le papier bulle, on ne sait jamais."
     ],
     photo_delete: [
       "Supprimer une pièce à conviction, " + encartUser + " ? Même le procureur Troisgros va faire la grimace.",
