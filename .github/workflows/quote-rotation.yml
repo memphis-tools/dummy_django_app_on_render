@@ -11,7 +11,7 @@ permissions:
 
 concurrency:
   group: quote-rotation
-  cancel-in-progress: false
+  cancel-in-progress: true
 
 jobs:
   rotate:
