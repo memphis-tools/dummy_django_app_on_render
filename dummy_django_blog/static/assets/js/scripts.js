@@ -513,6 +513,44 @@ document.addEventListener("DOMContentLoaded", function() {
       box.querySelector("blockquote").appendChild(srcEl);
     });
   }
+  var postsGridQuotes = document.querySelectorAll(".posts-grid-quote");
+  if (postsGridQuotes.length) {
+    var postQuotes = [
+      { text: "Chaque billet est une pièce à conviction : relisez-le deux fois, la deuxième à voix haute.", author: "— Commissaire Swan Laurence" },
+      { text: "J'écris mes articles au conditionnel : ça laisse la police le soin de confirmer.", author: "— Alice Avril, La Voix du Nord" },
+      { text: "Un bon papier, c'est comme une autopsie : ça ne cache rien, ça classe tout.", author: "— Dr Euphrasie Maillol, médecin légiste" },
+      { text: "Monsieur le commissaire, j'ai titré votre enquête ! … « Meurtre en une ».", author: "— Marlène Leroy, secrétaire dévouée" },
+      { text: "La plume est plus rapide que le stipend, mais moins que le téléphone de Marlène.", author: "— Commissaire Swan Laurence" },
+      { text: "J'archive tout : même les billets d'humeur finissent au dossier.", author: "— Marlène Leroy, secrétaire dévouée" },
+      { text: "Dans ce commissariat, un billet rédigé c'est une prime ; un billet publié, un miracle.", author: "— Commissaire Swan Laurence" }
+    ];
+    var usedPostQuotes = [];
+    postsGridQuotes.forEach(function(box) {
+      var pool = postQuotes.filter(function(q) { return usedPostQuotes.indexOf(q.text) === -1; });
+      if (!pool.length) return;
+      var pick = pool[Math.floor(Math.random() * pool.length)];
+      usedPostQuotes.push(pick.text);
+      box.querySelector(".posts-grid-quote-text").textContent = "« " + pick.text + " »";
+      box.querySelector(".posts-grid-quote-author").textContent = pick.author;
+      var person = pick.author.replace("— ", "").split(",")[0].trim();
+      var img = ({
+        "Commissaire Swan Laurence": "/static/vendors/img/swan_laurence.png",
+        "Marlène Leroy": "/static/vendors/img/marlene_leroy.jpg",
+        "Alice Avril": "/static/vendors/img/alice_avril.jpg",
+        "Dr Euphrasie Maillol": "/static/vendors/img/euphrasie_maillol.jpg"
+      })[person] || "";
+      if (img) {
+        var pw = document.createElement("span");
+        pw.className = "quote-portrait-wrap";
+        var im = document.createElement("img");
+        im.src = img;
+        im.alt = person;
+        im.className = "quote-portrait";
+        pw.appendChild(im);
+        box.insertBefore(pw, box.firstChild);
+      }
+    });
+  }
 });
 
 document.addEventListener("DOMContentLoaded", function() {

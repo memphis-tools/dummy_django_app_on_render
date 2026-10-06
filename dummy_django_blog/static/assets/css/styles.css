@@ -1493,8 +1493,102 @@ footer .footer-contact-admin {
   margin-top: auto;
 }
 
+.posts-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+  gap: 22px;
+  width: min(1400px, 100%);
+  margin: 1% auto;
+  align-items: stretch;
+}
+
+.posts-grid-card {
+  display: flex;
+  flex-direction: column;
+  background-color: #221c1c8c;
+  border: 1px dashed #ea9ef0;
+  border-radius: 12px;
+  box-shadow: 4px 4px 0px #ea9ef054;
+  padding: 12px;
+}
+
+.posts-grid-figure {
+  margin: 0 0 10px;
+}
+
+.posts-grid-figure img {
+  width: 100%;
+  height: 190px;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 1px dashed #ea9ef0;
+}
+
+.posts-grid-figure figcaption {
+  font-family: "ArsenalSC", sans-serif;
+  font-size: 0.75em;
+  font-style: italic;
+  color: #f8ede3;
+  margin-top: 6px;
+}
+
+.posts-grid-title {
+  font-family: "ArsenalSC-Fat", "ArsenalSC", sans-serif;
+  color: #ea9ef0;
+  text-transform: uppercase;
+  font-size: 1em;
+  margin-bottom: 4px;
+}
+
+.posts-grid-meta {
+  font-family: "ArsenalSC", sans-serif;
+  font-size: 0.8em;
+  color: #f8ede3;
+  margin-bottom: 2px;
+}
+
+.posts-grid-meta i {
+  color: #ea9ef0;
+  margin-right: 4px;
+}
+
+.posts-grid-quote {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 10px 0;
+  padding: 8px 12px;
+  background-color: #ea9ef00f;
+  border-left: 3px solid #ea9ef0;
+  border-radius: 0 10px 10px 0;
+}
+
+.posts-grid-quote .detective-magnifier {
+  color: #ea9ef0;
+  font-size: 1.1em;
+}
+
+.posts-grid-quote blockquote {
+  margin: 0;
+}
+
+.posts-grid-quote-text {
+  font-family: "Caveat-large", "Caveat", cursive;
+  font-size: 0.95em;
+  color: #f8ede3;
+  margin: 0;
+}
+
+.posts-grid-quote-author {
+  font-family: "ArsenalSC", sans-serif;
+  font-size: 0.72em;
+  color: #ea9ef0;
+  margin: 2px 0 0;
+}
+
 @media (max-width: 700px) {
-  .photos-grid {
+  .photos-grid,
+  .posts-grid {
     grid-template-columns: 1fr;
   }
 
