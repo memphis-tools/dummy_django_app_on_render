@@ -469,6 +469,18 @@ document.addEventListener("DOMContentLoaded", function() {
       { text: "La science est formelle : le corps parle. Le reste, c'est de la littérature.", author: "— Dr Euphrasie Maillol, médecin légiste" },
       { text: "Un témoin qui ne sait rien, c'est encore un témoin. Notez-le, Marlène.", author: "— Commissaire Swan Laurence" }
     ];
+    var usedQuotes = [];
+    function pickUnique(episodeQuote) {
+      if (episodeQuote && usedQuotes.indexOf(episodeQuote.text) === -1) {
+        usedQuotes.push(episodeQuote.text);
+        return episodeQuote;
+      }
+      var pool = anyEpisode.filter(function(q) { return usedQuotes.indexOf(q.text) === -1; });
+      if (!pool.length) return null;
+      var pick = pool[Math.floor(Math.random() * pool.length)];
+      usedQuotes.push(pick.text);
+      return pick;
+    }
     gridQuotes.forEach(function(box) {
       var caption = box.closest(".photos-grid-card");
       var title = caption ? caption.querySelector(".photos-grid-title") : null;
@@ -477,7 +489,8 @@ document.addEventListener("DOMContentLoaded", function() {
       Object.keys(byEpisode).forEach(function(ep) {
         if (!pick && titleText.indexOf(ep) !== -1) pick = byEpisode[ep];
       });
-      if (!pick) pick = anyEpisode[Math.floor(Math.random() * anyEpisode.length)];
+      pick = pickUnique(pick);
+      if (!pick) return;
       box.querySelector(".photos-grid-quote-text").textContent = "« " + pick.text + " »";
       box.querySelector(".photos-grid-quote-author").textContent = pick.author;
       var epKey = null;

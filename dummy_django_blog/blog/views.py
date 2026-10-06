@@ -61,7 +61,7 @@ def feed(request):
     photos_and_posts = sorted(
         chain(photos, posts), key=lambda instance: instance.created_at, reverse=True
     )
-    paginator = Paginator(photos_and_posts, 5)
+    paginator = Paginator(photos_and_posts, 10)
     page = request.GET.get("page")
     page_obj = paginator.get_page(page)
     photos_strip = list(models.Photo.objects.order_by("-created_at")[:24])
