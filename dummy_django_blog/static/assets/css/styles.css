@@ -4,6 +4,10 @@
     box-sizing: border-box;
 }
 
+:root {
+  --navbar-height: 76px;
+}
+
 @font-face {
   font-family: 'ArsenalSC';
   src: url('../fonts/ArsenalSC-Regular.ttf') format('truetype');
@@ -219,7 +223,7 @@ body .dropdown-item {
 }
 
 .navbar-custom {
-  background-color: #221c1cd9;
+  background-color: #221c1c;
   border: none;
 }
 
@@ -445,6 +449,12 @@ section .btn:hover {
   font-optical-sizing: auto;
   font-weight: 700;
   font-style: normal;
+}
+
+.feed-intro {
+  height: calc(100vh - var(--navbar-height, 76px));
+  min-height: 320px;
+  justify-content: center;
 }
 
 .feed-intro h3 {
@@ -917,8 +927,9 @@ footer .footer-contact-admin {
 .feed-photos-strip-container {
   overflow: hidden;
   width: 100%;
-  margin: 2% 0;
+  margin: 0;
 }
+
 .feed-photos-strip {
   display: flex;
   flex-direction: row;
