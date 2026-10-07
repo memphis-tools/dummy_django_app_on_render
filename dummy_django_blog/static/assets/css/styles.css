@@ -457,6 +457,97 @@ section .btn:hover {
   justify-content: center;
 }
 
+.feed-intro-actors {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: stretch;
+  gap: 18px;
+  flex-wrap: wrap;
+  width: min(1100px, 100%);
+  margin: 14px auto;
+}
+
+.feed-intro-actor-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: min(300px, 92%);
+  padding: 12px 14px 14px;
+  text-decoration: none;
+  color: #f8ede3;
+  background-color: #221c1c8c;
+  border: 1px dashed #ea9ef0;
+  border-radius: 12px;
+  box-shadow: 4px 4px 0px #ea9ef054;
+  overflow: hidden;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.feed-intro-actor-card:hover,
+.feed-intro-actor-card:focus {
+  transform: translateY(-4px) scale(1.02);
+  border-color: #f8ede3;
+  box-shadow: 6px 8px 0px #ea9ef08c;
+}
+
+.feed-intro-actor-card img {
+  width: 100%;
+  height: 170px;
+  object-fit: cover;
+  object-position: top;
+  border-radius: 8px;
+  border: 1px solid #ea9ef066;
+  margin-bottom: 10px;
+  transition: transform 0.25s ease;
+}
+
+.feed-intro-actor-card:hover img,
+.feed-intro-actor-card:focus img {
+  transform: scale(1.04);
+}
+
+.feed-intro-actor-name {
+  font-family: "ArsenalSC-Fat", "ArsenalSC", sans-serif;
+  font-size: 0.95em;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #ea9ef0;
+  margin-bottom: 6px;
+  text-align: center;
+}
+
+.feed-intro-actor-teaser {
+  font-family: "Caveat-large", "Caveat", cursive;
+  font-size: 0.92em;
+  color: #f8ede3;
+  text-align: center;
+  min-height: 2.6em;
+}
+
+.feed-intro-actor-card::after {
+  content: "\2192 Ouvrir le dossier";
+  font-family: "ArsenalSC", sans-serif;
+  font-size: 0.72em;
+  color: #ea9ef0;
+  margin-top: 8px;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.feed-intro-actor-card:hover::after,
+.feed-intro-actor-card:focus::after {
+  opacity: 1;
+}
+
+@media (max-width: 700px) {
+  .feed-intro-actors {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
 .feed-intro h3 {
   font-family: "Caveat-large", cursive;
   font-optical-sizing: auto;

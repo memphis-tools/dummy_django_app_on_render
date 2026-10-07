@@ -388,6 +388,22 @@ document.addEventListener("DOMContentLoaded", function() {
 document.addEventListener("DOMContentLoaded", function() {
   var scrollNav = document.querySelector(".site-scroll-nav");
   if (!scrollNav) return;
+  var navbarHeight = function() {
+    var navbar = document.getElementById("navbar");
+    return navbar ? navbar.offsetHeight : 76;
+  };
+  var sectionStep = function() {
+    var sections = document.querySelectorAll("main > section > .feed-intro, main > section > [id^='feed-section-']");
+    var current = window.scrollY + window.innerHeight / 2;
+    for (var i = 0; i < sections.length; i++) {
+      var rect = sections[i].getBoundingClientRect();
+      var top = rect.top + window.scrollY;
+      if (current < top + rect.height) {
+        return top - navbarHeight();
+      }
+    }
+    return window.scrollY + Math.max(240, window.innerHeight * 0.8);
+  };
   var viewportStep = function() { return Math.max(240, window.innerHeight * 0.8); };
   var pageHeight = function() { return Math.max(document.body.scrollHeight, document.documentElement.scrollHeight); };
   var smoothStep = function(targetY) {
@@ -409,7 +425,7 @@ document.addEventListener("DOMContentLoaded", function() {
   };
   document.getElementById("scroll-full-top").addEventListener("click", function() { smoothStep(0); });
   document.getElementById("scroll-up").addEventListener("click", function() { smoothStep(window.scrollY - viewportStep()); });
-  document.getElementById("scroll-down").addEventListener("click", function() { smoothStep(window.scrollY + viewportStep()); });
+  document.getElementById("scroll-down").addEventListener("click", function() { smoothStep(sectionStep()); });
   document.getElementById("scroll-full-bottom").addEventListener("click", function() { smoothStep(pageHeight() - window.innerHeight); });
 });
 
@@ -628,5 +644,36 @@ document.addEventListener("DOMContentLoaded", function() {
     var pool = encartTexts[key];
     if (!pool) { return; }
     box.querySelector(".encart-text").textContent = pool[Math.floor(Math.random() * pool.length)];
+  });
+});
+document.addEventListener("DOMContentLoaded", function() {
+  var teasers = {
+    laurence: [
+      "Trench-coat, ironie et flair infaillible : le commissaire qui fume plus vite que les assassins.",
+      "Il n'ouvre un dossier que si Marlène a déjà tout classé... et il résout l'affaire par principe.",
+      "Sa méthode ? Un regard, un sarcasme, et l'assassin se dénonce tout seul."
+    ],
+    avril: [
+      "Elle court après le scoop avec plus d'ardeur que les meurtriers après leur alibi.",
+      "Une une choc par semaine, trois ennemis par article : la reporter qui dérange tant mieux.",
+      "Toujours là où l'embrouille commence, jamais là où le commissaire veut qu'elle soit."
+    ],
+    marlene: [
+      "Secrétaire dévouée, tailleurs éclatants et fiches classées mieux qu'au fisc.",
+      "Elle devance les désirs de Laurence d'un temps de standard téléphonique.",
+      "Naïve comme une colombe, précieuse comme une arme à dossier chargé."
+    ]
+  };
+  var cursors = { laurence: 0, avril: 0, marlene: 0 };
+  document.querySelectorAll(".feed-intro-actor-teaser").forEach(function(el) {
+    var key = el.getAttribute("data-actor-teaser");
+    if (!teasers[key]) return;
+    var update = function() {
+      var list = teasers[key];
+      el.textContent = list[cursors[key] % list.length];
+      cursors[key]++;
+    };
+    update();
+    setInterval(update, 6000);
   });
 });
