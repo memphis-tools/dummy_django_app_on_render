@@ -12,6 +12,23 @@
           <i class="fa-solid fa-house" style="color: pink"></i>
           <h3>Quel trio & leurs complices !!</h3>
       </div>
+        <div class="feed-intro-actors">
+            <a class="feed-intro-actor-card" href="#feed-section-personnages">
+                <img src="{% static 'vendors/img/swan_laurence.png' %}" alt="Commissaire Swan Laurence">
+                <span class="feed-intro-actor-name">Commissaire Swan Laurence</span>
+                <span class="feed-intro-actor-teaser" data-actor-teaser="laurence"></span>
+            </a>
+            <a class="feed-intro-actor-card" href="#feed-section-personnages">
+                <img src="{% static 'vendors/img/alice_avril.jpg' %}" alt="Alice Avril">
+                <span class="feed-intro-actor-name">Alice Avril</span>
+                <span class="feed-intro-actor-teaser" data-actor-teaser="avril"></span>
+            </a>
+            <a class="feed-intro-actor-card" href="#feed-section-personnages">
+                <img src="{% static 'vendors/img/marlene_leroy.jpg' %}" alt="Marlène Leroy">
+                <span class="feed-intro-actor-name">Marlène Leroy</span>
+                <span class="feed-intro-actor-teaser" data-actor-teaser="marlene"></span>
+            </a>
+        </div>
         {% if strip_items %}
         <div class="feed-photos-strip-container">
             <div class="feed-photos-strip" style="--strip-items: {{ strip_items|length }}; --strip-duration: {{ strip_seconds }}s;">
