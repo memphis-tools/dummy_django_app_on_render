@@ -392,29 +392,43 @@ document.addEventListener("DOMContentLoaded", function() {
     var navbar = document.getElementById("navbar");
     return navbar ? navbar.offsetHeight : 76;
   };
-  var sectionStep = function() {
+  var sectionStep = function(direction) {
     var sections = document.querySelectorAll("main > section > .feed-intro, main > section > [id^='feed-section-']");
     var current = window.scrollY + window.innerHeight / 2;
+    var tops = [];
     for (var i = 0; i < sections.length; i++) {
       var rect = sections[i].getBoundingClientRect();
-      var top = rect.top + window.scrollY;
-      if (current < top + rect.height) {
-        return top - navbarHeight();
+      tops.push(rect.top + window.scrollY);
+    }
+    if (direction >= 0) {
+      for (var j = 0; j < tops.length; j++) {
+        if (tops[j] - navbarHeight() > window.scrollY + 8) {
+          return tops[j] - navbarHeight();
+        }
+      }
+      return window.scrollY + Math.max(240, window.innerHeight * 0.8);
+    }
+    for (var k = tops.length - 1; k >= 0; k--) {
+      if (tops[k] - navbarHeight() < window.scrollY - 8) {
+        return tops[k] - navbarHeight();
       }
     }
-    return window.scrollY + Math.max(240, window.innerHeight * 0.8);
+    return 0;
   };
   var viewportStep = function() { return Math.max(240, window.innerHeight * 0.8); };
   var pageHeight = function() { return Math.max(document.body.scrollHeight, document.documentElement.scrollHeight); };
+  var scrollAnimToken = 0;
   var smoothStep = function(targetY) {
     var maxY = pageHeight() - window.innerHeight;
     var target = Math.max(0, Math.min(targetY, maxY));
     var startY = window.scrollY;
     var distance = target - startY;
     if (Math.abs(distance) < 4) return;
+    var token = ++scrollAnimToken;
     var startTime = null;
     var duration = Math.min(600, Math.max(220, Math.abs(distance) / 3));
     function step(timestamp) {
+      if (token !== scrollAnimToken) return;
       if (startTime === null) startTime = timestamp;
       var progress = Math.min(1, (timestamp - startTime) / duration);
       var eased = progress < 0.5 ? 2 * progress * progress : 1 - Math.pow(-2 * progress + 2, 2) / 2;
@@ -424,8 +438,8 @@ document.addEventListener("DOMContentLoaded", function() {
     requestAnimationFrame(step);
   };
   document.getElementById("scroll-full-top").addEventListener("click", function() { smoothStep(0); });
-  document.getElementById("scroll-up").addEventListener("click", function() { smoothStep(window.scrollY - viewportStep()); });
-  document.getElementById("scroll-down").addEventListener("click", function() { smoothStep(sectionStep()); });
+  document.getElementById("scroll-up").addEventListener("click", function() { smoothStep(sectionStep(-1)); });
+  document.getElementById("scroll-down").addEventListener("click", function() { smoothStep(sectionStep(1)); });
   document.getElementById("scroll-full-bottom").addEventListener("click", function() { smoothStep(pageHeight() - window.innerHeight); });
 });
 
