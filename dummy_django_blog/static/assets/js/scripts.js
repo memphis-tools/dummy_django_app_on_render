@@ -2,6 +2,25 @@ var footer_date = new Date();
 document.getElementById("footer_date").innerHTML = "Blog &copy;LesPetitsMeurtres 2023-" + footer_date.getFullYear();
 
 document.addEventListener("DOMContentLoaded", function() {
+  var msgLis = document.querySelectorAll(".django-messages li");
+  msgLis.forEach(function(li) {
+    var closeBtn = document.createElement("button");
+    closeBtn.type = "button";
+    closeBtn.className = "django-message-close";
+    closeBtn.setAttribute("aria-label", "Fermer le message");
+    closeBtn.innerHTML = "\u00d7";
+    var dismiss = function() {
+      li.classList.add("django-message-out");
+      setTimeout(function() { li.remove(); }, 520);
+    };
+    closeBtn.addEventListener("click", dismiss);
+    li.appendChild(closeBtn);
+    var delay = li.classList.contains("error") ? 12000 : 6000;
+    setTimeout(dismiss, delay);
+  });
+});
+
+document.addEventListener("DOMContentLoaded", function() {
     var toggler = document.querySelector(".navbar-toggler");
     toggler.addEventListener("click", function() {
     update_menu();
@@ -394,7 +413,8 @@ document.addEventListener("DOMContentLoaded", function() {
   };
   var sectionStep = function(direction) {
     var sections = document.querySelectorAll("main > section > .feed-intro, main > section > [id^='feed-section-']");
-    var current = window.scrollY + window.innerHeight / 2;
+    var navH = navbarHeight();
+    var tolerance = 2;
     var tops = [];
     for (var i = 0; i < sections.length; i++) {
       var rect = sections[i].getBoundingClientRect();
@@ -402,15 +422,15 @@ document.addEventListener("DOMContentLoaded", function() {
     }
     if (direction >= 0) {
       for (var j = 0; j < tops.length; j++) {
-        if (tops[j] - navbarHeight() > window.scrollY + 8) {
-          return tops[j] - navbarHeight();
+        if (tops[j] - navH > window.scrollY + tolerance) {
+          return Math.max(0, tops[j] - navH);
         }
       }
       return window.scrollY + Math.max(240, window.innerHeight * 0.8);
     }
     for (var k = tops.length - 1; k >= 0; k--) {
-      if (tops[k] - navbarHeight() < window.scrollY - 8) {
-        return tops[k] - navbarHeight();
+      if (tops[k] - navH < window.scrollY - tolerance) {
+        return Math.max(0, tops[k] - navH);
       }
     }
     return 0;
@@ -497,21 +517,75 @@ document.addEventListener("DOMContentLoaded", function() {
       { text: "Monsieur le commissaire, j'ai trouvé un indice ! … C'est un trombone.", author: "— Marlène Leroy, secrétaire dévouée" },
       { text: "Je ne cite jamais mes sources, sauf quand elles inventent.", author: "— Alice Avril, La Voix du Nord" },
       { text: "La science est formelle : le corps parle. Le reste, c'est de la littérature.", author: "— Dr Euphrasie Maillol, médecin légiste" },
-      { text: "Un témoin qui ne sait rien, c'est encore un témoin. Notez-le, Marlène.", author: "— Commissaire Swan Laurence" }
+      { text: "Un témoin qui ne sait rien, c'est encore un témoin. Notez-le, Marlène.", author: "— Commissaire Swan Laurence" },
+      { text: "Ce cliché sent le scoop à plein nez, et le scoop, c'est mon domaine.", author: "— Alice Avril, La Voix du Nord" },
+      { text: "Retenez cette image : elle vaut mille procès-verbaux.", author: "— Commissaire Swan Laurence" },
+      { text: "J'ai punaisé cette photo au mur du commissariat. Marlène a déjà préparé le scotch.", author: "— Commissaire Swan Laurence" },
+      { text: "Développée à la chambre noire, révélée au talent.", author: "— Marlène Leroy, secrétaire dévouée" },
+      { text: "Une pièce à conviction qui flatte l'œil : rare.", author: "— Dr Euphrasie Maillol, médecin légiste" },
+      { text: "Même le procureur Troisgros sifflerait d'admiration.", author: "— Commissaire Swan Laurence" },
+      { text: "Un angle de vue digne de mes unes : je veux la exclusivité.", author: "— Alice Avril, La Voix du Nord" },
+      { text: "Le détail est dans l'objectif, comme le crime est dans le dossier.", author: "— Commissaire Swan Laurence" },
+      { text: "J'archive cette image sous « merveille », juste à côté de « mystère ».", author: "— Marlène Leroy, secrétaire dévouée" },
+      { text: "Ce noir et blanc a plus de vérité que bien des témoignages.", author: "— Dr Euphrasie Maillol, médecin légiste" },
+      { text: "Monsieur le commissaire, cette photo accuse — et elle a du style.", author: "— Alice Avril, La Voix du Nord" }
     ];
-    var usedQuotes = [];
-    function pickUnique(episodeQuote) {
-      if (episodeQuote && usedQuotes.indexOf(episodeQuote.text) === -1) {
-        usedQuotes.push(episodeQuote.text);
-        return episodeQuote;
-      }
-      var pool = anyEpisode.filter(function(q) { return usedQuotes.indexOf(q.text) === -1; });
-      if (!pool.length) return null;
-      var pick = pool[Math.floor(Math.random() * pool.length)];
-      usedQuotes.push(pick.text);
-      return pick;
-    }
-    gridQuotes.forEach(function(box) {
+    var criticQuotes = [
+      { text: "Cette image vaut tous les communiqués du commissariat.", author: "— Gérard Ovide Braquo, Le Clairon de Lille" },
+      { text: "Un cadrage net, un mystère flou : la marque des grands reports.", author: "— Joséphine Bertille Farpes, France Soir du Nord" },
+      { text: "On dirait une scène de crime. Et je suis assassiné d'élégance.", author: "— Norbert Camille Douille, Le Polar du Dimanche" },
+      { text: "Chaque détail raconte un crime... ou un alibi. Chef-d'œuvre.", author: "— Huguette Marthe Salsifi, Gala Télé-Police" },
+      { text: "Je connais des légistes qui feraient de cette photo une pièce à conviction.", author: "— Rodolphe Anselme Picrate, Le Bulletin des Enquêtes" },
+      { text: "Une photo qui parle, c'est une photo qui accuse. Celle-ci chante.", author: "— Alice Pénélope Verneuil, La Voix du Nord" },
+      { text: "Si le noir et blanc mentait, celui-ci mentirait pour de bon.", author: "— Firmin Ladislas Cormorant, L'Écho des Faubourgs" },
+      { text: "Développée dans une cave, digne des murs d'un musée.", author: "— Berthe Cunégonde Lapachi, Le Trombone du Nord" },
+      { text: "Cette image a un alibi en béton : la beauté.", author: "— Achille Hippolyte Verjus, La Feuille de Choux du Nord" },
+      { text: "On y devine le mobile, on y admire la lumière.", author: "— Constance Adèle Fougeolles, Le Sifflet de Lille" },
+      { text: "Mes lecteurs, arrêtez tout : voici la preuve par l'image.", author: "— Désiré Barnabé Trictrac, La Manchette Républicaine" },
+      { text: "Le flou artistique ? Plutôt l'aveu du coupable.", author: "— Marthe Sidonie Quinquette, Le Petit Journal du Dimanche" },
+      { text: "Trois loupes sur cinq, et je suis avare en loupes.", author: "— Norbert Camille Douille, Le Polar du Dimanche" },
+      { text: "Cette photo a été punaisée dans mon cœur avant mon mur.", author: "— Huguette Marthe Salsifi, Gala Télé-Police" },
+      { text: "La preuve que le Nord est le décor du siècle.", author: "— Gérard Ovide Braquo, Le Clairon de Lille" },
+      { text: "Je la mettrais en une sans discuter, mes lecteurs non plus.", author: "— Joséphine Bertille Farpes, France Soir du Nord" }
+    ];
+    var criticSvg = function(i) {
+      var palettes = [
+        ["#ea9ef0", "#221c1c8c"],
+        ["#e0c37a", "#221c1c8c"],
+        ["#9edee0", "#221c1c8c"],
+        ["#e07a7a", "#221c1c8c"]
+      ];
+      var p = palettes[i % palettes.length];
+      var ns = "http://www.w3.org/2000/svg";
+      var svg = document.createElementNS(ns, "svg");
+      svg.setAttribute("viewBox", "0 0 64 64");
+      svg.setAttribute("class", "quote-portrait");
+      svg.setAttribute("role", "img");
+      svg.setAttribute("aria-label", "portrait du critique");
+      var bg = document.createElementNS(ns, "circle");
+      bg.setAttribute("cx", "32");
+      bg.setAttribute("cy", "32");
+      bg.setAttribute("r", "31");
+      bg.setAttribute("fill", p[1]);
+      svg.appendChild(bg);
+      var head = document.createElementNS(ns, "circle");
+      head.setAttribute("cx", "32");
+      head.setAttribute("cy", "24");
+      head.setAttribute("r", "11");
+      head.setAttribute("fill", p[0]);
+      svg.appendChild(head);
+      var body = document.createElementNS(ns, "path");
+      body.setAttribute("d", "M12 58c2-14 10-20 20-20s18 6 20 20z");
+      body.setAttribute("fill", p[0]);
+      svg.appendChild(body);
+      return svg;
+    };
+    var pageNumber = 1;
+    var pageMatch = window.location.search.match(/[?&]page=(\d+)/);
+    if (pageMatch) pageNumber = parseInt(pageMatch[1], 10) || 1;
+    var pageSize = 5;
+    var quoteIndexBase = (pageNumber - 1) * pageSize;
+    gridQuotes.forEach(function(box, cardIndex) {
       var caption = box.closest(".photos-grid-card");
       var title = caption ? caption.querySelector(".photos-grid-title") : null;
       var titleText = title ? title.textContent.trim() : "";
@@ -519,27 +593,37 @@ document.addEventListener("DOMContentLoaded", function() {
       Object.keys(byEpisode).forEach(function(ep) {
         if (!pick && titleText.indexOf(ep) !== -1) pick = byEpisode[ep];
       });
-      pick = pickUnique(pick);
+      var globalIndex = quoteIndexBase + cardIndex;
+      var pool = pick ? [] : anyEpisode.concat(criticQuotes);
+      var isCritic = false;
+      if (!pick) {
+        var poolSize = pool.length;
+        var slot = globalIndex % poolSize;
+        pick = pool[slot];
+        isCritic = slot >= anyEpisode.length;
+      }
       if (!pick) return;
       box.querySelector(".photos-grid-quote-text").textContent = "« " + pick.text + " »";
       box.querySelector(".photos-grid-quote-author").textContent = pick.author;
       var epKey = null;
       Object.keys(byEpisode).forEach(function(ep) { if (!epKey && titleText.indexOf(ep) !== -1) epKey = ep; });
       var person = pick.author.replace("— ", "").split(",")[0].trim();
+      var pw = document.createElement("span");
+      pw.className = "quote-portrait-wrap";
       var img = castImgs[person] || "";
       if (img) {
-        var pw = document.createElement("span");
-        pw.className = "quote-portrait-wrap";
         var im = document.createElement("img");
         im.src = img;
         im.alt = person;
         im.className = "quote-portrait";
         pw.appendChild(im);
-        box.insertBefore(pw, box.firstChild);
+      } else if (isCritic) {
+        pw.appendChild(criticSvg(globalIndex));
       }
+      if (pw.firstChild) box.insertBefore(pw, box.firstChild);
       var srcEl = document.createElement("p");
       srcEl.className = "quote-source";
-      srcEl.textContent = "Source : " + (epKey ? episodeSource[epKey] : "Les Petits Meurtres d'Agatha Christie, saison 2 (France 2) — citation de personnage");
+      srcEl.textContent = "Source : " + (epKey ? episodeSource[epKey] : (isCritic ? "Critique de presse fictive — journaliste du Nord" : "Les Petits Meurtres d'Agatha Christie, saison 2 (France 2) — citation de personnage"));
       box.querySelector("blockquote").appendChild(srcEl);
     });
   }
