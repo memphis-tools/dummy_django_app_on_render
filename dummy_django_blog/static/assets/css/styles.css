@@ -45,36 +45,76 @@
 }
 
 /* Django message */
+.django-messages {
+  width: min(680px, 94%);
+  margin: 12px auto 4px;
+}
+.django-messages ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
 .django-messages li {
   list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: "ArsenalSC", sans-serif;
+  font-size: 1rem;
+  color: #f8ede3;
+  background-color: #221c1cf2;
+  border: 1px dashed #ea9ef0;
+  border-left: 4px solid #ea9ef0;
+  border-radius: 10px;
+  box-shadow: 4px 4px 0px #ea9ef054;
+  padding: 10px 16px;
+  animation: django-message-in 0.35s ease;
+  transition: opacity 0.5s ease, transform 0.5s ease;
 }
-
-.django-messages .success {
-    color: green;
-    background-color: #d4edda;
-    padding: 10px;
-    border-radius: 5px;
+.django-messages li::before {
+  font-family: "Font Awesome 6 Free";
+  font-weight: 900;
+  color: #ea9ef0;
+  font-size: 1.05em;
 }
-
+.django-messages .success::before { content: "\f058"; }
+.django-messages .error::before { content: "\58"; }
+.django-messages .warning::before { content: "\f071"; }
+.django-messages .info::before { content: "\f05a"; }
 .django-messages .error {
-    color: red;
-    background-color: #f8d7da;
-    padding: 10px;
-    border-radius: 5px;
+  border-left-color: #e07a7a;
 }
-
+.django-messages .error::before {
+  color: #e07a7a;
+}
 .django-messages .warning {
-    color: orange;
-    background-color: #fff3cd;
-    padding: 10px;
-    border-radius: 5px;
+  border-left-color: #e0c37a;
 }
-
-.django-messages .info {
-    color: blue;
-    background-color: #d1ecf1;
-    padding: 10px;
-    border-radius: 5px;
+.django-messages .warning::before {
+  color: #e0c37a;
+}
+.django-messages li.django-message-out {
+  opacity: 0;
+  transform: translateY(-8px);
+}
+.django-messages li .django-message-close {
+  margin-left: auto;
+  background: none;
+  border: none;
+  color: #ea9ef0;
+  font-size: 1.1em;
+  cursor: pointer;
+  padding: 0 2px;
+}
+.django-messages li .django-message-close:hover {
+  color: #f8ede3;
+}
+@keyframes django-message-in {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 /* End Django messages */
@@ -96,7 +136,6 @@ body .dropdown-item {
 
 .sticky-top {
   background-color: transparent;
-  backdrop-filter: blur(6px);
 }
 
 
@@ -351,9 +390,13 @@ section .btn:hover {
 .btn-primary {
   font-family: "ArsenalSC", sans-serif;
   color: white;
-  background-color: #221c1c8c;
-  border: 1px dashed #ea9ef0;
+  background-color: #221c1cd9;
+  border: 1px solid #ea9ef066;
   white-space: normal;
+  border-radius: 10px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
+  padding: 8px 16px;
+  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease, transform 0.15s ease;
 }
 .btn a,
 .btn-primary a {
@@ -365,7 +408,19 @@ section .btn:hover {
 .btn:hover a,
 .btn-primary:hover a {
   background-color: #ea9ef0;
-  color: white;
+  color: #221c1c;
+  border-color: #ea9ef0;
+  box-shadow: 0 6px 18px #ea9ef047;
+  transform: translateY(-2px);
+}
+.btn:focus-visible,
+.btn-primary:focus-visible {
+  outline: 2px dashed #ea9ef0;
+  outline-offset: 2px;
+}
+.btn:active,
+.btn-primary:active {
+  transform: translateY(0);
 }
 
 .login-container {
@@ -463,18 +518,31 @@ section .btn:hover {
 .feed-intro {
   height: calc(100vh - var(--navbar-height, 76px));
   min-height: 320px;
-  justify-content: center;
+  justify-content: flex-start;
 }
 
 .feed-intro-actors {
   display: flex;
   flex-direction: row;
   justify-content: center;
-  align-items: stretch;
+  align-items: flex-start;
   gap: 18px;
   flex-wrap: wrap;
   width: min(1100px, 100%);
-  margin: 14px auto;
+  margin: 14px auto 6px;
+}
+.feed-actors-zone {
+  width: min(1100px, 100%);
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+.feed-photos-strip-container {
+  margin-top: auto;
+}
+.feed-intro > .d-flex {
+  flex: 0 0 auto;
 }
 
 .feed-intro-actor-card {
@@ -1606,24 +1674,45 @@ footer .footer-contact-admin {
 .photos-grid-card {
   display: flex;
   flex-direction: column;
-  background-color: #221c1c8c;
-  border: 1px dashed #ea9ef0;
-  border-radius: 12px;
-  box-shadow: 4px 4px 0px #ea9ef054;
+  background-color: #221c1cf2;
+  border: 1px solid #ea9ef055;
+  border-radius: 14px;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.35);
   padding: 12px;
-  border-bottom: 1px dashed #ea9ef0;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+}
+
+.photos-grid-card:hover {
+  transform: translateY(-6px);
+  border-color: #ea9ef0;
+  box-shadow: 0 16px 32px rgba(0, 0, 0, 0.5), 0 0 0 1px #ea9ef066;
 }
 
 .photos-grid-figure {
   margin: 0 0 10px;
+  position: relative;
+  overflow: hidden;
+  border-radius: 10px;
+}
+
+.photos-grid-figure::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent 55%, rgba(34, 28, 28, 0.55) 100%);
+  pointer-events: none;
 }
 
 .photos-grid-figure img {
   width: 100%;
-  height: 190px;
+  height: 220px;
   object-fit: cover;
-  border-radius: 8px;
-  border: 1px dashed #ea9ef0;
+  border-radius: 10px;
+  transition: transform 0.4s ease;
+}
+
+.photos-grid-card:hover .photos-grid-figure img {
+  transform: scale(1.05);
 }
 
 .photos-grid-title {
@@ -1691,31 +1780,68 @@ footer .footer-contact-admin {
 .posts-grid-card {
   display: flex;
   flex-direction: column;
-  background-color: #221c1c8c;
-  border: 1px dashed #ea9ef0;
-  border-radius: 12px;
-  box-shadow: 4px 4px 0px #ea9ef054;
+  background-color: #221c1cf2;
+  border: 1px solid #ea9ef055;
+  border-radius: 14px;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.35);
   padding: 12px;
+  position: relative;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+}
+
+.posts-grid-card::before {
+  content: "\f15c";
+  font-family: "Font Awesome 6 Free";
+  font-weight: 900;
+  position: absolute;
+  top: 18px;
+  right: 16px;
+  font-size: 1.2em;
+  color: #ea9ef0;
+  background-color: #221c1cf2;
+  border: 1px dashed #ea9ef0;
+  border-radius: 8px;
+  padding: 6px 8px;
+  z-index: 2;
+}
+
+.posts-grid-card:hover {
+  transform: translateY(-6px);
+  border-color: #ea9ef0;
+  box-shadow: 0 16px 32px rgba(0, 0, 0, 0.5), 0 0 0 1px #ea9ef066;
 }
 
 .posts-grid-figure {
   margin: 0 0 10px;
+  position: relative;
+  overflow: hidden;
+  border-radius: 10px;
 }
 
 .posts-grid-figure img {
   width: 100%;
-  height: 190px;
+  height: 220px;
   object-fit: cover;
-  border-radius: 8px;
-  border: 1px dashed #ea9ef0;
+  border-radius: 10px;
+  transition: transform 0.4s ease;
+}
+
+.posts-grid-card:hover .posts-grid-figure img {
+  transform: scale(1.05);
 }
 
 .posts-grid-figure figcaption {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: 0;
+  padding: 18px 12px 8px;
   font-family: "ArsenalSC", sans-serif;
   font-size: 0.75em;
   font-style: italic;
   color: #f8ede3;
-  margin-top: 6px;
+  background: linear-gradient(180deg, transparent, rgba(34, 28, 28, 0.85));
 }
 
 .posts-grid-title {
