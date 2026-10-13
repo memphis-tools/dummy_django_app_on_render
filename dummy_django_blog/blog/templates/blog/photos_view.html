@@ -10,11 +10,13 @@
         <div class="w-100 d-flex flex-column align-items-center">
             <i class="feed-smileys fa-solid fa-camera-retro"></i>
             <h2>PHOTOS</h2>
+            <p class="press-motto">Pi&egrave;ces &agrave; conviction class&eacute;es par nos enqu&ecirc;teurs : examinez, mais ne touchez &agrave; rien.</p>
         </div>
         <div class="photos-grid">
             {% if page_obj|length > 0 %}
                 {% for photo in page_obj %}
-                    <div class="photos-feed-items photos-grid-card">
+                    <div class="photos-feed-items photos-grid-card evidence-card">
+                      <span class="evidence-stamp">PI&Egrave;CE N&deg; {{ forloop.counter }}</span>
                       <figure class="photos-grid-figure">
                           <img class="class-img-top" src="{{ photo.image.url }}" alt="a dummy photo">
                       </figure>
@@ -29,7 +31,7 @@
                                   <p class="photos-grid-quote-author"></p>
                               </blockquote>
                           </div>
-                          <a class="btn btn-primary photos-grid-btn" href="{% url 'photos_detail' photo.id %}">DETAILS</a>
+                          <a class="btn btn-primary photos-grid-btn" href="{% url 'photos_detail' photo.id %}">EXAMINER LA PI&Egrave;CE</a>
                         </div>
                     </div>
                 {% endfor %}
