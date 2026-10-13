@@ -777,9 +777,10 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 
-/* ===== FEED : "LE POLICIER JETTE LES PHOTOS UNE A UNE" =====
-   Chaque photo de la pile est jetee sur l'emplacement reserve, tour a tour.
-   La precedente glisse sous la pile. Tirage et timing cote client uniquement. */
+/* ===== FEED : "LE POLICIER JETE LES PHOTOS UNE A UNE SUR SON BUREAU" =====
+   Chaque photo est jetee sur le bureau (celui de Marlene ou du commissaire),
+   la derniere jetee reste AU-DESSUS de la pile. Les plus anciennes glissent
+   hors du bureau puis sont re-projetees en boucle. Cote client uniquement. */
 document.addEventListener("DOMContentLoaded", function() {
   var slot = document.querySelector(".feed-evidence-slot");
   if (!slot) { return; }
@@ -789,29 +790,38 @@ document.addEventListener("DOMContentLoaded", function() {
   var cards = Array.prototype.slice.call(deck.querySelectorAll(".feed-evidence-card"));
   if (cards.length === 0) { return; }
 
-  // spins aleatoires pour l'effet "jetee de facon desenvervee"
+  // rotations aleatoires : chaque photo atterrit de travers, comme jetee a la volee
   var spins = [-14, 9, -7, 12, -11, 6, -4, 15];
+  // decalages horizontaux pour un effet "pile desenvervee"
+  var offsets = [-30, 24, -12, 36, -24, 14, -36, 20];
+
+  var zTop = 10;
 
   function tossNext(index) {
     var card = cards[index % cards.length];
     var spin = spins[index % spins.length];
+    var offset = offsets[index % offsets.length];
     var clone = card.cloneNode(true);
     clone.style.setProperty("--toss-spin", spin + "deg");
+    clone.style.setProperty("--toss-x", offset + "px");
+    clone.style.zIndex = String(zTop); // la derniere jetee au-dessus des precedentes
+    zTop++;
     clone.classList.add("evidence-toss");
     pile.appendChild(clone);
     setTimeout(function() {
       clone.classList.remove("evidence-toss");
       clone.classList.add("evidence-rest");
-      clone.style.left = "50%";
     }, 900);
-    // la carte glisse sous la pile quand la suivante arrive
+    // les plus anciennes glissent hors du bureau : la boucle les re-projettera ensuite
     setTimeout(function() {
-      var under = pile.querySelectorAll(".feed-evidence-card");
-      if (under.length > 3) {
-        under[0].style.transition = "transform 0.5s ease, opacity 0.5s ease";
-        under[0].style.transform = "translate(-50%, 0) rotate(" + spin + "deg) scale(0.94)";
-        under[0].style.opacity = "0";
-        setTimeout(function() { under[0].remove(); }, 520);
+      var stacked = pile.querySelectorAll(".feed-evidence-card");
+      var maxStack = Math.min(5, cards.length);
+      if (stacked.length > maxStack) {
+        var oldest = stacked[0];
+        oldest.style.transition = "transform 0.6s ease, opacity 0.6s ease";
+        oldest.style.transform = "translate(-170%, 26%) rotate(-32deg) scale(0.8)";
+        oldest.style.opacity = "0";
+        setTimeout(function() { oldest.remove(); }, 640);
       }
     }, 1500);
   }
@@ -821,7 +831,7 @@ document.addEventListener("DOMContentLoaded", function() {
     tossNext(evidenceIndex);
     evidenceIndex++;
   }
-  // premiere photo presque immediatement, puis un rythme de "monstration"
+  // premiere photo presque immediatement, puis rythme regulier de monstration
   setTimeout(loop, 600);
   setInterval(loop, 3600);
 });

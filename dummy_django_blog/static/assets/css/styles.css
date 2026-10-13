@@ -1165,8 +1165,13 @@ footer .footer-contact-admin {
 .feed-interrogation-label {  display: flex;  align-items: center;  gap: 10px;  font-family: "Caveat-large", "Caveat", cursive;  font-size: 1.35em;  color: #ea9ef0;  margin-bottom: 8px;}
 .feed-interrogation-label .fa-hand-point-down {  animation: interrogation-tap 1.6s ease-in-out infinite;  display: inline-block;}
 @keyframes interrogation-tap {  0%, 100% { transform: translateY(0); }  50% { transform: translateY(6px); } }
-.feed-evidence-slot {  position: relative;  width: min(560px, 96%);  height: 300px;  margin: 0 auto;  background-color: #221c1c8c;  background-image: repeating-linear-gradient(45deg, transparent, transparent 14px, #ea9ef008 14px, #ea9ef008 28px);  border: 2px dashed #ea9ef0;  border-radius: 16px;  box-shadow: 4px 4px 0px #ea9ef054, inset 0 0 40px rgba(0, 0, 0, 0.45);  overflow: hidden;}
-.feed-evidence-slot::before {  content: "EMPLACEMENT RESERVE AUX PIECES A CONVICTION";  position: absolute;  top: 50%;  left: 50%;  transform: translate(-50%, -50%);  font-family: "ArsenalSC", sans-serif;  font-size: 0.85em;  letter-spacing: 3px;  color: #ea9ef07e;  white-space: nowrap;}
+.feed-evidence-slot {  position: relative;  width: min(680px, 96%);  height: 340px;  margin: 0 auto;  background: linear-gradient(180deg, #2a3d33 0%, #22332a 60%, #1c2a22 100%);  border: 10px solid #5b3a24;  border-radius: 6px;  box-shadow: inset 0 0 60px rgba(0, 0, 0, 0.55), 0 14px 30px rgba(0, 0, 0, 0.6);  overflow: hidden;}
+/* effet bois du bureau : veines discretes */
+.feed-evidence-slot::after {  content: "";  position: absolute;  inset: 0;  background: repeating-linear-gradient(95deg, transparent 0 46px, rgba(0,0,0,0.06) 46px 48px), repeating-linear-gradient(0deg, transparent 0 120px, rgba(255,255,255,0.02) 120px 122px);  pointer-events: none;  z-index: 0;}
+.feed-desk-stamp {  position: absolute;  bottom: 14px;  right: 18px;  font-family: "ArsenalSC-Fat", "ArsenalSC", sans-serif;  font-size: 0.8em;  letter-spacing: 2px;  text-transform: uppercase;  color: #c0392b;  border: 2px solid #c0392b;  border-radius: 4px;  padding: 4px 10px;  transform: rotate(-6deg);  opacity: 0.75;  z-index: 1;  pointer-events: none;}
+.feed-desk-pencils {  position: absolute;  top: 18px;  right: 22px;  font-size: 1.3em;  color: #f8ede3;  transform: rotate(8deg);  z-index: 1;  pointer-events: none;  text-shadow: 2px 2px 4px rgba(0,0,0,0.5);}
+.feed-desk-tag {  position: absolute;  top: 14px;  left: 18px;  font-family: "Caveat-large", "Caveat", cursive;  font-size: 1.25em;  color: #f8ede3;  transform: rotate(-3deg);  z-index: 1;  pointer-events: none;  text-shadow: 1px 1px 3px rgba(0,0,0,0.6);}
+
 .feed-evidence-pile {  position: absolute;  inset: 0;  pointer-events: none;  z-index: 4;}
 .feed-evidence-pile .feed-evidence-card {  pointer-events: auto;}
 .feed-evidence-deck .feed-evidence-card {  display: none;}
@@ -1181,9 +1186,9 @@ footer .footer-contact-admin {
   55% {    opacity: 1;  }
   70% {    transform: translate(-50%, 6px) rotate(var(--toss-spin, -14deg));  }
   85% {    transform: translate(-50%, -4px) rotate(calc(var(--toss-spin, -14deg) * 0.7));  }
-  100% {    transform: translate(-50%, 0) rotate(var(--toss-spin, -14deg));  }
+  100% {    transform: translate(calc(-50% + var(--toss-x, 0px)), 0) rotate(var(--toss-spin, -14deg));  }
 }
-.feed-evidence-card.evidence-rest {  transform: translate(-50%, 0) rotate(var(--toss-spin, -14deg));}
+.feed-evidence-card.evidence-rest {  transform: translate(calc(-50% + var(--toss-x, 0px)), 0) rotate(var(--toss-spin, -14deg));}
 @media (prefers-reduced-motion: reduce) {  .feed-evidence-card.evidence-toss {    animation: none;  } }
 .feed-highlight {
   display: flex;
@@ -2194,111 +2199,6 @@ footer .footer-contact-admin:hover svg {
   gap: 8px;
 }
 
-/* ===== POSTS : FAUX JOURNAL "LA VOIX DU NORD" ===== */
-.press-motto {
-  font-family: "Caveat-large", "Caveat", cursive;
-  font-size: 1.3em;
-  color: #ea9ef0;
-  text-align: center;
-  max-width: 640px;
-  margin: 6px auto 0;
-}
-.newspaper-card {
-  background-color: #f4e9d8;
-  border: none;
-  border-radius: 3px;
-  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.45);
-  padding: 14px 14px 12px;
-  position: relative;
-}
-.newspaper-card::before {
-  content: "";
-  position: absolute;
-  inset: 5px;
-  border: 1px solid #221c1c55;
-  border-radius: 2px;
-  pointer-events: none;
-}
-.newspaper-card:hover {
-  transform: translateY(-6px) rotate(-0.4deg);
-  box-shadow: 0 16px 32px rgba(0, 0, 0, 0.55);
-  border-color: #221c1c;
-}
-.newspaper-head {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 8px;
-  padding: 2px 4px 6px;
-}
-.newspaper-name {
-  font-family: "ArsenalSC-Fat", "ArsenalSC", serif;
-  font-size: 1.15em;
-  letter-spacing: 2px;
-  color: #221c1c;
-  text-transform: uppercase;
-}
-.newspaper-name i {
-  color: #a4243b;
-  margin-right: 4px;
-}
-.newspaper-edition {
-  font-family: "ArsenalSC", sans-serif;
-  font-size: 0.62em;
-  letter-spacing: 1.5px;
-  color: #221c1c99;
-  text-transform: uppercase;
-  white-space: nowrap;
-}
-.newspaper-rule {
-  border-top: 3px double #221c1c;
-  margin: 0 2px 10px;
-}
-.newspaper-headline {
-  font-family: "ArsenalSC-Fat", "ArsenalSC", serif !important;
-  color: #221c1c !important;
-  text-transform: uppercase !important;
-  font-size: 1.25em !important;
-  line-height: 1.15;
-  letter-spacing: 0.5px;
-  text-align: center;
-  margin: 10px 0 6px;
-}
-.newspaper-byline,
-.newspaper-dateline {
-  color: #221c1cd9 !important;
-  font-size: 0.78em !important;
-  text-transform: uppercase;
-  letter-spacing: 0.8px;
-}
-.newspaper-byline i,
-.newspaper-dateline i {
-  color: #a4243b !important;
-}
-.newspaper-card .posts-grid-quote {
-  background-color: #221c1c0d;
-  border-left: 3px solid #a4243b;
-}
-.newspaper-card .posts-grid-quote-text {
-  color: #221c1c !important;
-}
-.newspaper-card .posts-grid-quote-author {
-  color: #a4243b !important;
-}
-.newspaper-card .posts-grid-btn {
-  background-color: #221c1c;
-  border: 1px dashed #a4243b;
-  color: #f4e9d8;
-}
-.newspaper-card .posts-grid-figure figcaption {
-  color: #f4e9d8;
-}
-.newspaper-card .options_container .btn {
-  background-color: #221c1c;
-  border: 1px dashed #a4243b;
-  color: #f4e9d8;
-}
-
 /* ===== PHOTOS : PIECES A CONVICTION ===== */
 .evidence-card {
   border: 1px solid #ea9ef055;
@@ -2346,4 +2246,263 @@ footer .footer-contact-admin:hover svg {
 }
 .feed-intro-actor-teaser {
   font-size: 1.15em;
+}
+
+/* ===== PHOTOS GRID : APPARITION "PROJETEE" UNE PAR UNE ===== */
+.photos-grid .evidence-card {
+  opacity: 0;
+  animation: evidence-land 0.7s cubic-bezier(0.25, 0.8, 0.35, 1.1) forwards;
+  animation-delay: calc(var(--card-index, 0) * 0.45s);
+}
+.photos-grid .evidence-card:nth-child(1) { --card-index: 0; }
+.photos-grid .evidence-card:nth-child(2) { --card-index: 1; }
+.photos-grid .evidence-card:nth-child(3) { --card-index: 2; }
+.photos-grid .evidence-card:nth-child(4) { --card-index: 3; }
+.photos-grid .evidence-card:nth-child(5) { --card-index: 4; }
+.photos-grid .evidence-card:nth-child(6) { --card-index: 5; }
+.photos-grid .evidence-card:nth-child(7) { --card-index: 6; }
+.photos-grid .evidence-card:nth-child(8) { --card-index: 7; }
+.photos-grid .evidence-card:nth-child(n+9) { --card-index: 8; }
+@keyframes evidence-land {
+  0% {
+    opacity: 0;
+    transform: translateY(-120px) rotate(calc(var(--land-spin, -6deg) * 2)) scale(0.92);
+  }
+  60% { opacity: 1; }
+  75% { transform: translateY(8px) rotate(var(--land-spin, -6deg)) scale(1.01); }
+  100% {
+    opacity: 1;
+    transform: translateY(0) rotate(0deg) scale(1);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .photos-grid .evidence-card { animation: none; opacity: 1; }
+}
+
+/* ===== PAGINATION STYLE DOSSIER D'ENQUETE ===== */
+.pagination-dossier {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  margin: 26px auto 8px;
+  padding: 14px 22px;
+  width: fit-content;
+  background-color: #221c1c8c;
+  border: 1px dashed #ea9ef0;
+  border-radius: 12px;
+  box-shadow: 4px 4px 0px #ea9ef054;
+}
+.pagination-dossier-status {
+  font-family: "ArsenalSC", sans-serif;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #ea9ef0;
+  font-size: 0.9em;
+}
+.pagination-dossier-status strong {
+  font-family: "ArsenalSC-Fat", "ArsenalSC", sans-serif;
+  color: #f8ede3;
+}
+.pagination-dossier-links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+}
+.pagination-dossier-links a {
+  font-family: "ArsenalSC", sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-size: 0.82em;
+  color: #f8ede3;
+  background-color: #170f0faa;
+  border: 1px dashed #ea9ef07e;
+  border-radius: 8px;
+  padding: 7px 14px;
+  text-decoration: none;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, color 0.15s ease;
+}
+.pagination-dossier-links a:hover {
+  color: #ea9ef0;
+  transform: translateY(-2px);
+  box-shadow: 3px 3px 0px #ea9ef054;
+}
+.pagination-dossier-links a.disabled-link {
+  opacity: 0.35;
+  pointer-events: none;
+}
+
+/* ===== POSTS : "CASE INVESTIGATION FILES" ===== */
+/* Remplace le rendu journal : chemise de dossier kraft, languette, agrafe,
+   image entierement visible (pas de crop). */
+.case-file-card {
+  background-color: #d9c7a7;
+  border: none;
+  border-radius: 4px 4px 10px 4px;
+  box-shadow: 0 12px 26px rgba(0, 0, 0, 0.5);
+  padding: 34px 16px 14px;
+  position: relative;
+  overflow: visible;
+}
+.case-file-card::before {
+  content: none;
+}
+/* languette de chemise en haut */
+.case-file-tab {
+  position: absolute;
+  top: 0;
+  left: 14px;
+  right: 40%;
+  height: 26px;
+  background-color: #c4b090;
+  border: 1px solid #8a7a5c;
+  border-bottom: none;
+  border-radius: 8px 8px 0 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+}
+.case-file-tab-label {
+  font-family: "ArsenalSC-Fat", "ArsenalSC", sans-serif;
+  font-size: 0.72em;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: #4a3f28;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+/* trombone en haut a droite */
+.case-file-card::after {
+  content: "\f0c6";
+  font-family: "Font Awesome 6 Free";
+  font-weight: 900;
+  position: absolute;
+  top: 8px;
+  right: 14px;
+  font-size: 1.5em;
+  color: #6d6d6d;
+  transform: rotate(18deg);
+  z-index: 2;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.35);
+}
+.case-file-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  border-bottom: 2px dashed #8a7a5c;
+  padding: 4px 2px 8px;
+  margin-bottom: 10px;
+}
+.case-file-bureau {
+  font-family: "ArsenalSC-Fat", "ArsenalSC", sans-serif;
+  font-size: 0.68em;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: #4a3f28;
+}
+.case-file-bureau i { color: #a4243b; margin-right: 3px; }
+.case-file-confidential {
+  font-family: "ArsenalSC-Fat", "ArsenalSC", sans-serif;
+  font-size: 0.6em;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: #a4243b;
+  border: 1.5px solid #a4243b;
+  border-radius: 4px;
+  padding: 2px 6px;
+  transform: rotate(-4deg);
+  white-space: nowrap;
+}
+/* image entierement visible : hauteur auto, pas de crop */
+.case-file-figure {
+  margin: 0 0 10px;
+  position: relative;
+  overflow: hidden;
+  border-radius: 6px;
+  border: 1px solid #8a7a5c;
+  background-color: #221c1c;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.08);
+}
+.case-file-figure img {
+  width: 100%;
+  height: auto;
+  max-height: none;
+  object-fit: contain;
+  display: block;
+}
+.case-file-figure figcaption {
+  position: static;
+  margin: 0;
+  padding: 8px 10px;
+  font-family: "Caveat-large", "Caveat", cursive;
+  font-size: 1.15em;
+  color: #4a3f28;
+  background-color: #c4b090;
+  text-align: center;
+  border-top: 1px dashed #8a7a5c;
+}
+.case-file-headline {
+  font-family: "ArsenalSC-Fat", "ArsenalSC", sans-serif !important;
+  color: #221c1c !important;
+  text-transform: uppercase !important;
+  font-size: 1.2em !important;
+  text-align: center;
+  letter-spacing: 0.5px;
+  margin: 10px 0 6px;
+  line-height: 1.2;
+}
+.case-file-meta {
+  color: #4a3f28 !important;
+  font-size: 0.75em !important;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+}
+.case-file-meta i { color: #a4243b !important; }
+.case-file-card .posts-grid-quote {
+  background-color: #221c1c10;
+  border-left: 3px solid #a4243b;
+}
+.case-file-card .posts-grid-quote-text { color: #221c1c !important; }
+.case-file-card .posts-grid-quote-author { color: #a4243b !important; }
+.case-file-btn {
+  background-color: #221c1c;
+  border: 1px dashed #a4243b;
+  color: #d9c7a7;
+}
+.case-file-card:hover {
+  transform: translateY(-6px) rotate(-0.5deg);
+  box-shadow: 0 18px 36px rgba(0, 0, 0, 0.55);
+}
+.case-file-card .options_container .btn {
+  background-color: #221c1c;
+  border: 1px dashed #a4243b;
+  color: #d9c7a7;
+}
+/* apparition "posage de dossier" une par une */
+.posts-grid .case-file-card {
+  opacity: 0;
+  animation: case-file-drop 0.65s cubic-bezier(0.25, 0.8, 0.35, 1.05) forwards;
+  animation-delay: calc(var(--card-index, 0) * 0.4s);
+}
+.posts-grid .case-file-card:nth-child(1) { --card-index: 0; }
+.posts-grid .case-file-card:nth-child(2) { --card-index: 1; }
+.posts-grid .case-file-card:nth-child(3) { --card-index: 2; }
+.posts-grid .case-file-card:nth-child(4) { --card-index: 3; }
+.posts-grid .case-file-card:nth-child(5) { --card-index: 4; }
+.posts-grid .case-file-card:nth-child(6) { --card-index: 5; }
+.posts-grid .case-file-card:nth-child(7) { --card-index: 6; }
+.posts-grid .case-file-card:nth-child(8) { --card-index: 7; }
+.posts-grid .case-file-card:nth-child(n+9) { --card-index: 8; }
+@keyframes case-file-drop {
+  0% { opacity: 0; transform: translateY(-90px) rotate(-4deg); }
+  60% { opacity: 1; }
+  80% { transform: translateY(4px) rotate(0.5deg); }
+  100% { opacity: 1; transform: translateY(0) rotate(0deg); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .posts-grid .case-file-card { animation: none; opacity: 1; }
 }
