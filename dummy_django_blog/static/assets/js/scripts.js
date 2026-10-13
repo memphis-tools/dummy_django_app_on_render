@@ -775,3 +775,4 @@ document.addEventListener("DOMContentLoaded", function() {
     setInterval(update, 6000);
   });
 });
+
