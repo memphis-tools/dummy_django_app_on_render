@@ -306,46 +306,60 @@ document.addEventListener("DOMContentLoaded", function() {
     if (token !== tourToken) return;
     var title = entry.row.querySelectorAll("td")[1].textContent.trim();
     var rows = Array.prototype.slice.call(audiencesSection.querySelectorAll(".topblog_tr"));
-    clearRowEffects();
-    scanRows(rows, rows.indexOf(entry.row) + 1, token, function() {
+    var idx = rows.indexOf(entry.row);
+    // va-et-vient stylise autour de la ligne cible : bas -> haut -> bas
+    scanRows(rows, rows.length - 1, token, "up", function() {
       if (token !== tourToken) return;
-      clearRowEffects();
-      entry.row.scrollIntoView({ block: "center" });
-      entry.row.classList.add("feed-audiences-row-glow");
-      var episodeImg = episodeImageFor(title);
-      var calloutHtml = "<div class='feed-audiences-callout-flex'>" +
-        "<img class='feed-audiences-callout-img' src='" + episodeImg.img + "' alt='" + title + "'>" +
-        "<div class='feed-audiences-callout-body'>" +
-        "<strong>" + title + "</strong><br>" +
-        "Record d'audience : " + entry.score.pct.toLocaleString("fr-FR") + " % de part d'audience, " +
-        entry.score.viewers.toLocaleString("fr-FR") + " téléspectateurs !<br>" +
-        nextCritic() + "<br>" +
-        "<span class='feed-audiences-callout-source'>Image : " + episodeImg.source + "</span>" +
-        "</div></div>";
-      showCallout(calloutHtml, entry.row);
-      scanRowTimer = setTimeout(function() {
-        hideCallout();
-        entry.row.classList.remove("feed-audiences-row-glow");
-        entry.row.classList.add("feed-audiences-row-scan");
-        if (done) done();
-      }, 3000);
-    }, true);
+      scanRows(rows, 0, token, "down", function() {
+        if (token !== tourToken) return;
+        clearRowEffects();
+        entry.row.scrollIntoView({ block: "center", behavior: "smooth" });
+        entry.row.classList.add("feed-audiences-row-glow");
+        var episodeImg = episodeImageFor(title);
+        var calloutHtml = "<div class='feed-audiences-callout-flex'>" +
+          "<img class='feed-audiences-callout-img' src='" + episodeImg.img + "' alt='" + title + "'>" +
+          "<div class='feed-audiences-callout-body'>" +
+          "<strong>" + title + "</strong><br>" +
+          "Record d'audience : " + entry.score.pct.toLocaleString("fr-FR") + " % de part d'audience, " +
+          entry.score.viewers.toLocaleString("fr-FR") + " t\u00e9l\u00e9spectateurs !<br>" +
+          nextCritic() + "<br>" +
+          "<span class='feed-audiences-callout-source'>Image : " + episodeImg.source + "</span>" +
+          "</div></div>";
+        showCallout(calloutHtml, entry.row);
+        // l'encadre reste lisible 5 secondes
+        scanRowTimer = setTimeout(function() {
+          hideCallout();
+          entry.row.classList.remove("feed-audiences-row-glow");
+          entry.row.classList.add("feed-audiences-row-scan");
+          if (done) done();
+        }, 5000);
+      });
+    });
   }
-
-  function scanRows(rows, index, token, done, silent) {
+  // balayage stylise : direction "down" (haut->bas) ou "up" (bas->haut)
+  function scanRows(rows, index, token, direction, done) {
     if (token !== tourToken) return;
-    if (index >= rows.length) {
+    if (direction === undefined) { direction = "down"; }
+    if (index < 0 || index >= rows.length) {
       if (done) done();
       return;
     }
     var row = rows[index];
-    row.scrollIntoView({ block: "center", behavior: silent ? "auto" : "smooth" });
+    row.scrollIntoView({ block: "center", behavior: "smooth" });
     row.classList.add("feed-audiences-row-scan");
     scanRowTimer = setTimeout(function() {
-      scanRows(rows, index + 1, token, done, silent);
-    }, silent ? 90 : 260);
+      var nextIndex = direction === "up" ? index - 1 : index + 1;
+      if (direction === "up" && nextIndex < 0) {
+        if (done) done();
+        return;
+      }
+      if (direction === "down" && nextIndex >= rows.length) {
+        if (done) done();
+        return;
+      }
+      scanRows(rows, nextIndex, token, direction, done);
+    }, 150);
   }
-
   function runTour(token) {
     if (token !== tourToken) return;
     var ranked = rankedRows();
@@ -356,30 +370,36 @@ document.addEventListener("DOMContentLoaded", function() {
     }
     var group = nextTopGroup(ranked);
     var allRows = Array.prototype.slice.call(audiencesSection.querySelectorAll(".topblog_tr"));
-    smoothScrollTo(audiencesSection.getBoundingClientRect().top + window.scrollY - 70, 3000, function() {
+    // descente rapide et stylisee vers la section audiences
+    smoothScrollTo(audiencesSection.getBoundingClientRect().top + window.scrollY - 70, 1200, function() {
       if (token !== tourToken) return;
-      scanRows(allRows, 0, token, function() {
+      // balayage haut -> bas
+      scanRows(allRows, 0, token, "down", function() {
         if (token !== tourToken) return;
-        clearRowEffects();
-        revealTop(group[0], token, function() {
+        // ... puis bas -> haut
+        scanRows(allRows, allRows.length - 1, token, "up", function() {
           if (token !== tourToken) return;
-          revealTop(group[1], token, function() {
+          // ... puis de nouveau vers le bas pour surligner le 1er episode
+          revealTop(group[0], token, function() {
             if (token !== tourToken) return;
-            revealTop(group[2] || group[0], token, function() {
+            revealTop(group[1], token, function() {
               if (token !== tourToken) return;
-              smoothScrollTo(0, 3000, function() {
+              revealTop(group[2] || group[0], token, function() {
                 if (token !== tourToken) return;
-                clearRowEffects();
-                running = false;
-                scheduleIdle();
-              }, token);
+                // retour rapide en haut de page
+                smoothScrollTo(0, 1200, function() {
+                  if (token !== tourToken) return;
+                  clearRowEffects();
+                  running = false;
+                  scheduleIdle();
+                }, token);
+              });
             });
           });
         });
       });
     }, token);
   }
-
   function scheduleIdle() {
     if (running) return;
     idleTimer = setTimeout(function() {
