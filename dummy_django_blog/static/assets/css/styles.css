@@ -1185,7 +1185,7 @@ footer .footer-contact-admin {
 .feed-interrogation-label {  display: flex;  align-items: center;  gap: 10px;  font-family: "Caveat-large", "Caveat", cursive;  font-size: 1.35em;  color: #ea9ef0;  margin-bottom: 8px;}
 .feed-interrogation-label .fa-hand-point-down {  animation: interrogation-tap 1.6s ease-in-out infinite;  display: inline-block;}
 @keyframes interrogation-tap {  0%, 100% { transform: translateY(0); }  50% { transform: translateY(6px); } }
-.feed-evidence-slot {  position: relative;  width: min(680px, 96%);  height: 340px;  margin: 0 auto;  background: linear-gradient(180deg, #2a3d33 0%, #22332a 60%, #1c2a22 100%);  border: 10px solid #5b3a24;  border-radius: 6px;  box-shadow: inset 0 0 60px rgba(0, 0, 0, 0.55), 0 14px 30px rgba(0, 0, 0, 0.6);  overflow: hidden;}
+.feed-evidence-slot {  position: relative;  width: min(680px, 96%);  height: 380px;  margin: 0 auto;  background: linear-gradient(180deg, #2a3d33 0%, #22332a 60%, #1c2a22 100%);  border: 10px solid #5b3a24;  border-radius: 6px;  box-shadow: inset 0 0 60px rgba(0, 0, 0, 0.55), 0 14px 30px rgba(0, 0, 0, 0.6);  overflow: hidden;}
 /* effet bois du bureau : veines discretes */
 .feed-evidence-slot::after {  content: "";  position: absolute;  inset: 0;  background: repeating-linear-gradient(95deg, transparent 0 46px, rgba(0,0,0,0.06) 46px 48px), repeating-linear-gradient(0deg, transparent 0 120px, rgba(255,255,255,0.02) 120px 122px);  pointer-events: none;  z-index: 0;}
 .feed-desk-stamp {  position: absolute;  bottom: 14px;  right: 18px;  font-family: "ArsenalSC-Fat", "ArsenalSC", sans-serif;  font-size: 0.8em;  letter-spacing: 2px;  text-transform: uppercase;  color: #c0392b;  border: 2px solid #c0392b;  border-radius: 4px;  padding: 4px 10px;  transform: rotate(-6deg);  opacity: 0.75;  z-index: 1;  pointer-events: none;}
@@ -1196,7 +1196,14 @@ footer .footer-contact-admin {
 .feed-evidence-pile .feed-evidence-card {  pointer-events: auto;}
 .feed-evidence-deck .feed-evidence-card {  display: none;}
 /* sans JS : premiere photo affichee en statique */
-.feed-evidence-deck .feed-evidence-card:first-child {  display: block;  position: absolute;  top: 12px;  left: 50%;  transform: translate(-50%, 0) rotate(-6deg);}
+/* BUGFIX : le fallback statique doit rester SOUS la pile (z-index 1)
+   sinon la 1ere photo masque toutes les photos jetees par la suite. */
+.feed-evidence-deck .feed-evidence-card:first-child {  display: block;  position: absolute;  top: 12px;  left: 50%;  transform: translate(-50%, 0) rotate(-6deg);  z-index: 1;}
+/* bureau de Marlene : papier journal, machine a ecrire, bonbonne Treets */
+.feed-desk-pencils {  content: "\f21a";  font-size: 1.45em;  top: 12px;}
+.feed-desk-treets {  position: absolute;  bottom: 14px;  left: 18px;  font-size: 1.2em;  transform: rotate(-10deg);  z-index: 1;  pointer-events: none;  text-shadow: 1px 1px 3px rgba(0,0,0,0.5);}
+.feed-desk-paper {  position: absolute;  bottom: 34px;  right: 120px;  width: 74px;  height: 52px;  background-color: #f4e9d8;  border: 1px solid #8a7a5c66;  box-shadow: 2px 3px 6px rgba(0,0,0,0.4);  transform: rotate(7deg);  z-index: 1;  pointer-events: none;}
+.feed-desk-paper::before {  content: "";  position: absolute;  inset: 8px 10px;  background: repeating-linear-gradient(180deg, #221c1c33 0 2px, transparent 2px 7px);}
 .feed-evidence-card {  position: absolute;  top: 12px;  left: 50%;  width: min(240px, 60%);  z-index: 5;}
 .feed-evidence-card img {  width: 100%;  height: auto;  max-height: 240px;  object-fit: cover;  border-radius: 6px;  border: 1px dashed #ea9ef0;  box-shadow: 6px 8px 18px rgba(0, 0, 0, 0.6);  background-color: #170f0f;}
 /* etat "jetee sur la table" */
@@ -2547,3 +2554,253 @@ footer .footer-contact-admin:hover svg {
 @media (prefers-reduced-motion: reduce) {
   .posts-grid .case-file-card { animation: none; opacity: 1; }
 }
+
+/* ===== SECTION PERSONNAGES : FICHES SUSPECTS ===== */
+.suspects-board {
+  width: min(1200px, 100%);
+  margin: 0 auto;
+}
+.suspects-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 10px 16px;
+  margin-bottom: 16px;
+  background-color: #221c1c8c;
+  border: 1px dashed #ea9ef0;
+  border-radius: 12px;
+  box-shadow: 4px 4px 0px #ea9ef054;
+}
+.suspects-header-title {
+  font-family: "ArsenalSC-Fat", "ArsenalSC", sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: #ea9ef0;
+  font-size: 0.95em;
+}
+.suspects-header-title i { margin-right: 8px; }
+.suspects-header-note {
+  font-family: "Caveat-large", "Caveat", cursive;
+  font-size: 1.2em;
+  color: #f8ede3;
+}
+.suspects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 20px;
+}
+.suspect-card {
+  display: flex;
+  gap: 14px;
+  background-color: #d9c7a7;
+  border-radius: 4px 4px 10px 4px;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.45);
+  padding: 14px;
+  position: relative;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.suspect-card::after {
+  content: "\f0c6";
+  font-family: "Font Awesome 6 Free";
+  font-weight: 900;
+  position: absolute;
+  top: 6px;
+  right: 10px;
+  font-size: 1.2em;
+  color: #6d6d6d;
+  transform: rotate(16deg);
+  z-index: 2;
+}
+.suspect-card:hover {
+  transform: translateY(-5px) rotate(-0.5deg);
+  box-shadow: 0 16px 32px rgba(0, 0, 0, 0.55);
+}
+.suspect-photo {
+  flex: 0 0 110px;
+  margin: 0;
+  text-align: center;
+}
+.suspect-photo img {
+  width: 110px;
+  height: 130px;
+  object-fit: cover;
+  object-position: top;
+  border-radius: 6px;
+  border: 3px solid #f8ede3;
+  box-shadow: 3px 4px 10px rgba(0, 0, 0, 0.4);
+  transform: rotate(-2deg);
+  transition: transform 0.2s ease;
+}
+.suspect-card:hover .suspect-photo img {
+  transform: rotate(0deg) scale(1.03);
+}
+.suspect-photo figcaption {
+  font-family: "Caveat-large", "Caveat", cursive;
+  font-size: 0.95em;
+  color: #4a3f28;
+  margin-top: 6px;
+  transform: rotate(-1deg);
+}
+.suspect-body { flex: 1 1 auto; min-width: 0; }
+.suspect-name {
+  font-family: "ArsenalSC-Fat", "ArsenalSC", sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: #221c1c;
+  font-size: 1em;
+  border-bottom: 2px dashed #8a7a5c;
+  padding-bottom: 4px;
+  margin-bottom: 8px;
+}
+.suspect-file {
+  font-family: "Caveat-large", "Caveat", cursive;
+  font-size: 1.15em;
+  line-height: 1.3;
+  color: #221c1cd9;
+  margin: 0;
+}
+
+/* ===== SECTION A PROPOS : DOSSIER DE PRODUCTION (archives condensees) ===== */
+.archives-board {
+  width: min(1000px, 100%);
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+.archives-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 10px 16px;
+  background-color: #221c1c8c;
+  border: 1px dashed #ea9ef0;
+  border-radius: 12px;
+  box-shadow: 4px 4px 0px #ea9ef054;
+}
+.archives-header-title {
+  font-family: "ArsenalSC-Fat", "ArsenalSC", sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: #ea9ef0;
+  font-size: 0.95em;
+}
+.archives-header-title i { margin-right: 8px; }
+.archives-header-note {
+  font-family: "Caveat-large", "Caveat", cursive;
+  font-size: 1.2em;
+  color: #f8ede3;
+}
+.archives-section-title {
+  font-family: "ArsenalSC-Fat", "ArsenalSC", sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: #ea9ef0;
+  font-size: 0.85em;
+  border-bottom: 2px dashed #ea9ef07e;
+  padding-bottom: 6px;
+  margin-bottom: 12px;
+}
+.archives-section-title i { margin-right: 6px; }
+/* frise de tournage */
+.archives-timeline {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: 14px;
+}
+.timeline-item {
+  background-color: #d9c7a7;
+  border-radius: 6px;
+  padding: 12px 14px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+  border-left: 4px solid #a4243b;
+}
+.timeline-date {
+  display: inline-block;
+  font-family: "ArsenalSC-Fat", "ArsenalSC", sans-serif;
+  color: #a4243b;
+  font-size: 0.9em;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+.timeline-item p {
+  font-family: "Caveat-large", "Caveat", cursive;
+  font-size: 1.1em;
+  line-height: 1.25;
+  color: #221c1cd9;
+  margin: 0;
+}
+/* fiche technique */
+.archives-facts {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 10px;
+}
+.fact-item {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  background-color: #221c1c8c;
+  border: 1px dashed #ea9ef07e;
+  border-radius: 10px;
+  padding: 10px 14px;
+}
+.fact-label {
+  font-family: "ArsenalSC-Fat", "ArsenalSC", sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: #ea9ef0;
+  font-size: 0.72em;
+}
+.fact-value {
+  font-family: "ArsenalSC", sans-serif;
+  color: #f8ede3;
+  font-size: 0.85em;
+  line-height: 1.3;
+}
+/* diffusion mondiale */
+.archives-world {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.world-chip {
+  font-family: "ArsenalSC", sans-serif;
+  font-size: 0.8em;
+  letter-spacing: 0.5px;
+  color: #f8ede3;
+  background-color: #170f0faa;
+  border: 1px dashed #ea9ef07e;
+  border-radius: 20px;
+  padding: 6px 14px;
+  transition: transform 0.15s ease, color 0.15s ease, box-shadow 0.15s ease;
+}
+.world-chip:hover {
+  color: #ea9ef0;
+  transform: translateY(-2px);
+  box-shadow: 3px 3px 0px #ea9ef054;
+}
+/* recompenses */
+.archives-awards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 10px;
+}
+.award-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background-color: #d9c7a7;
+  border-radius: 6px;
+  padding: 10px 14px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+  font-family: "ArsenalSC", sans-serif;
+  color: #221c1cd9;
+  font-size: 0.85em;
+}
+.award-item i { color: #a4243b; font-size: 1.3em; }
