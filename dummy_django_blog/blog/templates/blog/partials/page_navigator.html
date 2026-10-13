@@ -1,20 +1,19 @@
-<div class="w-100 d-flex flex-column align-items-center">
-  <div class="d-flex">
-    <span>
-      Page {{ page_obj.number }} sur {{ page_obj.paginator.num_pages }}
-    </span>
-  </div>
-  <div class="d-flex flex-column justify-content-between">
-      <span>
+<div class="pagination-dossier">
+    <span class="pagination-dossier-status">DOSSIER : PAGE <strong>{{ page_obj.number }}</strong> SUR <strong>{{ page_obj.paginator.num_pages }}</strong></span>
+    <div class="pagination-dossier-links">
         {% if page_obj.has_previous %}
-          <a href="?page=1">Premières</a>
-          <a href="?page={{ page_obj.previous_page_number }}">Précédentes</a>
+            <a href="?page=1">PREMIÈRES</a>
+            <a href="?page={{ page_obj.previous_page_number }}">PRÉCÉDENTES</a>
+        {% else %}
+            <a class="disabled-link">PREMIÈRES</a>
+            <a class="disabled-link">PRÉCÉDENTES</a>
         {% endif %}
-
         {% if page_obj.has_next %}
-          <a href="?page={{ page_obj.next_page_number }}">Prochaines</a>
-          <a href="?page={{ page_obj.paginator.num_pages }}">Dernières</a>
+            <a href="?page={{ page_obj.next_page_number }}">PROCHAINES</a>
+            <a href="?page={{ page_obj.paginator.num_pages }}">DERNIÈRES</a>
+        {% else %}
+            <a class="disabled-link">PROCHAINES</a>
+            <a class="disabled-link">DERNIÈRES</a>
         {% endif %}
-      </span>
-  </div>
+    </div>
 </div>

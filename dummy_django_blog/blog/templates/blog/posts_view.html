@@ -8,25 +8,27 @@
         <div class="w-100 d-flex flex-column align-items-center">
             <i class="feed-smileys fa-solid fa-film"></i>
             <h2>BILLETS</h2>
-            <p class="press-motto">Le journal des lecteurs enqu&ecirc;teurs &mdash; un billet, une affaire, un coupable (presque) toujours trouv&eacute;.</p>
+            <p class="press-motto">Dossiers d'enqu&ecirc;te ouverts par les lecteurs : chaque billet est une affaire class&eacute;e... ou presque.</p>
         </div>
         <div class="posts-grid">
             {% if page_obj|length > 0 %}
                 {% for post in page_obj %}
-                    <div class="posts-feed-items posts-grid-card newspaper-card">
-                        <div class="newspaper-head">
-                            <span class="newspaper-name"><i class="fa-solid fa-feather-pointed"></i> LA VOIX DU NORD</span>
-                            <span class="newspaper-edition">&Eacute;DITION SP&Eacute;CIALE ENQU&Ecirc;TE</span>
+                    <div class="posts-feed-items posts-grid-card case-file-card">
+                        <div class="case-file-tab">
+                            <span class="case-file-tab-label">CASE FILE N&deg; {{ forloop.counter0|add:page_obj.start_index }}</span>
                         </div>
-                        <div class="newspaper-rule"></div>
-                        <figure class="posts-grid-figure">
+                        <div class="case-file-head">
+                            <span class="case-file-bureau"><i class="fa-solid fa-folder-open"></i> COMMISSARIAT DE LILLE</span>
+                            <span class="case-file-confidential"><i class="fa-solid fa-stamp"></i> NE PAS DIFFUSER</span>
+                        </div>
+                        <figure class="posts-grid-figure case-file-figure">
                             <img src="{{ post.image.image.url }}" alt="episode photo">
                             <figcaption>{{ post.image.caption }}</figcaption>
                         </figure>
                         <div class="feed-item-detail">
-                            <p class="posts-grid-title newspaper-headline">{{ post.title }}</p>
-                            <p class="posts-grid-meta newspaper-byline"><i class="fa-solid fa-users"></i> {{ post.contributors.all|join:", " }}</p>
-                            <p class="posts-grid-meta newspaper-dateline"><i class="fa-solid fa-calendar"></i> {{ post.created_at|format_created_date }}</p>
+                            <p class="posts-grid-title case-file-headline">{{ post.title }}</p>
+                            <p class="posts-grid-meta case-file-meta"><i class="fa-solid fa-users"></i> Enqu&ecirc;teurs : {{ post.contributors.all|join:", " }}</p>
+                            <p class="posts-grid-meta case-file-meta"><i class="fa-solid fa-calendar"></i> Ouvert le {{ post.created_at|format_created_date }}</p>
                             <div class="posts-grid-quote" data-quote-index="{{ forloop.counter0 }}">
                                 <span class="detective-magnifier">{% bs_icon 'chat-quote' %}</span>
                                 <blockquote>
@@ -34,7 +36,7 @@
                                     <p class="posts-grid-quote-author"></p>
                                 </blockquote>
                             </div>
-                            <a class="btn btn-primary posts-grid-btn" href="{% url 'posts_detail' post.id %}">LIRE L'ARTICLE</a>
+                            <a class="btn btn-primary posts-grid-btn case-file-btn" href="{% url 'posts_detail' post.id %}"><i class="fa-solid fa-magnifying-glass"></i> OUVRIR LE DOSSIER</a>
                             {% if request.user in post.contributors.all %}
                                 <div class="options_container d-flex flex-row align-items-baseline">
                                     <a class="btn btn-primary m-3" href="{% url 'posts_update' post.id %}">MODIFIER BILLET</a>

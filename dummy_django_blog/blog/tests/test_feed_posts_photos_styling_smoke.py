@@ -11,9 +11,9 @@ def test_feed_posts_photos_styling(client, django_user_model):
     post = Post.objects.create(title="enquete 1959", content="corps")
     post.contributors.add(other)
     r = client.get("/feed/")
-    assert b"feed-evidence-slot" in r.content and b"feed-evidence-deck" in r.content, "feed interrogation desk missing"
+    assert b"feed-evidence-slot" in r.content and b"feed-evidence-deck" in r.content and b"COMMISSARIAT DE LILLE" in r.content, "feed desk missing"
     assert b"feed-photos-strip" not in r.content, "old strip still present"
     r = client.get("/photos/")
     assert b"evidence-card" in r.content and b"evidence-stamp" in r.content, "photos evidence styling missing"
     r = client.get("/posts/")
-    assert b"newspaper-card" in r.content and b"LA VOIX DU NORD" in r.content, "posts newspaper styling missing"
+    assert b"case-file-card" in r.content and b"CASE FILE" in r.content, "posts case-file styling missing"
