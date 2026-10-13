@@ -19,25 +19,6 @@
           <a href="#feed-section-a-propos"><i class="fa-solid fa-circle-info"></i>A PROPOS</a>
           <a href="#feed-section-audiences"><i class="fa-solid fa-chart-line"></i>AUDIENCES</a>
       </div>
-        <div class="feed-actors-zone">
-        <div class="feed-intro-actors">
-            <a class="feed-intro-actor-card feed-intro-actor-card--laurence" href="#feed-section-personnages">
-                <img src="{% static 'vendors/img/swan_laurence.png' %}" alt="Commissaire Swan Laurence">
-                <span class="feed-intro-actor-name">Commissaire Swan Laurence</span>
-                <span class="feed-intro-actor-teaser" data-actor-teaser="laurence"></span>
-            </a>
-            <a class="feed-intro-actor-card feed-intro-actor-card--avril" href="#feed-section-personnages">
-                <img src="{% static 'vendors/img/alice_avril.jpg' %}" alt="Alice Avril">
-                <span class="feed-intro-actor-name">Alice Avril</span>
-                <span class="feed-intro-actor-teaser" data-actor-teaser="avril"></span>
-            </a>
-            <a class="feed-intro-actor-card feed-intro-actor-card--marlene" href="#feed-section-personnages">
-                <img src="{% static 'vendors/img/marlene_leroy.jpg' %}" alt="Marlène Leroy">
-                <span class="feed-intro-actor-name">Marlène Leroy</span>
-                <span class="feed-intro-actor-teaser" data-actor-teaser="marlene"></span>
-            </a>
-        </div>
-        </div>
         {% if strip_items %}
         <div class="feed-interrogation-desk">
             <div class="feed-interrogation-label">
@@ -46,8 +27,10 @@
             </div>
             <div class="feed-interrogation-table" id="feed-interrogation-table">
                 <div class="feed-evidence-slot">
-                    <span class="feed-desk-tag">Bureau du commissariat &mdash; affaires en cours</span>
-                    <span class="feed-desk-pencils"><i class="fa-solid fa-pen-ruler"></i></span>
+                    <span class="feed-desk-tag">Bureau de Marl&egrave;ne &mdash; standard du commissariat</span>
+                    <span class="feed-desk-pencils"><i class="fa-solid fa-typewriter"></i></span>
+                    <span class="feed-desk-treets"><i class="fa-solid fa-jar"></i> Treets</span>
+                    <span class="feed-desk-paper" title="Courrier du c&oelig;ur"></span>
                     <span class="feed-desk-stamp">COMMISSARIAT DE LILLE</span>
                     <div class="feed-evidence-deck">
                         {% for instance in strip_items %}
@@ -157,113 +140,71 @@
             </div>
         </div>
         <div class="section_container">
-          <article class="personnages_article">
-            <div class="personnage_container">
-              <div class="personnage_legende">
-                <h4>Swan Laurence</h4>
-                <figure>
-                  <img src="{% static 'vendors/img/swan_laurence.png' %}" alt="personnage image">
+          <article class="personnages_article suspects-board">
+            <div class="suspects-header">
+              <span class="suspects-header-title"><i class="fa-solid fa-users"></i> FICHES SUSPECTS &mdash; COMMISSARIAT DE LILLE</span>
+              <span class="suspects-header-note">6 individus fr&eacute;quentables, enqu&ecirc;tez sur eux en un clin d'&oelig;il</span>
+            </div>
+            <div class="suspects-grid">
+              <div class="suspect-card">
+                <figure class="suspect-photo">
+                  <img src="{% static 'vendors/img/swan_laurence.png' %}" alt="Swan Laurence">
                   <figcaption>Impitoyable commissaire</figcaption>
                 </figure>
+                <div class="suspect-body">
+                  <h4 class="suspect-name">Swan Laurence</h4>
+                  <p class="suspect-file">Commissaire du commissariat de Lille, froid et dur, mais d'une intelligence redoutable. Il travaille malgr&eacute; lui avec Alice Avril et compte sur sa secr&eacute;taire Marl&egrave;ne. Son c&oelig;ur appartient au docteur Maillol, dont la disparition le brise.</p>
+                </div>
               </div>
-              <div class="personnage_description">
-                <p>
-                  Laurence est le commissaire du commissariat de Lille et l'un des personnages principaux.
-                  Froid et dur, il est cependant d'une grande intelligence, et son charisme fait succomber nombre de femmes.
-                  Il est souvent forcé de travailler avec Alice Avril, qu'il trouve souvent insupportable et trop curieuse bien qu'il tienne beaucoup à elle.
-                  Sa secrétaire est Marlène, qui est folle amoureuse de lui, mais Laurence est souvent rude avec elle, même s'il l'apprécie beaucoup.
-                  La femme dont il est vraiment amoureux est le premier médecin légiste, le docteur Euphrasie Maillol.
-                  Celle-ci meurt dans un accident d'avion. Lorsqu'il l'apprend, Laurence fait une grave dépression.
-                </p>
-              </div>
-            </div>
-            <div class="personnage_container">
-              <div class="personnage_legende">
-                <h4>Alice Avril</h4>
-                <figure>
-                  <img src="{% static 'vendors/img/alice_avril.jpg' %}" alt="personnage image">
-                  <figcaption>L'impétueuse journaliste</figcaption>
+              <div class="suspect-card">
+                <figure class="suspect-photo">
+                  <img src="{% static 'vendors/img/alice_avril.jpg' %}" alt="Alice Avril">
+                  <figcaption>L'imp&eacute;tueuse journaliste</figcaption>
                 </figure>
+                <div class="suspect-body">
+                  <h4 class="suspect-name">Alice Avril</h4>
+                  <p class="suspect-file">Reporter &agrave; La Voix du Nord, curieuse et envahissante, affect&eacute;e d'abord au courrier du c&oelig;ur. Meilleure amie de Marl&egrave;ne, elle squatte le bureau de Laurence et s'invite dans toutes ses enqu&ecirc;tes.</p>
+                </div>
               </div>
-              <div class="personnage_description">
-                <p>
-                  Avril est une jeune reporter à La Voix du Nord et l'un des personnages principaux.
-                  Envahissante et curieuse, elle est d'abord préposée à la rubrique du courrier du cœur puis finit par vouloir participer aux enquêtes de Laurence qu'elle trouve souvent hautain et froid mais qu'elle apprécie.
-                  Toujours à l'affût d'informations sur ses enquêtes, elle passe beaucoup de temps au bureau de Laurence et devient très vite la meilleure amie de sa secrétaire Marlène.
-                </p>
-              </div>
-            </div>
-            <div class="personnage_container">
-              <div class="personnage_legende">
-                <h4>Marlène Leroy</h4>
-                <figure>
-                  <img src="{% static 'vendors/img/marlene_leroy.jpg' %}" alt="personnage image">
-                  <figcaption>L'incroyable secrétaire</figcaption>
+              <div class="suspect-card">
+                <figure class="suspect-photo">
+                  <img src="{% static 'vendors/img/marlene_leroy.jpg' %}" alt="Marl&egrave;ne Leroy">
+                  <figcaption>L'incroyable secr&eacute;taire</figcaption>
                 </figure>
+                <div class="suspect-body">
+                  <h4 class="suspect-name">Marl&egrave;ne Leroy</h4>
+                  <p class="suspect-file">Secr&eacute;taire d&eacute;vou&eacute;e et na&iuml;ve, ic&ocirc;ne Marilyn Monroe, plus vite occup&eacute;e &agrave; se vernir les ongles qu'&agrave; decrocher le standard. Secr&egrave;tement amoureuse de Laurence, meilleure amie d'Alice.</p>
+                </div>
               </div>
-              <div class="personnage_description">
-                <p>
-                  Marlène est la secrétaire personnelle de Laurence.
-                  Féminine, attentionnée et gentille, elle est cependant très naïve et est souvent utilisée par Laurence, qui la sait amoureuse de lui.
-                  Son icône est Marilyn Monroe et elle passe souvent plus de temps à se faire les ongles qu'à répondre aux appels.
-                  Elle prendra de plus en plus d'importance au fil des épisodes.
-                  Marlène est secrètement amoureuse de Laurence, et en dehors des heures de travail, passe la plupart de son temps avec Alice Avril qui deviendra rapidement sa meilleure amie.
-                </p>
-              </div>
-            </div>
-            <div class="personnage_container">
-              <div class="personnage_legende">
-                <h4>Euphrasie Maillol</h4>
-                <figure>
-                  <img src="{% static 'vendors/img/euphrasie_maillol.jpg' %}" alt="personnage image">
-                  <figcaption>Une renversante médecin légiste</figcaption>
+              <div class="suspect-card">
+                <figure class="suspect-photo">
+                  <img src="{% static 'vendors/img/euphrasie_maillol.jpg' %}" alt="Euphrasie Maillol">
+                  <figcaption>Renversante m&eacute;decin l&eacute;giste</figcaption>
                 </figure>
+                <div class="suspect-body">
+                  <h4 class="suspect-name">Euphrasie Maillol</h4>
+                  <p class="suspect-file">M&eacute;decin l&eacute;giste ind&eacute;pendante, elle ne m&eacute;nage personne, surtout pas les machos. Marl&egrave;ne et Alice la jalousent et s'en donnent &agrave; c&oelig;ur joie &agrave; commenter ses d&eacute;boires avec Laurence.</p>
+                </div>
               </div>
-              <div class="personnage_description">
-                <p>
-                  Euphrasie Maillol occupe le poste de médecin légiste au commissariat de Lille pendant quelques temps.
-                  Maillol est une femme de pouvoir, elle est profondément indépendante et dominante.
-                  Elle méprise les hommes, surtout ceux qui croient à une supériorité du sexe masculin sur le sexe féminin, et assume sa féminité sans se laisser enfermer par des critères misogynes.
-                  Marlène et Alice éprouvent une grande jalousie envers elle et ne lui font pas de cadeau.
-                  Marlène surtout est particulièrement mauvaise, ce qui lui vaut en retour quelques répliques cinglantes sur sa faiblesse et sa naïveté.
-                  Les deux amies du commissaire s'en donnent donc à cœur joie pour critiquer Euphrasie et se moquer des déboires amoureux de Laurence.
-                </p>
-              </div>
-            </div>
-            <div class="personnage_container">
-              <div class="personnage_legende">
-                <h4>Ernest Tricard</h4>
-                <figure>
-                  <img src="{% static 'vendors/img/ernest_tricard.jpg' %}" alt="personnage image">
-                  <figcaption>Mr Le Divisionnaire</figcaption>
+              <div class="suspect-card">
+                <figure class="suspect-photo">
+                  <img src="{% static 'vendors/img/ernest_tricard.jpg' %}" alt="Ernest Tricard">
+                  <figcaption>M. Le Divisionnaire</figcaption>
                 </figure>
+                <div class="suspect-body">
+                  <h4 class="suspect-name">Ernest Tricard</h4>
+                  <p class="suspect-file">Commissaire divisionnaire int&egrave;gre et honn&ecirc;te, il soutient constamment Laurence dont il reconna&icirc;t le talent. Comme tous les hommes du commissariat, il a fondu pour Marl&egrave;ne.</p>
+                </div>
               </div>
-              <div class="personnage_description">
-                <p>
-                  Le commissaire divisionnaire Ernest Tricard est avant tout un homme intègre, profondément honnête.
-                  Il semble chercher à faire son travail le mieux possible.
-                  Il apporte un soutien constant au Commissaire Laurence. En effet, il reconnait ses capacités et l'efficacité de son travail.
-                  Il est lui aussi tombé sous le charme de Marlène Leroy, mais pas seulemen
-                </p>
-              </div>
-            </div>
-            <div class="personnage_container">
-              <div class="personnage_legende">
-                <h4>Tim Glissant</h4>
-                <figure>
-                  <img src="{% static 'vendors/img/tim_glissant.jpg' %}" alt="personnage image">
-                  <figcaption>Un légiste au top</figcaption>
+              <div class="suspect-card">
+                <figure class="suspect-photo">
+                  <img src="{% static 'vendors/img/tim_glissant.jpg' %}" alt="Tim Glissant">
+                  <figcaption>Un l&eacute;giste au top</figcaption>
                 </figure>
-              </div>
-              <div class="personnage_description">
-                <p>
-                  Timothée « Tim » Glissant est un médecin légiste, remplaçant le Dr Maillol après son départ pour Washington.
-                  Il est diplômé de l’université d’Oxford et en est fier : il estime qu’il n’est pas un gamin à qui on peut donner des leçons.
-                  Tim travaille dans un ambiance détendue, il écoute de la musique dans son labo, mais cela ne l’empêche pas de se concentrer pour trouver tous les détails insolites qu’un cadavre peut lui donner.
-                  Il est ainsi capable de retracer la vie et la personnalité des défunts selon des éléments concrets et scientifiques.
-                  Pour ses visiteurs, il a toujours un paquet de Treets dans sa poche.
-                  Marlène semble lui avoir tapé dans l’œil, et après avoir eu l’occasion de discuter avec elle, il tente par tout les moyens d’obtenir son numéro, sans se laisser décourager par un Laurence possessif.
-                </p>
+                <div class="suspect-body">
+                  <h4 class="suspect-name">Tim Glissant</h4>
+                  <p class="suspect-file">L&eacute;giste diplom&eacute; d'Oxford, rempla&ccedil;ant du Dr Maillol. Musique au labo, Treets dans la poche, il fait parler les cadavres et multiplie les stratag&egrave;mes pour obtenir le num&eacute;ro de Marl&egrave;ne.</p>
+                </div>
               </div>
             </div>
           </article>
@@ -283,90 +224,57 @@
             </div>
         </div>
         <div class="section_container">
-            <article class="a_propos_article">
-                <div class="a_propos_container">
-                  <h4>Tournage</h4>
-                  <p>
-                    Le nouveau duo tourne le premier épisode de la deuxième saison (Jeux de glaces) du 25 mai au 25 juin 2012.
-                  </p>
-                  <p>
-                    Le deuxième épisode (Meurtre au champagne) est tourné du 22 octobre au 21 novembre 2012.
-                  </p>
-                  <p>
-                    Les onzième et douzième épisodes (Murder Party et L'Étrange Enlèvement du petit Bruno) sont tournés du 14 avril au 17 juin 2015.
-                  </p>
-                  <p>
-                    Le douzième épisode est notamment tourné au château d'Antoing, en Belgique27. Les treizième et quatorzième épisodes (Le Cheval pâle et L'Affaire Protheroe) sont tournés d'octobre à décembre 2015.
-                  </p>
-                  <p>
-                    Les quinzième et seizième épisodes (La Mystérieuse Affaire de Styles et Albert Major parlait trop) sont tournés quant à eux d'avril à juin 2016.
-                  </p>
-                  <p>
-                    Les deux épisodes suivants (Le miroir se brisa et L'Homme au complet marron) sont tournés d'octobre à décembre 2016, puis les épisodes 19 et 21, Crimes haute couture et Drame en trois actes sont tournés du 24 mai au 26 juillet 2017.
-                  </p>
-                  <p>
-                    Un épisode spécial Noël, Crime de Noël, s'est tourné tout au long du mois d'octobre pour une diffusion à Noël, puis un autre épisode intitulé Meurtres en solde, est tourné, notamment à la villa Cavrois, jusqu'au 1er décembre.
-                  </p>
-                  <p>
-                    Les vingt-troisième et vingt-quatrième épisodes (Mélodie mortelle et Ding Dingue Dong) sont tournés dans le Nord entre le 5 avril et le 7 juin 2018.
-                  </p>
-                  <p>
-                    Trois nouveaux épisodes sont tournés du 10 janvier au 24 avril 2019, dont un épisode spécial comédie musicale. En mars 2019, France 2 a annoncé que de nouveaux épisodes seront tournés en 2020.
-                  </p>
-                  <p>
-                    Fin octobre 2019, le quotidien régional La Voix du Nord annonce que l'épisode Un cadavre au petit déjeuner, tourné sous forme de comédie musicale et qui sera diffusé en 2020, viendra clore « définitivement » la série des Petits Meurtres d'Agatha Christie35, venant contredire les déclarations faites en mars 2019 par la chaîne.
-                    Cependant, quelques jours plus tard, France Télévisions annonce une nouvelle saison avec une nouvelle distribution, ancrant cette fois-ci les enquêtes dans les années 1970, le tournage est initialement prévu pour commencer début 2020.
-                  </p>
-                  <hr class="topblog_hr">
-                  <h4>Fiche technique</h4>
-                  <ul>
-                    <li>Titre&nbsp;: Les Petits Meurtres d'Agatha Christie</li>
-                    <li>Création&nbsp;: <a href="/wiki/Anne_Giafferi" title="Anne Giafferi">Anne Giafferi</a> et <a href="/wiki/Murielle_Magellan" title="Murielle Magellan">Murielle Magellan</a></li>
-                    <li>Réalisation&nbsp;: <a href="/wiki/%C3%89ric_Woreth" title="Éric Woreth">Éric Woreth</a> <small>(19 épisodes)</small>, <a href="/wiki/Nicolas_Picard-Dreyfuss" title="Nicolas Picard-Dreyfuss">Nicolas Picard-Dreyfuss</a> <small>(5 épisodes),</small> <a href="/wiki/Marc_Angelo" title="Marc Angelo">Marc Angelo</a> <small>(4 épisodes)</small>, <a href="/wiki/Rodolphe_Tissot" title="Rodolphe Tissot">Rodolphe Tissot</a> <small>(3 épisodes)</small>, <a href="/wiki/Olivier_Panchot" title="Olivier Panchot">Olivier Panchot</a> <small>(2 épisodes)</small>, <a href="/wiki/Christophe_Campos" title="Christophe Campos">Christophe Campos</a> <small>(2 épisodes)</small>, <a href="/wiki/Alexandre_Coffre" title="Alexandre Coffre">Alexandre Coffre</a> <small>(2 épisodes)</small>, Didier Bivel <small>(1 épisode)</small>, <a href="/wiki/St%C3%A9phane_Kappes" title="Stéphane Kappes">Stéphane Kappes</a> <small>(1 épisode)</small> et <a href="/wiki/Renaud_Bertrand" title="Renaud Bertrand">Renaud Bertrand</a> <small>(1 épisode)</small></li>
-                    <li>Scénario&nbsp;: Sylvie Simon <small>(14 épisodes)</small>, <a href="/wiki/Thierry_Debroux" title="Thierry Debroux">Thierry Debroux</a> <small>(8 épisodes)</small>, <a href="/wiki/Jean-Luc_Gaget" title="Jean-Luc Gaget">Jean-Luc Gaget</a> <small>(4 épisodes)</small>, <a href="/wiki/Zina_Modiano" title="Zina Modiano">Zina Modiano</a> <small>(3 épisodes)</small>, Jennifer Have (3 épisodes), Anne Peyrègne (1 épisode),<a href="/wiki/Pierre_Linhart" title="Pierre Linhart">Pierre Linhart</a> <small>(2 épisodes)</small>, <a href="/wiki/Anne_Giafferi" title="Anne Giafferi">Anne Giafferi</a> et Muriel Magellan <small>(1 épisode)</small>, Bruno Dega et Jeanne Le Guillou <small>(1 épisode)</small>, Catherine Hoffmann et Bertrand Lorel <small>(1 épisode)</small>, Flore Kosinetz et Hélène Lombard <small>(2 épisodes)</small>, Eliane Montane et Thomas Mansuy <small>(1 épisode)</small> d'après les romans d'<a href="/wiki/Agatha_Christie" title="Agatha Christie">Agatha Christie</a></li>
-                    <li>Décors&nbsp;: Moundji Gaceb Couture, Jimmy Vansteenkiste</li>
-                    <li>Costumes&nbsp;: Marie-Laure Lasson, Amandine Catala, Charlotte Betaillole, Sophie Dussaud</li>
-                    <li>Photographie&nbsp;: Bertrand Mouly</li>
-                    <li>Montage&nbsp;: Loïc Jaspard, Thierry Rouden</li>
-                    <li>Musique&nbsp;: <a href="/wiki/St%C3%A9phane_Moucha" title="Stéphane Moucha">Stéphane Moucha</a></li>
-                    <li>Casting&nbsp;: Michael Laguens</li>
-                    <li>Générique&nbsp;: Romain Segaud</li>
-                    <li>Production&nbsp;: Denis Carot et <a href="/wiki/Sophie_R%C3%A9vil" title="Sophie Révil">Sophie Révil</a></li>
-                    <li>Sociétés de production&nbsp;: Escazal Films, avec la participation de <a href="/wiki/France_T%C3%A9l%C3%A9visions" title="France Télévisions">France Télévisions</a></li>
-                    <li>Sociétés de distribution&nbsp;: <a href="/wiki/France_2" title="France 2">France 2</a> <small>(<a href="/wiki/France" title="France">France</a>)</small></li>
-                    <li>Pays d'origine&nbsp;: <a href="//commons.wikimedia.org/wiki/File:Flag_of_France.svg?uselang=fr" class="image" title="Drapeau de la France"><img alt="Drapeau de la France" src="//upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Flag_of_France.svg/20px-Flag_of_France.svg.png" decoding="async"  srcset="//upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Flag_of_France.svg/30px-Flag_of_France.svg.png 1.5x, //upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Flag_of_France.svg/40px-Flag_of_France.svg.png 2x" data-file-width="900" data-file-height="600" width="20" height="13"></a><a href="/wiki/France" title="France">France</a></li>
-                    <li>Langue originale&nbsp;: <a href="/wiki/Fran%C3%A7ais" title="Français">Français</a></li>
-                    <li>Format&nbsp;: couleur - <a href="/wiki/Format_16/9" title="Format 16/9">16/9</a> - <a href="/wiki/Haute_d%C3%A9finition" title="Haute définition">Haute définition</a> - <a href="/wiki/Son_st%C3%A9r%C3%A9ophonique" title="Son stéréophonique">son stéréo</a></li>
-                    <li>Genre&nbsp;: <a href="/wiki/Genre_policier" title="Genre policier">policier</a></li>
-                    <li>Durée&nbsp;: 90&nbsp;minutes par épisode</li>
-                    <li>Date de première diffusion&nbsp;: <a href="/wiki/France" title="France">France</a>&nbsp;: <time class="nowrap date-lien" datetime="2009-01-09" data-sort-value="2009-01-09"><a href="/wiki/9_janvier" title="9 janvier">9</a> <a href="/wiki/Janvier_2009" title="Janvier 2009">janvier</a> <a href="/wiki/2009_%C3%A0_la_t%C3%A9l%C3%A9vision" title="2009 à la télévision">2009</a></time></li>
-                    <li>Date de dernière diffusion&nbsp;: <a href="/wiki/France" title="France">France</a>&nbsp;: en production</li>
-                    <li>Public&nbsp;: Déconseillé aux moins de 10 ans.</li>
-                  </ul>
-                  <hr class="topblog_hr">
-                  <h4>Diffusion internationale</h4>
-                  <p>La série est diffusée dans plusieurs pays&nbsp;</p>
-                  <ul>
-                    <li><a href="//commons.wikimedia.org/wiki/File:Flag_of_France.svg?uselang=fr" class="image" title="Drapeau de la France"><img alt="Drapeau de la France" src="//upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Flag_of_France.svg/20px-Flag_of_France.svg.png" decoding="async"  srcset="//upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Flag_of_France.svg/30px-Flag_of_France.svg.png 1.5x, //upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Flag_of_France.svg/40px-Flag_of_France.svg.png 2x" data-file-width="900" data-file-height="600" width="20" height="13"></a><a href="/wiki/France" title="France">France</a>&nbsp;: depuis le <time class="nowrap" datetime="2009-01-09" data-sort-value="2009-01-09">9 janvier 2009</time> sur <a href="/wiki/France_2" title="France 2">France 2</a>, rediffusé sur <a href="/wiki/13e_rue" title="13e rue">13e rue</a> et <a href="/wiki/TV5_Monde" title="TV5 Monde">TV5 Monde</a>&nbsp;;</li>
-                    <li><span data-sort-value="Belgique"><span class="flagicon"><a href="//commons.wikimedia.org/wiki/File:Flag_of_Belgium_(civil).svg?uselang=fr" class="image" title="Drapeau de la Belgique"><img alt="Drapeau de la Belgique" src="//upload.wikimedia.org/wikipedia/commons/thumb/9/92/Flag_of_Belgium_%28civil%29.svg/20px-Flag_of_Belgium_%28civil%29.svg.png" decoding="async"  srcset="//upload.wikimedia.org/wikipedia/commons/thumb/9/92/Flag_of_Belgium_%28civil%29.svg/30px-Flag_of_Belgium_%28civil%29.svg.png 1.5x, //upload.wikimedia.org/wikipedia/commons/thumb/9/92/Flag_of_Belgium_%28civil%29.svg/40px-Flag_of_Belgium_%28civil%29.svg.png 2x" data-file-width="900" data-file-height="600" width="20" height="13"></a> </span><a href="/wiki/Belgique" title="Belgique">Belgique</a></span>&nbsp;: depuis le <time class="nowrap" datetime="2013-04-15" data-sort-value="2013-04-15">15 avril 2013</time> sur <a href="/wiki/La_Une" title="La Une">La Une</a></li>
-                    <li><span data-sort-value="Bresil"><span class="flagicon"><a href="//commons.wikimedia.org/wiki/File:Flag_of_Brazil.svg?uselang=fr" class="image" title="Drapeau du Brésil"><img alt="Drapeau du Brésil" src="//upload.wikimedia.org/wikipedia/commons/thumb/0/05/Flag_of_Brazil.svg/20px-Flag_of_Brazil.svg.png" decoding="async"  srcset="//upload.wikimedia.org/wikipedia/commons/thumb/0/05/Flag_of_Brazil.svg/30px-Flag_of_Brazil.svg.png 1.5x, //upload.wikimedia.org/wikipedia/commons/thumb/0/05/Flag_of_Brazil.svg/40px-Flag_of_Brazil.svg.png 2x" data-file-width="749" data-file-height="525" width="20" height="14"></a> </span><a href="/wiki/Br%C3%A9sil" title="Brésil">Brésil</a></span>&nbsp;: depuis le <time class="nowrap" datetime="2013-08-10" data-sort-value="2013-08-10">10 août 2013</time> sur <a href="/wiki/TV_Brasil" title="TV Brasil">TV Brasil</a>, sous le titre <i><span class="lang-pt" lang="pt">Os Pequenos Crimes de Agatha Christie</span></i></li>
-                    <li><span data-sort-value="Canada"><span class="flagicon"><a href="//commons.wikimedia.org/wiki/File:Flag_of_Canada.svg?uselang=fr" class="image" title="Drapeau du Canada"><img alt="Drapeau du Canada" src="//upload.wikimedia.org/wikipedia/commons/thumb/c/cf/Flag_of_Canada.svg/20px-Flag_of_Canada.svg.png" decoding="async"  srcset="//upload.wikimedia.org/wikipedia/commons/thumb/c/cf/Flag_of_Canada.svg/30px-Flag_of_Canada.svg.png 1.5x, //upload.wikimedia.org/wikipedia/commons/thumb/c/cf/Flag_of_Canada.svg/40px-Flag_of_Canada.svg.png 2x" data-file-width="1200" data-file-height="600" width="20" height="10"></a> </span><a href="/wiki/Canada" title="Canada">Canada</a></span>&nbsp;: sur <a href="/wiki/TV5_Qu%C3%A9bec_Canada" title="TV5 Québec Canada">TV5 Québec Canada</a></li>
-                    <li><span data-sort-value="Espagne"><span class="flagicon"><a href="//commons.wikimedia.org/wiki/File:Flag_of_Spain.svg?uselang=fr" class="image" title="Drapeau de l'Espagne"><img alt="Drapeau de l'Espagne" src="//upload.wikimedia.org/wikipedia/commons/thumb/9/9a/Flag_of_Spain.svg/20px-Flag_of_Spain.svg.png" decoding="async"  srcset="//upload.wikimedia.org/wikipedia/commons/thumb/9/9a/Flag_of_Spain.svg/30px-Flag_of_Spain.svg.png 1.5x, //upload.wikimedia.org/wikipedia/commons/thumb/9/9a/Flag_of_Spain.svg/40px-Flag_of_Spain.svg.png 2x" data-file-width="750" data-file-height="500" width="20" height="13"></a> </span><a href="/wiki/Espagne" title="Espagne">Espagne</a></span>&nbsp;: depuis 2013 sur <a href="/wiki/La_2" title="La 2">La 2</a>, sous le titre <i><span class="lang-es" lang="es">Los pequeños asesinatos de Agatha Christie</span></i></li>
-                    <li><span data-sort-value="Finlande"><span class="flagicon"><a href="//commons.wikimedia.org/wiki/File:Flag_of_Finland.svg?uselang=fr" class="image" title="Drapeau de la Finlande"><img alt="Drapeau de la Finlande" src="//upload.wikimedia.org/wikipedia/commons/thumb/b/bc/Flag_of_Finland.svg/20px-Flag_of_Finland.svg.png" decoding="async"  srcset="//upload.wikimedia.org/wikipedia/commons/thumb/b/bc/Flag_of_Finland.svg/30px-Flag_of_Finland.svg.png 1.5x, //upload.wikimedia.org/wikipedia/commons/thumb/b/bc/Flag_of_Finland.svg/40px-Flag_of_Finland.svg.png 2x" data-file-width="1800" data-file-height="1100" width="20" height="12"></a> </span><a href="/wiki/Finlande" title="Finlande">Finlande</a></span>&nbsp;: depuis le <time class="nowrap" datetime="2011-02-23" data-sort-value="2011-02-23">23 février 2011</time> sur la chaîne AVA, sous le titre <i><span class="lang-fi" lang="fi">Agatha Christien tarinat</span></i></li>
-                    <li><span data-sort-value="Suisse"><span class="flagicon"><a href="//commons.wikimedia.org/wiki/File:Flag_of_Switzerland.svg?uselang=fr" class="image" title="Drapeau de la Suisse"><img alt="Drapeau de la Suisse" src="//upload.wikimedia.org/wikipedia/commons/thumb/f/f3/Flag_of_Switzerland.svg/15px-Flag_of_Switzerland.svg.png" decoding="async"  srcset="//upload.wikimedia.org/wikipedia/commons/thumb/f/f3/Flag_of_Switzerland.svg/23px-Flag_of_Switzerland.svg.png 1.5x, //upload.wikimedia.org/wikipedia/commons/thumb/f/f3/Flag_of_Switzerland.svg/30px-Flag_of_Switzerland.svg.png 2x" data-file-width="512" data-file-height="512" width="15" height="15"></a> </span><a href="/wiki/Suisse" title="Suisse">Suisse</a></span>&nbsp;: sur <a href="/wiki/RTS_Un" title="RTS Un">RTS Un</a>&nbsp;;</li>
-                    <li><span data-sort-value="Allemagne"><span class="flagicon"><a href="//commons.wikimedia.org/wiki/File:Flag_of_Germany.svg?uselang=fr" class="image" title="Drapeau de l'Allemagne"><img alt="Drapeau de l'Allemagne" src="//upload.wikimedia.org/wikipedia/commons/thumb/b/ba/Flag_of_Germany.svg/20px-Flag_of_Germany.svg.png" decoding="async"  srcset="//upload.wikimedia.org/wikipedia/commons/thumb/b/ba/Flag_of_Germany.svg/30px-Flag_of_Germany.svg.png 1.5x, //upload.wikimedia.org/wikipedia/commons/thumb/b/ba/Flag_of_Germany.svg/40px-Flag_of_Germany.svg.png 2x" data-file-width="1000" data-file-height="600" width="20" height="12"></a> </span><a href="/wiki/Allemagne" title="Allemagne">Allemagne</a></span>&nbsp;: depuis le <time class="nowrap" datetime="2017-04-26" data-sort-value="2017-04-26">26 avril 2017</time> sur ONE&nbsp;;</li>
-                    <li><span data-sort-value="Italie"><span class="flagicon"><a href="//commons.wikimedia.org/wiki/File:Flag_of_Italy.svg?uselang=fr" class="image" title="Drapeau de l'Italie"><img alt="Drapeau de l'Italie" src="//upload.wikimedia.org/wikipedia/commons/thumb/0/03/Flag_of_Italy.svg/20px-Flag_of_Italy.svg.png" decoding="async"  srcset="//upload.wikimedia.org/wikipedia/commons/thumb/0/03/Flag_of_Italy.svg/30px-Flag_of_Italy.svg.png 1.5x, //upload.wikimedia.org/wikipedia/commons/thumb/0/03/Flag_of_Italy.svg/40px-Flag_of_Italy.svg.png 2x" data-file-width="1500" data-file-height="1000" width="20" height="13"></a> </span><a href="/wiki/Italie" title="Italie">Italie</a></span>&nbsp;: <time class="nowrap" datetime="2017-07-06" data-sort-value="2017-07-06">6 juillet 2017</time> sur <a href="/wiki/Fox_Crime" title="Fox Crime">Fox Crime</a> sous le titre <i>Little Murders by Agata Christie</i>&nbsp;;</li>
-                    <li><span data-sort-value="Australie"><span class="flagicon"><a href="//commons.wikimedia.org/wiki/File:Flag_of_Australia.svg?uselang=fr" class="image" title="Drapeau de l'Australie"><img alt="Drapeau de l'Australie" src="//upload.wikimedia.org/wikipedia/commons/thumb/b/b9/Flag_of_Australia.svg/20px-Flag_of_Australia.svg.png" decoding="async"  srcset="//upload.wikimedia.org/wikipedia/commons/thumb/b/b9/Flag_of_Australia.svg/30px-Flag_of_Australia.svg.png 1.5x, //upload.wikimedia.org/wikipedia/commons/thumb/b/b9/Flag_of_Australia.svg/40px-Flag_of_Australia.svg.png 2x" data-file-width="1280" data-file-height="640" width="20" height="10"></a> </span><a href="/wiki/Australie" title="Australie">Australie</a></span>&nbsp;: depuis 2018 sur <a href="/wiki/Special_Broadcasting_Service" title="Special Broadcasting Service">SBS</a> sous le titre <i>Agatha Christie's Criminal Games</i>&nbsp;;</li>
-                    <li><span class="nowrap"><span data-sort-value="États unis"><span class="flagicon"><a href="//commons.wikimedia.org/wiki/File:Flag_of_the_United_States.svg?uselang=fr" class="image" title="Drapeau des États-Unis"><img alt="Drapeau des États-Unis" src="//upload.wikimedia.org/wikipedia/commons/thumb/a/a4/Flag_of_the_United_States.svg/20px-Flag_of_the_United_States.svg.png" decoding="async"  srcset="//upload.wikimedia.org/wikipedia/commons/thumb/a/a4/Flag_of_the_United_States.svg/30px-Flag_of_the_United_States.svg.png 1.5x, //upload.wikimedia.org/wikipedia/commons/thumb/a/a4/Flag_of_the_United_States.svg/40px-Flag_of_the_United_States.svg.png 2x" data-file-width="1235" data-file-height="650" width="20" height="11"></a> </span><a href="/wiki/%C3%89tats-Unis" title="États-Unis">États-Unis</a></span></span>&nbsp;: depuis <time class="nowrap" datetime="2016-07" data-sort-value="2016-07">juillet 2016</time> sur MHz Choice sous le titre <i>Agatha Christie's Criminal Games</i>
-                    </ul>
-                  <hr class="topblog_hr">
-                  <h4>Récompenses</h4>
-                    <ul>
-                      <li>Festival des créations télévisuelles de Luchon2013&nbsp;: Pyrénées d’or de la meilleure série</li>
-                      <li>Festival de la fiction TV de La Rochelle 2013&nbsp;: Prix jeune espoir féminin pour <a href="#" title="Élodie Frenck">Élodie Frenck</a></li>
-                      <li>Festival de la fiction TV de La Rochelle 2017&nbsp;: Meilleure série 90 minutes ou collections</li>
-                    </ul>
+            <article class="a_propos_article archives-board">
+              <div class="archives-header">
+                <span class="archives-header-title"><i class="fa-solid fa-box-archive"></i> DOSSIER DE PRODUCTION &mdash; ARCHIVES DE LA SAISON 2</span>
+                <span class="archives-header-note">Tournages, fiche technique, diffusion : l'essentiel, sans blabla</span>
+              </div>
+              <div class="archives-section">
+                <h4 class="archives-section-title"><i class="fa-solid fa-clapperboard"></i> TOURNAGES EN 4 DATES</h4>
+                <div class="archives-timeline">
+                  <div class="timeline-item"><span class="timeline-date">2012</span><p>Jeux de glaces (mai-juin) puis Meurtre au champagne (oct.-nov.) : la saison 2 d&eacute;marre en douceur.</p></div>
+                  <div class="timeline-item"><span class="timeline-date">2015</span><p>Murder Party et L'&Eacute;trange Enl&egrave;vement du petit Bruno (avril-juin), Le Cheval p&acirc;le et L'Affaire Protheroe (oct.-d&eacute;c.).</p></div>
+                  <div class="timeline-item"><span class="timeline-date">2016-17</span><p>La Myst&eacute;rieuse Affaire de Styles, Albert Major parlait trop, Le miroir se brisa, L'Homme au complet marron, Crimes haute couture, Drame en trois actes.</p></div>
+                  <div class="timeline-item"><span class="timeline-date">2017-19</span><p>Crime de No&euml;l, Meurtres en solde (villa Cavrois), M&eacute;lodie mortelle, Ding Dingue Dong, et le final en com&eacute;die musicale, Un cadavre au petit d&eacute;jeuner.</p></div>
                 </div>
+              </div>
+              <div class="archives-section">
+                <h4 class="archives-section-title"><i class="fa-solid fa-id-card"></i> FICHE TECHNIQUE</h4>
+                <div class="archives-facts">
+                  <div class="fact-item"><span class="fact-label">Cr&eacute;ation</span><span class="fact-value">Anne Giafferi &amp; Murielle Magellan</span></div>
+                  <div class="fact-item"><span class="fact-label">R&eacute;alisation</span><span class="fact-value">&Eacute;ric Woreth (19 &eacute;p.), N. Picard-Dreyfuss, M. Angelo, R. Tissot, O. Panchot, C. Campos, A. Coffre, D. Bivel, S. Kappes, R. Bertrand</span></div>
+                  <div class="fact-item"><span class="fact-label">Sc&eacute;nario</span><span class="fact-value">Sylvie Simon, Thierry Debroux, Jean-Luc Gaget, et al., d'apr&egrave;s les romans d'Agatha Christie</span></div>
+                  <div class="fact-item"><span class="fact-label">Musique</span><span class="fact-value">St&eacute;phane Moucha</span></div>
+                  <div class="fact-item"><span class="fact-label">Production</span><span class="fact-value">Denis Carot &amp; Sophie R&eacute;vil &mdash; Escazal Films, France T&eacute;l&eacute;visions</span></div>
+                  <div class="fact-item"><span class="fact-label">Diffusion</span><span class="fact-value">France 2 &mdash; 90 min par &eacute;pisode, depuis le 9 janvier 2009</span></div>
+                  <div class="fact-item"><span class="fact-label">Decors / Costumes</span><span class="fact-value">M. Gaceb Couture, J. Vansteenkiste / M.-L. Lasson, A. Catala, C. Betaillole, S. Dussaud</span></div>
+                  <div class="fact-item"><span class="fact-label">Public</span><span class="fact-value">D&eacute;conseill&eacute; aux moins de 10 ans</span></div>
+                </div>
+              </div>
+              <div class="archives-section">
+                <h4 class="archives-section-title"><i class="fa-solid fa-earth-europe"></i> DIFFUS&Eacute;E DANS LE MONDE ENTIER</h4>
+                <div class="archives-world">
+                  <span class="world-chip">France &mdash; France 2</span>
+                  <span class="world-chip">Belgique &mdash; La Une</span>
+                  <span class="world-chip">Br&eacute;sil &mdash; TV Brasil</span>
+                  <span class="world-chip">Canada &mdash; TV5 Qu&eacute;bec</span>
+                  <span class="world-chip">Espagne &mdash; La 2</span>
+                  <span class="world-chip">Finlande &mdash; AVA</span>
+                  <span class="world-chip">Suisse &mdash; RTS Un</span>
+                  <span class="world-chip">Allemagne &mdash; ONE</span>
+                  <span class="world-chip">Italie &mdash; Fox Crime</span>
+                  <span class="world-chip">Australie &mdash; SBS</span>
+                  <span class="world-chip">&Eacute;tats-Unis &mdash; MHz Choice</span>
+                </div>
+              </div>
+              <div class="archives-section">
+                <h4 class="archives-section-title"><i class="fa-solid fa-trophy"></i> R&Eacute;COMPENSES</h4>
+                <div class="archives-awards">
+                  <div class="award-item"><i class="fa-solid fa-medal"></i> Pyr&eacute;n&eacute;es d'or de la meilleure s&eacute;rie &mdash; Luchon 2013</div>
+                  <div class="award-item"><i class="fa-solid fa-medal"></i> Prix jeune espoir f&eacute;minin pour &Eacute;lodie Frenck &mdash; La Rochelle 2013</div>
+                  <div class="award-item"><i class="fa-solid fa-medal"></i> Meilleure s&eacute;rie 90 minutes &mdash; La Rochelle 2017</div>
+                </div>
+              </div>
             </article>
         </div>
     </div>
