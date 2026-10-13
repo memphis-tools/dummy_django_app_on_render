@@ -776,3 +776,52 @@ document.addEventListener("DOMContentLoaded", function() {
   });
 });
 
+
+/* ===== FEED : "LE POLICIER JETTE LES PHOTOS UNE A UNE" =====
+   Chaque photo de la pile est jetee sur l'emplacement reserve, tour a tour.
+   La precedente glisse sous la pile. Tirage et timing cote client uniquement. */
+document.addEventListener("DOMContentLoaded", function() {
+  var slot = document.querySelector(".feed-evidence-slot");
+  if (!slot) { return; }
+  var deck = slot.querySelector(".feed-evidence-deck");
+  var pile = slot.querySelector(".feed-evidence-pile");
+  if (!deck || !pile) { return; }
+  var cards = Array.prototype.slice.call(deck.querySelectorAll(".feed-evidence-card"));
+  if (cards.length === 0) { return; }
+
+  // spins aleatoires pour l'effet "jetee de facon desenvervee"
+  var spins = [-14, 9, -7, 12, -11, 6, -4, 15];
+
+  function tossNext(index) {
+    var card = cards[index % cards.length];
+    var spin = spins[index % spins.length];
+    var clone = card.cloneNode(true);
+    clone.style.setProperty("--toss-spin", spin + "deg");
+    clone.classList.add("evidence-toss");
+    pile.appendChild(clone);
+    setTimeout(function() {
+      clone.classList.remove("evidence-toss");
+      clone.classList.add("evidence-rest");
+      clone.style.left = "50%";
+    }, 900);
+    // la carte glisse sous la pile quand la suivante arrive
+    setTimeout(function() {
+      var under = pile.querySelectorAll(".feed-evidence-card");
+      if (under.length > 3) {
+        under[0].style.transition = "transform 0.5s ease, opacity 0.5s ease";
+        under[0].style.transform = "translate(-50%, 0) rotate(" + spin + "deg) scale(0.94)";
+        under[0].style.opacity = "0";
+        setTimeout(function() { under[0].remove(); }, 520);
+      }
+    }, 1500);
+  }
+
+  var evidenceIndex = 0;
+  function loop() {
+    tossNext(evidenceIndex);
+    evidenceIndex++;
+  }
+  // premiere photo presque immediatement, puis un rythme de "monstration"
+  setTimeout(loop, 600);
+  setInterval(loop, 3600);
+});
