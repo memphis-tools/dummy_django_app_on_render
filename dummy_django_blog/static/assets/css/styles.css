@@ -440,11 +440,7 @@ section .btn:hover {
   border: 1px solid pink;
 }
 
-.app-submenu {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-}
+
 
 
 
@@ -873,11 +869,7 @@ feed-button-zone a:hover {
 
 
 
-.photo-contaner {
-  width: 100%;
-  height: auto;
-  border-radius: 15px;
-}
+
 
 
 /* PERSONNAGES */
@@ -1089,20 +1081,9 @@ footer .footer-contact-admin {
     width: 100%;
   }
 }
-@media (max-width: 820px) {
-  .app-submenu {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-  }
-}
+
 
 @media (max-width: 576px) {
-  .app-submenu {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-  }
 
 
 
