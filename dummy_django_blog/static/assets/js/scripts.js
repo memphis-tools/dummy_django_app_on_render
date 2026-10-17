@@ -927,3 +927,90 @@ document.addEventListener("DOMContentLoaded", function() {
     box.querySelector(".encart-text").textContent = pool[Math.floor(Math.random() * pool.length)];
   });
 });
+
+/* ===== IMAGES : APPARITION UNIQUEMENT UNE FOIS ENTIEREMENT TELECHARGEES ===== */
+/* Effet "developpement de pellicule" theme dossier d'enquete : l'image reste invisible
+   (vignette sombre) tant qu'elle n'est pas complete, puis apparait d'un bloc. */
+document.addEventListener("DOMContentLoaded", function() {
+  document.querySelectorAll("img").forEach(function(img) {
+    if (img.classList.contains("img-reveal-managed")) return;
+    img.classList.add("img-reveal-managed");
+    function reveal() {
+      img.classList.remove("img-reveal-pending");
+      img.classList.add("img-reveal-in");
+    }
+    if (img.complete && img.naturalWidth > 0) {
+      /* deja en cache : legere apparition quand meme, mais sans vignette d'attente */
+      reveal();
+      return;
+    }
+    img.classList.add("img-reveal-pending");
+    img.addEventListener("load", reveal);
+    img.addEventListener("error", function() {
+      img.classList.remove("img-reveal-pending");
+    });
+  });
+});
+
+/* ===== A PROPOS : TRONCATURE PROGRESSIVE SELON LA TAILLE DE L'ECRAN ===== */
+/* Seuils : petit ecran (<= 576px) 25 caracteres, ecran moyen (<= 992px) 125,
+   grand ecran 250. Le bouton "LIRE LA SUITE" deplie le bloc en entier. */
+document.addEventListener("DOMContentLoaded", function() {
+  var container = document.querySelector(".a_propos_container");
+  if (!container || container.classList.contains("a_propos-truncate-managed")) return;
+  container.classList.add("a_propos-truncate-managed");
+  function threshold() {
+    var w = window.innerWidth;
+    if (w <= 576) return 25;
+    if (w <= 992) return 125;
+    return 250;
+  }
+  var blocks = Array.prototype.slice.call(container.querySelectorAll("p, li"));
+  blocks.forEach(function(block) {
+    var text = block.textContent.trim();
+    if (text.length <= 250) return; /* aucun bloc ne sera jamais tronque sur grand ecran */
+    var btn = document.createElement("button");
+    btn.type = "button";
+    btn.className = "a_propos_more-btn";
+    btn.textContent = "LIRE LA SUITE";
+    var open = false;
+    function apply() {
+      var limit = threshold();
+      if (text.length <= limit) {
+        /* sous le seuil courant : bloc integralement lisible, pas de bouton */
+        block.classList.remove("a_propos_truncated", "a_propos_open");
+        block.style.maxHeight = "";
+        btn.style.display = "none";
+        return;
+      }
+      btn.style.display = "";
+      if (!open) {
+        block.classList.add("a_propos_truncated");
+        block.classList.remove("a_propos_open");
+      } else {
+        block.classList.remove("a_propos_truncated");
+        block.classList.add("a_propos_open");
+        block.style.maxHeight = "none";
+      }
+    }
+    btn.addEventListener("click", function() {
+      open = !open;
+      btn.textContent = open ? "REDUIRE" : "LIRE LA SUITE";
+      apply();
+    });
+    if (block.nextSibling) {
+      block.parentNode.insertBefore(btn, block.nextSibling);
+    } else {
+      block.parentNode.appendChild(btn);
+    }
+    apply();
+    block.__aProposApply = apply;
+  });
+  var resizeTimer = null;
+  window.addEventListener("resize", function() {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(function() {
+      blocks.forEach(function(block) { if (block.__aProposApply) block.__aProposApply(); });
+    }, 150);
+  });
+});
