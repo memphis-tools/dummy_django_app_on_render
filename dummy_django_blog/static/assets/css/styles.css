@@ -805,11 +805,6 @@ feed-button-zone a:hover {
   gap: 12px;
   flex-wrap: wrap;
 }
-.home-comedie-footer-image {
-  margin-left: auto;
-  max-height: 60px;
-  width: auto;
-}
 .footer-contact-admin svg {
   width: 22px;
   height: 22px;
@@ -1191,8 +1186,6 @@ footer .footer-contact-admin {
 /* effet bois du bureau : veines discretes */
 .feed-evidence-slot::after {  content: "";  position: absolute;  inset: 0;  background: repeating-linear-gradient(95deg, transparent 0 46px, rgba(0,0,0,0.06) 46px 48px), repeating-linear-gradient(0deg, transparent 0 120px, rgba(255,255,255,0.02) 120px 122px);  pointer-events: none;  z-index: 0;}
 .feed-desk-stamp {  position: absolute;  bottom: 14px;  right: 18px;  font-family: "ArsenalSC-Fat", "ArsenalSC", sans-serif;  font-size: 0.8em;  letter-spacing: 2px;  text-transform: uppercase;  color: #c0392b;  border: 2px solid #c0392b;  border-radius: 4px;  padding: 4px 10px;  transform: rotate(-6deg);  opacity: 0.75;  z-index: 1;  pointer-events: none;}
-.feed-desk-pencils {  position: absolute;  top: 18px;  right: 22px;  font-size: 1.3em;  color: #f8ede3;  transform: rotate(8deg);  z-index: 1;  pointer-events: none;  text-shadow: 2px 2px 4px rgba(0,0,0,0.5);}
-.feed-desk-tag {  position: absolute;  top: 14px;  left: 18px;  font-family: "Caveat-large", "Caveat", cursive;  font-size: 1.25em;  color: #f8ede3;  transform: rotate(-3deg);  z-index: 1;  pointer-events: none;  text-shadow: 1px 1px 3px rgba(0,0,0,0.6);}
 
 .feed-evidence-pile {  position: absolute;  inset: 0;  pointer-events: none;  z-index: 4;}
 .feed-evidence-pile .feed-evidence-card {  pointer-events: auto;}
@@ -1202,10 +1195,6 @@ footer .footer-contact-admin {
    sinon la 1ere photo masque toutes les photos jetees par la suite. */
 .feed-evidence-deck .feed-evidence-card:first-child {  display: block;  position: absolute;  top: 12px;  left: 50%;  transform: translate(-50%, 0) rotate(-6deg);  z-index: 1;}
 /* bureau de Marlene : papier journal, machine a ecrire, bonbonne Treets */
-.feed-desk-pencils {  content: "\f21a";  font-size: 1.45em;  top: 12px;}
-.feed-desk-treets {  position: absolute;  bottom: 14px;  left: 18px;  font-size: 1.2em;  transform: rotate(-10deg);  z-index: 1;  pointer-events: none;  text-shadow: 1px 1px 3px rgba(0,0,0,0.5);}
-.feed-desk-paper {  position: absolute;  bottom: 34px;  right: 120px;  width: 74px;  height: 52px;  background-color: #f4e9d8;  border: 1px solid #8a7a5c66;  box-shadow: 2px 3px 6px rgba(0,0,0,0.4);  transform: rotate(7deg);  z-index: 1;  pointer-events: none;}
-.feed-desk-paper::before {  content: "";  position: absolute;  inset: 8px 10px;  background: repeating-linear-gradient(180deg, #221c1c33 0 2px, transparent 2px 7px);}
 .feed-evidence-card {  position: absolute;  top: 12px;  left: 50%;  width: min(240px, 60%);  z-index: 5;}
 .feed-evidence-card img {  width: 100%;  height: auto;  max-height: 240px;  object-fit: cover;  border-radius: 6px;  border: 1px dashed #ea9ef0;  box-shadow: 6px 8px 18px rgba(0, 0, 0, 0.6);  background-color: #170f0f;}
 /* etat "jetee sur la table" */
@@ -2126,9 +2115,6 @@ footer .footer-contact-admin {
   align-items: center;
   gap: 12px;
 }
-.home-comedie-row .home-comedie-footer-image {
-  margin-left: 0;
-}
 
 /* Portraits cerclés joints aux encarts de citation */
 .quote-portrait {
@@ -2819,10 +2805,6 @@ footer .footer-contact-admin:hover svg {
 /* Fallback statique compact */
 .feed-evidence-slot { width: min(640px, 96%); height: 340px; }
 /* Accessoires 1950s : telephone a cadran du standard, cafe, lampe */
-.feed-desk-phone {  position: absolute;  bottom: 40px;  left: 20px;  font-family: "Caveat-large", "Caveat", cursive;  font-size: 0.95em;  color: #f8ede3;  transform: rotate(-4deg);  z-index: 1;  pointer-events: none;  text-shadow: 1px 1px 3px rgba(0,0,0,0.6);}
-.feed-desk-phone i { color: #ea9ef0; margin-right: 5px; animation: interrogation-tap 2.2s ease-in-out infinite; }
-.feed-desk-coffee {  position: absolute;  top: 16px;  right: 64px;  font-size: 1.25em;  color: #f8ede3;  transform: rotate(9deg);  z-index: 1;  pointer-events: none;  text-shadow: 2px 2px 4px rgba(0,0,0,0.55);}
-.feed-desk-lamp {  position: absolute;  top: 14px;  left: 46%;  font-size: 1.1em;  color: #f8edeb;  opacity: 0.85;  z-index: 1;  pointer-events: none;  text-shadow: 0 0 12px #f4d58d88;}
 /* Bureau d'ecriture central de Marlene, style secretaire 1950s */
 .feed-desk-stamp { z-index: 6; }
 
@@ -2839,3 +2821,51 @@ footer .footer-contact-admin:hover svg {
 /* ===== INFO-BULLE AUDIENCES : TOUJOURS AU CENTRE EXACT ===== */
 .feed-audiences-topcallout {  transform: translate(-50%, -50%) scale(0.92) !important;  max-height: 86vh;  overflow: auto;}
 .feed-audiences-topcallout.visible {  transform: translate(-50%, -50%) scale(1) !important;}
+
+/* ===== NETTOYAGE BUREAU : uniquement les photos + tampon ===== */
+/* Les accessoires (machine a ecrire, Treets, courrier du coeur, telephone, cafe, lampe) ont ete retires du template. */
+.feed-evidence-slot { width: min(680px, 94%); height: 360px; }
+.feed-evidence-pile .feed-evidence-card img { max-height: 240px; }
+
+/* ===== SECTION PHOTOS : 3 GRANDES PHOTOS OCCUPANT L'ECRAN SANS DEBORDER ===== */
+.feed-encadre-photos-group { gap: 24px; }
+.feed-encadre-photo-item img { height: auto; width: min(360px, 28vw); max-height: 48vh; object-fit: cover; }
+
+/* ===== RESPONSIVE : AUCUN ELEMENT NE DOIT SE SUPERPOSER ===== */
+/* Le bureau et son label restent au-dessus de la section suivante sur petits ecrans */
+.feed-intro { height: auto; min-height: 0; overflow: visible; }
+/* Photos de la section photos : passage en colonne sous 900px, taille contrainte au viewport */
+@media (max-width: 900px) {
+  .feed-encadre-photos-group { flex-direction: column; align-items: center; }
+  .feed-encadre-photo-item img { width: min(420px, 88vw); max-height: 40vh; }
+}
+/* Bureau : sur petits ecrans le plateau se resserre, photos plus petites */
+@media (max-width: 700px) {
+  .feed-evidence-slot { width: 94%; height: 300px; }
+  .feed-evidence-card { width: min(190px, 62%); }
+  .feed-evidence-pile .feed-evidence-card img { max-height: 190px; }
+  .feed-evidence-deck .feed-evidence-card:first-child img { max-height: 190px; }
+}
+/* Info-bulle audiences : jamais plus haute que l'ecran, contenu scrollable, jamais sous les boutons de nav */
+.feed-audiences-topcallout { max-height: 80vh; }
+/* Dossiers de la section billets : passage en colonne, pas de chevauchement des rotations */
+@media (max-width: 760px) {
+  .feed-encadre-posts-group { flex-direction: column; align-items: center; }
+  .feed-case-file { width: min(320px, 92vw); transform: none; }
+  .feed-case-file:nth-child(2) { transform: none; }
+  .feed-case-file:nth-child(3) { transform: none; }
+}
+/* Boutons de navigation fixe : remontes au-dessus du footer, jamais sur le contenu sur mobile */
+@media (max-width: 700px) {
+  .site-scroll-nav { bottom: 88px; right: 8px; }
+  .scroll-nav-btn { width: 38px; height: 38px; }
+}
+
+/* Sections a hauteur flexible : le contenu ne peut plus deborder sur la section suivante */
+.feed-section-photos, .feed-section-posts { height: auto; min-height: 100vh; }
+/* background-attachment: fixed casse le scroll sur mobile : on le neutralise sous 900px */
+@media (max-width: 900px) {
+  .feed-section-photos, .feed-section-posts, .feed-section-personnages, .feed-section-a-propos {
+    background-attachment: scroll;
+  }
+}
