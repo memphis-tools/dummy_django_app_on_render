@@ -2892,3 +2892,52 @@ footer .footer-contact-admin:hover svg {
   .feed-audiences-callout-img { width: min(160px, 60vw); height: auto; }
   .feed-audiences-topcallout { padding: 18px 16px; }
 }
+
+/* ===== CHARGEMENT DES IMAGES : APPARITION THEMATIQUE UNE FOIS TELECHARGEES ===== */
+/* JS pose .img-reveal-pending sur toute image du feed ; l'image n'apparait qu'une
+   fois entierement telechargee, avec un developpement "pellicule photo" theme dossier. */
+.img-reveal-pending {  opacity: 0;}
+.img-reveal-pending ~ * {  /* rien : les autres elements restent intacts */}
+img.img-reveal-in {  animation: img-reveal-develop 0.7s cubic-bezier(0.2, 0.7, 0.3, 1) forwards;}
+@keyframes img-reveal-develop {
+  0% { opacity: 0; filter: sepia(1) contrast(1.4) brightness(0.7); transform: scale(1.04); }
+  60% { opacity: 1; }
+  100% { opacity: 1; filter: none; transform: scale(1); }
+}
+/* vignette "piece a conviction" pendant le telechargement */
+.img-reveal-pending {  background: repeating-linear-gradient(45deg, #170f0f 0 12px, #1d1414 12px 24px);  min-height: 60px;}
+@media (prefers-reduced-motion: reduce) {
+  img.img-reveal-in { animation: none; opacity: 1; filter: none; transform: none; }
+}
+
+/* ===== ESPACEMENT RESPONSIVE ENTRE SECTIONS ===== */
+/* Petit ecran : espace net entre la fin d'une section et la suivante */
+@media (max-width: 900px) {
+  .feed-intro { padding-bottom: 28px; }
+  .feed-section-photos, .feed-section-posts, .feed-section-personnages, .feed-section-a-propos, .feed-section-audiences { padding-bottom: 28px; margin-bottom: 0; }
+}
+/* Ecran moyen et + : espace leger */
+@media (min-width: 901px) {
+  .feed-intro { padding-bottom: 12px; }
+  .feed-section-photos, .feed-section-posts, .feed-section-personnages, .feed-section-audiences { padding-bottom: 12px; }
+}
+
+/* ===== ENCADRES feed-section-posts (photos / billets) : ALIGNEMENT SUR LE THEME DOSSIER ===== */
+.feed-encadre {  background-color: #221c1c8c;  border: 1px dashed #ea9ef0;  border-radius: 14px;  box-shadow: 4px 4px 0px #ea9ef054;}
+.feed-encadre blockquote { margin: 0; }
+.feed-encadre-photos, .feed-encadre-posts { padding: 10px 18px; }
+
+/* ===== A PROPOS : TRONCATURE AVEC BOUTON "LIRE LA SUITE" ===== */
+.a_propos_truncated {  position: relative;  max-height: 6.5em;  overflow: hidden;  transition: max-height 0.45s ease;}
+.a_propos_truncated::after {  content: "";  position: absolute;  bottom: 0;  left: 0;  right: 0;  height: 2.6em;  background: linear-gradient(180deg, transparent, #221c1c 85%);  pointer-events: none;}
+.a_propos_truncated.a_propos_open::after { display: none; }
+.a_propos_more-btn {  font-family: "ArsenalSC", sans-serif;  text-transform: uppercase;  letter-spacing: 1px;  font-size: 0.75em;  color: #ea9ef0;  background-color: #170f0faa;  border: 1px dashed #ea9ef07e;  border-radius: 8px;  padding: 4px 12px;  cursor: pointer;  margin-top: 4px;}
+.a_propos_more-btn:hover { color: #f8ede3; box-shadow: 3px 3px 0px #ea9ef054; }
+
+/* ===== FOOTER : footer_date centre sur petit ecran + suppression espace avant footer ===== */
+@media (max-width: 900px) {
+  .footer-row { align-items: center; }
+  #footer_date { text-align: center; width: 100%; margin: 0; }
+  footer.footer-container { margin-top: 0; }
+  .feed-section-audiences { margin-bottom: 0; padding-bottom: 0; }
+}
