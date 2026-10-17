@@ -200,12 +200,9 @@ document.addEventListener("DOMContentLoaded", function() {
     var el = ensureCallout();
     el.innerHTML = text;
     el.classList.add("visible");
-    el.style.left = "";
-    el.style.top = "";
-    if (!row) return;
-    var rect = row.getBoundingClientRect();
-    el.style.left = Math.max(10, Math.min(window.innerWidth - el.offsetWidth - 10, rect.left + rect.width / 2 - el.offsetWidth / 2)) + "px";
-    el.style.top = Math.max(10, rect.top - el.offsetHeight - 14) + "px";
+    // l'encadre reste statique au centre exact de l'ecran, quelle que soit sa dimension :
+    // le CSS (position:fixed + top/left 50% + translate(-50%,-50%)) garantit le centrage,
+    // aucun positionnement dynamique ne doit donc etre applique ici.
   }
 
   function hideCallout() {
@@ -854,4 +851,82 @@ document.addEventListener("DOMContentLoaded", function() {
   // premiere photo presque immediatement, puis rythme regulier de monstration
   setTimeout(loop, 600);
   setInterval(loop, 3600);
+});
+
+/* ===== ENCADRES ALEATOIRES DES PAGES D'ACTION (data-encart) ===== */
+document.addEventListener("DOMContentLoaded", function() {
+  var encartTexts = {
+    follow: [
+      "Suivez vos enqueteurs preferes ! Marl\u00e8ne tient d\u00e9j\u00e0 la liste \u00e0 jour... entre deux couches de vernis \u00e0 ongles.",
+      "Choisissez qui m\u00e9rite vos gros titres : Alice jure qu'elle a d\u00e9j\u00e0 un article pr\u00eat sur chacun d'eux.",
+      "Un bon journaliste suit ses sources. Le commissaire Laurence, lui, pr\u00e9f\u00e8re qu'on le laisse tranquille.",
+      "Suivre un utilisateur : la seule filature autoris\u00e9e par le commissariat de Lille !"
+    ],
+    photo_add: [
+      "Ajouter une photo \u00e0 notre enqu\u00eate ? Marl\u00e8ne a d\u00e9j\u00e0 pr\u00e9par\u00e9 le scotch !",
+      "Une pi\u00e8ce \u00e0 conviction de plus ! Le Dr Glissant demande une photo du cadavre... enfin, du paysage.",
+      "T\u00e9l\u00e9scopez vos clich\u00e9s : Alice Avril n'attend que \u00e7a pour en faire la une de La Voix du Nord.",
+      "Attention : toute photo myst\u00e9rieuse sera examin\u00e9e sous la lampe du commissaire."
+    ],
+    photo_add_multiple: [
+      "Plusieurs pi\u00e8ces \u00e0 conviction d'un coup ! Marl\u00e8ne risque de faire tomber le classeur.",
+      "Le commissaire sort les photos une par une, vous, vous les jetez en vrac ! Efficace.",
+      "Le Dr Glissant conseille de photographier sous tous les angles : ni vu ni connu.",
+      "La pellicule ne se d\u00e9veloppe pas seule : envoyez tout, on classera apr\u00e8s l'autopsie."
+    ],
+    photo_delete: [
+      "D\u00e9truire une pi\u00e8ce \u00e0 conviction ? Le commissaire divisionnaire Tricard fr\u00e9mit d\u00e9j\u00e0.",
+      "Gare \u00e0 vous : Alice Avril fouille toujours les poubelles du commissariat.",
+      "Supprimer une preuve est un crime... presque. Sauf si Marl\u00e8ne l'a mal rang\u00e9e : on dira qu'elle \u00e9tait d\u00e9j\u00e0 class\u00e9e.",
+      "Le scotch de Marl\u00e8ne aura v\u00e9cu : cette photo quitte le dossier."
+    ],
+    photo_update: [
+      "Retoucher une pi\u00e8ce \u00e0 conviction, Tricard dirait falsification ; nous, on dit mise au propre !",
+      "Alice corrige ses articles autant de fois que Laurence corrige Marl\u00e8ne. Inspirez-vous.",
+      "Un dossier bien tenu, c'est un dossier qui tue... m\u00e9taphoriquement.",
+      "Le l\u00e9giste v\u00e9rifie tout deux fois. Faites comme lui !"
+    ],
+    post_add: [
+      "N'oubliez pas un chiffre dans le titre : m\u00eame les dossiers sont num\u00e9rot\u00e9s au commissariat !",
+      "Un nouveau billet ? Alice Avril sort d\u00e9j\u00e0 sa machine \u00e0 \u00e9crire, championne !",
+      "\u00ab Marl\u00e8ne, appelez le procureur Troisgros \u00bb : on publie un billet de plus !",
+      "Le commissaire exige un titre avec un chiffre. Ce n'est pas lui qui invente les r\u00e8gles... si, en fait."
+    ],
+    post_delete: [
+      "Classer sans suite : le r\u00eave de tout commissaire surcharg\u00e9 de dossiers.",
+      "Supprimer un billet : la seule affaire que Laurence classera sans interrogatoire.",
+      "Ce billet finira au panier \u00e0 papiers de Marl\u00e8ne... avec le courrier du c\u0153ur, bien s\u00fbr.",
+      "Alice proteste : chaque histoire m\u00e9rite ses gros titres. Pas vous ?"
+    ],
+    post_update: [
+      "Mettre \u00e0 jour un dossier d'enqu\u00eate : le talent du vrai policier de papier.",
+      "Le commissaire relit toujours deux fois. Enfin, quand Marl\u00e8ne n'a pas renvers\u00e9 le caf\u00e9 dessus.",
+      "Un billet retouch\u00e9 vaut mieux qu'un suspect rel\u00e2ch\u00e9 trop t\u00f4t.",
+      "On remet \u00e7a au propre : machine \u00e0 \u00e9crire, carbone, et hop, le dossier est bon !"
+    ],
+    signin: [
+      "Bienvenue au commissariat de Lille : laissez vos coordonn\u00e9es \u00e0 l'entr\u00e9e, Marl\u00e8ne g\u00e8re le standard !",
+      "S'inscrire, c'est comme signer un proc\u00e8s-verbal : lisez avant de parapher !",
+      "Rejoignez l'enqu\u00eate : le commissaire Laurence n'a pas besoin de vous... mais Marl\u00e8ne, si !",
+      "Nouveau sur le blog ? Le Dr Glissant vous offre un Treets de bienvenue."
+    ],
+    password_change: [
+      "Changer de mot de passe : m\u00eame Marl\u00e8ne n'arrive pas \u00e0 retenir le code du coffre.",
+      "Un mot de passe solide, c'est comme un alibi : personne ne doit le deviner.",
+      "Le coffre du commissariat a trois serrures. Votre compte, un seul mot de passe : choisissez-le costaud.",
+      "La suspicion est de mise : changez de mot de passe avant que Tricard ne doute de vous."
+    ],
+    password_reset: [
+      "Oubli\u00e9 ? Marl\u00e8ne oublie aussi des choses... ne lui en parlez pas trop fort.",
+      "Le courrier du c\u0153ur arrive toujours, votre email de r\u00e9initialisation aussi.",
+      "Un t\u00e9l\u00e9gramme partir\u00e0 du commissariat d\u00e8s que vous aurez donn\u00e9 votre adresse !",
+      "M\u00eame le commissaire Laurence \u00e9gare ses cl\u00e9s. \u00c7a arrive aux meilleurs."
+    ]
+  };
+  document.querySelectorAll(".action-encart").forEach(function(box) {
+    var key = box.getAttribute("data-encart");
+    var pool = encartTexts[key];
+    if (!pool || !pool.length) return;
+    box.querySelector(".encart-text").textContent = pool[Math.floor(Math.random() * pool.length)];
+  });
 });
