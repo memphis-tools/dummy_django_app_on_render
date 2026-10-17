@@ -304,14 +304,12 @@ document.addEventListener("DOMContentLoaded", function() {
     var title = entry.row.querySelectorAll("td")[1].textContent.trim();
     var rows = Array.prototype.slice.call(audiencesSection.querySelectorAll(".topblog_tr"));
     var idx = rows.indexOf(entry.row);
-    // va-et-vient stylise autour de la ligne cible : bas -> haut -> bas
+    // une seule passe stylisee : de bas en haut, une fois
     scanRows(rows, rows.length - 1, token, "up", function() {
       if (token !== tourToken) return;
-      scanRows(rows, 0, token, "down", function() {
-        if (token !== tourToken) return;
-        clearRowEffects();
-        entry.row.scrollIntoView({ block: "center", behavior: "smooth" });
-        entry.row.classList.add("feed-audiences-row-glow");
+      clearRowEffects();
+      entry.row.scrollIntoView({ block: "center", behavior: "smooth" });
+      entry.row.classList.add("feed-audiences-row-glow");
         var episodeImg = episodeImageFor(title);
         var calloutHtml = "<div class='feed-audiences-callout-flex'>" +
           "<img class='feed-audiences-callout-img' src='" + episodeImg.img + "' alt='" + title + "'>" +
@@ -330,7 +328,6 @@ document.addEventListener("DOMContentLoaded", function() {
           entry.row.classList.add("feed-audiences-row-scan");
           if (done) done();
         }, 5000);
-      });
     });
   }
   // balayage stylise : direction "down" (haut->bas) ou "up" (bas->haut)
