@@ -1182,6 +1182,8 @@ footer .footer-contact-admin {
 .feed-interrogation-table {  overflow: hidden;  width: 100%;  margin: 0;}
 /* Effet "policier qui jette les photos une a une sur la table" */
 .feed-interrogation-desk {  margin-top: auto;  display: flex;  flex-direction: column;  align-items: center;}
+/* Le bureau suit immediatement le condense : pas d'espace mort, on soude nav et bureau */
+.feed-interrogation-desk { margin-top: 10px; }
 .feed-interrogation-label {  display: flex;  align-items: center;  gap: 10px;  font-family: "Caveat-large", "Caveat", cursive;  font-size: 1.35em;  color: #ea9ef0;  margin-bottom: 8px;}
 .feed-interrogation-label .fa-hand-point-down {  animation: interrogation-tap 1.6s ease-in-out infinite;  display: inline-block;}
 @keyframes interrogation-tap {  0%, 100% { transform: translateY(0); }  50% { transform: translateY(6px); } }
@@ -2804,3 +2806,36 @@ footer .footer-contact-admin:hover svg {
   font-size: 0.85em;
 }
 .award-item i { color: #a4243b; font-size: 1.3em; }
+
+/* ===== BUREAU 1950s (feed, 1ere section) ===== */
+/* Recentrage vertical des photos deposees : elles atterrissent au milieu du bureau */
+.feed-evidence-card { top: 50%; transform: translate(-50%, -50%); }
+.feed-evidence-card.evidence-rest { transform: translate(calc(-50% + var(--toss-x, 0px)), -50%) rotate(var(--toss-spin, -14deg)); }
+@keyframes evidence-toss-1950 {  0% {    opacity: 0;    transform: translate(-50%, -260%) rotate(calc(var(--toss-spin, -14deg) * -1.4)) scale(0.9);  }  55% { opacity: 1; }  70% {    transform: translate(-50%, -46%) rotate(var(--toss-spin, -14deg));  }  85% {    transform: translate(-50%, -54%) rotate(calc(var(--toss-spin, -14deg) * 0.7));  }  100% {    transform: translate(calc(-50% + var(--toss-x, 0px)), -50%) rotate(var(--toss-spin, -14deg));  }}
+.feed-evidence-card.evidence-toss { animation: evidence-toss-1950 0.85s cubic-bezier(0.3, 0.7, 0.4, 1.15) forwards; }
+.feed-evidence-deck .feed-evidence-card:first-child { top: 50%; transform: translate(-50%, -50%) rotate(-6deg); }
+/* limite de pile : les photos restent dans le cadre du bureau */
+.feed-evidence-pile .feed-evidence-card img { max-height: 200px; }
+/* Fallback statique compact */
+.feed-evidence-slot { width: min(640px, 96%); height: 340px; }
+/* Accessoires 1950s : telephone a cadran du standard, cafe, lampe */
+.feed-desk-phone {  position: absolute;  bottom: 40px;  left: 20px;  font-family: "Caveat-large", "Caveat", cursive;  font-size: 0.95em;  color: #f8ede3;  transform: rotate(-4deg);  z-index: 1;  pointer-events: none;  text-shadow: 1px 1px 3px rgba(0,0,0,0.6);}
+.feed-desk-phone i { color: #ea9ef0; margin-right: 5px; animation: interrogation-tap 2.2s ease-in-out infinite; }
+.feed-desk-coffee {  position: absolute;  top: 16px;  right: 64px;  font-size: 1.25em;  color: #f8ede3;  transform: rotate(9deg);  z-index: 1;  pointer-events: none;  text-shadow: 2px 2px 4px rgba(0,0,0,0.55);}
+.feed-desk-lamp {  position: absolute;  top: 14px;  left: 46%;  font-size: 1.1em;  color: #f8edeb;  opacity: 0.85;  z-index: 1;  pointer-events: none;  text-shadow: 0 0 12px #f4d58d88;}
+/* Bureau d'ecriture central de Marlene, style secretaire 1950s */
+.feed-desk-stamp { z-index: 6; }
+
+/* ===== DOSSIERS D'ENQUETE (feed, section billets) ===== */
+.feed-encadre-posts-group { align-items: flex-start; }
+.feed-case-file {  background-color: #e8d5ae;  background-image: repeating-linear-gradient(0deg, rgba(93, 66, 38, 0.05) 0px, rgba(93, 66, 38, 0.05) 1px, transparent 1px, transparent 6px);  box-shadow: 4px 4px 0px rgba(34, 28, 28, 0.55), 2px 2px 8px rgba(0, 0, 0, 0.35);}
+/* onglet lateral de classeur, comme un vrai dossier cartonne */
+.feed-case-file-tab {  top: 0;  right: 14px;  background-color: #8a2b2b;  color: #f4e9d8;  font-family: "ArsenalSC-Fat", "ArsenalSC", sans-serif;  font-size: 0.68rem;  letter-spacing: 0.1em;  padding: 4px 12px;  border-radius: 0 0 6px 6px;  border: 1px solid #5e1d1d;  border-top: none;  box-shadow: -2px 2px 0px rgba(34, 28, 28, 0.4);  z-index: 3;}
+/* cordelette + bouton pression du dossier */
+.feed-case-file::after {  content: "AFFAIRE EN COURS";  position: absolute;  bottom: 8px;  left: 10px;  font-family: "ArsenalSC", sans-serif;  font-size: 0.6rem;  letter-spacing: 0.12em;  color: #8a2b2b;  border: 1px solid #8a2b2b;  border-radius: 3px;  padding: 2px 6px;  transform: rotate(-1.5deg);  opacity: 0.8;  z-index: 2;  pointer-events: none;}
+.feed-case-file-body { padding: 26px 10px 22px 10px; }
+.feed-case-file-body img { filter: sepia(0.5) contrast(0.95) brightness(0.98); }
+
+/* ===== INFO-BULLE AUDIENCES : TOUJOURS AU CENTRE EXACT ===== */
+.feed-audiences-topcallout {  transform: translate(-50%, -50%) scale(0.92) !important;  max-height: 86vh;  overflow: auto;}
+.feed-audiences-topcallout.visible {  transform: translate(-50%, -50%) scale(1) !important;}
