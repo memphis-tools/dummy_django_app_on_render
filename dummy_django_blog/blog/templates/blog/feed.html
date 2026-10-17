@@ -23,7 +23,16 @@
             </div>
             <div class="feed-interrogation-table" id="feed-interrogation-table">
                 <div class="feed-evidence-slot">
-                    <span class="feed-desk-stamp">COMMISSARIAT DE LILLE</span>
+                    <span class="feed-chalk-arrow feed-chalk-arrow-1" aria-hidden="true"></span>
+                    <span class="feed-chalk-arrow feed-chalk-arrow-2" aria-hidden="true"></span>
+                    <span class="feed-chalk-question feed-chalk-question-1" aria-hidden="true">?</span>
+                    <span class="feed-chalk-question feed-chalk-question-2" aria-hidden="true">?</span>
+                    <span class="feed-chalk-cross feed-chalk-cross-1" aria-hidden="true"></span>
+                    <span class="feed-chalk-cross feed-chalk-cross-2" aria-hidden="true"></span>
+                    <span class="feed-chalk-circle feed-chalk-circle-1" aria-hidden="true"></span>
+                    <span class="feed-chalk-link feed-chalk-link-1" aria-hidden="true"></span>
+                    <span class="feed-chalk-note" aria-hidden="true">QUI&nbsp;?</span>
+                    <span class="feed-chalk-note feed-chalk-note-2" aria-hidden="true">ALIBI&nbsp;?</span>
                     <div class="feed-evidence-deck">
                         {% for instance in strip_items %}
                             <a class="feed-evidence-card" href="{% if instance|model_type == 'Photo' %}{% url 'photos_detail' instance.id %}{% else %}{% url 'posts_detail' instance.id %}{% endif %}">
