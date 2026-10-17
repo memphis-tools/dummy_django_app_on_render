@@ -2941,3 +2941,57 @@ img.img-reveal-in {  animation: img-reveal-develop 0.7s cubic-bezier(0.2, 0.7, 0
   footer.footer-container { margin-top: 0; }
   .feed-section-audiences { margin-bottom: 0; padding-bottom: 0; }
 }
+
+/* ===== BUREAU : ANNOTATIONS A LA CRAIE (theme tableau d'enqueteur) ===== */
+.feed-chalk-arrow, .feed-chalk-cross, .feed-chalk-circle, .feed-chalk-link, .feed-chalk-note {  position: absolute;  pointer-events: none;  z-index: 1;  color: #e8e3d8;  opacity: 0.55;  filter: drop-shadow(0 0 1px rgba(0,0,0,0.4));}
+/* fleche courbee tracee a la craie : tige + pointe */
+.feed-chalk-arrow {  width: 72px;  height: 48px;  background: radial-gradient(circle 1.6px at 60% 78%, #e8e3d8 98%, transparent), radial-gradient(circle 1.6px at 66% 70%, #e8e3d8 98%, transparent), radial-gradient(circle 1.6px at 71% 62%, #e8e3d8 98%, transparent), radial-gradient(circle 1.6px at 62% 86%, #e8e3d8 98%, transparent), radial-gradient(circle 1.6px at 68% 82%, #e8e3d8 98%, transparent), radial-gradient(circle 1.6px at 74% 74%, #e8e3d8 98%, transparent), radial-gradient(circle 1.6px at 55% 88%, #e8e3d8 98%, transparent);  border: none;}
+.feed-chalk-arrow-1 { bottom: 22%; left: 6%; transform: rotate(-18deg) scaleX(-1); }
+.feed-chalk-arrow-2 { top: 14%; right: 8%; transform: rotate(24deg); width: 58px; height: 40px; }
+/* point d'interrogation manuscrit */
+.feed-chalk-question {  position: absolute;  pointer-events: none;  z-index: 1;  font-family: "Caveat-large", "Caveat", cursive;  font-size: 2em;  color: #e8e3d8;  opacity: 0.5;}
+.feed-chalk-question-1 { bottom: 12%; right: 12%; transform: rotate(12deg); }
+.feed-chalk-question-2 { top: 10%; left: 10%; transform: rotate(-8deg); font-size: 1.6em; }
+/* croix d'enqueteur (exclu) : deux traits de craie */
+.feed-chalk-cross {  width: 26px;  height: 26px;}
+.feed-chalk-cross-1 { bottom: 18%; right: 26%; transform: rotate(8deg); background: linear-gradient(45deg, transparent 46%, #e8e3d8 46%, #e8e3d8 54%, transparent 54%), linear-gradient(-45deg, transparent 46%, #e8e3d8 46%, #e8e3d8 54%, transparent 54%); }
+.feed-chalk-cross-2 { top: 20%; left: 22%; transform: rotate(-14deg) scale(0.8); background: linear-gradient(45deg, transparent 46%, #e8e3d8 46%, #e8e3d8 54%, transparent 54%), linear-gradient(-45deg, transparent 46%, #e8e3d8 46%, #e8e3d8 54%, transparent 54%); }
+/* cercle entourant un indice */
+.feed-chalk-circle {  width: 64px;  height: 40px;  border: 2px dashed #e8e3d8;  border-radius: 50%;  opacity: 0.35;}
+.feed-chalk-circle-1 { top: 42%; left: 4%; transform: rotate(-10deg); }
+/* trait de liaison entre deux indices */
+.feed-chalk-link {  width: 90px;  height: 2px;  background: repeating-linear-gradient(90deg, #e8e3d8 0 7px, transparent 7px 11px);  opacity: 0.4;}
+.feed-chalk-link-1 { top: 58%; right: 4%; transform: rotate(-32deg); }
+/* mots griffonnes a la craie */
+.feed-chalk-note {  font-family: "Caveat-large", "Caveat", cursive;  font-size: 1.15em;  letter-spacing: 1px;  bottom: 6%; left: 30%; transform: rotate(-4deg); }
+.feed-chalk-note-2 { top: 6%; right: 28%; transform: rotate(3deg); }
+/* sur petit ecran, on allège le tableau */
+@media (max-width: 700px) {
+  .feed-chalk-arrow, .feed-chalk-cross-2, .feed-chalk-link-1, .feed-chalk-note-2 { display: none; }
+  .feed-chalk-note { left: 8%; }
+  .feed-chalk-circle-1 { display: none; }
+}
+
+/* ===== FOND HTML : JAMAIS DE BLANC ENTRE DERNIERE SECTION ET FOOTER ===== */
+html {  background-color: #170f0f;}
+body {  background-color: #170f0f;}
+footer.footer-container {  margin-top: 0; }
+
+/* ===== FOOTER : footer_date centre aussi sur ecran moyen ===== */
+@media (min-width: 901px) and (max-width: 1199px) {
+  .footer-row { align-items: center; }
+  #footer_date { text-align: center; width: 100%; margin: 0; }
+}
+
+/* ===== TRONCATURE A PROPOS : NOUVEAUX SEUILS ===== */
+/* Les blocs p/li de plus de 150 caracteres sont tronques (moyen ecran : 75, petit : 25).
+   Les seuils sont appliques en JS ; ici on ajoute la variante "3 lignes" du paragraphe Tournage. */
+.a_propos_truncated--3lines { max-height: 5.2em; }
+
+/* ===== CITATIONS INVENTEES : MENTION OBLIGATOIRE ===== */
+.quote-fictional-note {  display: block;  font-family: "ArsenalSC", sans-serif;  font-size: 0.62em;  letter-spacing: 1px;  text-transform: uppercase;  color: #ea9ef0;  opacity: 0.85;  margin-top: 2px;}
+.feed-encadre .quote-fictional-note,
+.home-elements-middle .quote-fictional-note,
+.post-detail-quote .quote-fictional-note,
+.photos-grid-quote .quote-fictional-note,
+.posts-grid-quote .quote-fictional-note { margin-top: 4px; }

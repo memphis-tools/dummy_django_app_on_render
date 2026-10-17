@@ -273,6 +273,7 @@ document.addEventListener("DOMContentLoaded", function() {
     return group;
   }
 
+  /* tous ces critiques sont fictifs : la mention est ajoutee dans le callout */
   var critics = [
     "Alice Pénélope Verneuil, La Voix du Nord : « Un épisode qui tient le téléspectateur en joue du générique au clap de fin. »",
     "Gérard Ovide Braquo, Le Clairon de Lille : « On croyait avoir tout vu, le commissariat nous ressort une pépite. Du grand art. »",
@@ -317,7 +318,7 @@ document.addEventListener("DOMContentLoaded", function() {
           "<strong>" + title + "</strong><br>" +
           "Record d'audience : " + entry.score.pct.toLocaleString("fr-FR") + " % de part d'audience, " +
           entry.score.viewers.toLocaleString("fr-FR") + " t\u00e9l\u00e9spectateurs !<br>" +
-          nextCritic() + "<br>" +
+          nextCritic() + " <span class='quote-fictional-note'>citation invent\u00e9e \u2014 critique fictif</span><br>" +
           "<span class='feed-audiences-callout-source'>Image : " + episodeImg.source + "</span>" +
           "</div></div>";
         showCallout(calloutHtml, entry.row);
@@ -490,6 +491,9 @@ document.addEventListener("DOMContentLoaded", function() {
     var pick = quotes[Math.floor(Math.random() * quotes.length)];
     detailQuote.querySelector(".post-detail-quote-text").textContent = "« " + pick.text + " »";
     detailQuote.querySelector(".post-detail-quote-author").textContent = pick.author;
+    if (pick.img === undefined || /fictif/i.test(pick.person || "") || /Clairon de Lille/.test(pick.author) || /Gala T\u00e9l\u00e9-Police/.test(pick.author)) {
+      markFictionalQuote(detailQuote.querySelector(".post-detail-quote-author"));
+    }
     if (pick.img) {
     var portraitWrap = document.createElement("span");
     portraitWrap.className = "quote-portrait-wrap";
@@ -619,6 +623,7 @@ document.addEventListener("DOMContentLoaded", function() {
       if (!pick) return;
       box.querySelector(".photos-grid-quote-text").textContent = "« " + pick.text + " »";
       box.querySelector(".photos-grid-quote-author").textContent = pick.author;
+      markFictionalQuote(box.querySelector(".photos-grid-quote-author"));
       var epKey = null;
       Object.keys(byEpisode).forEach(function(ep) { if (!epKey && titleText.indexOf(ep) !== -1) epKey = ep; });
       var person = pick.author.replace("— ", "").split(",")[0].trim();
@@ -660,6 +665,7 @@ document.addEventListener("DOMContentLoaded", function() {
       usedPostQuotes.push(pick.text);
       box.querySelector(".posts-grid-quote-text").textContent = "« " + pick.text + " »";
       box.querySelector(".posts-grid-quote-author").textContent = pick.author;
+      markFictionalQuote(box.querySelector(".posts-grid-quote-author"));
       var person = pick.author.replace("— ", "").split(",")[0].trim();
       var img = ({
         "Commissaire Swan Laurence": "/static/vendors/img/swan_laurence.png",
@@ -962,13 +968,28 @@ document.addEventListener("DOMContentLoaded", function() {
   function threshold() {
     var w = window.innerWidth;
     if (w <= 576) return 25;
-    if (w <= 992) return 125;
-    return 250;
+    if (w <= 992) return 75;
+    return 150;
   }
   var blocks = Array.prototype.slice.call(container.querySelectorAll("p, li"));
   blocks.forEach(function(block) {
     var text = block.textContent.trim();
-    if (text.length <= 250) return; /* aucun bloc ne sera jamais tronque sur grand ecran */
+    if (text.length <= 150) return; /* aucun bloc ne sera jamais tronque sur grand ecran */
+    /* Paragraphe "Tournage" : au-dela de 3 lignes affichees, bouton pour voir plus */
+    var heading = block.previousElementSibling;
+    var isTournage = false;
+    while (heading) {
+      if (heading.tagName === "H4" && /tournage/i.test(heading.textContent)) { isTournage = true; break; }
+      if (heading.tagName === "HR" || heading.tagName === "H4") break;
+      heading = heading.previousElementSibling;
+    }
+    if (isTournage) {
+      /* hauteur mesuree : plus de 3 lignes -> bouton, quelle que soit la largeur */
+      var tmp = block.scrollHeight / 3;
+      if (tmp > parseFloat(getComputedStyle(block).lineHeight) * 1.2) {
+        block.__aProposTournage3Lignes = true;
+      }
+    }
     var btn = document.createElement("button");
     btn.type = "button";
     btn.className = "a_propos_more-btn";
@@ -976,9 +997,13 @@ document.addEventListener("DOMContentLoaded", function() {
     var open = false;
     function apply() {
       var limit = threshold();
-      if (text.length <= limit) {
+      if (block.__aProposTournage3Lignes && block.clientHeight > 3 * parseFloat(getComputedStyle(block).lineHeight)) {
+        /* Tournage : depasse 3 lignes -> on tronque aussi sur grand ecran */
+        limit = 0;
+      }
+      if (text.length <= limit && !block.__aProposTournage3Lignes) {
         /* sous le seuil courant : bloc integralement lisible, pas de bouton */
-        block.classList.remove("a_propos_truncated", "a_propos_open");
+        block.classList.remove("a_propos_truncated", "a_propos_truncated--3lines", "a_propos_open");
         block.style.maxHeight = "";
         btn.style.display = "none";
         return;
@@ -986,6 +1011,7 @@ document.addEventListener("DOMContentLoaded", function() {
       btn.style.display = "";
       if (!open) {
         block.classList.add("a_propos_truncated");
+        if (block.__aProposTournage3Lignes) block.classList.add("a_propos_truncated--3lines");
         block.classList.remove("a_propos_open");
       } else {
         block.classList.remove("a_propos_truncated");
@@ -1014,3 +1040,13 @@ document.addEventListener("DOMContentLoaded", function() {
     }, 150);
   });
 });
+
+/* ===== CITATIONS INVENTEES : MENTION "citation inventee" ===== */
+function markFictionalQuote(authorEl) {
+  if (!authorEl) return;
+  if (authorEl.parentNode.querySelector(".quote-fictional-note")) return;
+  var note = document.createElement("span");
+  note.className = "quote-fictional-note";
+  note.textContent = "citation invent\u00e9e \u2014 le personnage et le m\u00e9dia sont fictifs";
+  authorEl.insertAdjacentElement("afterend", note);
+}
