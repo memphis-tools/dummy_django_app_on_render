@@ -2869,3 +2869,26 @@ footer .footer-contact-admin:hover svg {
     background-attachment: scroll;
   }
 }
+
+/* ===== FEED INTRO : 100vh SI L'ECRAN LE PERMET ===== */
+/* Grand ecran : la 1ere section occupe tout l'ecran. Le contenu depasse seulement
+   si le viewport est trop petit ; dans ce cas la section s'allonge (hauteur auto
+   heritee de la regle responsive precedente) et rien ne se superpose. */
+@media (min-height: 700px) and (min-width: 768px) {
+  .feed-intro { height: calc(100vh - var(--navbar-height, 76px)); min-height: 480px; overflow: hidden; }
+}
+
+/* ===== INFO-BULLE AUDIENCES : VISIBLE EN INTEGRALITE, ADAPTEE A L'ECRAN ===== */
+/* Plus de coupe : l'encadre entier tient dans le viewport grace a une taille fluide. */
+.feed-audiences-topcallout { max-height: none; overflow: visible; }
+.feed-audiences-callout-img { width: clamp(90px, 18vw, 150px); height: clamp(60px, 12vw, 100px); }
+.feed-audiences-callout-flex { flex-wrap: wrap; justify-content: center; }
+/* Travailler la largeur pour que tout le contenu soit visible meme sur grand texte */
+.feed-audiences-topcallout { width: min(92vw, 620px); max-width: 92vw; }
+.feed-audiences-callout-body { font-size: clamp(0.8em, 2.2vw, 1em); }
+/* Sur tres petit ecran, l'image passe au-dessus du texte, l'encadre reste entier */
+@media (max-width: 560px) {
+  .feed-audiences-callout-flex { flex-direction: column; align-items: center; text-align: center; }
+  .feed-audiences-callout-img { width: min(160px, 60vw); height: auto; }
+  .feed-audiences-topcallout { padding: 18px 16px; }
+}
