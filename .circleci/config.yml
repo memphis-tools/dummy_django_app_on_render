@@ -91,6 +91,7 @@ jobs:
             apk add --no-cache \
               py-pip \
               curl \
+              git \
               docker-compose
       - run:
           name: login to docker_hub
