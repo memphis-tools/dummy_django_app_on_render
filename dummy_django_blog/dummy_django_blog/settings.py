@@ -151,20 +151,14 @@ AWS_DEFAULT_ACL = None
 AWS_S3_OBJECT_PARAMETERS = {"CacheControl": "max-age=86400"}
 
 # Media files settings
-#DEFAULT_FILE_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
+DEFAULT_FILE_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
 MEDIA_URL = f"https://{AWS_S3_CUSTOM_DOMAIN}/"
-
 
 # Storage configuration
 if os.getenv("IS_TESTING") == "True":
-    STORAGES = {
-        "default": {
-            "BACKEND": "django.core.files.storage.FileSystemStorage",
-        },
-        "staticfiles": {
-            "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
-        },
-    }
+    DEFAULT_FILE_STORAGE = "django.core.files.storage.FileSystemStorage"
+    MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+    STATICFILES_STORAGE = "django.contrib.staticfiles.storage.StaticFilesStorage"
 else:
     STORAGES = {
         "default": {
