@@ -165,7 +165,7 @@ if not DEBUG and RENDER_EXTERNAL_HOSTNAME is not None:
                 },
             },
             "staticfiles": {
-                "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStoragea",
+                "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
             },
         }
 else:
