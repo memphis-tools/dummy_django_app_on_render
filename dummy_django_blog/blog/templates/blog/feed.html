@@ -33,6 +33,40 @@
                     <span class="feed-chalk-link feed-chalk-link-1" aria-hidden="true"></span>
                     <span class="feed-chalk-note" aria-hidden="true">QUI&nbsp;?</span>
                     <span class="feed-chalk-note feed-chalk-note-2" aria-hidden="true">ALIBI&nbsp;?</span>
+                    <div class="feed-suspects-wall" aria-hidden="true">
+                        <figure class="feed-suspect feed-suspect--laurence">
+                            <img src="{% static 'vendors/img/swan_laurence.png' %}" alt="Commissaire Swan Laurence">
+                            <figcaption>LAURENCE</figcaption>
+                        </figure>
+                        <figure class="feed-suspect feed-suspect--marlene">
+                            <img src="{% static 'vendors/img/marlene_leroy.jpg' %}" alt="Marl&egrave;ne Leroy">
+                            <figcaption>MARL&Egrave;NE</figcaption>
+                        </figure>
+                        <figure class="feed-suspect feed-suspect--avril">
+                            <img src="{% static 'vendors/img/alice_avril.jpg' %}" alt="Alice Avril">
+                            <figcaption>AVRIL</figcaption>
+                        </figure>
+                        <figure class="feed-suspect feed-suspect--tricard">
+                            <img src="{% static 'vendors/img/ernest_tricard.jpg' %}" alt="Commissaire divisionnaire Ernest Tricard">
+                            <figcaption>TRICARD</figcaption>
+                        </figure>
+                        <figure class="feed-suspect feed-suspect--glissant">
+                            <img src="{% static 'vendors/img/tim_glissant.jpg' %}" alt="Dr Tim Glissant">
+                            <figcaption>GLISSANT</figcaption>
+                        </figure>
+                        <svg class="feed-chalk-links-svg" viewBox="0 0 100 62" preserveAspectRatio="none">
+                            <path class="chalk-link-path" d="M22 12 C 32 4, 40 4, 47 9"/>
+                            <path class="chalk-link-path" d="M22 12 C 42 16, 62 16, 78 11"/>
+                            <path class="chalk-link-path" d="M22 12 C 12 22, 10 34, 15 44"/>
+                            <path class="chalk-link-path" d="M22 12 C 46 26, 66 40, 82 49"/>
+                            <path class="chalk-link-path" d="M13 27 C 30 30, 52 26, 72 15"/>
+                            <text x="32" y="6" class="chalk-link-label">secr&eacute;taire</text>
+                            <text x="46" y="13" class="chalk-link-label">rivale</text>
+                            <text x="1" y="34" class="chalk-link-label">sup&eacute;rieur</text>
+                            <text x="50" y="40" class="chalk-link-label">l&eacute;giste</text>
+                            <text x="36" y="22" class="chalk-link-label">amies</text>
+                        </svg>
+                    </div>
                     <div class="feed-evidence-deck">
                         {% for instance in strip_items %}
                             <a class="feed-evidence-card" href="{% if instance|model_type == 'Photo' %}{% url 'photos_detail' instance.id %}{% else %}{% url 'posts_detail' instance.id %}{% endif %}">

@@ -694,17 +694,29 @@ document.addEventListener("DOMContentLoaded", function() {
     follow: [
       "Choisir ses abonnements, " + encartUser + " : Marlène a sa liste, le commissaire a la sienne. Personne ne suit personne... pour l'instant !",
       "Ici on choisit qui on suit, comme Laurence choisit ses enquêtes : avec soin, " + encartUser + " !",
-      "Abonnez-vous, " + encartUser + " ! Alice Avril ferait n'importe quoi pour une bonne source, pas vous ?"
+      "Abonnez-vous, " + encartUser + " ! Alice Avril ferait n'importe quoi pour une bonne source, pas vous ?",
+      "Suivez vos enqueteurs preferes ! Marl\u00e8ne tient d\u00e9j\u00e0 la liste \u00e0 jour... entre deux couches de vernis \u00e0 ongles.",
+      "Choisissez qui m\u00e9rite vos gros titres : Alice jure qu'elle a d\u00e9j\u00e0 un article pr\u00eat sur chacun d'eux.",
+      "Un bon journaliste suit ses sources. Le commissaire Laurence, lui, pr\u00e9f\u00e8re qu'on le laisse tranquille.",
+      "Suivre un utilisateur : la seule filature autoris\u00e9e par le commissariat de Lille !"
     ],
     photo_add: [
       "Ajouter une photo à notre enquête, " + encartUser + " ! Marlène a déjà préparé le scotch pour l'album.",
       "Une nouvelle pièce à conviction, " + encartUser + " ? Le commissaire Laurence approuve (à condition qu'elle soit nette).",
-      "Vos photos valent celles de La Voix du Nord, " + encartUser + " ... presque !"
+      "Vos photos valent celles de La Voix du Nord, " + encartUser + " ... presque !",
+      "Ajouter une photo \u00e0 notre enqu\u00eate ? Marl\u00e8ne a d\u00e9j\u00e0 pr\u00e9par\u00e9 le scotch !",
+      "Une pi\u00e8ce \u00e0 conviction de plus ! Le Dr Glissant demande une photo du cadavre... enfin, du paysage.",
+      "T\u00e9l\u00e9scopez vos clich\u00e9s : Alice Avril n'attend que \u00e7a pour en faire la une de La Voix du Nord.",
+      "Attention : toute photo myst\u00e9rieuse sera examin\u00e9e sous la lampe du commissaire."
     ],
     photo_add_multiple: [
       "Ajouter plein de photos d'un coup, " + encartUser + " : comme un album de Treets, on n'arrête plus la machine !",
       "Enquête express, " + encartUser + " : plusieurs indices d'un seul geste, Marlène n'en revient pas.",
-      "Le Dr Maillol dit que tout va bien. Chargez les photos vite avant qu'il change d'avis, " + encartUser + " !"
+      "Le Dr Maillol dit que tout va bien. Chargez les photos vite avant qu'il change d'avis, " + encartUser + " !",
+      "Plusieurs pi\u00e8ces \u00e0 conviction d'un coup ! Marl\u00e8ne risque de faire tomber le classeur.",
+      "Le commissaire sort les photos une par une, vous, vous les jetez en vrac ! Efficace.",
+      "Le Dr Glissant conseille de photographier sous tous les angles : ni vu ni connu.",
+      "La pellicule ne se d\u00e9veloppe pas seule : envoyez tout, on classera apr\u00e8s l'autopsie."
     ],
     photo_detail: [
       "Pièce à conviction numérotée, " + encartUser + " : observez bien, le détail est dans l'objectif !",
@@ -714,37 +726,65 @@ document.addEventListener("DOMContentLoaded", function() {
     photo_delete: [
       "Supprimer une pièce à conviction, " + encartUser + " ? Même le procureur Troisgros va faire la grimace.",
       "Attention, " + encartUser + " : Alice Avril fouille toujours les corbeilles. Vraiment toujours.",
-      "Ce dossier d'enquête va maigrir, " + encartUser + " ... Marlène garde une copie sous son poster de Marilyn, on ne sait jamais."
+      "Ce dossier d'enquête va maigrir, " + encartUser + " ... Marlène garde une copie sous son poster de Marilyn, on ne sait jamais.",
+      "D\u00e9truire une pi\u00e8ce \u00e0 conviction ? Le commissaire divisionnaire Tricard fr\u00e9mit d\u00e9j\u00e0.",
+      "Gare \u00e0 vous : Alice Avril fouille toujours les poubelles du commissariat.",
+      "Supprimer une preuve est un crime... presque. Sauf si Marl\u00e8ne l'a mal rang\u00e9e : on dira qu'elle \u00e9tait d\u00e9j\u00e0 class\u00e9e.",
+      "Le scotch de Marl\u00e8ne aura v\u00e9cu : cette photo quitte le dossier."
     ],
     photo_update: [
       "Mettre une photo à jour, " + encartUser + " : le commissaire Laurence corrige aussi ses rapports, enfin parfois.",
       "Une petite retouche d'indice, " + encartUser + " ? La vérité est dans la Chambre, enfin dans la photo !",
-      "On réécrit l'enquête, " + encartUser + " ... discrètement, Alice Avril ne doit rien savoir."
+      "On réécrit l'enquête, " + encartUser + " ... discrètement, Alice Avril ne doit rien savoir.",
+      "Retoucher une pi\u00e8ce \u00e0 conviction, Tricard dirait falsification ; nous, on dit mise au propre !",
+      "Alice corrige ses articles autant de fois que Laurence corrige Marl\u00e8ne. Inspirez-vous.",
+      "Un dossier bien tenu, c'est un dossier qui tue... m\u00e9taphoriquement.",
+      "Le l\u00e9giste v\u00e9rifie tout deux fois. Faites comme lui !"
     ],
     post_add: [
       "Un nouveau billet, " + encartUser + " ! Pensez à mettre un chiffre dans le titre, sinon l'inspecteur Laurence refuse le rapport.",
       "Racontez-nous tout, " + encartUser + " : Alice Avril n'aurait pas fait mieux... mais n'oubliez pas le chiffre dans le titre !",
-      "Publiez votre billet, " + encartUser + " ! Marlène, préparez la machine à écrire (et un chocolat chaud) !"
+      "Publiez votre billet, " + encartUser + " ! Marlène, préparez la machine à écrire (et un chocolat chaud) !",
+      "N'oubliez pas un chiffre dans le titre : m\u00eame les dossiers sont num\u00e9rot\u00e9s au commissariat !",
+      "Un nouveau billet ? Alice Avril sort d\u00e9j\u00e0 sa machine \u00e0 \u00e9crire, championne !",
+      "\u00ab Marl\u00e8ne, appelez le procureur Troisgros \u00bb : on publie un billet de plus !",
+      "Le commissaire exige un titre avec un chiffre. Ce n'est pas lui qui invente les r\u00e8gles... si, en fait."
     ],
     post_delete: [
       "Supprimer un billet, " + encartUser + " ? Classé sans suite par le commissariat, donc.",
       "Ce billet va disparaître, " + encartUser + " ... comme le corps dans l'armoire. Motus et bouche cousue.",
-      "Classer l'affaire, " + encartUser + " ? Le procureur Troisgros signe, Marlène trie les copies (bonbon inclus)."
+      "Classer l'affaire, " + encartUser + " ? Le procureur Troisgros signe, Marlène trie les copies (bonbon inclus).",
+      "Classer sans suite : le r\u00eave de tout commissaire surcharg\u00e9 de dossiers.",
+      "Supprimer un billet : la seule affaire que Laurence classera sans interrogatoire.",
+      "Ce billet finira au panier \u00e0 papiers de Marl\u00e8ne... avec le courrier du c\u0153ur, bien s\u00fbr.",
+      "Alice proteste : chaque histoire m\u00e9rite ses gros titres. Pas vous ?"
     ],
     post_update: [
       "Mettre un billet à jour, " + encartUser + " : Laurence relit, Marlène tape à la machine, tout le monde travaille !",
       "Modifier l'enquête, " + encartUser + " : le Dr Maillol certifie que c'est bon pour la santé.",
-      "Une version corrigée, " + encartUser + " ? Alice Avril aurait tué pour cette exclusivité... enfin, presque."
+      "Une version corrigée, " + encartUser + " ? Alice Avril aurait tué pour cette exclusivité... enfin, presque.",
+      "Mettre \u00e0 jour un dossier d'enqu\u00eate : le talent du vrai policier de papier.",
+      "Le commissaire relit toujours deux fois. Enfin, quand Marl\u00e8ne n'a pas renvers\u00e9 le caf\u00e9 dessus.",
+      "Un billet retouch\u00e9 vaut mieux qu'un suspect rel\u00e2ch\u00e9 trop t\u00f4t.",
+      "On remet \u00e7a au propre : machine \u00e0 \u00e9crire, carbone, et hop, le dossier est bon !"
     ],
     signin: [
       "Inscrivez-vous pour rejoindre l'équipe d'enquête, recrue ! Le commissariat de Lille cherche des talents.",
       "Un nouveau badge à décrocher, recrue ! Marlène prépare déjà le Ruban adhésif pour votre dossier.",
-      "L'enquête vous attend, recrue : cachet, badge et Treets offerts le premier jour !"
+      "L'enquête vous attend, recrue : cachet, badge et Treets offerts le premier jour !",
+      "Bienvenue au commissariat de Lille : laissez vos coordonn\u00e9es \u00e0 l'entr\u00e9e, Marl\u00e8ne g\u00e8re le standard !",
+      "S'inscrire, c'est comme signer un proc\u00e8s-verbal : lisez avant de parapher !",
+      "Rejoignez l'enqu\u00eate : le commissaire Laurence n'a pas besoin de vous... mais Marl\u00e8ne, si !",
+      "Nouveau sur le blog ? Le Dr Glissant vous offre un Treets de bienvenue."
     ],
     password_change: [
       "Changer de mot de passe : même Marlène n'essaie pas de deviner celui du commissaire Laurence.",
       "Nouveau mot de passe, ancien secret d'enquête : Alice Avril n'aura rien à écrire dans La Voix du Nord !",
-      "Un mot de passe bien gardé vaut mieux qu'un dossier mal fermé, camarade !"
+      "Un mot de passe bien gardé vaut mieux qu'un dossier mal fermé, camarade !",
+      "Changer de mot de passe : m\u00eame Marl\u00e8ne n'arrive pas \u00e0 retenir le code du coffre.",
+      "Un mot de passe solide, c'est comme un alibi : personne ne doit le deviner.",
+      "Le coffre du commissariat a trois serrures. Votre compte, un seul mot de passe : choisissez-le costaud.",
+      "La suspicion est de mise : changez de mot de passe avant que Tricard ne doute de vous."
     ],
     profile_update: [
       "Changer de photo de profil, " + encartUser + " : Marlène dit qu'un portrait net, c'est déjà la moitié de l'enquête.",
@@ -754,13 +794,17 @@ document.addEventListener("DOMContentLoaded", function() {
     password_reset: [
       "Un mot de passe égaré ? Même le grand Agatha admettrait : ça arrive aux meilleurs enquêteurs.",
       "La mémoire des uns fait les énigmes des autres : réinitialisons tout ça, tranquille.",
-      "Indice : votre email. Enquête close en trois clics, promis !"
+      "Indice : votre email. Enquête close en trois clics, promis !",
+      "Oubli\u00e9 ? Marl\u00e8ne oublie aussi des choses... ne lui en parlez pas trop fort.",
+      "Le courrier du c\u0153ur arrive toujours, votre email de r\u00e9initialisation aussi.",
+      "Un t\u00e9l\u00e9gramme partir\u00e0 du commissariat d\u00e8s que vous aurez donn\u00e9 votre adresse !",
+      "M\u00eame le commissaire Laurence \u00e9gare ses cl\u00e9s. \u00c7a arrive aux meilleurs."
     ]
   };
   document.querySelectorAll(".action-encart").forEach(function(box) {
     var key = box.getAttribute("data-encart");
     var pool = encartTexts[key];
-    if (!pool) { return; }
+    if (!pool || !pool.length) return;
     box.querySelector(".encart-text").textContent = pool[Math.floor(Math.random() * pool.length)];
   });
 });
@@ -856,83 +900,6 @@ document.addEventListener("DOMContentLoaded", function() {
   setInterval(loop, 3600);
 });
 
-/* ===== ENCADRES ALEATOIRES DES PAGES D'ACTION (data-encart) ===== */
-document.addEventListener("DOMContentLoaded", function() {
-  var encartTexts = {
-    follow: [
-      "Suivez vos enqueteurs preferes ! Marl\u00e8ne tient d\u00e9j\u00e0 la liste \u00e0 jour... entre deux couches de vernis \u00e0 ongles.",
-      "Choisissez qui m\u00e9rite vos gros titres : Alice jure qu'elle a d\u00e9j\u00e0 un article pr\u00eat sur chacun d'eux.",
-      "Un bon journaliste suit ses sources. Le commissaire Laurence, lui, pr\u00e9f\u00e8re qu'on le laisse tranquille.",
-      "Suivre un utilisateur : la seule filature autoris\u00e9e par le commissariat de Lille !"
-    ],
-    photo_add: [
-      "Ajouter une photo \u00e0 notre enqu\u00eate ? Marl\u00e8ne a d\u00e9j\u00e0 pr\u00e9par\u00e9 le scotch !",
-      "Une pi\u00e8ce \u00e0 conviction de plus ! Le Dr Glissant demande une photo du cadavre... enfin, du paysage.",
-      "T\u00e9l\u00e9scopez vos clich\u00e9s : Alice Avril n'attend que \u00e7a pour en faire la une de La Voix du Nord.",
-      "Attention : toute photo myst\u00e9rieuse sera examin\u00e9e sous la lampe du commissaire."
-    ],
-    photo_add_multiple: [
-      "Plusieurs pi\u00e8ces \u00e0 conviction d'un coup ! Marl\u00e8ne risque de faire tomber le classeur.",
-      "Le commissaire sort les photos une par une, vous, vous les jetez en vrac ! Efficace.",
-      "Le Dr Glissant conseille de photographier sous tous les angles : ni vu ni connu.",
-      "La pellicule ne se d\u00e9veloppe pas seule : envoyez tout, on classera apr\u00e8s l'autopsie."
-    ],
-    photo_delete: [
-      "D\u00e9truire une pi\u00e8ce \u00e0 conviction ? Le commissaire divisionnaire Tricard fr\u00e9mit d\u00e9j\u00e0.",
-      "Gare \u00e0 vous : Alice Avril fouille toujours les poubelles du commissariat.",
-      "Supprimer une preuve est un crime... presque. Sauf si Marl\u00e8ne l'a mal rang\u00e9e : on dira qu'elle \u00e9tait d\u00e9j\u00e0 class\u00e9e.",
-      "Le scotch de Marl\u00e8ne aura v\u00e9cu : cette photo quitte le dossier."
-    ],
-    photo_update: [
-      "Retoucher une pi\u00e8ce \u00e0 conviction, Tricard dirait falsification ; nous, on dit mise au propre !",
-      "Alice corrige ses articles autant de fois que Laurence corrige Marl\u00e8ne. Inspirez-vous.",
-      "Un dossier bien tenu, c'est un dossier qui tue... m\u00e9taphoriquement.",
-      "Le l\u00e9giste v\u00e9rifie tout deux fois. Faites comme lui !"
-    ],
-    post_add: [
-      "N'oubliez pas un chiffre dans le titre : m\u00eame les dossiers sont num\u00e9rot\u00e9s au commissariat !",
-      "Un nouveau billet ? Alice Avril sort d\u00e9j\u00e0 sa machine \u00e0 \u00e9crire, championne !",
-      "\u00ab Marl\u00e8ne, appelez le procureur Troisgros \u00bb : on publie un billet de plus !",
-      "Le commissaire exige un titre avec un chiffre. Ce n'est pas lui qui invente les r\u00e8gles... si, en fait."
-    ],
-    post_delete: [
-      "Classer sans suite : le r\u00eave de tout commissaire surcharg\u00e9 de dossiers.",
-      "Supprimer un billet : la seule affaire que Laurence classera sans interrogatoire.",
-      "Ce billet finira au panier \u00e0 papiers de Marl\u00e8ne... avec le courrier du c\u0153ur, bien s\u00fbr.",
-      "Alice proteste : chaque histoire m\u00e9rite ses gros titres. Pas vous ?"
-    ],
-    post_update: [
-      "Mettre \u00e0 jour un dossier d'enqu\u00eate : le talent du vrai policier de papier.",
-      "Le commissaire relit toujours deux fois. Enfin, quand Marl\u00e8ne n'a pas renvers\u00e9 le caf\u00e9 dessus.",
-      "Un billet retouch\u00e9 vaut mieux qu'un suspect rel\u00e2ch\u00e9 trop t\u00f4t.",
-      "On remet \u00e7a au propre : machine \u00e0 \u00e9crire, carbone, et hop, le dossier est bon !"
-    ],
-    signin: [
-      "Bienvenue au commissariat de Lille : laissez vos coordonn\u00e9es \u00e0 l'entr\u00e9e, Marl\u00e8ne g\u00e8re le standard !",
-      "S'inscrire, c'est comme signer un proc\u00e8s-verbal : lisez avant de parapher !",
-      "Rejoignez l'enqu\u00eate : le commissaire Laurence n'a pas besoin de vous... mais Marl\u00e8ne, si !",
-      "Nouveau sur le blog ? Le Dr Glissant vous offre un Treets de bienvenue."
-    ],
-    password_change: [
-      "Changer de mot de passe : m\u00eame Marl\u00e8ne n'arrive pas \u00e0 retenir le code du coffre.",
-      "Un mot de passe solide, c'est comme un alibi : personne ne doit le deviner.",
-      "Le coffre du commissariat a trois serrures. Votre compte, un seul mot de passe : choisissez-le costaud.",
-      "La suspicion est de mise : changez de mot de passe avant que Tricard ne doute de vous."
-    ],
-    password_reset: [
-      "Oubli\u00e9 ? Marl\u00e8ne oublie aussi des choses... ne lui en parlez pas trop fort.",
-      "Le courrier du c\u0153ur arrive toujours, votre email de r\u00e9initialisation aussi.",
-      "Un t\u00e9l\u00e9gramme partir\u00e0 du commissariat d\u00e8s que vous aurez donn\u00e9 votre adresse !",
-      "M\u00eame le commissaire Laurence \u00e9gare ses cl\u00e9s. \u00c7a arrive aux meilleurs."
-    ]
-  };
-  document.querySelectorAll(".action-encart").forEach(function(box) {
-    var key = box.getAttribute("data-encart");
-    var pool = encartTexts[key];
-    if (!pool || !pool.length) return;
-    box.querySelector(".encart-text").textContent = pool[Math.floor(Math.random() * pool.length)];
-  });
-});
 
 /* ===== IMAGES : APPARITION UNIQUEMENT UNE FOIS ENTIEREMENT TELECHARGEES ===== */
 /* Effet "developpement de pellicule" theme dossier d'enquete : l'image reste invisible
