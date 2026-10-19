@@ -3104,3 +3104,51 @@ footer.footer-container {  margin-top: 0; }
 /* ===== FOOTER : "Blog c LesPetitsMeurtres 2023-2026" centre sur toutes les pages, toutes tailles ===== */
 .footer-row { align-items: center; }
 #footer_date { text-align: center; width: 100%; margin: 0; }
+/* ===== TABLEAU D'ENQUETE : PHOTOS PUNAISEES AU HASARD, FIN DU "DEPOSE SUR BUREAU" ===== */
+/* Tableau plus grand, toujours sans toucher a la div/section feed-intro */
+.feed-evidence-slot { width: min(980px, 97%); height: 440px; }
+/* Les photos punaisees : positionnees par le JS (left/top en %), jamais empilees */
+.feed-evidence-pile .feed-evidence-card { pointer-events: auto; }
+.feed-evidence-card.evidence-pinned {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: min(220px, 27%);
+  transform: translate(-50%, -50%) rotate(var(--pin-spin, 0deg));
+  z-index: 5;
+  transition: transform 0.25s ease;
+}
+.feed-evidence-card.evidence-pinned:hover,
+.feed-evidence-card.evidence-pinned:focus {
+  transform: translate(-50%, -50%) rotate(0deg) scale(1.06);
+  z-index: 8;
+}
+.feed-evidence-card.evidence-pinned img { max-height: 190px; }
+/* punaise rouge au-dessus de chaque photo punaisee */
+.feed-evidence-card.evidence-pinned::before {
+  content: "";
+  position: absolute;
+  top: -7px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, #ff9d9d, #a4243b 60%, #6d1425);
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.55);
+  z-index: 9;
+  pointer-events: none;
+}
+/* l'ancien effet de pile/deck n'a plus lieu d'etre : carte du deck masquee
+   (le JS clone les cartes dans la pile des la creation) */
+.feed-evidence-deck .feed-evidence-card { display: none; }
+@media (max-width: 900px) {
+  .feed-evidence-slot { width: 96%; height: 380px; }
+  .feed-evidence-card.evidence-pinned { width: min(200px, 40%); }
+  .feed-evidence-card.evidence-pinned img { max-height: 160px; }
+}
+@media (max-width: 700px) {
+  .feed-evidence-slot { width: 94%; height: 340px; }
+  .feed-evidence-card.evidence-pinned { width: 42%; }
+  .feed-evidence-card.evidence-pinned img { max-height: 130px; }
+}
