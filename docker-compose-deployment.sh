@@ -70,11 +70,11 @@ else
       python manage.py makemigrations blog --noinput
       python manage.py migrate --noinput
       python manage.py shell -c "
-      from django.conf import settings
-      print('DEBUG:', settings.DEBUG)
-      print('RENDER_EXTERNAL_HOSTNAME:', settings.RENDER_EXTERNAL_HOSTNAME if hasattr(settings, 'RENDER_EXTERNAL_HOSTNAME') else 'not defined')
-      print('IS_TESTING:', __import__('os').getenv('IS_TESTING'))
-      print('STORAGES:', settings.STORAGES)
+        from django.conf import settings
+        print('DEBUG:', settings.DEBUG)
+        print('RENDER_EXTERNAL_HOSTNAME:', settings.RENDER_EXTERNAL_HOSTNAME if hasattr(settings, 'RENDER_EXTERNAL_HOSTNAME') else 'not defined')
+        print('IS_TESTING:', __import__('os').getenv('IS_TESTING'))
+        print('STORAGES:', settings.STORAGES)
       "
       python manage.py collectstatic --no-input --clear
       python manage.py init_app
