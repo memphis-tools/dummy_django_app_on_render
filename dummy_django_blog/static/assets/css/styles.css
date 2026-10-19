@@ -1162,7 +1162,7 @@ footer .footer-contact-admin {
     font-size: 17px
   }
   .audiences {
-    background-image: linear-gradient(rgba(0,0,0,0.8), rgba(0, 0, 0, 0.8)), url('../img/saison_2/audiences.jpg');
+    background-image: linear-gradient(rgba(0,0,0,0.8), rgba(0, 0, 0, 0.8)), url("../../vendors/img/audiences.jpg");
     padding-bottom: 3%;
   }
 

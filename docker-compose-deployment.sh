@@ -61,6 +61,7 @@ else
     	;;
     "cloud" )
       # Création d'un environnement virtuel qui pourra être utilisé par Render
+      export IS_TESTING=False
       python -m venv venv
       source venv/bin/activate
       pip install -r dummy_django_blog/requirements.txt
@@ -69,7 +70,6 @@ else
       python manage.py makemigrations blog --noinput
       python manage.py migrate --noinput
       python manage.py collectstatic --no-input --clear
-      export IS_TESTING=False
       python manage.py init_app
       gunicorn dummy_django_blog.wsgi:application --bind 0.0.0.0:8000
       ;;

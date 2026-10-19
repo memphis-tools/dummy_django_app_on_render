@@ -20,9 +20,9 @@ services:
       - key: WEB_CONCURRENCY
         value: 4
       - key: PYTHON_VERSION
-        value: 3.11.9
+        value: 3.14.8
       - key: POETRY_VERSION
-        value: 1.8.3
+        value: 2.3.1
       - key: PORT
         value: 8000
       - key: SECRET_KEY
