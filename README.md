@@ -1,7 +1,7 @@
-![Screenshot](https://img.shields.io/badge/python-v3.12.10-blue?logo=python&logoColor=yellow)
-![Screenshot](https://img.shields.io/badge/docker-v26.1.4-blue?logo=docker&logoColor=yellow)
-![Screenshot](https://img.shields.io/badge/django-v4.2-blue?logo=django&logoColor=yellow)
-![Screenshot](https://img.shields.io/badge/gunicorn-v22.0-blue?logo=gunicorn&logoColor=yellow)
+![Screenshot](https://img.shields.io/badge/python-v3.14.8-blue?logo=python&logoColor=yellow)
+![Screenshot](https://img.shields.io/badge/docker-v29.8.2,-blue?logo=docker&logoColor=yellow)
+![Screenshot](https://img.shields.io/badge/django-v6.1.2-blue?logo=django&logoColor=yellow)
+![Screenshot](https://img.shields.io/badge/gunicorn-v26.2.0-blue?logo=gunicorn&logoColor=yellow)
 ![Screenshot](https://img.shields.io/badge/render--blue?logo=render&logoColor=yellow)
 ![Screenshot](https://img.shields.io/badge/circleci--blue?logo=circleci&logoColor=yellow)
 ![Screenshot](https://img.shields.io/badge/coveralls--blue?logo=coveralls&logoColor=yellow)
@@ -29,7 +29,7 @@ You can find this dummy blog app at https://dummy-django-app-on-render.onrender.
 
 ## TECHNOLOGIES
 ---------------
-Python 3.12.10
+Python 3.14.8
 
 Sqlite3
 
