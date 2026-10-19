@@ -69,14 +69,9 @@ else
       python manage.py makemigrations authentication --noinput
       python manage.py makemigrations blog --noinput
       python manage.py migrate --noinput
-      python manage.py shell -c "
-        from django.conf import settings
-        print('DEBUG:', settings.DEBUG)
-        print('RENDER_EXTERNAL_HOSTNAME:', settings.RENDER_EXTERNAL_HOSTNAME if hasattr(settings, 'RENDER_EXTERNAL_HOSTNAME') else 'not defined')
-        print('IS_TESTING:', __import__('os').getenv('IS_TESTING'))
-        print('STORAGES:', settings.STORAGES)
-      "
+      python manage.py shell -c "import os; from django.conf import settings; print('DEBUG:', settings.DEBUG); print('RENDER_EXTERNAL_HOSTNAME:', os.getenv('RENDER_EXTERNAL_HOSTNAME')); print('IS_TESTING:', os.getenv('IS_TESTING')); print('STORAGES:', settings.STORAGES)"
       python manage.py collectstatic --no-input --clear
+      find staticfiles -maxdepth 1 -name 'staticfiles.json' -print
       python manage.py init_app
       gunicorn dummy_django_blog.wsgi:application --bind 0.0.0.0:8000
       ;;
