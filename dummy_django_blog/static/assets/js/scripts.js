@@ -885,8 +885,34 @@ document.addEventListener("DOMContentLoaded", function() {
     clone.style.top = cy + "%";
     clone.style.setProperty("--pin-spin", spin + "deg");
     pile.appendChild(clone);
-  });
+    setTimeout(function() {
+      clone.classList.remove("evidence-toss");
+      clone.classList.add("evidence-rest");
+    }, 900);
+    // les plus anciennes glissent hors du bureau : la boucle les re-projettera ensuite
+    setTimeout(function() {
+      var stacked = pile.querySelectorAll(".feed-evidence-card");
+      var maxStack = Math.min(5, cards.length);
+      if (stacked.length > maxStack) {
+        var oldest = stacked[0];
+        oldest.style.transition = "transform 0.6s ease, opacity 0.6s ease";
+        oldest.style.transform = "translate(-170%, 26%) rotate(-32deg) scale(0.8)";
+        oldest.style.opacity = "0";
+        setTimeout(function() { oldest.remove(); }, 640);
+      }
+    }, 1500);
+  }
+
+  var evidenceIndex = 0;
+  function loop() {
+    tossNext(evidenceIndex);
+    evidenceIndex++;
+  }
+  // premiere photo presque immediatement, puis rythme regulier de monstration
+  setTimeout(loop, 600);
+  setInterval(loop, 3600);
 });
+
 
 
 
