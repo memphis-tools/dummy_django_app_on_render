@@ -8,6 +8,8 @@
 [![Coverage Status](https://coveralls.io/repos/github/memphis-tools/dummy_django_app_on_render/badge.svg?branch=main)](https://coveralls.io/github/memphis-tools/dummy_django_app_on_render?branch=main)
 [![CircleCI](https://dl.circleci.com/status-badge/img/gh/memphis-tools/dummy_django_app_on_render/tree/main.svg?style=svg)](https://dl.circleci.com/status-badge/redirect/gh/memphis-tools/dummy_django_app_on_render/tree/main)
 ![Known Vulnerabilities](https://snyk.io/test/github/memphis-tools/dummy_django_app_on_render/badge.svg)
+[![CodeQL](https://github.com/memphis-tools/dummy_django_app_on_render/actions/workflows/github-code-scanning/codeql/badge.svg?branch=main)](https://github.com/memphis-tools/dummy_django_app_on_render/actions/workflows/github-code-scanning/codeql)
+[![GitHub Advanced Security](https://github.com/memphis-tools/dummy_django_app_on_render/actions/workflows/agents/github-advanced-security/badge.svg?branch=main)](https://github.com/memphis-tools/dummy_django_app_on_render/actions/workflows/agents/github-advanced-security)
 
 # DUMMY APP FOR LEARNING PURPOSES
 
