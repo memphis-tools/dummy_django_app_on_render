@@ -791,6 +791,13 @@ document.addEventListener("DOMContentLoaded", function() {
       "Nouveau visage, même talent, " + encartUser + " ! Le commissaire Laurence approuve votre souci du détail.",
       "Mettez votre plus beau portrait au dossier, " + encartUser + " : format .jpg, sourire garant" + String.fromCharCode(233) + " !"
     ],
+    contact_admin: [
+      "Un mot pour la prefecture ? Le commissaire Laurence lit son courrier... entre deux sarcastiques.",
+      "Ecrire aux admins, c'est comme envoyer un telegramme au commissariat : Marl\u00e8ne assure la reponse sous 48 h !",
+      "Un souci sur le blog ? Le Dr Glissant prescrit deja un Treets et une bonne nounouille d'admin s'en occupe.",
+      "Alice Avril verifierait votre identite en trois questions. Nous, on vous croit sur parole : ecrivez !",
+      "La Lampe du commissariat veille : votre message arrivera bon port, promis."
+    ],
     password_reset: [
       "Un mot de passe égaré ? Même le grand Agatha admettrait : ça arrive aux meilleurs enquêteurs.",
       "La mémoire des uns fait les énigmes des autres : réinitialisons tout ça, tranquille.",
@@ -841,36 +848,42 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 
-/* ===== FEED : "LE POLICIER JETE LES PHOTOS UNE A UNE SUR SON BUREAU" =====
-   Chaque photo est jetee sur le bureau (celui de Marlene ou du commissaire),
-   la derniere jetee reste AU-DESSUS de la pile. Les plus anciennes glissent
-   hors du bureau puis sont re-projetees en boucle. Cote client uniquement. */
+/* ===== FEED : PHOTOS PUNAISEES AU HASARD SUR LE TABLEAU D'ENQUETE ===== */
+/* Fin de l'effet "depose sur bureau" : chaque photo est punaisee au tableau,
+   repartie harmonieusement (grille de cellules melangee + leger jitter aleatoire,
+   rotation variee), cote client uniquement. */
 document.addEventListener("DOMContentLoaded", function() {
   var slot = document.querySelector(".feed-evidence-slot");
-  if (!slot) { return; }
-  var deck = slot.querySelector(".feed-evidence-deck");
+  if (!slot) return;
   var pile = slot.querySelector(".feed-evidence-pile");
-  if (!deck || !pile) { return; }
+  var deck = slot.querySelector(".feed-evidence-deck");
+  if (!pile || !deck) return;
   var cards = Array.prototype.slice.call(deck.querySelectorAll(".feed-evidence-card"));
-  if (cards.length === 0) { return; }
-
-  // rotations aleatoires : chaque photo atterrit de travers, comme jetee a la volee
-  var spins = [-14, 9, -7, 12, -11, 6, -4, 15];
-  // decalages horizontaux pour un effet "pile desenvervee"
-  var offsets = [-30, 24, -12, 36, -24, 14, -36, 20];
-
-  var zTop = 10;
-
-  function tossNext(index) {
-    var card = cards[index % cards.length];
-    var spin = spins[index % spins.length];
-    var offset = offsets[index % offsets.length];
+  pile.innerHTML = "";
+  if (!cards.length) return;
+  /* nombre de photos affichees : depend de la taille du tableau */
+  var maxShown = window.innerWidth <= 700 ? 4 : (window.innerWidth <= 1100 ? 5 : 6);
+  var shown = cards.slice(0, Math.min(maxShown, cards.length));
+  var shuffled = shown.slice();
+  for (var i = shuffled.length - 1; i > 0; i--) {
+    var j = Math.floor(Math.random() * (i + 1));
+    var tmp = shuffled[i]; shuffled[i] = shuffled[j]; shuffled[j] = tmp;
+  }
+  /* grille 3 colonnes x 2 rangees : chaque photo occupe une cellule, ordre aleatoire */
+  var cols = 3;
+  var rows = Math.ceil(shuffled.length / cols);
+  shuffled.forEach(function(card, idx) {
+    var cell = idx % cols;
+    var row = Math.floor(idx / cols);
+    /* position du centre de la cellule + jitter aleatoire (+-6% des deux axes) */
+    var cx = (cell + 0.5) / cols * 100 + (Math.random() * 12 - 6);
+    var cy = (row + 0.5) / rows * 100 + (Math.random() * 10 - 5);
+    var spin = (Math.random() * 16 - 8).toFixed(1);
     var clone = card.cloneNode(true);
-    clone.style.setProperty("--toss-spin", spin + "deg");
-    clone.style.setProperty("--toss-x", offset + "px");
-    clone.style.zIndex = String(zTop); // la derniere jetee au-dessus des precedentes
-    zTop++;
-    clone.classList.add("evidence-toss");
+    clone.classList.add("evidence-pinned");
+    clone.style.left = cx + "%";
+    clone.style.top = cy + "%";
+    clone.style.setProperty("--pin-spin", spin + "deg");
     pile.appendChild(clone);
     setTimeout(function() {
       clone.classList.remove("evidence-toss");
@@ -901,6 +914,8 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 
+
+
 /* ===== IMAGES : APPARITION UNIQUEMENT UNE FOIS ENTIEREMENT TELECHARGEES ===== */
 /* Effet "developpement de pellicule" theme dossier d'enquete : l'image reste invisible
    (vignette sombre) tant qu'elle n'est pas complete, puis apparait d'un bloc. */
@@ -925,9 +940,9 @@ document.addEventListener("DOMContentLoaded", function() {
   });
 });
 
-/* ===== A PROPOS : TRONCATURE PROGRESSIVE SELON LA TAILLE DE L'ECRAN ===== */
-/* Seuils : petit ecran (<= 576px) 25 caracteres, ecran moyen (<= 992px) 125,
-   grand ecran 250. Le bouton "LIRE LA SUITE" deplie le bloc en entier. */
+/* ===== A PROPOS : SEUL LE PARAGRAPHE "TOURNAGE" EST TRONQUE ===== */
+/* Seuils : grand ecran 150 caracteres, moyen (<= 992px) 75, petit (<= 576px) 25.
+   Le bouton "LIRE LA SUITE" deplie le paragraphe en entier, "REDUIRE" le referme. */
 document.addEventListener("DOMContentLoaded", function() {
   var container = document.querySelector(".a_propos_container");
   if (!container || container.classList.contains("a_propos-truncate-managed")) return;
@@ -938,76 +953,58 @@ document.addEventListener("DOMContentLoaded", function() {
     if (w <= 992) return 75;
     return 150;
   }
-  var blocks = Array.prototype.slice.call(container.querySelectorAll("p, li"));
-  blocks.forEach(function(block) {
-    var text = block.textContent.trim();
-    if (text.length <= 150) return; /* aucun bloc ne sera jamais tronque sur grand ecran */
-    /* Paragraphe "Tournage" : au-dela de 3 lignes affichees, bouton pour voir plus */
-    var heading = block.previousElementSibling;
-    var isTournage = false;
-    while (heading) {
-      if (heading.tagName === "H4" && /tournage/i.test(heading.textContent)) { isTournage = true; break; }
-      if (heading.tagName === "HR" || heading.tagName === "H4") break;
-      heading = heading.previousElementSibling;
+  /* Un bloc appartient au paragraphe Tournage s'il suit le h4 "Tournage" avant le hr suivant */
+  function inTournage(block) {
+    var el = block.previousElementSibling;
+    while (el) {
+      if (el.tagName === "HR") return false;
+      if (el.tagName === "H4") return /tournage/i.test(el.textContent);
+      el = el.previousElementSibling;
     }
-    if (isTournage) {
-      /* hauteur mesuree : plus de 3 lignes -> bouton, quelle que soit la largeur */
-      var tmp = block.scrollHeight / 3;
-      if (tmp > parseFloat(getComputedStyle(block).lineHeight) * 1.2) {
-        block.__aProposTournage3Lignes = true;
-      }
-    }
-    var btn = document.createElement("button");
-    btn.type = "button";
-    btn.className = "a_propos_more-btn";
-    btn.textContent = "LIRE LA SUITE";
-    var open = false;
-    function apply() {
-      var limit = threshold();
-      if (block.__aProposTournage3Lignes && block.clientHeight > 3 * parseFloat(getComputedStyle(block).lineHeight)) {
-        /* Tournage : depasse 3 lignes -> on tronque aussi sur grand ecran */
-        limit = 0;
-      }
-      if (text.length <= limit && !block.__aProposTournage3Lignes) {
-        /* sous le seuil courant : bloc integralement lisible, pas de bouton */
-        block.classList.remove("a_propos_truncated", "a_propos_truncated--3lines", "a_propos_open");
-        block.style.maxHeight = "";
-        btn.style.display = "none";
-        return;
-      }
-      btn.style.display = "";
-      if (!open) {
-        block.classList.add("a_propos_truncated");
-        if (block.__aProposTournage3Lignes) block.classList.add("a_propos_truncated--3lines");
-        block.classList.remove("a_propos_open");
+    return false;
+  }
+  var blocks = Array.prototype.slice.call(container.querySelectorAll("p")).filter(inTournage);
+  var paragraphs = blocks; /* chaque <p> du Tournage est tronque individuellement */
+  var expanded = false; /* un seul bouton global deplie/referme tout le Tournage */
+  function apply() {
+    var limit = threshold();
+    paragraphs.forEach(function(p) {
+      var text = p.textContent.trim();
+      if (expanded || text.length <= limit) {
+        p.classList.remove("a_propos_truncated", "a_propos_truncated--3lines");
+        p.style.maxHeight = "";
       } else {
-        block.classList.remove("a_propos_truncated");
-        block.classList.add("a_propos_open");
-        block.style.maxHeight = "none";
+        p.classList.add("a_propos_truncated");
       }
-    }
-    btn.addEventListener("click", function() {
-      open = !open;
-      btn.textContent = open ? "REDUIRE" : "LIRE LA SUITE";
-      apply();
     });
-    if (block.nextSibling) {
-      block.parentNode.insertBefore(btn, block.nextSibling);
+    /* bouton affiche uniquement s'il reste du contenu masque */
+    var hiddenLeft = paragraphs.some(function(p) {
+      return !expanded && p.textContent.trim().length > limit;
+    });
+    if (hiddenLeft) {
+      btn.style.display = "";
+      btn.textContent = expanded ? "REDUIRE" : "LIRE LA SUITE";
     } else {
-      block.parentNode.appendChild(btn);
+      btn.style.display = "none";
     }
-    apply();
-    block.__aProposApply = apply;
-  });
+  }
+  var btn = document.createElement("button");
+  btn.type = "button";
+  btn.className = "a_propos_more-btn";
+  btn.textContent = "LIRE LA SUITE";
+  btn.addEventListener("click", function() { expanded = !expanded; apply(); });
+  /* le bouton est insere juste apres le dernier paragraphe du Tournage */
+  if (paragraphs.length) {
+    var last = paragraphs[paragraphs.length - 1];
+    last.parentNode.insertBefore(btn, last.nextSibling);
+  }
+  apply();
   var resizeTimer = null;
   window.addEventListener("resize", function() {
     clearTimeout(resizeTimer);
-    resizeTimer = setTimeout(function() {
-      blocks.forEach(function(block) { if (block.__aProposApply) block.__aProposApply(); });
-    }, 150);
+    resizeTimer = setTimeout(apply, 150);
   });
 });
-
 /* ===== CITATIONS INVENTEES : MENTION "citation inventee" ===== */
 function markFictionalQuote(authorEl) {
   if (!authorEl) return;
