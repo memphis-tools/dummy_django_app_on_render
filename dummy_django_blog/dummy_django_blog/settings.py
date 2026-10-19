@@ -154,8 +154,8 @@ AWS_S3_OBJECT_PARAMETERS = {"CacheControl": "max-age=86400"}
 DEFAULT_FILE_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
 MEDIA_URL = f"https://{AWS_S3_CUSTOM_DOMAIN}/"
 
+
 if not DEBUG and RENDER_EXTERNAL_HOSTNAME is not None:
-    # Render production
     STORAGES = {
         "default": {
             "BACKEND": "storages.backends.s3boto3.S3Boto3Storage",
@@ -165,24 +165,26 @@ if not DEBUG and RENDER_EXTERNAL_HOSTNAME is not None:
             },
         },
         "staticfiles": {
-            "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+            "BACKEND": (
+                "whitenoise.storage.CompressedManifestStaticFilesStorage"
+            ),
         },
     }
 
 elif os.getenv("IS_TESTING") == "True":
-    # Testing
     STORAGES = {
         "default": {
             "BACKEND": "django.core.files.storage.FileSystemStorage",
         },
         "staticfiles": {
-            "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
+            "BACKEND": (
+                "django.contrib.staticfiles.storage.StaticFilesStorage"
+            ),
         },
     }
     MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
 else:
-    # Local development
     STORAGES = {
         "default": {
             "BACKEND": "storages.backends.s3boto3.S3Boto3Storage",
@@ -192,7 +194,9 @@ else:
             },
         },
         "staticfiles": {
-            "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
+            "BACKEND": (
+                "django.contrib.staticfiles.storage.StaticFilesStorage"
+            ),
         },
     }
 
