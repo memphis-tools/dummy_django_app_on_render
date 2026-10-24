@@ -22,14 +22,7 @@
                 <span>Le commissaire sort les pi&egrave;ces &agrave; conviction, une par une...</span>
             </div>
             <!-- Petits post-it notes collés au bureau (ne masquent ni la carte ni les personnes) -->
-            <div class="feed-visitor-notes" aria-label="Le saviez-vous">
-                <span class="feed-visitor-note feed-visitor-note--a"><i class="fa-solid fa-magnifying-glass"></i><strong>LES PETITS MEURTRES D'AGATHA CHRISTIE</strong><em>La s&eacute;rie &eacute;v&eacute;nement de France&nbsp;2</em></span>
-                <span class="feed-visitor-note feed-visitor-note--b"><i class="fa-solid fa-clapperboard"></i><strong>ESCAZAL FILMS</strong><em>Production : Sophie R&eacute;vil</em></span>
-                <span class="feed-visitor-note feed-visitor-note--c"><i class="fa-solid fa-tv"></i><strong>FRANCE 2 &mdash; 09/01/2009</strong><em>1<sup>re</sup> diffusion</em></span>
-                <span class="feed-visitor-note feed-visitor-note--d"><i class="fa-solid fa-film"></i><strong>16/9 &mdash; 90 MIN</strong><em>HD st&eacute;r&eacute;o, couleur</em></span>
-                <span class="feed-visitor-note feed-visitor-note--e"><i class="fa-solid fa-triangle-exclamation"></i><strong>D&Eacute;CONSEILL&Eacute; -10 ANS</strong><em>Enqu&ecirc;tes troublantes</em></span>
-                <span class="feed-visitor-note feed-visitor-note--f"><i class="fa-solid fa-earth-europe"></i><strong>100&nbsp;% FRAN&Ccedil;AIS</strong><em>Tourn&eacute;e dans le Nord</em></span>
-            </div>
+
             <div class="feed-interrogation-table" id="feed-interrogation-table">
                 <div class="feed-evidence-slot feed-evidence-slot--lille">
                     <!-- carte de l'agglomeration Lille-Roubaix-Tourcoing (vers 1930), CC BY-SA 4.0, Nanzig - Wikimedia Commons -->
@@ -38,6 +31,15 @@
                         <figcaption id="feed-lille-map-caption">CROQUIS DES LIEUX CL&Eacute;S DES ENQU&Ecirc;TES &mdash; LE NORD, ANN&Eacute;ES 1950<br><small>Carte stylis&eacute;e originale, libre d'usage</small></figcaption>
                     </figure>
                     <div class="feed-lille-plan-loader" aria-hidden="true"><span class="feed-lille-plan-loader-inner"></span></div>
+                    <!-- post-it visiteurs : bordent le plateau (ancre = plateau, plus le bureau) -->
+                    <div class="feed-visitor-notes" aria-label="Le saviez-vous">
+                        <span class="feed-visitor-note feed-visitor-note--a"><i class="fa-solid fa-magnifying-glass"></i><strong>LES PETITS MEURTRES D'AGATHA CHRISTIE</strong><em>La s&eacute;rie &eacute;v&eacute;nement de France&nbsp;2</em></span>
+                        <span class="feed-visitor-note feed-visitor-note--b"><i class="fa-solid fa-clapperboard"></i><strong>ESCAZAL FILMS</strong><em>Production : Sophie R&eacute;vil</em></span>
+                        <span class="feed-visitor-note feed-visitor-note--c"><i class="fa-solid fa-tv"></i><strong>FRANCE 2 &mdash; 09/01/2009</strong><em>1<sup>re</sup> diffusion</em></span>
+                        <span class="feed-visitor-note feed-visitor-note--d"><i class="fa-solid fa-film"></i><strong>16/9 &mdash; 90 MIN</strong><em>HD st&eacute;r&eacute;o, couleur</em></span>
+                        <span class="feed-visitor-note feed-visitor-note--e"><i class="fa-solid fa-triangle-exclamation"></i><strong>D&Eacute;CONSEILL&Eacute; -10 ANS</strong><em>Enqu&ecirc;tes troublantes</em></span>
+                        <span class="feed-visitor-note feed-visitor-note--f"><i class="fa-solid fa-earth-europe"></i><strong>100&nbsp;% FRAN&Ccedil;AIS</strong><em>Tourn&eacute;e dans le Nord</em></span>
+                    </div>
                     <!-- FICHE TECHNIQUE : annotations a la craie autour de la carte centree -->
                     <!-- equipes crea : portraits punaises, noms lies vers Wikipedia -->
                     <!-- EQUIPE TECHNIQUE : 23 encarts punaises (photo libre si trouvee, sinon "?") -->
@@ -45,7 +47,7 @@
                         <figure class="feed-fiche-person feed-fiche-person--creation"><span class="feed-fiche-photo feed-fiche-photo--unknown"><span>?</span></span><figcaption><a href="https://fr.wikipedia.org/wiki/Anne_Giafferi" target="_blank" rel="noopener">A. GIAFFERI</a><br>CR&Eacute;ATION</figcaption></figure>
                         <figure class="feed-fiche-person feed-fiche-person--creation"><span class="feed-fiche-photo feed-fiche-photo--unknown"><span>?</span></span><figcaption><a href="https://fr.wikipedia.org/wiki/Murielle_Magellan" target="_blank" rel="noopener">M. MAGELLAN</a><br>CR&Eacute;ATION</figcaption></figure>
                         <figure class="feed-fiche-person feed-fiche-person--real"><span class="feed-fiche-photo feed-fiche-photo--unknown"><span>?</span></span><figcaption><a href="https://fr.wikipedia.org/wiki/%C3%89ric_Woreth" target="_blank" rel="noopener">E. WORETH</a><br>R&Eacute;ALISATION</figcaption></figure>
-                        <figure class="feed-fiche-person feed-fiche-person--real"><span class="feed-fiche-photo feed-fiche-photo--unknown"><span>?</span></span><figcaption><span>M. ANGELO</span><br>R&Eacute;ALISATION</figcaption></figure>
+                        <figure class="feed-fiche-person feed-fiche-person--real"><img src="{% static 'vendors/img/marc_angelo.jpg' %}" alt="Marc Angelo, realisateur"><figcaption><span>M. ANGELO</span><br>R&Eacute;ALISATION</figcaption></figure>
                         <figure class="feed-fiche-person feed-fiche-person--real"><span class="feed-fiche-photo feed-fiche-photo--unknown"><span>?</span></span><figcaption><span>O. PANCHOT</span><br>R&Eacute;ALISATION</figcaption></figure>
                         <figure class="feed-fiche-person feed-fiche-person--real"><span class="feed-fiche-photo feed-fiche-photo--unknown"><span>?</span></span><figcaption><span>R. TISSOT</span><br>R&Eacute;ALISATION</figcaption></figure>
                         <figure class="feed-fiche-person feed-fiche-person--real"><span class="feed-fiche-photo feed-fiche-photo--unknown"><span>?</span></span><figcaption><a href="https://fr.wikipedia.org/wiki/Nicolas_Picard-Dreyfuss" target="_blank" rel="noopener">N. PICARD-DREYFUSS</a><br>R&Eacute;ALISATION</figcaption></figure>
@@ -70,13 +72,6 @@
                     <span class="feed-desk-deco feed-desk-deco--ruler" aria-hidden="true"></span>
                     <span class="feed-desk-deco feed-desk-deco--magnifier" aria-hidden="true"></span>
                     <span class="feed-desk-deco feed-desk-deco--clip" aria-hidden="true"></span>
-                    <svg class="feed-chalk-links-svg" viewBox="0 0 100 62" preserveAspectRatio="none">
-                        <path class="chalk-link-path" d="M18 20 C 24 28, 30 34, 38 38"/>
-                        <path class="chalk-link-path" d="M50 22 C 52 30, 56 36, 62 40"/>
-                        <path class="chalk-link-path" d="M78 20 C 80 28, 84 34, 88 38"/>
-                        <path class="chalk-link-path" d="M14 46 C 26 50, 40 52, 54 52"/>
-                        <path class="chalk-link-path" d="M60 50 C 70 52, 80 52, 90 50"/>
-                    </svg>
                 </div>
             </div>
         </div>
