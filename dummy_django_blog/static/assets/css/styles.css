@@ -4142,3 +4142,115 @@ footer.footer-container {  margin-top: 0; }
 .feed-evidence-slot--lille .feed-lille-plan {
   filter: contrast(1.06) saturate(1.05);
 }
+
+/* ===== CROQUIS #187 : pastilles interactives + fiches laterales + post-it plus grands ===== */
+/* conteneur des pastilles : cale sur la figure de la carte (meme ancere) */
+.feed-evidence-slot--lille .feed-lille-map { z-index: 2; }
+.feed-map-hotspots {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: min(82%, 900px);
+  transform: translate(-50%, -50%) rotate(-1.2deg);
+  aspect-ratio: 1500 / 1100;
+  pointer-events: none;
+  z-index: 3;
+}
+.feed-map-hotspot {
+  position: absolute;
+  top: var(--hy, 50%);
+  left: var(--hx, 50%);
+  width: 26px;
+  height: 26px;
+  margin: -26px 0 0 -13px;
+  padding: 0;
+  border: none;
+  border-radius: 50% 50% 50% 0;
+  transform: rotate(-45deg);
+  background: radial-gradient(circle at 35% 30%, #c8524f, #a4243b 70%);
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.55), inset 0 0 0 2px #f0e6cf;
+  color: #f0e6cf;
+  font-family: "ArsenalSC-Fat", "ArsenalSC", sans-serif;
+  font-size: 13px;
+  font-weight: bold;
+  cursor: pointer;
+  pointer-events: auto;
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+.feed-map-hotspot > * { transform: rotate(45deg); }
+.feed-map-hotspot { text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5); }
+.feed-map-hotspot:hover, .feed-map-hotspot:focus-visible {
+  transform: rotate(-45deg) scale(1.22);
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.6), inset 0 0 0 2px #f0e6cf, 0 0 0 4px rgba(234, 158, 240, 0.45);
+  outline: none;
+}
+/* infobulle photo du lieu */
+.feed-map-tip {
+  display: none;
+  position: fixed;
+  z-index: 2100;
+  background: linear-gradient(170deg, #f6efdf 0%, #ead9bd 100%);
+  border: 1px solid #c9b28c;
+  border-top: 3px solid #ea9ef0;
+  border-radius: 6px 10px 6px 10px;
+  box-shadow: 4px 4px 0px #ea9ef054, 0 14px 30px rgba(0, 0, 0, 0.6);
+  padding: 8px 10px 9px;
+  font-family: "ArsenalSC", sans-serif;
+  color: #221c1c;
+  opacity: 0;
+  transform: translateY(4px);
+  transition: opacity 0.18s ease, transform 0.18s ease;
+}
+.feed-map-tip--on { opacity: 1; transform: translateY(0); }
+.feed-map-tip img {
+  display: block;
+  width: 100%;
+  height: 130px;
+  object-fit: cover;
+  border: 2px solid #fdf6e6;
+  border-radius: 3px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+  margin-bottom: 6px;
+  filter: sepia(0.25) contrast(1.05);
+}
+.feed-map-tip strong {
+  display: block;
+  font-family: "ArsenalSC-Fat", "ArsenalSC", sans-serif;
+  font-size: 0.82rem;
+  letter-spacing: 0.5px;
+  color: #3a2c22;
+}
+.feed-map-tip small {
+  display: block;
+  font-size: 0.66rem;
+  color: #6b4d1e;
+  margin-top: 2px;
+}
+/* fiches membres : plus grandes et lisibles, posees dans les bandes laterales */
+.feed-evidence-slot--lille .feed-fiche-people .feed-fiche-person.person-rest {
+  max-width: 152px !important;
+  min-width: 118px !important;
+}
+.feed-evidence-slot--lille .feed-fiche-people .feed-fiche-person.person-rest img,
+.feed-evidence-slot--lille .feed-fiche-people .feed-fiche-person.person-rest .feed-fiche-photo {
+  width: 96px !important;
+  height: 112px !important;
+}
+.feed-evidence-slot--lille .feed-fiche-people .feed-fiche-person.person-rest figcaption {
+  font-size: 0.68rem !important;
+  line-height: 1.45 !important;
+}
+/* post-it : texte agrandi (demande #187) */
+.feed-evidence-slot--lille .feed-visitor-note strong { font-size: 0.86rem !important; }
+.feed-evidence-slot--lille .feed-visitor-note em { font-size: 1.18rem !important; }
+.feed-evidence-slot--lille .feed-visitor-note i { font-size: 1.25rem !important; }
+.feed-evidence-slot--lille .feed-visitor-note { width: clamp(170px, 13vw, 218px) !important; }
+/* sous 1400px : fiches en bandeau sous le plateau, pastilles conservées */
+@media (max-width: 1400px) {
+  .feed-evidence-slot--lille .feed-fiche-people .feed-fiche-person.person-rest img,
+  .feed-evidence-slot--lille .feed-fiche-people .feed-fiche-person.person-rest .feed-fiche-photo {
+    width: 78px !important;
+    height: 92px !important;
+  }
+  .feed-evidence-slot--lille .feed-fiche-people .feed-fiche-person.person-rest figcaption { font-size: 0.6rem !important; }
+}
