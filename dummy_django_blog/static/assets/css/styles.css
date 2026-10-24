@@ -273,10 +273,15 @@ body .dropdown-item {
 .navbar-custom {
   background-color: transparent;
   border: none;
-  position: sticky;
+  position: fixed;
   top: 0;
+  left: 0;
+  right: 0;
   z-index: 1040;
 }
+/* la navbar etant fixed, on reserve sa hauteur sous le header pour ne pas masquer le contenu */
+body { padding-top: 76px; }
+header { height: 0; }
 
 .navbar-collapse {
   justify-content: space-between;
@@ -3361,4 +3366,27 @@ footer.footer-container {  margin-top: 0; }
   .feed-desk-deco--ruler { display: none; }
   .feed-desk-deco--magnifier { top: auto; bottom: 18%; right: 4%; width: 34px; height: 34px; }
   .feed-fiche-person--real2, .feed-fiche-person--musique { display: none; }
+}
+/* ===== FICHE TECHNIQUE COMPLETE : NOUVELLES NOTES + RENOUVELLEMENT A CHAQUE CHARGEMENT ===== */
+/* positions des elements manquants (Decors, Costumes, Photographie, Montage, Casting, Generique) */
+.feed-chalk-note--decors { top: 14%; left: 3%; }
+.feed-chalk-note--costumes { top: 22%; right: 3%; }
+.feed-chalk-note--photo { top: 30%; right: 3%; }
+.feed-chalk-note--montage { top: 38%; right: 3%; }
+.feed-chalk-note--casting { top: 46%; right: 3%; }
+.feed-chalk-note--generique { top: 54%; right: 3%; }
+/* les personnes sont positionnees par le JS a chaque chargement : on neutralise
+   les anciennes positions CSS fixes pour eviter tout conflit */
+.feed-fiche-person--creation,
+.feed-fiche-person--real,
+.feed-fiche-person--real2,
+.feed-fiche-person--scenario,
+.feed-fiche-person--musique,
+.feed-fiche-person--production { top: auto; left: auto; right: auto; transform: none; }
+/* la colonne gauche reste legere : Format/Diffusion descendent pour laisser la place a Decors */
+.feed-chalk-note--format { top: 40%; }
+.feed-chalk-note--diff { top: 47%; }
+@media (max-width: 900px) {
+  .feed-chalk-note--decors, .feed-chalk-note--costumes, .feed-chalk-note--photo,
+  .feed-chalk-note--montage, .feed-chalk-note--casting, .feed-chalk-note--generique { display: none; }
 }
