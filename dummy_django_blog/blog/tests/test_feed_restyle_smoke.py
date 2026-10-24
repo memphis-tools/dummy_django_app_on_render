@@ -36,3 +36,5 @@ def test_feed_desk_and_sections_restyled(client, django_user_model):
     # croquis interactif : pastilles lieux avec photo au survol
     assert b"feed-map-hotspot" in r.content and b"villa_cavrois.jpg" in r.content
     assert b"malo_plage.jpg" in r.content and b"beffroi_lille.jpg" in r.content and b"vieux_lille_maison.jpg" in r.content
+    # commissariat et lieux de tournage : miniatures au survol
+    assert b"commissariat_lille.jpg" in r.content and b"chateau_tilques.jpg" in r.content and b"chateau_wambrechies.jpg" in r.content

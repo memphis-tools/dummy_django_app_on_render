@@ -115,14 +115,33 @@
        LE COMMISSAIRT : pièce centrale
        ============================================================ -->
   <g transform="translate(750,550)">
-    <path d="M 0 -72 L 21 -23 L 74 -23 L 31 11 L 48 61 L 0 31 L -48 61 L -31 11 L -74 -23 L -21 -23 Z"
-          fill="#8a2b2b" stroke="#3a2c22" stroke-width="3" opacity="0.92"/>
-    <path d="M 0 -58 L 17 -19 L 59 -19 L 25 9 L 38 49 L 0 25 L -38 49 L -25 9 L -59 -19 L -17 -19 Z"
-          fill="#f0e6cf" stroke="#3a2c22" stroke-width="2.5"/>
-    <rect x="-95" y="34" width="190" height="52" fill="#6b5335" stroke="#3a2c22" stroke-width="3" rx="4"/>
-    <line x1="-70" y1="60" x2="70" y2="60" stroke="#f0e6cf" stroke-width="4" stroke-linecap="round"/>
-    <text y="112" text-anchor="middle" font-family="serif" font-size="34" font-weight="bold" fill="#3a2c22" letter-spacing="2">COMMISSARIAT</text>
-    <text y="146" text-anchor="middle" font-family="'Caveat', cursive" font-size="28" fill="#8a2b2b" font-weight="bold">LILLE — ANNÉES 1950</text>
+    <!-- batiment du commissariat dessine : beffroi d'entree + ailes symetriques -->
+    <rect x="-150" y="-10" width="300" height="70" fill="#b0906c" stroke="#3a2c22" stroke-width="3.5" rx="3"/>
+    <!-- avant-corps central -->
+    <rect x="-40" y="-30" width="80" height="90" fill="#c4a37c" stroke="#3a2c22" stroke-width="3.5" rx="3"/>
+    <path d="M -40 -30 L 0 -55 L 40 -30 Z" fill="#8a2b2b" stroke="#3a2c22" stroke-width="3"/>
+    <!-- horloge du beffroi -->
+    <circle cx="0" cy="-18" r="12" fill="#f0e6cf" stroke="#3a2c22" stroke-width="2.5"/>
+    <line x1="0" y1="-18" x2="0" y2="-26" stroke="#3a2c22" stroke-width="2"/>
+    <line x1="0" y1="-18" x2="6" y2="-16" stroke="#3a2c22" stroke-width="2"/>
+    <!-- porte -->
+    <rect x="-12" y="30" width="24" height="30" fill="#3a2c22" rx="2"/>
+    <!-- fenetres regulieres -->
+    <g fill="#f0e6cf" stroke="#3a2c22" stroke-width="2">
+      <rect x="-130" y="8" width="20" height="24" rx="10"/>
+      <rect x="-95" y="8" width="20" height="24" rx="10"/>
+      <rect x="75" y="8" width="20" height="24" rx="10"/>
+      <rect x="110" y="8" width="20" height="24" rx="10"/>
+      <rect x="-30" y="0" width="14" height="18" rx="7"/>
+      <rect x="16" y="0" width="14" height="18" rx="7"/>
+    </g>
+    <!-- fanion tricolore sur le beffroi -->
+    <line x1="0" y1="-55" x2="0" y2="-86" stroke="#3a2c22" stroke-width="3"/>
+    <rect x="0" y="-86" width="26" height="14" fill="#3a4a8a"/>
+    <rect x="0" y="-72" width="26" height="14" fill="#f0e6cf"/>
+    <rect x="0" y="-58" width="26" height="14" fill="#a4243b"/>
+    <text y="100" text-anchor="middle" font-family="serif" font-size="34" font-weight="bold" fill="#3a2c22" letter-spacing="2">COMMISSARIAT</text>
+    <text y="134" text-anchor="middle" font-family="'Caveat', cursive" font-size="28" fill="#8a2b2b" font-weight="bold">LILLE — ANNÉES 1950</text>
   </g>
 
   <!-- ============================================================
@@ -204,6 +223,18 @@
     <text y="-42" text-anchor="middle" font-family="serif" font-size="24" font-weight="bold" fill="#3a2c22">LE KURSAAL</text>
   </g>
 
+  <!-- 9 Château d'Écou à Tilques (lieu de tournage) -->
+  <g transform="translate(1310,660)">
+    <use href="#pin" fill="#5a4632" stroke="#f0e6cf" stroke-width="3"/>
+    <text y="-20" text-anchor="middle" font-family="serif" font-size="22" font-weight="bold" fill="#f0e6cf">9</text>
+    <text y="-42" text-anchor="middle" font-family="serif" font-size="24" font-weight="bold" fill="#3a2c22">CHÂTEAU D'ÉCOU — TILQUES</text>
+  </g>
+  <!-- 10 Château de Wambrechies (lieu de tournage) -->
+  <g transform="translate(190,440)">
+    <use href="#pin" fill="#5a4632" stroke="#f0e6cf" stroke-width="3"/>
+    <text y="-20" text-anchor="middle" font-family="serif" font-size="22" font-weight="bold" fill="#f0e6cf">10</text>
+    <text y="-42" text-anchor="middle" font-family="serif" font-size="24" font-weight="bold" fill="#3a2c22">CHÂTEAU DE WAMBRECHIES</text>
+  </g>
   <!-- annotations à la craie, limitées et cohérentes -->
   <g font-family="'Caveat', cursive" fill="#3a2c22" opacity="0.9">
     <text x="230" y="180" font-size="34" transform="rotate(-3 230 180)">le trio file au commissariat…</text>
@@ -218,10 +249,4 @@
     <text y="28" text-anchor="middle" font-family="serif" font-size="22" font-weight="bold" fill="#8a2b2b">POLICE</text>
   </g>
 
-  <!-- boussole -->
-  <g transform="translate(150,920)" opacity="0.85">
-    <circle r="56" fill="none" stroke="#3a2c22" stroke-width="4"/>
-    <path d="M 0 -40 L 10 0 L 0 40 L -10 0 Z" fill="#8a2b2b"/>
-    <text y="-66" text-anchor="middle" font-family="serif" font-size="24" font-weight="bold" fill="#3a2c22">N</text>
-  </g>
 </svg>
