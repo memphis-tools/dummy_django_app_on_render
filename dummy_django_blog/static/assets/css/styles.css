@@ -3812,3 +3812,164 @@ footer.footer-container {  margin-top: 0; }
   .feed-fiche-card { position: static; transform: rotate(-1.5deg) !important; top: auto !important; left: auto !important; right: auto !important; }
   .feed-fiche-card:nth-child(even) { transform: rotate(1.5deg) !important; }
 }
+
+/* ===== 1ERE SECTION : EQUIPE TECHNIQUE COMPLETE (23 encarts) ===== */
+/* Les 23 encarts sont punaises autour du croquis : le conteneur couvre le plateau,
+   les encarts sont repartis en flux absolument ancre dans une grille de bords
+   (jamais sous la navbar : le plateau est sous le bandeau nav). */
+.feed-fiche-people {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 4;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(72px, 104px));
+  grid-template-rows: repeat(6, auto);
+  gap: 6px 10px;
+  justify-content: space-between;
+  align-content: center;
+  padding: 6px 8px;
+}
+.feed-fiche-person {
+  position: relative !important;
+  top: auto !important;
+  left: auto !important;
+  right: auto !important;
+  width: auto;
+  max-width: 104px;
+  min-width: 72px;
+  pointer-events: auto;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transform: rotate(var(--hand-spin, 0deg));
+  background: linear-gradient(165deg, #f6efdf 0%, #ead9bd 100%);
+  border: 1px solid #c9b28c;
+  border-radius: 3px 8px 3px 7px / 7px 3px 8px 3px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+  padding: 7px 6px 6px;
+}
+.feed-fiche-person img,
+.feed-fiche-photo {
+  width: 52px;
+  height: 62px;
+  object-fit: cover;
+  border-radius: 2px;
+  border: 2px solid #fdf6e6;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.4);
+  filter: grayscale(0.7) contrast(1.05);
+}
+.feed-fiche-photo--unknown {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: repeating-linear-gradient(45deg, #3a3330 0 6px, #2c2624 6px 12px);
+}
+.feed-fiche-photo--unknown span {
+  font-family: "Caveat", cursive;
+  font-size: 1.5rem;
+  color: #ea9ef0;
+}
+.feed-fiche-person figcaption {
+  font-family: "ArsenalSC", sans-serif;
+  font-size: 0.46rem;
+  letter-spacing: 0.4px;
+  text-align: center;
+  color: #3a2c22;
+  margin-top: 3px;
+  line-height: 1.35;
+}
+.feed-fiche-person figcaption a { color: #3a2c22; }
+/* PUNAISES VARIEES : rouge / laiton / bleu / kraft */
+.feed-fiche-person::before {
+  content: "";
+  position: absolute;
+  top: -5px;
+  left: 50%;
+  transform: translateX(-50%) rotate(var(--pin-tilt, 0deg));
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.55);
+  z-index: 2;
+}
+.feed-fiche-person.pin-red::before   { background: radial-gradient(circle at 35% 30%, #ff9d9d, #a4243b 60%, #6d1425); --pin-tilt: -6deg; }
+.feed-fiche-person.pin-brass::before { background: radial-gradient(circle at 35% 30%, #ffe6a8, #b8860b 60%, #7a5205); --pin-tilt: 5deg; }
+.feed-fiche-person.pin-blue::before  { background: radial-gradient(circle at 35% 30%, #a8d8ff, #2a5f9e 60%, #173a63); --pin-tilt: -4deg; }
+.feed-fiche-person.pin-kraft::before { background: radial-gradient(circle at 35% 30%, #e8d2ac, #8a6a3c 60%, #55381b); --pin-tilt: 7deg; }
+/* les 4 jetes sur le croquis passent en absolu, plus grands */
+.person-tossed, .person-rest {
+  position: absolute !important;
+  max-width: 120px;
+  min-width: 92px;
+  z-index: 7;
+}
+.person-tossed .feed-fiche-person img, .person-rest .feed-fiche-photo,
+.person-rest .feed-fiche-person img, .person-rest img { width: 62px; height: 74px; }
+.person-tossed { animation: person-toss-anim 0.62s cubic-bezier(0.3, 0.7, 0.4, 1.15) forwards; }
+.person-rest { transform: rotate(var(--toss-spin, 4deg)); }
+/* grille responsive : sous 1400px la grille passe en flux sous le plateau */
+@media (max-width: 1400px) {
+  .feed-fiche-people {
+    position: static;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+    padding: 10px 0 2px;
+    pointer-events: auto;
+  }
+  .feed-fiche-person { max-width: 96px; min-width: 66px; }
+  .person-tossed, .person-rest { position: static !important; top: auto !important; left: auto !important; transform: rotate(var(--hand-spin, 0deg)); }
+}
+@media (max-width: 700px) {
+  .feed-fiche-person img, .feed-fiche-photo { width: 40px; height: 50px; }
+  .feed-fiche-person figcaption { font-size: 0.42rem; }
+}
+
+/* ===== SECTION PHOTOS : bureau de depot cote a cote avec les encadres personnages ===== */
+.feed-photos-desk-row {
+  align-items: stretch;
+  justify-content: center;
+  gap: 18px;
+  flex-wrap: wrap;
+  width: 100%;
+}
+.feed-evidence-slot--photos {
+  position: relative;
+  width: min(560px, 94%);
+  height: 340px;
+  margin: 0 auto;
+  background: linear-gradient(180deg, #2a3d33 0%, #22332a 60%, #1c2a22 100%);
+  border: 8px solid #5b3a24;
+  border-radius: 6px;
+  box-shadow: inset 0 0 60px rgba(0, 0, 0, 0.55), 0 14px 30px rgba(0, 0, 0, 0.6);
+  overflow: hidden;
+}
+.feed-evidence-slot--photos::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(95deg, transparent 0 46px, rgba(0,0,0,0.06) 46px 48px);
+  pointer-events: none;
+  z-index: 0;
+}
+@media (max-width: 1100px) {
+  .feed-evidence-slot--photos { width: min(560px, 96%); height: 300px; }
+  .feed-photos-desk-row { flex-direction: column; align-items: center; }
+}
+
+/* ===== SECURITE SUPERPOSITION : rien ne couvre la navbar ni le condense-nav ===== */
+/* Les encarts absolus (grille, jetes, notes visiteurs) vivent DANS le plateau
+   (.feed-evidence-slot, overflow:hidden en flux) : ils ne peuvent ni sortir du
+   plateau ni passer sous la navbar. Le z-index navbar (2000) reste superieur
+   a tous les elements de section (max 7). */
+.feed-condense-nav { position: relative; z-index: 8; }
+.feed-intro { position: relative; }
+/* la 1ere section reste visible a 100vh si l'ecran le permet */
+.feed-intro {
+  height: calc(100vh - var(--navbar-height, 76px));
+  min-height: 560px;
+  overflow: visible;
+}
