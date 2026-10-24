@@ -19,6 +19,11 @@ def test_feed_desk_and_sections_restyled(client, django_user_model):
     assert b"COMMISSARIAT DE LILLE" in r.content
     # section personnages : fiches suspects
     assert b"suspects-board" in r.content and b"suspect-card" in r.content
-    # section a propos : contenu detaille d'origine restaure (pre-#155)
+    # section a propos : Tournage present, Fiche technique retiree (deplacee sur le plan de Lille)
     assert b"a_propos_container" in r.content
-    assert b"Tournage" in r.content and b"Fiche technique" in r.content
+    assert b"Tournage" in r.content and b"Fiche technique" not in r.content
+    # tableau d'enquete : plan de Lille + personnes de la fiche technique punaisees
+    assert b"feed-lille-plan" in r.content and b"plan_lille_1920.jpg" in r.content
+    assert b"feed-fiche-people" in r.content
+    assert b"feed-fiche-photo--unknown" in r.content
+    assert b"TITRE" in r.content and b"SOC. DE PRODUCTION" in r.content and b"PUBLIC" in r.content

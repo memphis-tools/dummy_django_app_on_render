@@ -22,51 +22,54 @@
                 <span>Le commissaire sort les pi&egrave;ces &agrave; conviction, une par une...</span>
             </div>
             <div class="feed-interrogation-table" id="feed-interrogation-table">
-                <div class="feed-evidence-slot">
-                    <span class="feed-chalk-arrow feed-chalk-arrow-1" aria-hidden="true"></span>
-                    <span class="feed-chalk-arrow feed-chalk-arrow-2" aria-hidden="true"></span>
-                    <span class="feed-chalk-question feed-chalk-question-1" aria-hidden="true">?</span>
-                    <span class="feed-chalk-question feed-chalk-question-2" aria-hidden="true">?</span>
-                    <span class="feed-chalk-cross feed-chalk-cross-1" aria-hidden="true"></span>
-                    <span class="feed-chalk-cross feed-chalk-cross-2" aria-hidden="true"></span>
-                    <span class="feed-chalk-circle feed-chalk-circle-1" aria-hidden="true"></span>
-                    <span class="feed-chalk-link feed-chalk-link-1" aria-hidden="true"></span>
-                    <span class="feed-chalk-note" aria-hidden="true">QUI&nbsp;?</span>
-                    <span class="feed-chalk-note feed-chalk-note-2" aria-hidden="true">ALIBI&nbsp;?</span>
-                    <div class="feed-suspects-wall" aria-hidden="true">
-                        <figure class="feed-suspect feed-suspect--laurence">
-                            <img src="{% static 'vendors/img/swan_laurence.png' %}" alt="Commissaire Swan Laurence">
-                            <figcaption>LAURENCE</figcaption>
+                <div class="feed-evidence-slot feed-evidence-slot--lille">
+                    <!-- plan de la ville de Lille (vers 1920), domaine public - Wikimedia Commons -->
+                    <img class="feed-lille-plan" src="{% static 'vendors/img/plan_lille_1920.jpg' %}" alt="Plan d&eacute;pli&eacute; de la ville de Lille" loading="eager" decoding="async">
+                    <div class="feed-lille-plan-loader" aria-hidden="true"><span class="feed-lille-plan-loader-inner"></span></div>
+                    <span class="feed-chalk-note feed-chalk-note--titre" aria-hidden="true">TITRE&nbsp;: LES PETITS MEURTRES D'AGATHA CHRISTIE</span>
+                    <span class="feed-chalk-note feed-chalk-note--soc" aria-hidden="true">SOC. DE PRODUCTION&nbsp;: ESCAZAL FILMS / FRANCE T&Eacute;L&Eacute;VISIONS</span>
+                    <span class="feed-chalk-note feed-chalk-note--dist" aria-hidden="true">DISTRIBUTION&nbsp;: FRANCE 2</span>
+                    <span class="feed-chalk-note feed-chalk-note--pays" aria-hidden="true">PAYS&nbsp;: FRANCE &mdash; LANGUE&nbsp;: FRAN&Ccedil;AIS</span>
+                    <span class="feed-chalk-note feed-chalk-note--genre" aria-hidden="true">GENRE&nbsp;: POLICIER &mdash; 90 MIN</span>
+                    <span class="feed-chalk-note feed-chalk-note--public" aria-hidden="true">PUBLIC&nbsp;: D&Eacute;CONSEILL&Eacute; AUX MOINS DE 10 ANS</span>
+                    <div class="feed-fiche-people" aria-hidden="true">
+                        <figure class="feed-fiche-person feed-fiche-person--creation">
+                            <span class="feed-fiche-photo feed-fiche-photo--unknown"><span>?</span></span>
+                            <figcaption>CAPTION&nbsp;: A. GIAFFERI / M. MAGELLAN</figcaption>
                         </figure>
-                        <figure class="feed-suspect feed-suspect--marlene">
-                            <img src="{% static 'vendors/img/marlene_leroy.jpg' %}" alt="Marl&egrave;ne Leroy">
-                            <figcaption>MARL&Egrave;NE</figcaption>
+                        <figure class="feed-fiche-person feed-fiche-person--real">
+                            <img src="{% static 'vendors/img/ernest_tricard.jpg' %}" alt="">
+                            <figcaption>REAL.&nbsp;: E. WORETH (19 E39P.)</figcaption>
                         </figure>
-                        <figure class="feed-suspect feed-suspect--avril">
-                            <img src="{% static 'vendors/img/alice_avril.jpg' %}" alt="Alice Avril">
-                            <figcaption>AVRIL</figcaption>
+                        <figure class="feed-fiche-person feed-fiche-person--real2">
+                            <span class="feed-fiche-photo feed-fiche-photo--unknown"><span>?</span></span>
+                            <figcaption>REAL.&nbsp;: N. PICARD-DREYFUSS (5 E39P.)</figcaption>
                         </figure>
-                        <figure class="feed-suspect feed-suspect--tricard">
-                            <img src="{% static 'vendors/img/ernest_tricard.jpg' %}" alt="Commissaire divisionnaire Ernest Tricard">
-                            <figcaption>TRICARD</figcaption>
+                        <figure class="feed-fiche-person feed-fiche-person--scenario">
+                            <span class="feed-fiche-photo feed-fiche-photo--unknown"><span>?</span></span>
+                            <figcaption>SC&Eacute;NARIO&nbsp;: S. SIMON (14 E39P.)</figcaption>
                         </figure>
-                        <figure class="feed-suspect feed-suspect--glissant">
-                            <img src="{% static 'vendors/img/tim_glissant.jpg' %}" alt="Dr Tim Glissant">
-                            <figcaption>GLISSANT</figcaption>
+                        <figure class="feed-fiche-person feed-fiche-person--musique">
+                            <span class="feed-fiche-photo feed-fiche-photo--unknown"><span>?</span></span>
+                            <figcaption>MUSIQUE&nbsp;: S. MOUCHA</figcaption>
                         </figure>
-                        <svg class="feed-chalk-links-svg" viewBox="0 0 100 62" preserveAspectRatio="none">
-                            <path class="chalk-link-path" d="M22 12 C 32 4, 40 4, 47 9"/>
-                            <path class="chalk-link-path" d="M22 12 C 42 16, 62 16, 78 11"/>
-                            <path class="chalk-link-path" d="M22 12 C 12 22, 10 34, 15 44"/>
-                            <path class="chalk-link-path" d="M22 12 C 46 26, 66 40, 82 49"/>
-                            <path class="chalk-link-path" d="M13 27 C 30 30, 52 26, 72 15"/>
-                            <text x="32" y="6" class="chalk-link-label">secr&eacute;taire</text>
-                            <text x="46" y="13" class="chalk-link-label">rivale</text>
-                            <text x="1" y="34" class="chalk-link-label">sup&eacute;rieur</text>
-                            <text x="50" y="40" class="chalk-link-label">l&eacute;giste</text>
-                            <text x="36" y="22" class="chalk-link-label">amies</text>
-                        </svg>
+                        <figure class="feed-fiche-person feed-fiche-person--production">
+                            <span class="feed-fiche-photo feed-fiche-photo--unknown"><span>?</span></span>
+                            <figcaption>PROD.&nbsp;: D. CAROT / S. R&Eacute;VIL</figcaption>
+                        </figure>
                     </div>
+                    <svg class="feed-chalk-links-svg" viewBox="0 0 100 62" preserveAspectRatio="none">
+                        <path class="chalk-link-path" d="M18 20 C 24 28, 30 34, 38 38"/>
+                        <path class="chalk-link-path" d="M50 22 C 52 30, 56 36, 62 40"/>
+                        <path class="chalk-link-path" d="M78 20 C 80 28, 84 34, 88 38"/>
+                        <path class="chalk-link-path" d="M14 46 C 26 50, 40 52, 54 52"/>
+                        <path class="chalk-link-path" d="M60 50 C 70 52, 80 52, 90 50"/>
+                        <text x="20" y="10" class="chalk-link-label">cr&eacute;ation</text>
+                        <text x="48" y="12" class="chalk-link-label">r&eacute;alisation</text>
+                        <text x="74" y="10" class="chalk-link-label">sc&eacute;nario</text>
+                        <text x="12" y="58" class="chalk-link-label">musique</text>
+                        <text x="60" y="58" class="chalk-link-label">production</text>
+                    </svg>
                     <div class="feed-evidence-deck">
                         {% for instance in strip_items %}
                             <a class="feed-evidence-card" href="{% if instance|model_type == 'Photo' %}{% url 'photos_detail' instance.id %}{% else %}{% url 'posts_detail' instance.id %}{% endif %}">
@@ -294,31 +297,7 @@
                     Cependant, quelques jours plus tard, France Télévisions annonce une nouvelle saison avec une nouvelle distribution, ancrant cette fois-ci les enquêtes dans les années 1970, le tournage est initialement prévu pour commencer début 2020.
                   </p>
                   <hr class="topblog_hr">
-                  <h4>Fiche technique</h4>
-                  <ul>
-                    <li>Titre&nbsp;: Les Petits Meurtres d'Agatha Christie</li>
-                    <li>Création&nbsp;: <a href="/wiki/Anne_Giafferi" title="Anne Giafferi">Anne Giafferi</a> et <a href="/wiki/Murielle_Magellan" title="Murielle Magellan">Murielle Magellan</a></li>
-                    <li>Réalisation&nbsp;: <a href="/wiki/%C3%89ric_Woreth" title="Éric Woreth">Éric Woreth</a> <small>(19 épisodes)</small>, <a href="/wiki/Nicolas_Picard-Dreyfuss" title="Nicolas Picard-Dreyfuss">Nicolas Picard-Dreyfuss</a> <small>(5 épisodes),</small> <a href="/wiki/Marc_Angelo" title="Marc Angelo">Marc Angelo</a> <small>(4 épisodes)</small>, <a href="/wiki/Rodolphe_Tissot" title="Rodolphe Tissot">Rodolphe Tissot</a> <small>(3 épisodes)</small>, <a href="/wiki/Olivier_Panchot" title="Olivier Panchot">Olivier Panchot</a> <small>(2 épisodes)</small>, <a href="/wiki/Christophe_Campos" title="Christophe Campos">Christophe Campos</a> <small>(2 épisodes)</small>, <a href="/wiki/Alexandre_Coffre" title="Alexandre Coffre">Alexandre Coffre</a> <small>(2 épisodes)</small>, Didier Bivel <small>(1 épisode)</small>, <a href="/wiki/St%C3%A9phane_Kappes" title="Stéphane Kappes">Stéphane Kappes</a> <small>(1 épisode)</small> et <a href="/wiki/Renaud_Bertrand" title="Renaud Bertrand">Renaud Bertrand</a> <small>(1 épisode)</small></li>
-                    <li>Scénario&nbsp;: Sylvie Simon <small>(14 épisodes)</small>, <a href="/wiki/Thierry_Debroux" title="Thierry Debroux">Thierry Debroux</a> <small>(8 épisodes)</small>, <a href="/wiki/Jean-Luc_Gaget" title="Jean-Luc Gaget">Jean-Luc Gaget</a> <small>(4 épisodes)</small>, <a href="/wiki/Zina_Modiano" title="Zina Modiano">Zina Modiano</a> <small>(3 épisodes)</small>, Jennifer Have (3 épisodes), Anne Peyrègne (1 épisode),<a href="/wiki/Pierre_Linhart" title="Pierre Linhart">Pierre Linhart</a> <small>(2 épisodes)</small>, <a href="/wiki/Anne_Giafferi" title="Anne Giafferi">Anne Giafferi</a> et Muriel Magellan <small>(1 épisode)</small>, Bruno Dega et Jeanne Le Guillou <small>(1 épisode)</small>, Catherine Hoffmann et Bertrand Lorel <small>(1 épisode)</small>, Flore Kosinetz et Hélène Lombard <small>(2 épisodes)</small>, Eliane Montane et Thomas Mansuy <small>(1 épisode)</small> d'après les romans d'<a href="/wiki/Agatha_Christie" title="Agatha Christie">Agatha Christie</a></li>
-                    <li>Décors&nbsp;: Moundji Gaceb Couture, Jimmy Vansteenkiste</li>
-                    <li>Costumes&nbsp;: Marie-Laure Lasson, Amandine Catala, Charlotte Betaillole, Sophie Dussaud</li>
-                    <li>Photographie&nbsp;: Bertrand Mouly</li>
-                    <li>Montage&nbsp;: Loïc Jaspard, Thierry Rouden</li>
-                    <li>Musique&nbsp;: <a href="/wiki/St%C3%A9phane_Moucha" title="Stéphane Moucha">Stéphane Moucha</a></li>
-                    <li>Casting&nbsp;: Michael Laguens</li>
-                    <li>Générique&nbsp;: Romain Segaud</li>
-                    <li>Production&nbsp;: Denis Carot et <a href="/wiki/Sophie_R%C3%A9vil" title="Sophie Révil">Sophie Révil</a></li>
-                    <li>Sociétés de production&nbsp;: Escazal Films, avec la participation de <a href="/wiki/France_T%C3%A9l%C3%A9visions" title="France Télévisions">France Télévisions</a></li>
-                    <li>Sociétés de distribution&nbsp;: <a href="/wiki/France_2" title="France 2">France 2</a> <small>(<a href="/wiki/France" title="France">France</a>)</small></li>
-                    <li>Pays d'origine&nbsp;: <a href="//commons.wikimedia.org/wiki/File:Flag_of_France.svg?uselang=fr" class="image" title="Drapeau de la France"><img alt="Drapeau de la France" src="//upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Flag_of_France.svg/20px-Flag_of_France.svg.png" decoding="async"  srcset="//upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Flag_of_France.svg/30px-Flag_of_France.svg.png 1.5x, //upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Flag_of_France.svg/40px-Flag_of_France.svg.png 2x" data-file-width="900" data-file-height="600" width="20" height="13"></a><a href="/wiki/France" title="France">France</a></li>
-                    <li>Langue originale&nbsp;: <a href="/wiki/Fran%C3%A7ais" title="Français">Français</a></li>
-                    <li>Format&nbsp;: couleur - <a href="/wiki/Format_16/9" title="Format 16/9">16/9</a> - <a href="/wiki/Haute_d%C3%A9finition" title="Haute définition">Haute définition</a> - <a href="/wiki/Son_st%C3%A9r%C3%A9ophonique" title="Son stéréophonique">son stéréo</a></li>
-                    <li>Genre&nbsp;: <a href="/wiki/Genre_policier" title="Genre policier">policier</a></li>
-                    <li>Durée&nbsp;: 90&nbsp;minutes par épisode</li>
-                    <li>Date de première diffusion&nbsp;: <a href="/wiki/France" title="France">France</a>&nbsp;: <time class="nowrap date-lien" datetime="2009-01-09" data-sort-value="2009-01-09"><a href="/wiki/9_janvier" title="9 janvier">9</a> <a href="/wiki/Janvier_2009" title="Janvier 2009">janvier</a> <a href="/wiki/2009_%C3%A0_la_t%C3%A9l%C3%A9vision" title="2009 à la télévision">2009</a></time></li>
-                    <li>Date de dernière diffusion&nbsp;: <a href="/wiki/France" title="France">France</a>&nbsp;: en production</li>
-                    <li>Public&nbsp;: Déconseillé aux moins de 10 ans.</li>
-                  </ul>
+                  
                   <hr class="topblog_hr">
                   <h4>Diffusion internationale</h4>
                   <p>La série est diffusée dans plusieurs pays&nbsp;</p>

@@ -67,7 +67,9 @@ def feed(request):
     photos_strip = list(models.Photo.objects.order_by("-created_at")[:24])
     strip_items = list(page_obj)
     strip_seconds = min(2160, 72 * len(strip_items))
-    sample_photos = random.sample(photos_strip, min(3, len(photos_strip)))
+    # 3 photos differentes : tirage aleatoire sur toutes les photos disponibles
+    all_photos = list(models.Photo.objects.all())
+    sample_photos = random.sample(all_photos, min(3, len(all_photos)))
     all_posts = list(models.Post.objects.all())
     sample_posts = random.sample(all_posts, min(3, len(all_posts)))
     return render(
