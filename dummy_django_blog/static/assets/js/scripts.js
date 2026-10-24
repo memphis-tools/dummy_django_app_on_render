@@ -206,6 +206,7 @@ document.addEventListener("DOMContentLoaded", function() {
   var callout = null;
   var running = false;
   var userScrollY = window.scrollY;
+  var electedCursor = 0;
 
   function ensureCallout() {
     if (callout) return callout;
@@ -377,8 +378,11 @@ document.addEventListener("DOMContentLoaded", function() {
       var rankedOrder = ranked.map(function(e) { return e.row; });
       scanRowsUp(rankedOrder, rankedOrder.length - 1, token, function() {
         if (token !== tourToken) return;
-        // l'episode elu (meilleure audience) est surligne, encart 5 secondes
-        spotlightRow(ranked[0].row, token, function() {
+        // l'episode elu DIVERSIFIE : a chaque tour on prend le suivant dans le
+        // classement par audience decroissante (3 premiers, puis les 3 autres, etc.)
+        var elected = ranked[electedCursor % ranked.length];
+        electedCursor = (electedCursor + 1) % ranked.length;
+        spotlightRow(elected.row, token, function() {
           if (token !== tourToken) return;
           // retour a la position de l'utilisateur
           smoothScrollTo(userScrollY, 1200, function() {
@@ -929,23 +933,24 @@ document.addEventListener("DOMContentLoaded", function() {
     el.style.setProperty("--hand-spin", spin + "deg");
   });
 
-  /* 5 membres au hasard a chaque refresh : les autres sont masques.
-     Dispersion large sur le croquis, positions tirees pour bien les voir. */
-  if (people.length > 5) {
+  /* 4 membres au hasard a chaque refresh : les autres sont masques.
+     Positions passees en custom properties (--py/--px) : le CSS les force
+     en absolu sur le croquis avec une regle haute specificite, garantissant
+     leur visibilite quel que soit le reste de la feuille de style. */
+  if (people.length > 4) {
     var order = [];
     for (var i = 0; i < people.length; i++) order.push(i);
     for (var j = order.length - 1; j > 0; j--) {
       var k = Math.floor(Math.random() * (j + 1));
       var t = order[j]; order[j] = order[k]; order[k] = t;
     }
-    var picked = order.slice(0, 5);
-    /* 5 zones de dispersion bien separees sur le croquis */
+    var picked = order.slice(0, 4);
+    /* 4 zones de dispersion bien separees sur le croquis (2 hautes, 2 basses) */
     var zones = [
-      { top: [10, 24], left: [24, 40] },
-      { top: [10, 24], left: [42, 58] },
-      { top: [10, 24], left: [60, 74] },
-      { top: [58, 72], left: [32, 48] },
-      { top: [58, 72], left: [52, 68] }
+      { top: [12, 26], left: [22, 38] },
+      { top: [12, 26], left: [58, 74] },
+      { top: [62, 76], left: [28, 44] },
+      { top: [62, 76], left: [54, 70] }
     ];
     people.forEach(function(el, n) {
       if (picked.indexOf(n) === -1) el.style.display = "none";
@@ -953,16 +958,12 @@ document.addEventListener("DOMContentLoaded", function() {
     picked.forEach(function(idx, n) {
       var el = people[idx];
       el.style.display = "";
-      el.classList.add("person-tossed");
-      var z = zones[n % 5];
-      el.style.top = (z.top[0] + Math.random() * (z.top[1] - z.top[0])).toFixed(1) + "%";
-      el.style.left = (z.left[0] + Math.random() * (z.left[1] - z.left[0])).toFixed(1) + "%";
-      el.style.setProperty("--toss-spin", (Math.random() * 22 - 11).toFixed(1) + "deg");
-      el.style.setProperty("--toss-x", (Math.random() * 40 - 20).toFixed(0) + "px");
-      setTimeout(function(elm) {
-        elm.classList.remove("person-tossed");
-        elm.classList.add("person-rest");
-      }.bind(null, el), 620 + n * 420);
+      var z = zones[n % 4];
+      el.style.setProperty("--py", (z.top[0] + Math.random() * (z.top[1] - z.top[0])).toFixed(1) + "%");
+      el.style.setProperty("--px", (z.left[0] + Math.random() * (z.left[1] - z.left[0])).toFixed(1) + "%");
+      el.style.setProperty("--toss-spin", (Math.random() * 20 - 10).toFixed(1) + "deg");
+      el.classList.add("person-dropped");
+      setTimeout(function(elm) { elm.classList.add("person-rest"); }.bind(null, el), 250 + n * 420);
     });
   }
 
