@@ -28,6 +28,6 @@ def test_feed_desk_and_sections_restyled(client, django_user_model):
     assert b"feed-fiche-people" in r.content
     assert b"feed-fiche-photo--unknown" in r.content
     # notes visiteurs hors tableau + post-it equipes + recompenses icones
-    assert b"feed-visitor-notes" in r.content and b"TITRE" in r.content
+    assert b"feed-visitor-notes" in r.content and b"LES PETITS MEURTRES D'AGATHA CHRISTIE" in r.content
     assert b"feed-fiche-cards" in r.content and b"DECORS" in r.content and b"MUSIQUE" in r.content
     assert b"awards-list" in r.content and b"award-icon" in r.content
