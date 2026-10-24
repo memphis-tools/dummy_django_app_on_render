@@ -1182,7 +1182,7 @@ footer .footer-contact-admin {
     padding: 0;
   }
 }
-.feed-interrogation-table {  overflow: hidden;  width: 100%;  margin: 0;}
+.feed-interrogation-table {  overflow: hidden;  width: 100%;  margin: 0;  position: relative;}
 /* Effet "policier qui jette les photos une a une sur la table" */
 .feed-interrogation-desk {  margin-top: auto;  display: flex;  flex-direction: column;  align-items: center;}
 /* Le bureau suit immediatement le condense : pas d'espace mort, on soude nav et bureau */
@@ -3389,4 +3389,94 @@ footer.footer-container {  margin-top: 0; }
 @media (max-width: 900px) {
   .feed-chalk-note--decors, .feed-chalk-note--costumes, .feed-chalk-note--photo,
   .feed-chalk-note--montage, .feed-chalk-note--casting, .feed-chalk-note--generique { display: none; }
+}
+/* ===== NOTES VISITEURS HORS TABLEAU + POST-IT FICHE TECHNIQUE ===== */
+/* indications a la craie en travers, au-dessus du tableau : pour les visiteurs */
+.feed-visitor-notes {
+  position: relative;
+  width: min(1080px, 97%);
+  margin: 0 auto 10px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 26px;
+  padding: 10px 16px 8px;
+  border: 1px dashed rgba(232, 227, 216, 0.25);
+  border-radius: 10px;
+  background: repeating-linear-gradient(100deg, transparent 0 34px, rgba(232, 227, 216, 0.03) 34px 36px);
+}
+.feed-visitor-note {
+  font-family: "Caveat-large", "Caveat", cursive;
+  font-size: 0.98em;
+  letter-spacing: 0.6px;
+  color: #e8e3d8;
+  opacity: 0.85;
+  white-space: nowrap;
+}
+.feed-visitor-note--a { transform: rotate(-1.4deg); }
+.feed-visitor-note--b { transform: rotate(0.8deg); }
+.feed-visitor-note--c { transform: rotate(-0.6deg); }
+.feed-visitor-note--d { transform: rotate(1.1deg); }
+.feed-visitor-note--e { transform: rotate(-1deg); }
+.feed-visitor-note--f { transform: rotate(0.5deg); }
+/* post-it equipes techniques : notes jaunes punaisees a cote du tableau */
+.feed-fiche-sticky {
+  position: absolute;
+  left: -8px;
+  top: 10%;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  z-index: 3;
+  width: 148px;
+  pointer-events: auto;
+}
+.feed-sticky-note {
+  display: block;
+  font-family: "ArsenalSC", sans-serif;
+  font-size: 0.62rem;
+  line-height: 1.25;
+  color: #3a2c22;
+  background: linear-gradient(180deg, #f4e6a2 0%, #ecd88f 100%);
+  padding: 7px 9px 9px;
+  box-shadow: 2px 3px 8px rgba(0, 0, 0, 0.4);
+  transform: rotate(-2deg);
+  border-radius: 1px;
+  position: relative;
+}
+.feed-sticky-note:nth-child(even) { transform: rotate(1.6deg); }
+.feed-sticky-note:nth-child(3n) { transform: rotate(-1.2deg); background: linear-gradient(180deg, #f4dfae 0%, #e8cf8d 100%); }
+.feed-sticky-note strong { font-family: "ArsenalSC-Fat", "ArsenalSC", sans-serif; letter-spacing: 0.4px; }
+.feed-sticky-note::before {
+  content: "";
+  position: absolute;
+  top: -4px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, #ff9d9d, #a4243b 60%, #6d1425);
+  box-shadow: 0 1px 2px rgba(0,0,0,0.5);
+}
+/* tableau agrandi : la carte occupe le centre, les post-it restent a gauche */
+.feed-evidence-slot--lille { width: min(1080px, 97%); height: 500px; }
+@media (max-width: 900px) { .feed-evidence-slot--lille { width: 96%; height: 430px; } }
+@media (max-width: 700px) { .feed-evidence-slot--lille { width: 94%; height: 390px; } }
+/* navbar : z-index superieur a tout, background quasi-opaque quand on n'est pas tout en haut */
+.navbar-custom { z-index: 2000; }
+.navbar-custom.nav-scrolled {
+  background-color: #221c1cf2 !important;
+  box-shadow: 0 6px 18px 6px rgba(0, 0, 0, 0.55);
+  transition: background-color 0.25s ease, box-shadow 0.25s ease;
+}
+/* icones recompenses modernes, en phase avec le theme */
+.awards-list { list-style: none; padding: 0; margin: 8px 0 0; display: flex; flex-direction: column; gap: 10px; }
+.award-item { display: flex; align-items: center; gap: 14px; }
+.award-icon { width: 34px; height: 34px; flex: 0 0 34px; filter: drop-shadow(2px 2px 0px #ea9ef054); }
+.award-text { font-size: 0.92em; line-height: 1.35; }
+.award-text strong { color: #ea9ef0; font-family: "ArsenalSC-Fat", "ArsenalSC", sans-serif; font-size: 0.95em; }
+@media (max-width: 700px) {
+  .feed-fiche-sticky { position: static; width: 100%; flex-direction: row; flex-wrap: wrap; margin: 0 0 8px; }
+  .feed-sticky-note { font-size: 0.58rem; padding: 5px 7px; }
+  .feed-visitor-notes { gap: 4px 14px; }
+  .feed-visitor-note { font-size: 0.85em; }
 }

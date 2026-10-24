@@ -1,3 +1,29 @@
+/* ===== ANTI-REPETITION DES CITATIONS =====
+   pickFresh memorise le dernier index tire par cle et evite de retomber dessus,
+   pour ne jamais voir deux fois la meme citation d'affilee. */
+var __lastQuoteIdx = {};
+function pickFresh(pool, key) {
+  if (!pool || !pool.length) return null;
+  var idx = Math.floor(Math.random() * pool.length);
+  if (pool.length > 1 && __lastQuoteIdx[key] === idx) {
+    idx = (idx + 1 + Math.floor(Math.random() * (pool.length - 1))) % pool.length;
+  }
+  __lastQuoteIdx[key] = idx;
+  return pool[idx];
+}
+
+/* ===== NAVBAR : FOND QUASI-OPAQUE DES QU'ON QUITTE LE SOMMET ===== */
+document.addEventListener("DOMContentLoaded", function() {
+  var navbar = document.querySelector(".navbar-custom");
+  if (!navbar) return;
+  function apply() {
+    if (window.scrollY > 8) navbar.classList.add("nav-scrolled");
+    else navbar.classList.remove("nav-scrolled");
+  }
+  apply();
+  window.addEventListener("scroll", apply, { passive: true });
+});
+
 var footer_date = new Date();
 document.getElementById("footer_date").innerHTML = "Blog &copy;LesPetitsMeurtres 2023-" + footer_date.getFullYear();
 
@@ -512,10 +538,10 @@ document.addEventListener("DOMContentLoaded", function() {
       { text: "Un bon détective ne croit jamais aux coïncidences. Un excellent billet non plus.", author: "— La rédaction du Clairon de Lille", person: "Clairon de Lille (critique fictif)", img: "", source: "Chronique du Clairon de Lille, rubrique faits divers de la saison 2 (fiction)" },
       { text: "Chaque lecteur est un enquêteur en puissance : son arme, l'index de la page.", author: "— Huguette Marthe Salsifi, Gala Télé-Police", person: "Huguette Marthe Salsifi (critique fictive)", img: "", source: "Gala Télé-Police, chronique télé (fiction)" }
     ];
-    var pick = quotes[Math.floor(Math.random() * quotes.length)];
+    var pick = pickFresh(quotes, "post-detail");
     detailQuote.querySelector(".post-detail-quote-text").textContent = "« " + pick.text + " »";
     detailQuote.querySelector(".post-detail-quote-author").textContent = pick.author;
-    if (pick.img === undefined || /fictif/i.test(pick.person || "") || /Clairon de Lille/.test(pick.author) || /Gala T\u00e9l\u00e9-Police/.test(pick.author)) {
+    if (/fictif/i.test(pick.person || "") || /Clairon de Lille/.test(pick.author) || /Gala T\u00e9l\u00e9-Police/.test(pick.author)) {
       markFictionalQuote(detailQuote.querySelector(".post-detail-quote-author"));
     }
     if (pick.img) {
@@ -555,6 +581,7 @@ document.addEventListener("DOMContentLoaded", function() {
       "Murder Party": "Saison 2, épisode 11 (France 2, 18 septembre 2015) — Wikipédia"
     };
     var anyEpisode = [
+      { text: "Avril est née dans le pétrin. Elle mourra dans le pétrin. À croire que le mot « pétrin » a été inventé pour elle !", author: "— Commissaire Swan Laurence, épisode 27" },
       { text: "Inutile de hurler, Marlène : le criminel n'écoute que la radio.", author: "— Commissaire Swan Laurence" },
       { text: "Monsieur le commissaire, j'ai trouvé un indice ! … C'est un trombone.", author: "— Marlène Leroy, secrétaire dévouée" },
       { text: "Je ne cite jamais mes sources, sauf quand elles inventent.", author: "— Alice Avril, La Voix du Nord" },
@@ -570,7 +597,18 @@ document.addEventListener("DOMContentLoaded", function() {
       { text: "Le détail est dans l'objectif, comme le crime est dans le dossier.", author: "— Commissaire Swan Laurence" },
       { text: "J'archive cette image sous « merveille », juste à côté de « mystère ».", author: "— Marlène Leroy, secrétaire dévouée" },
       { text: "Ce noir et blanc a plus de vérité que bien des témoignages.", author: "— Dr Euphrasie Maillol, médecin légiste" },
-      { text: "Monsieur le commissaire, cette photo accuse — et elle a du style.", author: "— Alice Avril, La Voix du Nord" }
+      { text: "Monsieur le commissaire, cette photo accuse — et elle a du style.", author: "— Alice Avril, La Voix du Nord" },
+      { text: "On ne mélange pas les pois et les carreaux, et on harmonise les couleurs.", author: "— Marlène Leroy, conseils vestimentaires" },
+      { text: "Un meurtre est commis à 20 heures précises. J'y serai, monsieur le commissaire.", author: "— Alice Avril, La Voix du Nord" },
+      { text: "Marlène a une cervelle d'oiseau — mais un flair de légiste.", author: "— narrateur, d'après Wikipédia" },
+      { text: "Le commissaire téléphone à un dénommé inspecteur Japp : les clins d'œil, c'est sacré.", author: "— Pension Vanilos, clin d'œil à Agatha Christie" },
+      { text: "Le trio d'acteurs marche à merveille, il est à la fois drôle et touchant !", author: "— spectateur AlloCiné" },
+      { text: "Samuel Labarthe y campe avec élégance un commissaire froid et sarcastique.", author: "— Bulles de Culture" },
+      { text: "L'une des grandes qualités de la série est son trio de personnages attachants.", author: "— Bulles de Culture" },
+      { text: "Il n'ouvre un dossier que si Marlène a déjà tout classé… et il résout l'affaire par principe.", author: "— présentation du commissaire, d'après Wikipédia" },
+      { text: "Curieuse et fonceuse mais envahissante : la journaliste du Nord par excellence.", author: "— présentation d'Alice Avril, d'après Wikipédia" },
+      { text: "Une série qui mériterait un avenir international. Un vrai régal.", author: "— spectateur AlloCiné" },
+      { text: "La godiche décorative au grand cœur, alias Élodie Frenck : un trio qui fonctionne bien !", author: "— critique AlloCiné, saison 2" }
     ];
     var criticQuotes = [
       { text: "Cette image vaut tous les communiqués du commissariat.", author: "— Gérard Ovide Braquo, Le Clairon de Lille" },
@@ -639,15 +677,17 @@ document.addEventListener("DOMContentLoaded", function() {
       var pool = pick ? [] : anyEpisode.concat(criticQuotes);
       var isCritic = false;
       if (!pick) {
-        var poolSize = pool.length;
-        var slot = globalIndex % poolSize;
-        pick = pool[slot];
-        isCritic = slot >= anyEpisode.length;
+        pick = pickFresh(pool, "photos-grid-" + globalIndex % 4);
+        isCritic = pool.indexOf(pick) >= anyEpisode.length;
       }
       if (!pick) return;
       box.querySelector(".photos-grid-quote-text").textContent = "« " + pick.text + " »";
       box.querySelector(".photos-grid-quote-author").textContent = pick.author;
-      markFictionalQuote(box.querySelector(".photos-grid-quote-author"));
+      if (isCritic || /(Commissaire|Marl\u00e8ne|Avril|Maillol|Glissant|Tricard|narrateur|d'apr\u00e8s|Bulles de Culture|AlloCin\u00e9|Pension Vanilos)/.test(pick.author)) {
+        /* citation de personnage ou de presse reelle : pas de mention "inventee" */
+      } else {
+        markFictionalQuote(box.querySelector(".photos-grid-quote-author"));
+      }
       var epKey = null;
       Object.keys(byEpisode).forEach(function(ep) { if (!epKey && titleText.indexOf(ep) !== -1) epKey = ep; });
       var person = pick.author.replace("— ", "").split(",")[0].trim();
@@ -836,7 +876,7 @@ document.addEventListener("DOMContentLoaded", function() {
     var key = box.getAttribute("data-encart");
     var pool = encartTexts[key];
     if (!pool || !pool.length) return;
-    box.querySelector(".encart-text").textContent = pool[Math.floor(Math.random() * pool.length)];
+    box.querySelector(".encart-text").textContent = pickFresh(pool, key);
   });
 });
 document.addEventListener("DOMContentLoaded", function() {
@@ -897,9 +937,10 @@ document.addEventListener("DOMContentLoaded", function() {
   /* repartition aleatoire des personnes de la fiche technique dans les 6 cellules */
   var people = document.querySelectorAll(".feed-fiche-people .feed-fiche-person");
   if (people.length) {
+    /* cellules de bord : jamais le centre du plateau, ou les pieces a conviction tombent */
     var positions = [
-      { top: [18, 26], left: [5, 13] }, { top: [12, 22], left: [35, 42] }, { top: [16, 24], left: [80, 88] },
-      { top: [48, 56], left: [10, 18] }, { top: [44, 52], left: [72, 80] }, { top: [26, 34], left: [55, 62] }
+      { top: [20, 28], left: [4, 10] }, { top: [10, 16], left: [26, 33] }, { top: [18, 26], left: [88, 94] },
+      { top: [52, 60], left: [6, 12] }, { top: [46, 54], left: [88, 94] }, { top: [12, 20], left: [64, 71] }
     ];
     var order = [];
     for (var i = 0; i < people.length; i++) order.push(i);
@@ -1013,20 +1054,14 @@ document.addEventListener("DOMContentLoaded", function() {
   });
 });
 
-/* ===== A PROPOS : SEUL LE PARAGRAPHE "TOURNAGE" EST TRONQUE ===== */
-/* Seuils : grand ecran 150 caracteres, moyen (<= 992px) 75, petit (<= 576px) 25.
-   Le bouton "LIRE LA SUITE" deplie le paragraphe en entier, "REDUIRE" le referme. */
+/* ===== A PROPOS : TOURNAGE TRONQUE APRES LA 2EME LIGNE ===== */
+/* Le paragraphe TOURNAGE est coupe a 2 lignes visibles ; le bouton LIRE LA SUITE
+   deploie l'ensemble du Tournage, REDUIRE le referme. Seuls les <p> sous le h4
+   "Tournage" (avant le hr suivant) sont concernes. */
 document.addEventListener("DOMContentLoaded", function() {
   var container = document.querySelector(".a_propos_container");
   if (!container || container.classList.contains("a_propos-truncate-managed")) return;
   container.classList.add("a_propos-truncate-managed");
-  function threshold() {
-    var w = window.innerWidth;
-    if (w <= 576) return 25;
-    if (w <= 992) return 75;
-    return 150;
-  }
-  /* Un bloc appartient au paragraphe Tournage s'il suit le h4 "Tournage" avant le hr suivant */
   function inTournage(block) {
     var el = block.previousElementSibling;
     while (el) {
@@ -1036,47 +1071,35 @@ document.addEventListener("DOMContentLoaded", function() {
     }
     return false;
   }
-  var blocks = Array.prototype.slice.call(container.querySelectorAll("p")).filter(inTournage);
-  var paragraphs = blocks; /* chaque <p> du Tournage est tronque individuellement */
-  var expanded = false; /* un seul bouton global deplie/referme tout le Tournage */
+  var paragraphs = Array.prototype.slice.call(container.querySelectorAll("p")).filter(inTournage);
+  if (!paragraphs.length) return;
+  var expanded = false;
+  function lineH(p) { return parseFloat(getComputedStyle(p).lineHeight) || 20; }
   function apply() {
-    var limit = threshold();
-    paragraphs.forEach(function(p) {
-      var text = p.textContent.trim();
-      if (expanded || text.length <= limit) {
-        p.classList.remove("a_propos_truncated", "a_propos_truncated--3lines");
+    paragraphs.forEach(function(p, i) {
+      if (expanded) {
+        p.classList.remove("a_propos_truncated");
+        p.style.maxHeight = "";
+        p.style.display = "";
+      } else if (i < 2) {
+        /* les 2 premiers paragraphes restent integralement visibles (les 2 lignes) */
+        p.classList.remove("a_propos_truncated");
         p.style.maxHeight = "";
       } else {
-        p.classList.add("a_propos_truncated");
+        p.style.display = "none";
       }
     });
-    /* bouton affiche uniquement s'il reste du contenu masque */
-    var hiddenLeft = paragraphs.some(function(p) {
-      return !expanded && p.textContent.trim().length > limit;
-    });
-    if (hiddenLeft) {
-      btn.style.display = "";
-      btn.textContent = expanded ? "REDUIRE" : "LIRE LA SUITE";
-    } else {
-      btn.style.display = "none";
-    }
+    btn.style.display = "";
+    btn.textContent = expanded ? "REDUIRE" : "LIRE LA SUITE";
   }
   var btn = document.createElement("button");
   btn.type = "button";
   btn.className = "a_propos_more-btn";
   btn.textContent = "LIRE LA SUITE";
   btn.addEventListener("click", function() { expanded = !expanded; apply(); });
-  /* le bouton est insere juste apres le dernier paragraphe du Tournage */
-  if (paragraphs.length) {
-    var last = paragraphs[paragraphs.length - 1];
-    last.parentNode.insertBefore(btn, last.nextSibling);
-  }
+  var last = paragraphs[paragraphs.length - 1];
+  last.parentNode.insertBefore(btn, last.nextSibling);
   apply();
-  var resizeTimer = null;
-  window.addEventListener("resize", function() {
-    clearTimeout(resizeTimer);
-    resizeTimer = setTimeout(apply, 150);
-  });
 });
 /* ===== CITATIONS INVENTEES : MENTION "citation inventee" ===== */
 function markFictionalQuote(authorEl) {

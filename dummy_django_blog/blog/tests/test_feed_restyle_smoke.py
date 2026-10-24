@@ -27,4 +27,7 @@ def test_feed_desk_and_sections_restyled(client, django_user_model):
     assert b"wikipedia.org" in r.content  # noms de la fiche technique lies vers Wikipedia
     assert b"feed-fiche-people" in r.content
     assert b"feed-fiche-photo--unknown" in r.content
-    assert b"TITRE" in r.content and b"SOC. DE PRODUCTION" in r.content and b"PUBLIC" in r.content
+    # notes visiteurs hors tableau + post-it equipes + recompenses icones
+    assert b"feed-visitor-notes" in r.content and b"TITRE" in r.content
+    assert b"feed-fiche-sticky" in r.content and b"DECORS" in r.content and b"MUSIQUE" in r.content
+    assert b"awards-list" in r.content and b"award-icon" in r.content
