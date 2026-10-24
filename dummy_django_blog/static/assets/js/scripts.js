@@ -900,22 +900,117 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
 /* ===== TABLEAU D'ENQUETE : RENOUVELLEMENT A CHAQUE CHARGEMENT ===== */
-/* La carte est FIXE (croquis stylise des lieux cles, libre d'usage).
-   A chaque chargement, les personnes de la fiche technique gardent leur position
-   (definie en CSS pour ne jamais se superposer) mais recevent une legere rotation
-   variee, comme des photos repunaisees. */
+/* Le croquis des lieux cles est FIXE. A chaque chargement :
+   - 4 personnes de la fiche technique sont choisies ALEATOIREMENT parmi les 8
+     et "jetees/posees" une a une sur le croquis, comme les pieces a conviction
+     (effet deposer/jeter + punaise) ;
+   - les encarts d'equipes (casting, decors, costumes, musique, etc.) sont
+     punaises sur le tableau autour du croquis, a des emplacements aleatoires
+     sans superposition avec le croquis ni entre eux ;
+   - les encarts publicitaires visiteurs sont disperses a gauche et a droite
+     du bureau, dans une bande laterale reservee. */
 document.addEventListener("DOMContentLoaded", function() {
-  var people = document.querySelectorAll(".feed-fiche-people .feed-fiche-person");
-  people.forEach(function(el) {
-    var spin = (Math.random() * 10 - 5).toFixed(1);
-    el.style.transform = "rotate(" + spin + "deg)";
-  });
-  /* les fiches d'equipes aussi : micro-rotation "pose a la main" */
-  var cards = document.querySelectorAll(".feed-fiche-cards .feed-fiche-card");
-  cards.forEach(function(el) {
-    var spin = (Math.random() * 6 - 3).toFixed(1);
-    el.style.transform = "rotate(" + spin + "deg)";
-  });
+  var people = Array.prototype.slice.call(document.querySelectorAll(".feed-fiche-people .feed-fiche-person"));
+  if (people.length) {
+    /* 4 personnes au hasard : elles restent dans le DOM (liens Wikipedia) mais
+       seules 4 sont montrees et "jetees" sur le croquis, n'importe ou */
+    people.forEach(function(p) { p.style.display = "none"; });
+    var order = [];
+    for (var i = 0; i < people.length; i++) order.push(i);
+    for (var j = order.length - 1; j > 0; j--) {
+      var k = Math.floor(Math.random() * (j + 1));
+      var t = order[j]; order[j] = order[k]; order[k] = t;
+    }
+    var picked = order.slice(0, Math.min(4, people.length));
+    picked.forEach(function(idx, n) {
+      var el = people[idx];
+      el.style.display = "";
+      /* position aleatoire sur le croquis, en evitant le bord (les vignettes
+         sont positionnees en % du conteneur .feed-fiche-people qui couvre la zone
+         croquis) ; emplacements grossierement en 2x2 pour eviter les collisions */
+      var quadrants = [
+        { top: [16, 32], left: [30, 46] },
+        { top: [16, 32], left: [50, 62] },
+        { top: [50, 66], left: [30, 46] },
+        { top: [50, 66], left: [50, 62] }
+      ];
+      var q = quadrants[n % 4];
+      var top = (q.top[0] + Math.random() * (q.top[1] - q.top[0])).toFixed(1);
+      var left = (q.left[0] + Math.random() * (q.left[1] - q.left[0])).toFixed(1);
+      el.style.top = top + "%";
+      el.style.left = left + "%";
+      var spin = (Math.random() * 22 - 11).toFixed(1);
+      /* effet deposer/jeter : arrivee de haut, puis pose avec rotation */
+      el.classList.add("person-toss");
+      el.style.setProperty("--toss-spin", spin + "deg");
+      el.style.setProperty("--toss-x", (Math.random() * 40 - 20).toFixed(0) + "px");
+      setTimeout(function(elm) {
+        elm.classList.remove("person-toss");
+        elm.classList.add("person-rest");
+      }.bind(null, el), 620 + n * 420);
+    });
+  }
+
+  /* encarts d'equipes : punaises SUR le tableau, autour du croquis,
+     positions tirees aleatoirement sans superposition (grille de cellules) */
+  var cards = Array.prototype.slice.call(document.querySelectorAll(".feed-fiche-cards .feed-fiche-card"));
+  if (cards.length) {
+    var slot = document.querySelector(".feed-evidence-slot--lille");
+    if (slot) {
+      /* le conteneur .feed-fiche-cards couvre le tableau ; on le cale sur le slot */
+      var fc = document.querySelector(".feed-fiche-cards");
+      /* cellules d'accroche : bord gauche (haut/milieu/bas) et bord droit (haut/milieu/bas) + coin bas centre */
+      var cells = [
+        { top: [4, 9],  left: [1, 6] },   { top: [42, 52], left: [1, 5] },  { top: [84, 92], left: [2, 7] },
+        { top: [4, 9],  right: [1, 6] },  { top: [42, 52], right: [1, 5] }, { top: [84, 92], right: [2, 7] },
+        { top: [2, 6],  left: [10, 17] }
+      ];
+      var cellOrder = [];
+      for (var c = 0; c < cells.length; c++) cellOrder.push(c);
+      for (var d = cellOrder.length - 1; d > 0; d--) {
+        var e = Math.floor(Math.random() * (d + 1));
+        var u = cellOrder[d]; cellOrder[d] = cellOrder[e]; cellOrder[e] = u;
+      }
+      cards.forEach(function(card, n) {
+        var cellIdx = cellOrder[n % cellOrder.length];
+        var cell = cells[cellIdx];
+        var top = (cell.top[0] + Math.random() * (cell.top[1] - cell.top[0])).toFixed(1) + "%";
+        card.style.top = top;
+        if (cell.left) {
+          card.style.left = (cell.left[0] + Math.random() * (cell.left[1] - cell.left[0])).toFixed(1) + "%";
+          card.style.right = "";
+        } else {
+          card.style.right = (cell.right[0] + Math.random() * (cell.right[1] - cell.right[0])).toFixed(1) + "%";
+          card.style.left = "";
+        }
+        var spin = (Math.random() * 12 - 6).toFixed(1);
+        card.style.transform = "rotate(" + spin + "deg)";
+        /* punaise qui claque : legere mise a l'echelle */
+        card.classList.add("card-pinned");
+        setTimeout(function(elm) { elm.classList.add("card-pinned--set"); }.bind(null, card), 60 + n * 130);
+      });
+    }
+  }
+
+  /* encarts publicitaires visiteurs : disperses gauche/droite du bureau,
+     ordre aleatoire a chaque chargement */
+  var notes = Array.prototype.slice.call(document.querySelectorAll(".feed-visitor-notes .feed-visitor-note"));
+  if (notes.length) {
+    var noteOrder = [];
+    for (var m = 0; m < notes.length; m++) noteOrder.push(m);
+    for (var o = noteOrder.length - 1; o > 0; o--) {
+      var r = Math.floor(Math.random() * (o + 1));
+      var w = noteOrder[o]; noteOrder[o] = noteOrder[r]; noteOrder[r] = w;
+    }
+    noteOrder.forEach(function(idx, n) {
+      var note = notes[idx];
+      /* alternance gauche/droite, verticalite repartie */
+      var side = n % 2 === 0 ? "L" : "R";
+      var lane = Math.floor(n / 2);
+      note.dataset.side = side;
+      note.dataset.lane = String(lane);
+    });
+  }
 });
 
 /* ===== PLAN DE LILLE : LOADER THEMATIQUE PENDANT LE CHARGEMENT ===== */
