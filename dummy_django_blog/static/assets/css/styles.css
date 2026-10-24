@@ -273,6 +273,9 @@ body .dropdown-item {
 .navbar-custom {
   background-color: transparent;
   border: none;
+  position: sticky;
+  top: 0;
+  z-index: 1040;
 }
 
 .navbar-collapse {
@@ -3251,4 +3254,111 @@ footer.footer-container {  margin-top: 0; }
   .feed-chalk-note--titre, .feed-chalk-note--soc { font-size: 0.85em; }
   .feed-chalk-note--genre { display: none; }
   .chalk-link-label { display: none; }
+}
+/* ===== BUREAU AGRANDI : CARTE ELRT CENTREE + FICHE TECHNIQUE AUTOUR ===== */
+/* Le plateau s'agrandit ; la carte de l'agglomeration reste centree et ne recouvre
+   PAS tout le bureau : les annotations craie restent visibles sur le bois. */
+.feed-evidence-slot--lille {
+  width: min(1080px, 97%);
+  height: 480px;
+  background:
+    radial-gradient(ellipse at 20% 15%, rgba(91, 58, 36, 0.35) 0%, transparent 55%),
+    linear-gradient(180deg, #3a2c22 0%, #33261d 55%, #2b2018 100%);
+}
+@media (max-width: 900px) { .feed-evidence-slot--lille { width: 96%; height: 420px; } }
+@media (max-width: 700px) { .feed-evidence-slot--lille { width: 94%; height: 380px; } }
+/* carte centree : ~72% du plateau, bord papier, ombre portee */
+.feed-lille-map {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(-1.2deg);
+  width: min(72%, 620px);
+  margin: 0;
+  z-index: 1;
+  border: 6px solid #e8dcc8;
+  border-radius: 3px;
+  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.55), 0 2px 6px rgba(0, 0, 0, 0.4);
+  background: #e8dcc8;
+  overflow: hidden;
+}
+.feed-lille-plan { position: static; width: 100%; height: auto; display: block; filter: sepia(0.45) contrast(1.02) brightness(1.02) saturate(0.85); opacity: 1; }
+.feed-lille-map figcaption {
+  font-family: "ArsenalSC", sans-serif;
+  font-size: 0.55rem;
+  letter-spacing: 0.08em;
+  text-align: center;
+  color: #6d5137;
+  padding: 3px 6px 5px;
+  background: #efe4cd;
+  border-top: 1px solid #d9c8a8;
+}
+.feed-lille-map figcaption small { font-size: 0.8em; opacity: 0.75; }
+/* les annotations craie restent au-dessus de la carte : z-index plus eleve */
+.feed-chalk-note { z-index: 3; }
+.feed-fiche-people { z-index: 4; }
+.feed-chalk-links-svg { z-index: 3; opacity: 0.75; }
+/* nouveaux emplacements notes (carte centree plus petite) */
+.feed-chalk-note--titre { top: 3%; left: 3%; max-width: 30%; font-size: 1em; }
+.feed-chalk-note--soc { top: 3%; right: 3%; max-width: 30%; text-align: right; }
+.feed-chalk-note--dist { top: 14%; right: 3%; }
+.feed-chalk-note--format { top: 25%; left: 3%; }
+.feed-chalk-note--diff { top: 33%; left: 3%; }
+.feed-chalk-note--pays { bottom: 4%; left: 3%; }
+.feed-chalk-note--genre { bottom: 4%; left: 36%; }
+.feed-chalk-note--public { bottom: 4%; right: 3%; max-width: 28%; text-align: right; }
+/* noms des personnes : liens wikipedia thematiques */
+.feed-fiche-person figcaption a {
+  color: #ea9ef0;
+  text-decoration: underline dotted #ea9ef07e;
+  text-underline-offset: 2px;
+}
+.feed-fiche-person figcaption a:hover { color: #f8ede3; text-decoration: underline solid #ea9ef0; }
+/* decorations 1950s punaisees sur le bois, hors carte */
+.feed-desk-deco { position: absolute; pointer-events: none; z-index: 2; }
+.feed-desk-deco--ruler {
+  bottom: 12%; left: 6%;
+  width: 120px; height: 16px;
+  background: repeating-linear-gradient(90deg, #d9c8a8 0 11px, transparent 11px 12px),
+             linear-gradient(180deg, #e8dcc8, #c9b490);
+  border: 1px solid #8a7358;
+  border-radius: 2px;
+  transform: rotate(-8deg);
+  box-shadow: 0 3px 6px rgba(0,0,0,0.4);
+  opacity: 0.9;
+}
+.feed-desk-deco--magnifier {
+  top: 44%; right: 5%;
+  width: 44px; height: 44px;
+  border: 4px solid #b89c72;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, rgba(255,255,255,0.35), rgba(120,100,70,0.25));
+  box-shadow: 0 4px 8px rgba(0,0,0,0.45), inset 0 0 8px rgba(0,0,0,0.2);
+  transform: rotate(14deg);
+}
+.feed-desk-deco--magnifier::after {
+  content: "";
+  position: absolute;
+  bottom: -14px; right: -6px;
+  width: 6px; height: 20px;
+  background: linear-gradient(180deg, #8a6b48, #6d5137);
+  border-radius: 2px;
+  transform: rotate(-40deg);
+}
+.feed-desk-deco--clip {
+  top: 16%; left: 42%;
+  width: 16px; height: 30px;
+  border: 3px solid #9c8262;
+  border-radius: 8px 8px 3px 3px;
+  background: transparent;
+  transform: rotate(22deg);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.35);
+}
+@media (max-width: 700px) {
+  .feed-lille-map { width: 82%; border-width: 4px; }
+  .feed-chalk-note--titre, .feed-chalk-note--soc { font-size: 0.8em; }
+  .feed-chalk-note--dist, .feed-chalk-note--format, .feed-chalk-note--diff { display: none; }
+  .feed-desk-deco--ruler { display: none; }
+  .feed-desk-deco--magnifier { top: auto; bottom: 18%; right: 4%; width: 34px; height: 34px; }
+  .feed-fiche-person--real2, .feed-fiche-person--musique { display: none; }
 }

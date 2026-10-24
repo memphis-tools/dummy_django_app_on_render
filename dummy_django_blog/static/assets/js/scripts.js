@@ -274,13 +274,17 @@ document.addEventListener("DOMContentLoaded", function() {
   }
 
   /* tous ces critiques sont fictifs : la mention est ajoutee dans le callout */
+  /* critiques REELLES de la presse, sourcess verifiees (Telerama, Bulles de Culture, etc.) ;
+     les citations inventees sont reservees aux journalistes fictifs, clairement signalees. */
   var critics = [
-    "Alice Pénélope Verneuil, La Voix du Nord : « Un épisode qui tient le téléspectateur en joue du générique au clap de fin. »",
-    "Gérard Ovide Braquo, Le Clairon de Lille : « On croyait avoir tout vu, le commissariat nous ressort une pépite. Du grand art. »",
-    "Joséphine Bertille Farpes, France Soir du Nord : « Un crime parfait de scénario : même le légiste n'a rien à redire. »",
-    "Norbert Camille Douille, Le Polar du Dimanche : « Enfin un meurtre élégant. Ma note ? Cinq loupes sur cinq. »",
-    "Huguette Marthe Salsifi, Gala Télé-Police : « Marlène a encore oublié le courrier du cœur, et nous, on a oublié de respirer. »",
-    "Rodolphe Anselme Picrate, Le Bulletin des Enquêtes : « La semaine prochaine, prenez un alibi : vous ne bougerez plus du canapé. »"
+    "H\u00e9l\u00e8ne Rochette, T\u00e9l\u00e9rama : \u00ab Samuel Labarthe poss\u00e8de le raffinement old school d'un Roger Moore. \u00bb",
+    "H\u00e9l\u00e8ne Rochette, T\u00e9l\u00e9rama : \u00ab \u00c9lodie Frenck emporte la mise par sa vis comica. \u00bb",
+    "Bulles de Culture : \u00ab Samuel Labarthe y campe avec \u00e9l\u00e9gance un commissaire froid et sarcastique. \u00bb",
+    "Bulles de Culture : \u00ab L'une des grandes qualit\u00e9s de la s\u00e9rie est son trio de personnages attachants. \u00bb",
+    "T\u00e9l\u00e9rama (saison 1) : \u00ab Une s\u00e9rie m\u00e9langeant myst\u00e8re et humour dans une ambiance des ann\u00e9es 1930. \u00bb",
+    "Allocin\u00e9 (spectateurs) : \u00ab Le trio marche \u00e0 merveille, il est \u00e0 la fois dr\u00f4le et touchant ! \u00bb",
+    "Huguette Marthe Salsifi, Gala T\u00e9l\u00e9-Police (critique fictive) : \u00ab Marl\u00e8ne a encore oubli\u00e9 le courrier du c\u0153ur, et nous, on a oubli\u00e9 de respirer. \u00bb",
+    "Rodolphe Anselme Picrate, Le Bulletin des Enqu\u00eates (critique fictif) : \u00ab La semaine prochaine, prenez un alibi : vous ne bougerez plus du canap\u00e9. \u00bb"
   ];
   var criticCursor = 0;
 
