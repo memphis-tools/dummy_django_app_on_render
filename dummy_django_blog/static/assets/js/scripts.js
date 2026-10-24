@@ -872,6 +872,53 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 
+/* ===== TABLEAU D'ENQUETE : RENOUVELLEMENT A CHAQUE CHARGEMENT ===== */
+/* A chaque affichage de la page, le bureau se renouvelle :
+   - la carte alterne aleatoirement entre l'agglomeration (ELRT v.1930, CC BY-SA 4.0)
+     et le plan de la ville (v.1920, domaine public), toutes deux libres d'usage ;
+   - les personnes de la fiche technique sont reparties aleatoirement dans leurs
+     cellules, avec un leger jitter et une rotation variee.
+   Les deux cartes d'epoque sont ensuite stylees en CSS (sepia) pour s'harmoniser
+   avec le graphisme du site. */
+document.addEventListener("DOMContentLoaded", function() {
+  var img = document.getElementById("feed-lille-plan-img");
+  var caption = document.getElementById("feed-lille-map-caption");
+  if (img && caption) {
+    var maps = [
+      { src: "/static/vendors/img/carte_elrt_1930.jpg",
+        cap: "LILLE \u2014 ROUBAIX \u2014 TOURCOING, VERS 1930<br><small>Carte : Nanzig, Wikimedia Commons (CC BY-SA 4.0)</small>" },
+      { src: "/static/vendors/img/plan_lille_1920.jpg",
+        cap: "PLAN DE LA VILLE DE LILLE, VERS 1920<br><small>Carte : Wikimedia Commons (domaine public)</small>" }
+    ];
+    var pick = maps[Math.floor(Math.random() * maps.length)];
+    img.src = pick.src;
+    caption.innerHTML = pick.cap;
+  }
+  /* repartition aleatoire des personnes de la fiche technique dans les 6 cellules */
+  var people = document.querySelectorAll(".feed-fiche-people .feed-fiche-person");
+  if (people.length) {
+    var positions = [
+      { top: [18, 26], left: [5, 13] }, { top: [12, 22], left: [35, 42] }, { top: [16, 24], left: [80, 88] },
+      { top: [48, 56], left: [10, 18] }, { top: [44, 52], left: [72, 80] }, { top: [26, 34], left: [55, 62] }
+    ];
+    var order = [];
+    for (var i = 0; i < people.length; i++) order.push(i);
+    for (var j = order.length - 1; j > 0; j--) {
+      var k = Math.floor(Math.random() * (j + 1));
+      var t = order[j]; order[j] = order[k]; order[k] = t;
+    }
+    for (var m = 0; m < people.length && m < positions.length; m++) {
+      var el = people[order[m]];
+      var pos = positions[m];
+      var style = el.style;
+      el.style.top = (pos.top[0] + Math.random() * (pos.top[1] - pos.top[0])).toFixed(1) + "%";
+      el.style.left = (pos.left[0] + Math.random() * (pos.left[1] - pos.left[0])).toFixed(1) + "%";
+      var spin = (Math.random() * 14 - 7).toFixed(1);
+      el.style.transform = "rotate(" + spin + "deg)";
+    }
+  }
+});
+
 /* ===== PLAN DE LILLE : LOADER THEMATIQUE PENDANT LE CHARGEMENT ===== */
 document.addEventListener("DOMContentLoaded", function() {
   var plan = document.querySelector(".feed-lille-plan");

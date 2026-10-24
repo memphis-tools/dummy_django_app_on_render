@@ -24,9 +24,9 @@
             <div class="feed-interrogation-table" id="feed-interrogation-table">
                 <div class="feed-evidence-slot feed-evidence-slot--lille">
                     <!-- carte de l'agglomeration Lille-Roubaix-Tourcoing (vers 1930), CC BY-SA 4.0, Nanzig - Wikimedia Commons -->
-                    <figure class="feed-lille-map">
-                        <img class="feed-lille-plan" src="{% static 'vendors/img/carte_elrt_1930.jpg' %}" alt="Carte de l'agglom&eacute;ration de Lille, Roubaix et Tourcoing vers 1930" loading="eager" decoding="async">
-                        <figcaption>LILLE &mdash; ROUBAIX &mdash; TOURCOING, VERS 1930<br><small>Carte : Nanzig, Wikimedia Commons (CC BY-SA 4.0)</small></figcaption>
+                    <figure class="feed-lille-map" id="feed-lille-map">
+                        <img class="feed-lille-plan" id="feed-lille-plan-img" src="{% static 'vendors/img/carte_elrt_1930.jpg' %}" alt="Carte de l'agglomeration de Lille" loading="eager" decoding="async">
+                        <figcaption id="feed-lille-map-caption">LILLE &mdash; ROUBAIX &mdash; TOURCOING, VERS 1930<br><small>Carte : Nanzig, Wikimedia Commons (CC BY-SA 4.0)</small></figcaption>
                     </figure>
                     <div class="feed-lille-plan-loader" aria-hidden="true"><span class="feed-lille-plan-loader-inner"></span></div>
                     <!-- FICHE TECHNIQUE : annotations a la craie autour de la carte centree -->
@@ -38,6 +38,12 @@
                     <span class="feed-chalk-note feed-chalk-note--public" aria-hidden="true">PUBLIC&nbsp;: D&Eacute;CONSEILL&Eacute; AUX MOINS DE 10 ANS</span>
                     <span class="feed-chalk-note feed-chalk-note--format" aria-hidden="true">COULEUR &mdash; 16/9 &mdash; HD &mdash; ST&Eacute;R&Eacute;O</span>
                     <span class="feed-chalk-note feed-chalk-note--diff" aria-hidden="true">1<sup>re</sup> DIFFUSION&nbsp;: 9 JANVIER 2009</span>
+                    <span class="feed-chalk-note feed-chalk-note--decors" aria-hidden="true">DECORS&nbsp;: M. GACEB COUTURE / J. VANSTEENKISTE</span>
+                    <span class="feed-chalk-note feed-chalk-note--costumes" aria-hidden="true">COSTUMES&nbsp;: M.-L. LASSON / A. CATALA</span>
+                    <span class="feed-chalk-note feed-chalk-note--photo" aria-hidden="true">PHOTOGRAPHIE&nbsp;: B. MOULY</span>
+                    <span class="feed-chalk-note feed-chalk-note--montage" aria-hidden="true">MONTAGE&nbsp;: L. JASPARD / T. ROUDEN</span>
+                    <span class="feed-chalk-note feed-chalk-note--casting" aria-hidden="true">CASTING&nbsp;: M. LAGUENS</span>
+                    <span class="feed-chalk-note feed-chalk-note--generique" aria-hidden="true">GENERIC&nbsp;: R. SEGAUD</span>
                     <!-- equipes crea : portraits punaises, noms lies vers Wikipedia -->
                     <div class="feed-fiche-people">
                         <figure class="feed-fiche-person feed-fiche-person--creation">
