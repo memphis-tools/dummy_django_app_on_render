@@ -937,20 +937,20 @@ document.addEventListener("DOMContentLoaded", function() {
      Positions passees en custom properties (--py/--px) : le CSS les force
      en absolu sur le croquis avec une regle haute specificite, garantissant
      leur visibilite quel que soit le reste de la feuille de style. */
-  if (people.length > 4) {
+  if (people.length > 3) {
     var order = [];
     for (var i = 0; i < people.length; i++) order.push(i);
     for (var j = order.length - 1; j > 0; j--) {
       var k = Math.floor(Math.random() * (j + 1));
       var t = order[j]; order[j] = order[k]; order[k] = t;
     }
-    var picked = order.slice(0, 4);
-    /* 4 zones de dispersion bien separees sur le croquis (2 hautes, 2 basses) */
+    var picked = order.slice(0, 3);
+    /* 3 fiches eparpillees a gauche et a droite du tableau, HORS de la carte
+       (bandes laterales du plateau : approx. 0-15% et 85-97% de largeur) */
     var zones = [
-      { top: [12, 26], left: [22, 38] },
-      { top: [12, 26], left: [58, 74] },
-      { top: [62, 76], left: [28, 44] },
-      { top: [62, 76], left: [54, 70] }
+      { top: [13, 28], left: [13, 20] },   /* gauche, sous le post-it du haut */
+      { top: [44, 60], left: [84, 92] },   /* droite, bande laterale */
+      { top: [70, 84], left: [13, 20] }    /* gauche, bas du plateau */
     ];
     people.forEach(function(el, n) {
       if (picked.indexOf(n) === -1) el.style.display = "none";
@@ -958,12 +958,12 @@ document.addEventListener("DOMContentLoaded", function() {
     picked.forEach(function(idx, n) {
       var el = people[idx];
       el.style.display = "";
-      var z = zones[n % 4];
+      var z = zones[n % 3];
       el.style.setProperty("--py", (z.top[0] + Math.random() * (z.top[1] - z.top[0])).toFixed(1) + "%");
       el.style.setProperty("--px", (z.left[0] + Math.random() * (z.left[1] - z.left[0])).toFixed(1) + "%");
       el.style.setProperty("--toss-spin", (Math.random() * 20 - 10).toFixed(1) + "deg");
       el.classList.add("person-dropped");
-      setTimeout(function(elm) { elm.classList.add("person-rest"); }.bind(null, el), 250 + n * 420);
+      setTimeout(function(elm) { elm.classList.add("person-rest"); }.bind(null, el), 250 + n * 480);
     });
   }
 
@@ -981,6 +981,43 @@ document.addEventListener("DOMContentLoaded", function() {
       notes[idx].dataset.lane = String(Math.floor(n / 2));
     });
   }
+});
+
+/* ===== CROQUIS : PASTILLES INTERACTIVES (photo du lieu au survol) ===== */
+document.addEventListener("DOMContentLoaded", function() {
+  var tip = document.createElement("div");
+  tip.className = "feed-map-tip";
+  tip.setAttribute("role", "tooltip");
+  document.body.appendChild(tip);
+  function showTip(btn) {
+    var staticUrl = btn.getAttribute("data-static") || "/static/vendors/img/" + btn.getAttribute("data-img");
+    tip.innerHTML = "<img src='" + staticUrl + "' alt='" + btn.getAttribute("data-place") + "'>" +
+      "<strong>" + btn.getAttribute("data-place") + "</strong>" +
+      "<small>" + btn.getAttribute("data-src") + "</small>";
+    var r = btn.getBoundingClientRect();
+    var w = Math.min(280, window.innerWidth - 24);
+    tip.style.width = w + "px";
+    tip.style.visibility = "hidden";
+    tip.style.display = "block";
+    var tr = tip.getBoundingClientRect();
+    var left = r.left + r.width / 2 - tr.width / 2;
+    left = Math.max(10, Math.min(left, window.innerWidth - tr.width - 10));
+    var top = r.top - tr.height - 10;
+    if (top < 66) top = r.bottom + 10; /* sous la navbar (z-index 2000) si trop haut */
+    tip.style.left = left + "px";
+    tip.style.top = top + "px";
+    tip.style.visibility = "visible";
+    tip.classList.add("feed-map-tip--on");
+  }
+  function hideTip() { tip.classList.remove("feed-map-tip--on"); tip.style.display = "none"; }
+  Array.prototype.forEach.call(document.querySelectorAll(".feed-map-hotspot"), function(btn) {
+    btn.addEventListener("mouseenter", function() { showTip(btn); });
+    btn.addEventListener("focus", function() { showTip(btn); });
+    btn.addEventListener("mouseleave", hideTip);
+    btn.addEventListener("blur", hideTip);
+    btn.addEventListener("click", function() { showTip(btn); });
+  });
+  window.addEventListener("scroll", hideTip, { passive: true });
 });
 
 /* ===== PLAN DE LILLE : LOADER THEMATIQUE PENDANT LE CHARGEMENT ===== */

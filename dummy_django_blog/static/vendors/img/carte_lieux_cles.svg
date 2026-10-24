@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1500 1100" width="1500" height="1100">
-  <title>Croquis des enquêtes — le commissariat au centre, les domiciles de l'équipe et les lieux de meurtre reliés par des allers-retours</title>
+  <title>Croquis des enquêtes — commissariat au centre, domiciles et lieux de crime reliés ; Marlène en bus, Alice en scooter, Laurence en Facel Vega</title>
   <defs>
     <filter id="paper" x="0" y="0" width="100%" height="100%">
       <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" result="noise"/>
@@ -10,6 +10,10 @@
     <pattern id="grid" width="75" height="75" patternUnits="userSpaceOnUse">
       <path d="M 75 0 L 0 0 0 75" fill="none" stroke="#5a4632" stroke-width="1" opacity="0.35"/>
     </pattern>
+    <!-- pastille-craie : goutte de cartes, pointe en bas, contour double -->
+    <g id="pin">
+      <path d="M 0 0 C -10 -8, -18 -16, -18 -26 A 18 18 0 1 1 18 -26 C 18 -16, 10 -8, 0 0 Z"/>
+    </g>
     <marker id="arrow-red" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
       <path d="M 0 0 L 10 5 L 0 10 z" fill="#8a2b2b"/>
     </marker>
@@ -22,42 +26,93 @@
   <rect width="1500" height="1100" fill="#f0e6cf"/>
   <rect width="1500" height="1100" fill="url(#grid)" filter="url(#paper)"/>
 
-  <!-- canal de la Deûle, trait unique discret pour situer Lille -->
-  <g stroke="#5f7d8c" stroke-width="9" fill="none" opacity="0.55" stroke-linecap="round">
+  <!-- tissu urbain de Lille : blocs de rues esquissés autour du centre -->
+  <g stroke="#8a7a5c" stroke-width="2" fill="none" opacity="0.45" stroke-linecap="round">
+    <!-- boulevards ceinturant le centre -->
+    <path d="M 560 380 L 940 380"/>
+    <path d="M 940 380 L 1000 470 L 1000 650 L 940 740"/>
+    <path d="M 940 740 L 560 740"/>
+    <path d="M 560 740 L 500 650 L 500 470 L 560 380"/>
+    <!-- rues intérieures -->
+    <path d="M 750 380 L 750 740"/>
+    <path d="M 500 560 L 1000 560"/>
+    <path d="M 630 380 C 640 460, 650 520, 680 560"/>
+    <path d="M 870 380 C 860 460, 850 520, 820 560"/>
+    <path d="M 680 560 C 700 640, 720 690, 750 740"/>
+    <path d="M 820 560 C 800 640, 780 690, 750 740"/>
+    <!-- faubourgs -->
+    <path d="M 560 380 C 480 340, 400 320, 300 330"/>
+    <path d="M 940 380 C 1030 340, 1120 330, 1220 350"/>
+    <path d="M 560 740 C 470 790, 390 830, 300 850"/>
+    <path d="M 940 740 C 1030 790, 1120 830, 1220 850"/>
+  </g>
+
+  <!-- canal de la Deûle + bassin -->
+  <g stroke="#5f7d8c" stroke-width="10" fill="none" opacity="0.55" stroke-linecap="round">
     <path d="M 140 300 C 400 380, 700 430, 1000 400 C 1180 385, 1330 420, 1440 470"/>
+    <path d="M 140 300 C 200 420, 240 560, 260 720"/>
   </g>
+  <ellipse cx="180" cy="830" rx="90" ry="55" fill="#5f7d8c" opacity="0.35"/>
 
   <!-- ============================================================
-       LIAISONS DOMICILES -> COMMISSARIAT (fil d'enquête rouge pointillé)
-       lecture claire : une ligne par personnage, arrivée sur le badge
+       TRAJETS QUOTIDIENS — un trait par personnage, avec son "véhicule"
        ============================================================ -->
-  <g stroke="#8a2b2b" stroke-width="5" fill="none" opacity="0.9" stroke-dasharray="14 12" stroke-linecap="round" marker-end="url(#arrow-red)">
-    <!-- Swan Laurence (nord-ouest) -> commissariat -->
-    <path d="M 420 290 L 690 500"/>
-    <!-- Alice Avril (nord-est) -> commissariat -->
-    <path d="M 1080 290 L 810 500"/>
-    <!-- Marlène Leroy (sud) -> commissariat -->
-    <path d="M 750 860 L 750 600"/>
+  <!-- Laurence : Facel Vega rouge, trait plein double -->
+  <g stroke="#a4243b" stroke-width="6" fill="none" opacity="0.9" stroke-linecap="round">
+    <path d="M 420 290 C 500 330, 580 380, 650 460" marker-end="url(#arrow-red)"/>
+  </g>
+  <g stroke="#a4243b" stroke-width="2" fill="none" opacity="0.5" stroke-dasharray="2 6" stroke-linecap="round">
+    <path d="M 420 300 C 500 340, 580 390, 650 470"/>
+  </g>
+  <!-- coupé 2+2 stylisé (silhouette craie) -->
+  <g transform="translate(520,352) rotate(24)" fill="none" stroke="#a4243b" stroke-width="3.5" stroke-linecap="round" opacity="0.9">
+    <path d="M -34 6 C -26 -10, -10 -14, 0 -14 C 10 -14, 22 -10, 30 -2"/>
+    <path d="M -34 6 L 30 4"/>
+    <circle cx="-20" cy="8" r="7" fill="#f0e6cf" stroke="#a4243b" stroke-width="3"/>
+    <circle cx="18" cy="7" r="7" fill="#f0e6cf" stroke="#a4243b" stroke-width="3"/>
+    <path d="M 30 4 L 38 3"/>
+  </g>
+
+  <!-- Alice : scooter, trait tireté -->
+  <g stroke="#8a2b2b" stroke-width="5" fill="none" opacity="0.85" stroke-dasharray="12 10" stroke-linecap="round">
+    <path d="M 1080 290 C 990 330, 900 390, 850 470" marker-end="url(#arrow-red)"/>
+  </g>
+  <!-- scooter stylisé -->
+  <g transform="translate(975,352) rotate(28)" fill="none" stroke="#8a2b2b" stroke-width="3.5" stroke-linecap="round" opacity="0.9">
+    <path d="M -20 0 C -12 -12, 0 -16, 12 -14"/>
+    <path d="M 12 -14 L 20 -8 L 14 0"/>
+    <circle cx="-14" cy="4" r="6" fill="#f0e6cf" stroke="#8a2b2b" stroke-width="3"/>
+    <circle cx="16" cy="2" r="6" fill="#f0e6cf" stroke="#8a2b2b" stroke-width="3"/>
+    <path d="M -6 -4 L -2 -14 L 4 -14"/>
+  </g>
+
+  <!-- Marlène : bus puis à pied, trait pointillé fin -->
+  <g stroke="#6b5335" stroke-width="4.5" fill="none" opacity="0.8" stroke-dasharray="4 10" stroke-linecap="round">
+    <path d="M 750 860 C 760 800, 770 720, 762 640" marker-end="url(#arrow-sepia)"/>
+  </g>
+  <!-- bus stylisé -->
+  <g transform="translate(778,760)" fill="none" stroke="#6b5335" stroke-width="3.5" stroke-linecap="round" opacity="0.85">
+    <rect x="-26" y="-14" width="52" height="24" rx="4"/>
+    <line x1="-8" y1="-14" x2="-8" y2="10"/>
+    <line x1="10" y1="-14" x2="10" y2="10"/>
+    <circle cx="-14" cy="12" r="5" fill="#f0e6cf" stroke="#6b5335" stroke-width="3"/>
+    <circle cx="16" cy="12" r="5" fill="#f0e6cf" stroke="#6b5335" stroke-width="3"/>
   </g>
 
   <!-- ============================================================
-       ALLERS-RETOURS COMMISSARIAT <-> LIEUX DE MEURTRE
-       double-sens : deux tirets paralleles, fleches aux deux bouts
+       ALLERS-RETOURS COMMISSARIAT &lt;-&gt; LIEUX DE CRIME (double flèche)
        ============================================================ -->
   <g stroke="#6b5335" stroke-width="4.5" fill="none" opacity="0.85" stroke-dasharray="20 10" stroke-linecap="round">
-    <!-- commissariat -> château de Marlène (ouest) -->
-    <path d="M 640 560 C 520 580, 420 620, 320 680" marker-end="url(#arrow-sepia)"/>
-    <path d="M 350 640 C 450 590, 550 560, 660 545" marker-end="url(#arrow-sepia)"/>
-    <!-- commissariat -> villa du lac (est) -->
-    <path d="M 860 560 C 980 580, 1080 620, 1180 680" marker-end="url(#arrow-sepia)"/>
-    <path d="M 1150 640 C 1050 590, 950 560, 840 545" marker-end="url(#arrow-sepia)"/>
-    <!-- commissariat -> plage de Malo-les-Bains (sud-est) -->
-    <path d="M 830 610 C 930 700, 1010 790, 1060 880" marker-end="url(#arrow-sepia)"/>
-    <path d="M 1010 900 C 960 810, 900 720, 810 630" marker-end="url(#arrow-sepia)"/>
+    <!-- commissariat -> Villa Cavrois (croix, ouest) -->
+    <path d="M 640 560 C 520 590, 400 640, 300 700" marker-end="url(#arrow-sepia)"/>
+    <path d="M 330 660 C 430 610, 540 575, 660 548" marker-end="url(#arrow-sepia)"/>
+    <!-- commissariat -> plage de Malo (sud-est) -->
+    <path d="M 830 610 C 930 700, 1020 800, 1070 890" marker-end="url(#arrow-sepia)"/>
+    <path d="M 1020 910 C 970 820, 900 730, 810 630" marker-end="url(#arrow-sepia)"/>
   </g>
 
   <!-- ============================================================
-       LE COMMISSARIAT : pièce centrale, badge étoile
+       LE COMMISSAIRT : pièce centrale
        ============================================================ -->
   <g transform="translate(750,550)">
     <path d="M 0 -72 L 21 -23 L 74 -23 L 31 11 L 48 61 L 0 31 L -48 61 L -31 11 L -74 -23 L -21 -23 Z"
@@ -71,69 +126,89 @@
   </g>
 
   <!-- ============================================================
-       LES 3 DOMICILES : maisons pastillées, reliées au commissariat
+       LES 3 DOMICILES
        ============================================================ -->
   <!-- Swan Laurence -->
   <g transform="translate(420,290)">
-    <circle r="34" fill="#2e4a3f" stroke="#f0e6cf" stroke-width="3"/>
-    <path d="M -16 8 L -16 -8 L 0 -22 L 16 -8 L 16 8 Z" fill="#f0e6cf"/>
-    <text y="-46" text-anchor="middle" font-family="serif" font-size="26" font-weight="bold" fill="#3a2c22">DOMICILE SWAN LAURENCE</text>
-    <text y="66" text-anchor="middle" font-family="'Caveat', cursive" font-size="24" fill="#8a2b2b">commissaire divisionnaire</text>
+    <use href="#pin" fill="#2e4a3f" stroke="#f0e6cf" stroke-width="3"/>
+    <circle cy="-26" r="10" fill="#f0e6cf"/>
+    <text y="-58" text-anchor="middle" font-family="serif" font-size="26" font-weight="bold" fill="#3a2c22">DOMICILE SWAN LAURENCE</text>
+    <text y="30" text-anchor="middle" font-family="'Caveat', cursive" font-size="24" fill="#a4243b" font-weight="bold">Facel Vega Facellia rouge</text>
   </g>
   <!-- Alice Avril -->
   <g transform="translate(1080,290)">
-    <circle r="34" fill="#2e4a3f" stroke="#f0e6cf" stroke-width="3"/>
-    <path d="M -16 8 L -16 -8 L 0 -22 L 16 -8 L 16 8 Z" fill="#f0e6cf"/>
-    <text y="-46" text-anchor="middle" font-family="serif" font-size="26" font-weight="bold" fill="#3a2c22">DOMICILE ALICE AVRIL</text>
-    <text y="66" text-anchor="middle" font-family="'Caveat', cursive" font-size="24" fill="#8a2b2b">journaliste — La Voix du Nord</text>
+    <use href="#pin" fill="#2e4a3f" stroke="#f0e6cf" stroke-width="3"/>
+    <circle cy="-26" r="10" fill="#f0e6cf"/>
+    <text y="-58" text-anchor="middle" font-family="serif" font-size="26" font-weight="bold" fill="#3a2c22">DOMICILE ALICE AVRIL</text>
+    <text y="30" text-anchor="middle" font-family="'Caveat', cursive" font-size="24" fill="#8a2b2b" font-weight="bold">son scooter emblématique</text>
   </g>
   <!-- Marlène Leroy -->
   <g transform="translate(750,860)">
-    <circle r="34" fill="#2e4a3f" stroke="#f0e6cf" stroke-width="3"/>
-    <path d="M -16 8 L -16 -8 L 0 -22 L 16 -8 L 16 8 Z" fill="#f0e6cf"/>
-    <text y="-46" text-anchor="middle" font-family="serif" font-size="26" font-weight="bold" fill="#3a2c22">DOMICILE MARLÈNE LEROY</text>
-    <text y="66" text-anchor="middle" font-family="'Caveat', cursive" font-size="24" fill="#8a2b2b">secrétaire du commissariat</text>
+    <use href="#pin" fill="#2e4a3f" stroke="#f0e6cf" stroke-width="3"/>
+    <circle cy="-26" r="10" fill="#f0e6cf"/>
+    <text y="-58" text-anchor="middle" font-family="serif" font-size="26" font-weight="bold" fill="#3a2c22">DOMICILE MARLÈNE LEROY</text>
+    <text y="30" text-anchor="middle" font-family="'Caveat', cursive" font-size="24" fill="#6b5335" font-weight="bold">en bus, puis à pied</text>
   </g>
 
   <!-- ============================================================
-       LIEUX DE MEURTRE : cibles rouges numérotées
+       LIEUX DE CRIME + AUTRES LIEUX CLÉS : pastilles goutte numérotées
        ============================================================ -->
-  <g font-family="serif">
-    <!-- 1 château de Marlène -->
-    <g transform="translate(320,680)">
-      <circle r="36" fill="#a4243b" opacity="0.9"/>
-      <circle r="36" fill="none" stroke="#f0e6cf" stroke-width="3"/>
-      <text y="12" text-anchor="middle" font-size="30" font-weight="bold" fill="#f0e6cf">1</text>
-      <text y="-52" text-anchor="middle" font-size="26" font-weight="bold" fill="#3a2c22">VILLA DES ROSEAUX</text>
-      <text y="66" text-anchor="middle" font-family="'Caveat', cursive" font-size="24" fill="#8a2b2b">lieu de meurtre</text>
-    </g>
-    <!-- 2 villa du lac -->
-    <g transform="translate(1180,680)">
-      <circle r="36" fill="#a4243b" opacity="0.9"/>
-      <circle r="36" fill="none" stroke="#f0e6cf" stroke-width="3"/>
-      <text y="12" text-anchor="middle" font-size="30" font-weight="bold" fill="#f0e6cf">2</text>
-      <text y="-52" text-anchor="middle" font-size="26" font-weight="bold" fill="#3a2c22">VILLA DU LAC</text>
-      <text y="66" text-anchor="middle" font-family="'Caveat', cursive" font-size="24" fill="#8a2b2b">lieu de meurtre</text>
-    </g>
-    <!-- 3 plage de Malo -->
-    <g transform="translate(1060,880)">
-      <circle r="36" fill="#a4243b" opacity="0.9"/>
-      <circle r="36" fill="none" stroke="#f0e6cf" stroke-width="3"/>
-      <text y="12" text-anchor="middle" font-size="30" font-weight="bold" fill="#f0e6cf">3</text>
-      <text y="-52" text-anchor="middle" font-size="26" font-weight="bold" fill="#3a2c22">MALO-LES-BAINS</text>
-      <text y="66" text-anchor="middle" font-family="'Caveat', cursive" font-size="24" fill="#8a2b2b">lieu de meurtre</text>
-    </g>
+  <!-- 1 Villa Cavrois (lieu de crime) -->
+  <g transform="translate(250,700)">
+    <use href="#pin" fill="#a4243b" stroke="#f0e6cf" stroke-width="3"/>
+    <text y="-20" text-anchor="middle" font-family="serif" font-size="22" font-weight="bold" fill="#f0e6cf">1</text>
+    <text y="34" text-anchor="middle" font-family="serif" font-size="24" font-weight="bold" fill="#3a2c22">VILLA CAVROIS — CROIX</text>
+    <text y="64" text-anchor="middle" font-family="'Caveat', cursive" font-size="23" fill="#a4243b">lieu de crime</text>
+  </g>
+  <!-- 2 Plage de Malo (lieu de crime) -->
+  <g transform="translate(1120,910)">
+    <use href="#pin" fill="#a4243b" stroke="#f0e6cf" stroke-width="3"/>
+    <text y="-20" text-anchor="middle" font-family="serif" font-size="22" font-weight="bold" fill="#f0e6cf">2</text>
+    <text y="-40" text-anchor="middle" font-family="serif" font-size="24" font-weight="bold" fill="#3a2c22">MALO-LES-BAINS</text>
+    <text y="66" text-anchor="middle" font-family="'Caveat', cursive" font-size="23" fill="#a4243b">lieu de crime</text>
+  </g>
+  <!-- 3 Beffroi / hôtel de ville -->
+  <g transform="translate(600,430)">
+    <use href="#pin" fill="#5a4632" stroke="#f0e6cf" stroke-width="3"/>
+    <text y="-20" text-anchor="middle" font-family="serif" font-size="22" font-weight="bold" fill="#f0e6cf">3</text>
+    <text y="-42" text-anchor="middle" font-family="serif" font-size="24" font-weight="bold" fill="#3a2c22">BEFFROI — HÔTEL DE VILLE</text>
+  </g>
+  <!-- 4 Vieux-Lille, rue de la Monnaie -->
+  <g transform="translate(890,440)">
+    <use href="#pin" fill="#5a4632" stroke="#f0e6cf" stroke-width="3"/>
+    <text y="-20" text-anchor="middle" font-family="serif" font-size="22" font-weight="bold" fill="#f0e6cf">4</text>
+    <text y="-42" text-anchor="middle" font-family="serif" font-size="24" font-weight="bold" fill="#3a2c22">VIEUX-LILLE, RUE DE LA MONNAIE</text>
+  </g>
+  <!-- 5 Gare Lille-Flandres -->
+  <g transform="translate(610,660)">
+    <use href="#pin" fill="#5a4632" stroke="#f0e6cf" stroke-width="3"/>
+    <text y="-20" text-anchor="middle" font-family="serif" font-size="22" font-weight="bold" fill="#f0e6cf">5</text>
+    <text y="34" text-anchor="middle" font-family="serif" font-size="24" font-weight="bold" fill="#3a2c22">GARE LILLE-FLANDRES</text>
+  </g>
+  <!-- 6 Opéra de Lille -->
+  <g transform="translate(900,620)">
+    <use href="#pin" fill="#5a4632" stroke="#f0e6cf" stroke-width="3"/>
+    <text y="-20" text-anchor="middle" font-family="serif" font-size="22" font-weight="bold" fill="#f0e6cf">6</text>
+    <text y="-42" text-anchor="middle" font-family="serif" font-size="24" font-weight="bold" fill="#3a2c22">OPÉRA DE LILLE</text>
+  </g>
+  <!-- 7 Rue Nationale -->
+  <g transform="translate(750,730)">
+    <use href="#pin" fill="#5a4632" stroke="#f0e6cf" stroke-width="3"/>
+    <text y="-20" text-anchor="middle" font-family="serif" font-size="22" font-weight="bold" fill="#f0e6cf">7</text>
+    <text y="34" text-anchor="middle" font-family="serif" font-size="24" font-weight="bold" fill="#3a2c22">RUE NATIONALE</text>
+  </g>
+  <!-- 8 Le Kursaal / digue de Malo -->
+  <g transform="translate(1290,860)">
+    <use href="#pin" fill="#5a4632" stroke="#f0e6cf" stroke-width="3"/>
+    <text y="-20" text-anchor="middle" font-family="serif" font-size="22" font-weight="bold" fill="#f0e6cf">8</text>
+    <text y="-42" text-anchor="middle" font-family="serif" font-size="24" font-weight="bold" fill="#3a2c22">LE KURSAAL</text>
   </g>
 
-  <!-- annotations à la craie -->
+  <!-- annotations à la craie, limitées et cohérentes -->
   <g font-family="'Caveat', cursive" fill="#3a2c22" opacity="0.9">
-    <text x="200" y="180" font-size="34" transform="rotate(-3 200 180)">indices au bureau...</text>
-    <text x="1090" y="180" font-size="34" transform="rotate(2 1090 180)">...sur place à la loupe !</text>
-    <text x="240" y="990" font-size="30" transform="rotate(-2 240 990)">chaque enquête : départ bureau, aller-retour sur les lieux</text>
-  </g>
-  <g opacity="0.75">
-    <path d="M 1290 980 C 1330 940, 1350 920, 1360 900" stroke="#3a2c22" stroke-width="4" fill="none" stroke-linecap="round" marker-end="url(#arrow-sepia)"/>
-    <text x="1150" y="1010" font-family="'Caveat', cursive" font-size="30" fill="#3a2c22">la vérité sort de la Deûle</text>
+    <text x="230" y="180" font-size="34" transform="rotate(-3 230 180)">le trio file au commissariat…</text>
+    <text x="1060" y="180" font-size="34" transform="rotate(2 1060 180)">…puis repart sur les lieux du crime</text>
+    <text x="300" y="1020" font-size="30" transform="rotate(-2 300 1020)">indices au bureau, vérité sur place</text>
   </g>
 
   <!-- tampon d'époque -->

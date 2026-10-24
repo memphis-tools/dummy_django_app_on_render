@@ -33,3 +33,6 @@ def test_feed_desk_and_sections_restyled(client, django_user_model):
     assert b"didier_bivel.jpg" in r.content and b"jeanluc_gaget.jpg" in r.content and b"marc_angelo.jpg" in r.content  # photos libres trouvees
     assert b"feed-evidence-slot--photos" in r.content  # bureau de depot dans la section photos
     assert b"awards-list" in r.content and b"award-icon" in r.content
+    # croquis interactif : pastilles lieux avec photo au survol
+    assert b"feed-map-hotspot" in r.content and b"villa_cavrois.jpg" in r.content
+    assert b"malo_plage.jpg" in r.content and b"beffroi_lille.jpg" in r.content and b"vieux_lille_maison.jpg" in r.content
