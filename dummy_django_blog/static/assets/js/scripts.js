@@ -419,7 +419,7 @@ document.addEventListener("DOMContentLoaded", function() {
   scheduleIdle();
 });
 
-document.addEventListener("DOMContentLoaded", function() {
+function initScrollNav() {
   var scrollNav = document.querySelector(".site-scroll-nav");
   if (!scrollNav) return;
   var navbarHeight = function() {
@@ -427,7 +427,7 @@ document.addEventListener("DOMContentLoaded", function() {
     return navbar ? navbar.offsetHeight : 76;
   };
   var sectionStep = function(direction) {
-    var sections = document.querySelectorAll("main > section > .feed-intro, main > section > [id^='feed-section-']");
+    var sections = document.querySelectorAll("main > section > .feed-intro, main > section > [id^='feed-section-'], main > section, main > .container-fluid");
     var navH = navbarHeight();
     var tolerance = 2;
     var tops = [];
@@ -435,7 +435,8 @@ document.addEventListener("DOMContentLoaded", function() {
       var rect = sections[i].getBoundingClientRect();
       tops.push(rect.top + window.scrollY);
     }
-    if (direction >= 0) {
+    tops.sort(function(a, b) { return a - b; });
+    if (direction > 0) {
       for (var j = 0; j < tops.length; j++) {
         if (tops[j] - navH > window.scrollY + tolerance) {
           return Math.max(0, tops[j] - navH);
@@ -458,7 +459,10 @@ document.addEventListener("DOMContentLoaded", function() {
     var target = Math.max(0, Math.min(targetY, maxY));
     var startY = window.scrollY;
     var distance = target - startY;
-    if (Math.abs(distance) < 4) return;
+    if (Math.abs(distance) < 4) {
+      window.scrollTo(0, target);
+      return;
+    }
     var token = ++scrollAnimToken;
     var startTime = null;
     var duration = Math.min(600, Math.max(220, Math.abs(distance) / 3));
@@ -472,11 +476,27 @@ document.addEventListener("DOMContentLoaded", function() {
     }
     requestAnimationFrame(step);
   };
-  document.getElementById("scroll-full-top").addEventListener("click", function() { smoothStep(0); });
-  document.getElementById("scroll-up").addEventListener("click", function() { smoothStep(sectionStep(-1)); });
-  document.getElementById("scroll-down").addEventListener("click", function() { smoothStep(sectionStep(1)); });
-  document.getElementById("scroll-full-bottom").addEventListener("click", function() { smoothStep(pageHeight() - window.innerHeight); });
-});
+  function bind(id, handler) {
+    var btn = document.getElementById(id);
+    if (!btn) return;
+    btn.addEventListener("click", function(ev) {
+      ev.preventDefault();
+      handler();
+    });
+    btn.style.cursor = "pointer";
+  }
+  bind("scroll-full-top", function() { smoothStep(0); });
+  bind("scroll-up", function() { smoothStep(sectionStep(-1)); });
+  bind("scroll-down", function() { smoothStep(sectionStep(1)); });
+  bind("scroll-full-bottom", function() { smoothStep(pageHeight() - window.innerHeight); });
+}
+/* le script est charge en defer : si le DOM est deja pret, on initialise tout de suite,
+   sinon on attend DOMContentLoaded (les 4 boutons doivent toujours repondre) */
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", initScrollNav);
+} else {
+  initScrollNav();
+}
 
 document.addEventListener("DOMContentLoaded", function() {
   var detailQuote = document.getElementById("post-detail-quote");
@@ -848,10 +868,21 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 
-/* ===== FEED : PHOTOS PUNAISEES AU HASARD SUR LE TABLEAU D'ENQUETE ===== */
-/* Fin de l'effet "depose sur bureau" : chaque photo est punaisee au tableau,
-   repartie harmonieusement (grille de cellules melangee + leger jitter aleatoire,
-   rotation variee), cote client uniquement. */
+/* ===== PLAN DE LILLE : LOADER THEMATIQUE PENDANT LE CHARGEMENT ===== */
+document.addEventListener("DOMContentLoaded", function() {
+  var plan = document.querySelector(".feed-lille-plan");
+  var loader = document.querySelector(".feed-lille-plan-loader");
+  if (!plan || !loader) return;
+  function ready() { loader.classList.add("feed-lille-plan-ready"); }
+  if (plan.complete && plan.naturalWidth > 0) { ready(); return; }
+  plan.addEventListener("load", ready);
+  plan.addEventListener("error", ready);
+});
+
+/* ===== FEED : LE COMMISSAIRE DEPOSE LES PHOTOS UNE A UNE SUR LE PLAN DE LILLE ===== */
+/* Retour a l'effet "depot une a une". La PREMIERE photo visible est ALEATOIRE,
+   ensuite la serie debute de la 1ere a la derniere photo (l'utilisateur ne voit
+   donc jamais "la 1ere photo, puis de nouveau la 1ere, puis la 2nde..."). */
 document.addEventListener("DOMContentLoaded", function() {
   var slot = document.querySelector(".feed-evidence-slot");
   if (!slot) return;
@@ -861,35 +892,24 @@ document.addEventListener("DOMContentLoaded", function() {
   var cards = Array.prototype.slice.call(deck.querySelectorAll(".feed-evidence-card"));
   pile.innerHTML = "";
   if (!cards.length) return;
-  /* nombre de photos affichees : depend de la taille du tableau */
-  var maxShown = window.innerWidth <= 700 ? 4 : (window.innerWidth <= 1100 ? 5 : 6);
-  var shown = cards.slice(0, Math.min(maxShown, cards.length));
-  var shuffled = shown.slice();
-  for (var i = shuffled.length - 1; i > 0; i--) {
-    var j = Math.floor(Math.random() * (i + 1));
-    var tmp = shuffled[i]; shuffled[i] = shuffled[j]; shuffled[j] = tmp;
-  }
-  /* grille 3 colonnes x 2 rangees : chaque photo occupe une cellule, ordre aleatoire */
-  var cols = 3;
-  var rows = Math.ceil(shuffled.length / cols);
-  shuffled.forEach(function(card, idx) {
-    var cell = idx % cols;
-    var row = Math.floor(idx / cols);
-    /* position du centre de la cellule + jitter aleatoire (+-6% des deux axes) */
-    var cx = (cell + 0.5) / cols * 100 + (Math.random() * 12 - 6);
-    var cy = (row + 0.5) / rows * 100 + (Math.random() * 10 - 5);
-    var spin = (Math.random() * 16 - 8).toFixed(1);
+  /* rotations et decalages "poses a la main" */
+  var spins = [-14, 9, -7, 12, -11, 6, -4, 15];
+  var offsets = [-30, 24, -12, 36, -24, 14, -36, 20];
+  var zTop = 10;
+  function place(card, index) {
     var clone = card.cloneNode(true);
-    clone.classList.add("evidence-pinned");
-    clone.style.left = cx + "%";
-    clone.style.top = cy + "%";
-    clone.style.setProperty("--pin-spin", spin + "deg");
+    clone.classList.remove("evidence-pinned");
+    clone.style.setProperty("--toss-spin", spins[index % spins.length] + "deg");
+    clone.style.setProperty("--toss-x", offsets[index % offsets.length] + "px");
+    clone.style.zIndex = String(zTop);
+    zTop++;
+    clone.classList.add("evidence-toss");
     pile.appendChild(clone);
     setTimeout(function() {
       clone.classList.remove("evidence-toss");
       clone.classList.add("evidence-rest");
     }, 900);
-    // les plus anciennes glissent hors du bureau : la boucle les re-projettera ensuite
+    /* la plus ancienne glisse hors du tableau quand la pile depasse 5 photos */
     setTimeout(function() {
       var stacked = pile.querySelectorAll(".feed-evidence-card");
       var maxStack = Math.min(5, cards.length);
@@ -902,14 +922,16 @@ document.addEventListener("DOMContentLoaded", function() {
       }
     }, 1500);
   }
-
-  var evidenceIndex = 0;
+  /* 1ere photo visible : ALEATOIRE (l'utilisateur ne doit pas revoir la 1ere juste apres) */
+  var firstIdx = Math.floor(Math.random() * cards.length);
+  place(cards[firstIdx], 0);
+  /* ensuite la serie complete, de la 1ere a la derniere photo, en boucle */
+  var evidenceIndex = 0; /* compte de depot APRES la premiere aleatoire */
   function loop() {
-    tossNext(evidenceIndex);
+    place(cards[evidenceIndex % cards.length], evidenceIndex + 1);
     evidenceIndex++;
   }
-  // premiere photo presque immediatement, puis rythme regulier de monstration
-  setTimeout(loop, 600);
+  setTimeout(loop, 3600);
   setInterval(loop, 3600);
 });
 
