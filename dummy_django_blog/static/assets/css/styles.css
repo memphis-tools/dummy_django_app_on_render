@@ -4091,3 +4091,54 @@ footer.footer-container {  margin-top: 0; }
 /* la grille .feed-fiche-people ne doit PAS masquer : elle reste en flux absolu mais
    pointer-events none, et les non-choisis sont display:none via JS. */
 .feed-evidence-slot--lille .feed-fiche-people { pointer-events: none; }
+
+/* ===== FIX #186 : POST-IT ANCRÉS AU PLATEAU (plus au bureau) =====
+   .feed-visitor-notes est desormais DANS .feed-evidence-slot--lille : les
+   pourcentages bordent le plateau. Cette regle finale a specificite maximale
+   neutralise les anciennes regles data-side/data-lane qui poussaient les
+   post-it en haut a gauche / milieu d'ecran (elles visaient le bureau large). */
+.feed-evidence-slot--lille .feed-visitor-notes {
+  position: absolute !important;
+  inset: 0 !important;
+  height: auto !important;
+  left: 0 !important;
+  right: 0 !important;
+  top: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  display: block !important;
+  pointer-events: none !important;
+  z-index: 6 !important;
+}
+.feed-evidence-slot--lille .feed-visitor-note {
+  position: absolute !important;
+  pointer-events: auto !important;
+}
+/* le blanc du plateau ne doit pas manger les post-it du haut : ils debordent
+   legerement mais restent dans la zone 100vh de la section */
+.feed-evidence-slot--lille .feed-visitor-note.feed-visitor-note--a { top: 1.2% !important; left: 1.2% !important; right: auto !important; transform: rotate(-2deg) !important; }
+.feed-evidence-slot--lille .feed-visitor-note.feed-visitor-note--b { top: 1.2% !important; right: 1.2% !important; left: auto !important; transform: rotate(2deg) !important; }
+.feed-evidence-slot--lille .feed-visitor-note.feed-visitor-note--c { top: 46% !important; right: 0.6% !important; left: auto !important; transform: rotate(1.5deg) !important; }
+.feed-evidence-slot--lille .feed-visitor-note.feed-visitor-note--d { top: 46% !important; left: 0.6% !important; right: auto !important; transform: rotate(-1.5deg) !important; }
+.feed-evidence-slot--lille .feed-visitor-note.feed-visitor-note--e { bottom: 2.5% !important; right: 0.6% !important; left: auto !important; top: auto !important; transform: rotate(2.2deg) !important; }
+.feed-evidence-slot--lille .feed-visitor-note.feed-visitor-note--f { bottom: 2.5% !important; left: 0.6% !important; right: auto !important; top: auto !important; transform: rotate(-2.2deg) !important; }
+@media (max-width: 1400px) {
+  .feed-evidence-slot--lille .feed-visitor-notes {
+    position: static !important;
+    height: auto !important;
+    display: flex !important;
+    flex-wrap: wrap !important;
+    justify-content: center !important;
+    gap: 8px !important;
+    padding: 6px 8px 0 !important;
+    pointer-events: auto !important;
+  }
+  .feed-evidence-slot--lille .feed-visitor-note { position: static !important; }
+}
+/* ===== CROQUIS : lecture renforcee (fond plus clair, carte plus large) ===== */
+.feed-evidence-slot--lille .feed-lille-map {
+  width: min(82%, 900px) !important;
+}
+.feed-evidence-slot--lille .feed-lille-plan {
+  filter: contrast(1.06) saturate(1.05);
+}

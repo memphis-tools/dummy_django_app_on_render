@@ -30,6 +30,6 @@ def test_feed_desk_and_sections_restyled(client, django_user_model):
     # notes visiteurs hors tableau + post-it equipes + recompenses icones
     assert b"feed-visitor-notes" in r.content and b"LES PETITS MEURTRES D'AGATHA CHRISTIE" in r.content
     assert b"D&Eacute;CORS" in r.content and b"COSTUMES" in r.content and b"MUSIQUE" in r.content
-    assert b"didier_bivel.jpg" in r.content and b"jeanluc_gaget.jpg" in r.content  # photos libres trouvees
+    assert b"didier_bivel.jpg" in r.content and b"jeanluc_gaget.jpg" in r.content and b"marc_angelo.jpg" in r.content  # photos libres trouvees
     assert b"feed-evidence-slot--photos" in r.content  # bureau de depot dans la section photos
     assert b"awards-list" in r.content and b"award-icon" in r.content
