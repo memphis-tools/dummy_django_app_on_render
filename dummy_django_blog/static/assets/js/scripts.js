@@ -965,6 +965,17 @@ document.addEventListener("DOMContentLoaded", function() {
       el.classList.add("person-dropped");
       setTimeout(function(elm) { elm.classList.add("person-rest"); }.bind(null, el), 250 + n * 480);
     });
+    /* au survol d'une fiche : encart standard plus lisible (texte + photo reduite),
+       comme pour les lieux ; repli au leave */
+    picked.forEach(function(idx) {
+      var el = people[idx];
+      el.classList.add("person-mini");
+      el.setAttribute("tabindex", "0");
+      el.addEventListener("mouseenter", function() { el.classList.add("person-focus"); });
+      el.addEventListener("focus", function() { el.classList.add("person-focus"); });
+      el.addEventListener("mouseleave", function() { el.classList.remove("person-focus"); });
+      el.addEventListener("blur", function() { el.classList.remove("person-focus"); });
+    });
   }
 
   /* encarts publicitaires visiteurs : ordre aleatoire gauche/droite */

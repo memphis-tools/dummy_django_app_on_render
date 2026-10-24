@@ -4254,3 +4254,61 @@ footer.footer-container {  margin-top: 0; }
   }
   .feed-evidence-slot--lille .feed-fiche-people .feed-fiche-person.person-rest figcaption { font-size: 0.6rem !important; }
 }
+
+/* ===== BUREAU/COMMISSARIAT #188 ===== */
+/* plateau plus large */
+.feed-evidence-slot--lille { width: min(1340px, 98.5%) !important; }
+/* post-it a cheval sur les marges du plateau */
+.feed-evidence-slot--lille .feed-visitor-note.feed-visitor-note--a { top: -3.5% !important; left: -3% !important; }
+.feed-evidence-slot--lille .feed-visitor-note.feed-visitor-note--b { top: -3.5% !important; right: -3% !important; }
+.feed-evidence-slot--lille .feed-visitor-note.feed-visitor-note--c { top: 46% !important; right: -2.4% !important; }
+.feed-evidence-slot--lille .feed-visitor-note.feed-visitor-note--d { top: 46% !important; left: -2.4% !important; }
+.feed-evidence-slot--lille .feed-visitor-note.feed-visitor-note--e { bottom: -4.5% !important; right: -3% !important; }
+.feed-evidence-slot--lille .feed-visitor-note.feed-visitor-note--f { bottom: -4.5% !important; left: -3% !important; }
+/* fiches membres : forme reduite par defaut, encart standard au survol */
+.feed-evidence-slot--lille .feed-fiche-people .feed-fiche-person.person-rest.person-mini {
+  max-width: 92px !important;
+  min-width: 72px !important;
+  padding: 5px 5px 4px !important;
+  cursor: pointer;
+  transition: max-width 0.22s ease, padding 0.22s ease, box-shadow 0.22s ease, z-index 0s;
+}
+.feed-evidence-slot--lille .feed-fiche-people .feed-fiche-person.person-rest.person-mini img,
+.feed-evidence-slot--lille .feed-fiche-people .feed-fiche-person.person-rest.person-mini .feed-fiche-photo {
+  width: 62px !important;
+  height: 74px !important;
+}
+.feed-evidence-slot--lille .feed-fiche-people .feed-fiche-person.person-rest.person-mini figcaption {
+  font-size: 0.52rem !important;
+  line-height: 1.35 !important;
+}
+/* survol : encart standard, texte plus grand, photo reduite conservee */
+.feed-evidence-slot--lille .feed-fiche-people .feed-fiche-person.person-rest.person-focus {
+  z-index: 9 !important;
+  max-width: 210px !important;
+  min-width: 180px !important;
+  padding: 10px 12px 10px !important;
+  background: linear-gradient(165deg, #fffaf0 0%, #ead9bd 100%) !important;
+  box-shadow: 4px 4px 0px #ea9ef054, 0 16px 34px rgba(0, 0, 0, 0.65) !important;
+}
+.feed-evidence-slot--lille .feed-fiche-people .feed-fiche-person.person-rest.person-focus img,
+.feed-evidence-slot--lille .feed-fiche-people .feed-fiche-person.person-rest.person-focus .feed-fiche-photo {
+  width: 84px !important;
+  height: 98px !important;
+}
+.feed-evidence-slot--lille .feed-fiche-people .feed-fiche-person.person-rest.person-focus figcaption {
+  font-size: 0.78rem !important;
+  line-height: 1.5 !important;
+}
+/* pastille du commissariat : plus grande, bleu police */
+.feed-map-hotspot.feed-map-hotspot--commissariat {
+  width: 34px;
+  height: 34px;
+  margin: -34px 0 0 -17px;
+  font-size: 15px;
+  background: radial-gradient(circle at 35% 30%, #4d6f9e, #2c4a70 70%);
+}
+/* noms/roles de la grille : texte agrandi (fiches 4-par-4 hors plateau) */
+.feed-evidence-slot--lille .feed-fiche-person figcaption { font-size: 0.6rem; }
+/* plateau : laisser deborder les post-it a cheval sur les marges */
+.feed-evidence-slot--lille { overflow: visible !important; }
