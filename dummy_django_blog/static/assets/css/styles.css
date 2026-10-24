@@ -3406,12 +3406,14 @@ footer.footer-container {  margin-top: 0; }
 }
 .feed-visitor-note {
   font-family: "Caveat-large", "Caveat", cursive;
-  font-size: 0.98em;
+  font-size: clamp(1.05rem, 1.7vw, 1.5rem);
   letter-spacing: 0.6px;
-  color: #e8e3d8;
-  opacity: 0.85;
+  color: #f2ecdd;
+  opacity: 1;
   white-space: nowrap;
+  text-shadow: 1px 1px 0 rgba(0,0,0,0.6);
 }
+.feed-visitor-note i { color: #ea9ef0; margin-right: 7px; }
 .feed-visitor-note--a { transform: rotate(-1.4deg); }
 .feed-visitor-note--b { transform: rotate(0.8deg); }
 .feed-visitor-note--c { transform: rotate(-0.6deg); }
@@ -3591,33 +3593,67 @@ footer.footer-container {  margin-top: 0; }
 .tournage-zone { position: relative; }
 .tournage-collapsed { overflow: hidden; }
 
-/* ===== TOURNAGE : voile + bouton dans la boite a hauteur fixe ===== */
-/* La hauteur de .tournage-zone est fixee en JS (hauteur du texte complet) ;
-   le voile masque le texte au-dela des 2 premieres lignes SANS changer la
-   hauteur : le contenu reste dans la meme boite. */
-.tournage-zone { position: relative; transition: none; }
-.tournage-collapsed { overflow: hidden; }
-.tournage-collapsed p:nth-child(n+3) { visibility: hidden; }
-.tournage-open p { visibility: visible; }
-.tournage-veil {
-  position: absolute;
-  left: 0; right: 0;
-  top: calc(2 * (1.55em + 0.5em) + 0.3em);
-  bottom: 34px;
+/* ===== TOURNAGE : paragraphe reduit masque, LIRE LA SUITE redimensionne ===== */
+.tournage-zone { position: relative; }
+.tournage-hidden { display: none; }
+
+/* ===== NOTES CRAIE DU DETECTIVE : bloc unique sous le bureau, lisibles ===== */
+.feed-visitor-notes {
   display: flex;
-  align-items: flex-end;
+  flex-wrap: wrap;
   justify-content: center;
-  padding-bottom: 6px;
-  background: linear-gradient(180deg, rgba(34, 28, 28, 0) 0%, rgba(34, 28, 28, 0.85) 30%, #221c1c 100%);
-  pointer-events: none;
+  gap: 10px 18px;
+  max-width: min(1180px, 96%);
+  margin: 14px auto 6px;
+  padding: 10px 14px;
 }
-.tournage-veil span {
-  font-family: "Caveat", "ArsenalSC", sans-serif;
+.feed-visitor-note {
+  font-family: "Caveat", "ArsenalSC", cursive;
+  font-size: clamp(1.05rem, 1.6vw, 1.45rem);
+  line-height: 1.25;
+  color: #e8e2d5;
+  letter-spacing: 0.5px;
+  transform: rotate(-1deg);
+  text-shadow: 0 0 6px rgba(234, 158, 240, 0.25), 1px 1px 0 rgba(0,0,0,0.6);
+  white-space: nowrap;
+}
+.feed-visitor-note:nth-child(even) { transform: rotate(1.2deg); }
+.feed-visitor-note i { color: #ea9ef0; margin-right: 6px; }
+.feed-visitor-note sup { font-size: 0.6em; }
+
+/* ===== FICHES D'EQUIPES : lisibilite renforcee (grand ecran) ===== */
+.feed-fiche-card {
+  font-size: clamp(0.72rem, 0.95vw, 0.95rem);
+  line-height: 1.45;
+  width: clamp(150px, 13vw, 210px);
+  padding: 14px 14px 16px;
+}
+.feed-fiche-card i { font-size: 1.25rem; }
+.feed-fiche-card strong { font-size: 0.92rem; }
+
+/* ===== VIGNETTES PERSONNES : positions pour les 8 dedicaces ===== */
+.feed-fiche-person--creation2 { top: 8%; left: 26%; transform: rotate(2deg); }
+.feed-fiche-person--production2 { top: 36%; right: 6%; transform: rotate(-3deg); }
+
+/* ===== AUDIENCES : lignes clickables ===== */
+.topblog_tr { cursor: pointer; }
+.feed-audiences-row-click:hover td { background: rgba(234, 158, 240, 0.08); }
+
+/* ===== ENCART AUDIENCES : plus grand, adaptatif, fermeture ===== */
+.feed-audiences-topcallout { width: min(92vw, 720px); }
+.feed-audiences-callout-img { width: 200px; height: 135px; }
+.feed-audiences-callout-body { font-size: 1.05em; line-height: 1.5; }
+.feed-audiences-callout-close {
+  position: absolute;
+  top: 8px; right: 10px;
+  width: 34px; height: 34px;
+  border-radius: 50%;
+  border: 1px dashed #ea9ef07e;
+  background: #170f0faa;
   color: #ea9ef0;
-  font-size: 1.15em;
-  letter-spacing: 2px;
-  opacity: 0.75;
+  font-size: 1.15rem;
+  line-height: 1;
+  cursor: pointer;
+  z-index: 2;
 }
-.tournage-open .tournage-veil { display: none; }
-.tournage-btn { position: absolute; right: 6px; bottom: 2px; }
-.tournage-collapsed .tournage-btn { right: 6px; bottom: 2px; }
+.feed-audiences-callout-close:hover { color: #f8ede3; box-shadow: 2px 2px 0px #ea9ef054; }

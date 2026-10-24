@@ -202,10 +202,10 @@ document.addEventListener("DOMContentLoaded", function() {
   var tourToken = 0;
   var idleTimer = null;
   var scanRowTimer = null;
+  var calloutTimer = null;
   var callout = null;
   var running = false;
   var userScrollY = window.scrollY;
-  var topCursor = 0;
 
   function ensureCallout() {
     if (callout) return callout;
@@ -222,30 +222,41 @@ document.addEventListener("DOMContentLoaded", function() {
     });
   }
 
-  function showCallout(text, row) {
-    var el = ensureCallout();
-    el.innerHTML = text;
-    el.classList.add("visible");
-    // l'encadre reste statique au centre exact de l'ecran, quelle que soit sa dimension :
-    // le CSS (position:fixed + top/left 50% + translate(-50%,-50%)) garantit le centrage,
-    // aucun positionnement dynamique ne doit donc etre applique ici.
+  /* critiques REELLES de la presse ; les citations inventees sont reservees
+     aux journalistes fictifs, clairement signalees (mention dans le callout). */
+  var critics = [
+    "\u00ab Samuel Labarthe poss\u00e8de le raffinement old school d'un Roger Moore. \u00bb \u2014 H\u00e9l\u00e8ne Rochette, T\u00e9l\u00e9rama",
+    "\u00ab \u00c9lodie Frenck emporte la mise par sa vis comica. \u00bb \u2014 H\u00e9l\u00e8ne Rochette, T\u00e9l\u00e9rama",
+    "\u00ab Samuel Labarthe y campe avec \u00e9l\u00e9gance un commissaire froid et sarcastique. \u00bb \u2014 Bulles de Culture",
+    "\u00ab L'une des grandes qualit\u00e9s de la s\u00e9rie est son trio de personnages attachants. \u00bb \u2014 Bulles de Culture",
+    "\u00ab Une s\u00e9rie m\u00e9langeant myst\u00e8re et humour dans une ambiance r\u00e9tro. \u00bb \u2014 T\u00e9l\u00e9rama",
+    "\u00ab Le trio marche \u00e0 merveille, il est \u00e0 la fois dr\u00f4le et touchant ! \u00bb \u2014 Allocin\u00e9 (spectateurs)"
+  ];
+  var criticCursor = 0;
+  function nextCritic() {
+    var critic = critics[criticCursor % critics.length];
+    criticCursor++;
+    return critic;
   }
 
+  var episodeImgs = {
+    "La Myst\u00e9rieuse Affaire de Styles": { img: "/static/vendors/img/chateau_tilques.jpg", source: "Ch\u00e2teau d'\u00c9cou \u00e0 Tilques, d\u00e9cor de l'\u00e9pisode \u2014 Photo : Wikimedia Commons (CC BY-SA)" },
+    "Meurtre \u00e0 la kermesse": { img: "/static/vendors/img/chateau_wambrechies.jpg", source: "Ch\u00e2teau de Wambrechies (Nord) \u2014 Photo : R\u00e9mi Jouan, Wikimedia Commons (CC BY-SA)" }
+  };
+  function episodeImageFor(title) {
+    if (episodeImgs[title]) return episodeImgs[title];
+    var keys = Object.keys(episodeImgs);
+    var pick = keys[Math.floor(Math.random() * keys.length)];
+    return episodeImgs[pick];
+  }
+
+  function showCallout(html) {
+    var el = ensureCallout();
+    el.innerHTML = html;
+    el.classList.add("visible");
+  }
   function hideCallout() {
     if (callout) callout.classList.remove("visible");
-  }
-
-  function saveUserPosition() {
-    userScrollY = window.scrollY;
-  }
-
-  function cancelTour() {
-    tourToken++;
-    running = false;
-    hideCallout();
-    clearRowEffects();
-    clearTimeout(scanRowTimer);
-    smoothScrollTo(userScrollY, 900, null, tourToken);
   }
 
   function smoothScrollTo(targetY, durationMs, done, token) {
@@ -290,82 +301,38 @@ document.addEventListener("DOMContentLoaded", function() {
       .sort(function(a, b) { return b.score.pct - a.score.pct; });
   }
 
-  function nextTopGroup(ranked) {
-    var group = ranked.slice(topCursor, topCursor + 3);
-    if (group.length < 3 && ranked.length >= 3) {
-      group = group.concat(ranked.slice(0, 3 - group.length));
-    }
-    topCursor = (topCursor + 3) % Math.max(3, ranked.length);
-    return group;
+  /* construit le contenu de l'encart pour une ligne donnee */
+  function calloutHtmlFor(row) {
+    var title = row.querySelectorAll("td")[1].textContent.trim();
+    var score = parseScore(row);
+    if (!score) return null;
+    var episodeImg = episodeImageFor(title);
+    return "<button type='button' class='feed-audiences-callout-close' aria-label='Fermer'>&times;</button>" +
+      "<div class='feed-audiences-callout-flex'>" +
+      "<img class='feed-audiences-callout-img' src='" + episodeImg.img + "' alt='" + title + "'>" +
+      "<div class='feed-audiences-callout-body'>" +
+      "<strong>" + title + "</strong><br>" +
+      "Record d'audience : " + score.pct.toLocaleString("fr-FR") + " % de part d'audience, " +
+      score.viewers.toLocaleString("fr-FR") + " t\u00e9l\u00e9spectateurs !<br>" +
+      nextCritic() + "<br>" +
+      "<span class='feed-audiences-callout-source'>Image : " + episodeImg.source + "</span>" +
+      "</div></div>";
   }
 
-  /* tous ces critiques sont fictifs : la mention est ajoutee dans le callout */
-  /* critiques REELLES de la presse, sourcess verifiees (Telerama, Bulles de Culture, etc.) ;
-     les citations inventees sont reservees aux journalistes fictifs, clairement signalees. */
-  var critics = [
-    "H\u00e9l\u00e8ne Rochette, T\u00e9l\u00e9rama : \u00ab Samuel Labarthe poss\u00e8de le raffinement old school d'un Roger Moore. \u00bb",
-    "H\u00e9l\u00e8ne Rochette, T\u00e9l\u00e9rama : \u00ab \u00c9lodie Frenck emporte la mise par sa vis comica. \u00bb",
-    "Bulles de Culture : \u00ab Samuel Labarthe y campe avec \u00e9l\u00e9gance un commissaire froid et sarcastique. \u00bb",
-    "Bulles de Culture : \u00ab L'une des grandes qualit\u00e9s de la s\u00e9rie est son trio de personnages attachants. \u00bb",
-    "T\u00e9l\u00e9rama (saison 1) : \u00ab Une s\u00e9rie m\u00e9langeant myst\u00e8re et humour dans une ambiance des ann\u00e9es 1930. \u00bb",
-    "Allocin\u00e9 (spectateurs) : \u00ab Le trio marche \u00e0 merveille, il est \u00e0 la fois dr\u00f4le et touchant ! \u00bb",
-    "Huguette Marthe Salsifi, Gala T\u00e9l\u00e9-Police (critique fictive) : \u00ab Marl\u00e8ne a encore oubli\u00e9 le courrier du c\u0153ur, et nous, on a oubli\u00e9 de respirer. \u00bb",
-    "Rodolphe Anselme Picrate, Le Bulletin des Enqu\u00eates (critique fictif) : \u00ab La semaine prochaine, prenez un alibi : vous ne bougerez plus du canap\u00e9. \u00bb"
-  ];
-  var criticCursor = 0;
-
-  function nextCritic() {
-    var critic = critics[criticCursor % critics.length];
-    criticCursor++;
-    return critic;
-  }
-
-  var episodeImgs = {
-    "La Mystérieuse Affaire de Styles": { img: "/static/vendors/img/chateau_tilques.jpg", source: "Château d'Écou à Tilques, décor de l'épisode — Photo : Wikimedia Commons (CC BY-SA)" },
-    "Meurtre à la kermesse": { img: "/static/vendors/img/chateau_wambrechies.jpg", source: "Château de Wambrechies (Nord) — Photo : Rémi Jouan, Wikimedia Commons (CC BY-SA)" }
-  };
-  function episodeImageFor(title) {
-    if (episodeImgs[title]) return episodeImgs[title];
-    var keys = Object.keys(episodeImgs);
-    var pick = keys[Math.floor(Math.random() * keys.length)];
-    return episodeImgs[pick];
-  }
-  function revealTop(entry, token, done) {
-    if (token !== tourToken) return;
-    var title = entry.row.querySelectorAll("td")[1].textContent.trim();
-    var rows = Array.prototype.slice.call(audiencesSection.querySelectorAll(".topblog_tr"));
-    var idx = rows.indexOf(entry.row);
-    // une seule passe stylisee : de bas en haut, une fois
-    scanRows(rows, rows.length - 1, token, "up", function() {
-      if (token !== tourToken) return;
-      clearRowEffects();
-      entry.row.scrollIntoView({ block: "center", behavior: "smooth" });
-      entry.row.classList.add("feed-audiences-row-glow");
-        var episodeImg = episodeImageFor(title);
-        var calloutHtml = "<div class='feed-audiences-callout-flex'>" +
-          "<img class='feed-audiences-callout-img' src='" + episodeImg.img + "' alt='" + title + "'>" +
-          "<div class='feed-audiences-callout-body'>" +
-          "<strong>" + title + "</strong><br>" +
-          "Record d'audience : " + entry.score.pct.toLocaleString("fr-FR") + " % de part d'audience, " +
-          entry.score.viewers.toLocaleString("fr-FR") + " t\u00e9l\u00e9spectateurs !<br>" +
-          nextCritic() + " <span class='quote-fictional-note'>citation invent\u00e9e \u2014 critique fictif</span><br>" +
-          "<span class='feed-audiences-callout-source'>Image : " + episodeImg.source + "</span>" +
-          "</div></div>";
-        showCallout(calloutHtml, entry.row);
-        // l'encadre reste lisible 5 secondes
-        scanRowTimer = setTimeout(function() {
-          hideCallout();
-          entry.row.classList.remove("feed-audiences-row-glow");
-          entry.row.classList.add("feed-audiences-row-scan");
-          if (done) done();
-        }, 5000);
+  function bindClose() {
+    if (!callout) return;
+    var btnClose = callout.querySelector(".feed-audiences-callout-close");
+    if (!btnClose) return;
+    btnClose.addEventListener("click", function() {
+      hideCallout();
+      clearTimeout(calloutTimer);
     });
   }
-  // balayage stylise : direction "down" (haut->bas) ou "up" (bas->haut)
-  function scanRows(rows, index, token, direction, done) {
+
+  /* balayage stylise bas -> haut, UNE SEULE FOIS */
+  function scanRowsUp(rows, index, token, done) {
     if (token !== tourToken) return;
-    if (direction === undefined) { direction = "down"; }
-    if (index < 0 || index >= rows.length) {
+    if (index < 0) {
       if (done) done();
       return;
     }
@@ -373,18 +340,25 @@ document.addEventListener("DOMContentLoaded", function() {
     row.scrollIntoView({ block: "center", behavior: "smooth" });
     row.classList.add("feed-audiences-row-scan");
     scanRowTimer = setTimeout(function() {
-      var nextIndex = direction === "up" ? index - 1 : index + 1;
-      if (direction === "up" && nextIndex < 0) {
-        if (done) done();
-        return;
-      }
-      if (direction === "down" && nextIndex >= rows.length) {
-        if (done) done();
-        return;
-      }
-      scanRows(rows, nextIndex, token, direction, done);
+      scanRowsUp(rows, index - 1, token, done);
     }, 150);
   }
+
+  /* affiche l'encart pendant 5 secondes pour une ligne donnee */
+  function spotlightRow(row, token, done) {
+    if (token !== tourToken) return;
+    clearRowEffects();
+    row.scrollIntoView({ block: "center", behavior: "smooth" });
+    row.classList.add("feed-audiences-row-glow");
+    var html = calloutHtmlFor(row);
+    if (html) { showCallout(html); bindClose(); }
+    calloutTimer = setTimeout(function() {
+      hideCallout();
+      row.classList.remove("feed-audiences-row-glow");
+      if (done) done();
+    }, 5000);
+  }
+
   function runTour(token) {
     if (token !== tourToken) return;
     var ranked = rankedRows();
@@ -393,47 +367,47 @@ document.addEventListener("DOMContentLoaded", function() {
       scheduleIdle();
       return;
     }
-    var group = nextTopGroup(ranked);
     var allRows = Array.prototype.slice.call(audiencesSection.querySelectorAll(".topblog_tr"));
     // descente rapide et stylisee vers la section audiences
     smoothScrollTo(audiencesSection.getBoundingClientRect().top + window.scrollY - 70, 1200, function() {
       if (token !== tourToken) return;
-      // balayage haut -> bas
-      scanRows(allRows, 0, token, "down", function() {
+      // UN SEUL balayage : de bas en haut, une fois
+      scanRowsUp(allRows, allRows.length - 1, token, function() {
         if (token !== tourToken) return;
-        // ... puis bas -> haut
-        scanRows(allRows, allRows.length - 1, token, "up", function() {
+        // l'episode elu (meilleure audience) est surligne, encart 5 secondes
+        spotlightRow(ranked[0].row, token, function() {
           if (token !== tourToken) return;
-          // ... puis de nouveau vers le bas pour surligner le 1er episode
-          revealTop(group[0], token, function() {
+          // retour a la position de l'utilisateur
+          smoothScrollTo(userScrollY, 1200, function() {
             if (token !== tourToken) return;
-            revealTop(group[1], token, function() {
-              if (token !== tourToken) return;
-              revealTop(group[2] || group[0], token, function() {
-                if (token !== tourToken) return;
-                // retour rapide en haut de page
-                smoothScrollTo(0, 1200, function() {
-                  if (token !== tourToken) return;
-                  clearRowEffects();
-                  running = false;
-                  scheduleIdle();
-                }, token);
-              });
-            });
-          });
+            clearRowEffects();
+            running = false;
+            scheduleIdle();
+          }, token);
         });
       });
     }, token);
   }
+
   function scheduleIdle() {
     if (running) return;
     idleTimer = setTimeout(function() {
       if (running) return;
-      saveUserPosition();
       running = true;
+      userScrollY = window.scrollY;
       tourToken++;
       runTour(tourToken);
     }, idleDelay);
+  }
+
+  function cancelTour() {
+    tourToken++;
+    running = false;
+    hideCallout();
+    clearTimeout(scanRowTimer);
+    clearTimeout(calloutTimer);
+    clearRowEffects();
+    smoothScrollTo(userScrollY, 900, null, tourToken);
   }
 
   var userEvents = ["mousemove", "mousedown", "touchstart", "keydown", "wheel", "scroll"];
@@ -444,6 +418,19 @@ document.addEventListener("DOMContentLoaded", function() {
       if (running) cancelTour();
       scheduleIdle();
     }, { passive: true });
+  });
+
+  /* les lignes du tableau sont clickables : meme encart que le tour, fermeture a la demande */
+  audiencesSection.querySelectorAll(".topblog_tr").forEach(function(row) {
+    row.classList.add("feed-audiences-row-click");
+    row.addEventListener("click", function() {
+      clearTimeout(calloutTimer);
+      var html = calloutHtmlFor(row);
+      if (!html) return;
+      row.classList.add("feed-audiences-row-glow");
+      showCallout(html);
+      bindClose();
+    });
   });
 
   scheduleIdle();
@@ -913,39 +900,22 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
 /* ===== TABLEAU D'ENQUETE : RENOUVELLEMENT A CHAQUE CHARGEMENT ===== */
-/* A chaque affichage de la page, le bureau se renouvelle :
-   - la carte alterne aleatoirement entre l'agglomeration (ELRT v.1930, CC BY-SA 4.0)
-     et le plan de la ville (v.1920, domaine public), toutes deux libres d'usage ;
-   - les personnes de la fiche technique sont reparties aleatoirement dans leurs
-     cellules, avec un leger jitter et une rotation variee.
-   Les deux cartes d'epoque sont ensuite stylees en CSS (sepia) pour s'harmoniser
-   avec le graphisme du site. */
+/* La carte est FIXE (croquis stylise des lieux cles, libre d'usage).
+   A chaque chargement, les personnes de la fiche technique gardent leur position
+   (definie en CSS pour ne jamais se superposer) mais recevent une legere rotation
+   variee, comme des photos repunaisees. */
 document.addEventListener("DOMContentLoaded", function() {
-  /* Carte FIXE (une seule, ELRT 1930) : pas d'alternance aleatoire. */
-  /* repartition aleatoire des personnes de la fiche technique dans les 6 cellules */
   var people = document.querySelectorAll(".feed-fiche-people .feed-fiche-person");
-  if (people.length) {
-    /* cellules de bord : jamais le centre du plateau, ou les pieces a conviction tombent */
-    var positions = [
-      { top: [20, 28], left: [4, 10] }, { top: [10, 16], left: [26, 33] }, { top: [18, 26], left: [88, 94] },
-      { top: [52, 60], left: [6, 12] }, { top: [46, 54], left: [88, 94] }, { top: [12, 20], left: [64, 71] }
-    ];
-    var order = [];
-    for (var i = 0; i < people.length; i++) order.push(i);
-    for (var j = order.length - 1; j > 0; j--) {
-      var k = Math.floor(Math.random() * (j + 1));
-      var t = order[j]; order[j] = order[k]; order[k] = t;
-    }
-    for (var m = 0; m < people.length && m < positions.length; m++) {
-      var el = people[order[m]];
-      var pos = positions[m];
-      var style = el.style;
-      el.style.top = (pos.top[0] + Math.random() * (pos.top[1] - pos.top[0])).toFixed(1) + "%";
-      el.style.left = (pos.left[0] + Math.random() * (pos.left[1] - pos.left[0])).toFixed(1) + "%";
-      var spin = (Math.random() * 14 - 7).toFixed(1);
-      el.style.transform = "rotate(" + spin + "deg)";
-    }
-  }
+  people.forEach(function(el) {
+    var spin = (Math.random() * 10 - 5).toFixed(1);
+    el.style.transform = "rotate(" + spin + "deg)";
+  });
+  /* les fiches d'equipes aussi : micro-rotation "pose a la main" */
+  var cards = document.querySelectorAll(".feed-fiche-cards .feed-fiche-card");
+  cards.forEach(function(el) {
+    var spin = (Math.random() * 6 - 3).toFixed(1);
+    el.style.transform = "rotate(" + spin + "deg)";
+  });
 });
 
 /* ===== PLAN DE LILLE : LOADER THEMATIQUE PENDANT LE CHARGEMENT ===== */
@@ -1042,13 +1012,10 @@ document.addEventListener("DOMContentLoaded", function() {
   });
 });
 
-/* ===== A PROPOS : TOURNAGE A DIMENSION FIXE ===== */
-/* La section garde par defaut la taille necessaire pour afficher TOUT le
-   paragraphe Tournage (hauteur mesuree une fois). Par defaut, seules les 2
-   premieres lignes sont visibles ; le reste est masque par un voile dans la
-   MEME boite. Le bouton LIRE LA SUITE ne redimensionne PAS la section : la
-   hauteur reste constante, le contenu masque s'affiche dans l'espace deja
-   reserve (defilement interne leger). */
+/* ===== A PROPOS : TOURNAGE REDUIT / LIRE LA SUITE ===== */
+/* Par defaut, le paragraphe reduit de Tournage n'apparait PAS a l'ecran
+   (seules les 2 premieres lignes restent) ; le clic sur LIRE LA SUITE
+   redimensionne la section vers le bas pour devoiler tout le texte. */
 document.addEventListener("DOMContentLoaded", function() {
   var zone = document.querySelector(".tournage-zone");
   if (!zone || zone.classList.contains("tournage-managed")) return;
@@ -1056,42 +1023,27 @@ document.addEventListener("DOMContentLoaded", function() {
   var paragraphs = Array.prototype.slice.call(zone.querySelectorAll("p"));
   if (paragraphs.length < 3) return;
   var expanded = false;
-  /* hauteur totale, mesuree une fois quand tout est visible */
-  zone.style.height = "auto";
-  var fullHeight = zone.offsetHeight;
-  zone.style.height = fullHeight + "px";
-  zone.classList.add("tournage-collapsed");
-  var veil = document.createElement("div");
-  veil.className = "tournage-veil";
-  veil.innerHTML = "<span>...</span>";
-  zone.appendChild(veil);
   var btn = document.createElement("button");
   btn.type = "button";
-  btn.className = "a_propos_more-btn tournage-btn";
+  btn.className = "a_propos_more-btn";
   btn.textContent = "LIRE LA SUITE";
-  zone.appendChild(btn);
+  btn.addEventListener("click", function() {
+    expanded = !expanded;
+    apply();
+  });
   function apply() {
-    if (expanded) {
-      zone.classList.remove("tournage-collapsed");
-      zone.classList.add("tournage-open");
-    } else {
-      zone.classList.add("tournage-collapsed");
-      zone.classList.remove("tournage-open");
-    }
+    paragraphs.forEach(function(p, i) {
+      if (expanded || i < 2) {
+        p.classList.remove("tournage-hidden");
+      } else {
+        p.classList.add("tournage-hidden");
+      }
+    });
     btn.textContent = expanded ? "REDUIRE" : "LIRE LA SUITE";
   }
-  btn.addEventListener("click", function() { expanded = !expanded; apply(); });
+  var last = paragraphs[paragraphs.length - 1];
+  last.parentNode.insertBefore(btn, last.nextSibling);
   apply();
-  /* la hauteur fixe est remesuree si la largeur change (responsive) */
-  var rTimer = null;
-  window.addEventListener("resize", function() {
-    if (rTimer) clearTimeout(rTimer);
-    rTimer = setTimeout(function() {
-      zone.style.height = "auto";
-      fullHeight = zone.offsetHeight;
-      zone.style.height = fullHeight + "px";
-    }, 200);
-  });
 });
 
 /* ===== CITATIONS INVENTEES : MENTION "citation inventee" ===== */
