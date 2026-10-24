@@ -23,52 +23,58 @@
             </div>
             <div class="feed-interrogation-table" id="feed-interrogation-table">
                 <div class="feed-evidence-slot feed-evidence-slot--lille">
-                    <!-- plan de la ville de Lille (vers 1920), domaine public - Wikimedia Commons -->
-                    <img class="feed-lille-plan" src="{% static 'vendors/img/plan_lille_1920.jpg' %}" alt="Plan d&eacute;pli&eacute; de la ville de Lille" loading="eager" decoding="async">
+                    <!-- carte de l'agglomeration Lille-Roubaix-Tourcoing (vers 1930), CC BY-SA 4.0, Nanzig - Wikimedia Commons -->
+                    <figure class="feed-lille-map">
+                        <img class="feed-lille-plan" src="{% static 'vendors/img/carte_elrt_1930.jpg' %}" alt="Carte de l'agglom&eacute;ration de Lille, Roubaix et Tourcoing vers 1930" loading="eager" decoding="async">
+                        <figcaption>LILLE &mdash; ROUBAIX &mdash; TOURCOING, VERS 1930<br><small>Carte : Nanzig, Wikimedia Commons (CC BY-SA 4.0)</small></figcaption>
+                    </figure>
                     <div class="feed-lille-plan-loader" aria-hidden="true"><span class="feed-lille-plan-loader-inner"></span></div>
+                    <!-- FICHE TECHNIQUE : annotations a la craie autour de la carte centree -->
                     <span class="feed-chalk-note feed-chalk-note--titre" aria-hidden="true">TITRE&nbsp;: LES PETITS MEURTRES D'AGATHA CHRISTIE</span>
                     <span class="feed-chalk-note feed-chalk-note--soc" aria-hidden="true">SOC. DE PRODUCTION&nbsp;: ESCAZAL FILMS / FRANCE T&Eacute;L&Eacute;VISIONS</span>
                     <span class="feed-chalk-note feed-chalk-note--dist" aria-hidden="true">DISTRIBUTION&nbsp;: FRANCE 2</span>
                     <span class="feed-chalk-note feed-chalk-note--pays" aria-hidden="true">PAYS&nbsp;: FRANCE &mdash; LANGUE&nbsp;: FRAN&Ccedil;AIS</span>
                     <span class="feed-chalk-note feed-chalk-note--genre" aria-hidden="true">GENRE&nbsp;: POLICIER &mdash; 90 MIN</span>
                     <span class="feed-chalk-note feed-chalk-note--public" aria-hidden="true">PUBLIC&nbsp;: D&Eacute;CONSEILL&Eacute; AUX MOINS DE 10 ANS</span>
-                    <div class="feed-fiche-people" aria-hidden="true">
+                    <span class="feed-chalk-note feed-chalk-note--format" aria-hidden="true">COULEUR &mdash; 16/9 &mdash; HD &mdash; ST&Eacute;R&Eacute;O</span>
+                    <span class="feed-chalk-note feed-chalk-note--diff" aria-hidden="true">1<sup>re</sup> DIFFUSION&nbsp;: 9 JANVIER 2009</span>
+                    <!-- equipes crea : portraits punaises, noms lies vers Wikipedia -->
+                    <div class="feed-fiche-people">
                         <figure class="feed-fiche-person feed-fiche-person--creation">
                             <span class="feed-fiche-photo feed-fiche-photo--unknown"><span>?</span></span>
-                            <figcaption>CAPTION&nbsp;: A. GIAFFERI / M. MAGELLAN</figcaption>
+                            <figcaption><a href="https://fr.wikipedia.org/wiki/Anne_Giafferi" target="_blank" rel="noopener">A. GIAFFERI</a> / <a href="https://fr.wikipedia.org/wiki/Murielle_Magellan" target="_blank" rel="noopener">M. MAGELLAN</a><br>CR&Eacute;ATION</figcaption>
                         </figure>
                         <figure class="feed-fiche-person feed-fiche-person--real">
-                            <img src="{% static 'vendors/img/ernest_tricard.jpg' %}" alt="">
-                            <figcaption>REAL.&nbsp;: E. WORETH (19 E39P.)</figcaption>
+                            <span class="feed-fiche-photo feed-fiche-photo--unknown"><span>?</span></span>
+                            <figcaption><a href="https://fr.wikipedia.org/wiki/%C3%89ric_Woreth" target="_blank" rel="noopener">E. WORETH</a> (19 &Eacute;P.)<br>R&Eacute;ALISATION</figcaption>
                         </figure>
                         <figure class="feed-fiche-person feed-fiche-person--real2">
                             <span class="feed-fiche-photo feed-fiche-photo--unknown"><span>?</span></span>
-                            <figcaption>REAL.&nbsp;: N. PICARD-DREYFUSS (5 E39P.)</figcaption>
+                            <figcaption><a href="https://fr.wikipedia.org/wiki/Nicolas_Picard-Dreyfuss" target="_blank" rel="noopener">N. PICARD-DREYFUSS</a> (5 &Eacute;P.)<br>R&Eacute;ALISATION</figcaption>
                         </figure>
                         <figure class="feed-fiche-person feed-fiche-person--scenario">
-                            <span class="feed-fiche-photo feed-fiche-photo--unknown"><span>?</span></span>
-                            <figcaption>SC&Eacute;NARIO&nbsp;: S. SIMON (14 E39P.)</figcaption>
+                            <img src="{% static 'vendors/img/sylvie_simon.jpg' %}" alt="Sylvie Simon, scenariste">
+                            <figcaption><a href="https://fr.wikipedia.org/wiki/Sylvie_Simon" target="_blank" rel="noopener">S. SIMON</a> (14 &Eacute;P.)<br>SC&Eacute;NARIO</figcaption>
                         </figure>
                         <figure class="feed-fiche-person feed-fiche-person--musique">
                             <span class="feed-fiche-photo feed-fiche-photo--unknown"><span>?</span></span>
-                            <figcaption>MUSIQUE&nbsp;: S. MOUCHA</figcaption>
+                            <figcaption><a href="https://fr.wikipedia.org/wiki/St%C3%A9phane_Moucha" target="_blank" rel="noopener">S. MOUCHA</a><br>MUSIQUE</figcaption>
                         </figure>
                         <figure class="feed-fiche-person feed-fiche-person--production">
                             <span class="feed-fiche-photo feed-fiche-photo--unknown"><span>?</span></span>
-                            <figcaption>PROD.&nbsp;: D. CAROT / S. R&Eacute;VIL</figcaption>
+                            <figcaption><a href="https://fr.wikipedia.org/wiki/Sophie_R%C3%A9vil" target="_blank" rel="noopener">S. R&Eacute;VIL</a> / D. CAROT<br>PRODUCTION</figcaption>
                         </figure>
                     </div>
+                    <!-- decorations 1950s : regle, loupe, tasse, trombone punaises -->
+                    <span class="feed-desk-deco feed-desk-deco--ruler" aria-hidden="true"></span>
+                    <span class="feed-desk-deco feed-desk-deco--magnifier" aria-hidden="true"></span>
+                    <span class="feed-desk-deco feed-desk-deco--clip" aria-hidden="true"></span>
                     <svg class="feed-chalk-links-svg" viewBox="0 0 100 62" preserveAspectRatio="none">
                         <path class="chalk-link-path" d="M18 20 C 24 28, 30 34, 38 38"/>
                         <path class="chalk-link-path" d="M50 22 C 52 30, 56 36, 62 40"/>
                         <path class="chalk-link-path" d="M78 20 C 80 28, 84 34, 88 38"/>
                         <path class="chalk-link-path" d="M14 46 C 26 50, 40 52, 54 52"/>
                         <path class="chalk-link-path" d="M60 50 C 70 52, 80 52, 90 50"/>
-                        <text x="20" y="10" class="chalk-link-label">cr&eacute;ation</text>
-                        <text x="48" y="12" class="chalk-link-label">r&eacute;alisation</text>
-                        <text x="74" y="10" class="chalk-link-label">sc&eacute;nario</text>
-                        <text x="12" y="58" class="chalk-link-label">musique</text>
-                        <text x="60" y="58" class="chalk-link-label">production</text>
                     </svg>
                     <div class="feed-evidence-deck">
                         {% for instance in strip_items %}
