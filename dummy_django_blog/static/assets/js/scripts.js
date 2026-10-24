@@ -319,6 +319,7 @@ document.addEventListener("DOMContentLoaded", function() {
       "</div></div>";
   }
 
+  var lastGlowRow = null;
   function bindClose() {
     if (!callout) return;
     var btnClose = callout.querySelector(".feed-audiences-callout-close");
@@ -326,6 +327,7 @@ document.addEventListener("DOMContentLoaded", function() {
     btnClose.addEventListener("click", function() {
       hideCallout();
       clearTimeout(calloutTimer);
+      if (lastGlowRow) { lastGlowRow.classList.remove("feed-audiences-row-glow"); lastGlowRow = null; }
     });
   }
 
@@ -371,8 +373,9 @@ document.addEventListener("DOMContentLoaded", function() {
     // descente rapide et stylisee vers la section audiences
     smoothScrollTo(audiencesSection.getBoundingClientRect().top + window.scrollY - 70, 1200, function() {
       if (token !== tourToken) return;
-      // UN SEUL balayage : de bas en haut, une fois
-      scanRowsUp(allRows, allRows.length - 1, token, function() {
+      // UN SEUL balayage : episodes parcourus par AUDIENCE DECROISSANTE (du moins bon vers le meilleur), successifs, une fois
+      var rankedOrder = ranked.map(function(e) { return e.row; });
+      scanRowsUp(rankedOrder, rankedOrder.length - 1, token, function() {
         if (token !== tourToken) return;
         // l'episode elu (meilleure audience) est surligne, encart 5 secondes
         spotlightRow(ranked[0].row, token, function() {
@@ -420,17 +423,26 @@ document.addEventListener("DOMContentLoaded", function() {
     }, { passive: true });
   });
 
-  /* les lignes du tableau sont clickables : meme encart que le tour, fermeture a la demande */
+  /* les lignes du tableau sont clickables : 1 SEUL encart a la fois, il se ferme
+     au bout de 5 secondes ou a la demande ; un nouveau clic ferme le precedent */
+  function openRowCallout(row) {
+    var html = calloutHtmlFor(row);
+    if (!html) return;
+    if (lastGlowRow && lastGlowRow !== row) lastGlowRow.classList.remove("feed-audiences-row-glow");
+    lastGlowRow = row;
+    row.classList.add("feed-audiences-row-glow");
+    showCallout(html);
+    bindClose();
+    clearTimeout(calloutTimer);
+    calloutTimer = setTimeout(function() {
+      hideCallout();
+      row.classList.remove("feed-audiences-row-glow");
+      lastGlowRow = null;
+    }, 5000);
+  }
   audiencesSection.querySelectorAll(".topblog_tr").forEach(function(row) {
     row.classList.add("feed-audiences-row-click");
-    row.addEventListener("click", function() {
-      clearTimeout(calloutTimer);
-      var html = calloutHtmlFor(row);
-      if (!html) return;
-      row.classList.add("feed-audiences-row-glow");
-      showCallout(html);
-      bindClose();
-    });
+    row.addEventListener("click", function() { openRowCallout(row); });
   });
 
   scheduleIdle();
@@ -917,27 +929,34 @@ document.addEventListener("DOMContentLoaded", function() {
     el.style.setProperty("--hand-spin", spin + "deg");
   });
 
-  /* 4 membres au hasard, jetes sur le croquis (le reste : grille autour du bureau) */
-  if (people.length > 4) {
+  /* 5 membres au hasard a chaque refresh : les autres sont masques.
+     Dispersion large sur le croquis, positions tirees pour bien les voir. */
+  if (people.length > 5) {
     var order = [];
     for (var i = 0; i < people.length; i++) order.push(i);
     for (var j = order.length - 1; j > 0; j--) {
       var k = Math.floor(Math.random() * (j + 1));
       var t = order[j]; order[j] = order[k]; order[k] = t;
     }
-    var picked = order.slice(0, 4);
-    var quadrants = [
-      { top: [16, 34], left: [30, 47] },
-      { top: [16, 34], left: [50, 64] },
-      { top: [50, 68], left: [30, 47] },
-      { top: [50, 68], left: [50, 64] }
+    var picked = order.slice(0, 5);
+    /* 5 zones de dispersion bien separees sur le croquis */
+    var zones = [
+      { top: [10, 24], left: [24, 40] },
+      { top: [10, 24], left: [42, 58] },
+      { top: [10, 24], left: [60, 74] },
+      { top: [58, 72], left: [32, 48] },
+      { top: [58, 72], left: [52, 68] }
     ];
+    people.forEach(function(el, n) {
+      if (picked.indexOf(n) === -1) el.style.display = "none";
+    });
     picked.forEach(function(idx, n) {
       var el = people[idx];
+      el.style.display = "";
       el.classList.add("person-tossed");
-      var q = quadrants[n % 4];
-      el.style.top = (q.top[0] + Math.random() * (q.top[1] - q.top[0])).toFixed(1) + "%";
-      el.style.left = (q.left[0] + Math.random() * (q.left[1] - q.left[0])).toFixed(1) + "%";
+      var z = zones[n % 5];
+      el.style.top = (z.top[0] + Math.random() * (z.top[1] - z.top[0])).toFixed(1) + "%";
+      el.style.left = (z.left[0] + Math.random() * (z.left[1] - z.left[0])).toFixed(1) + "%";
       el.style.setProperty("--toss-spin", (Math.random() * 22 - 11).toFixed(1) + "deg");
       el.style.setProperty("--toss-x", (Math.random() * 40 - 20).toFixed(0) + "px");
       setTimeout(function(elm) {
