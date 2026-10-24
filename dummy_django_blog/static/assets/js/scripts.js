@@ -921,19 +921,7 @@ document.addEventListener("DOMContentLoaded", function() {
    Les deux cartes d'epoque sont ensuite stylees en CSS (sepia) pour s'harmoniser
    avec le graphisme du site. */
 document.addEventListener("DOMContentLoaded", function() {
-  var img = document.getElementById("feed-lille-plan-img");
-  var caption = document.getElementById("feed-lille-map-caption");
-  if (img && caption) {
-    var maps = [
-      { src: "/static/vendors/img/carte_elrt_1930.jpg",
-        cap: "LILLE \u2014 ROUBAIX \u2014 TOURCOING, VERS 1930<br><small>Carte : Nanzig, Wikimedia Commons (CC BY-SA 4.0)</small>" },
-      { src: "/static/vendors/img/plan_lille_1920.jpg",
-        cap: "PLAN DE LA VILLE DE LILLE, VERS 1920<br><small>Carte : Wikimedia Commons (domaine public)</small>" }
-    ];
-    var pick = maps[Math.floor(Math.random() * maps.length)];
-    img.src = pick.src;
-    caption.innerHTML = pick.cap;
-  }
+  /* Carte FIXE (une seule, ELRT 1930) : pas d'alternance aleatoire. */
   /* repartition aleatoire des personnes de la fiche technique dans les 6 cellules */
   var people = document.querySelectorAll(".feed-fiche-people .feed-fiche-person");
   if (people.length) {
@@ -1054,53 +1042,58 @@ document.addEventListener("DOMContentLoaded", function() {
   });
 });
 
-/* ===== A PROPOS : TOURNAGE TRONQUE APRES LA 2EME LIGNE ===== */
-/* Le paragraphe TOURNAGE est coupe a 2 lignes visibles ; le bouton LIRE LA SUITE
-   deploie l'ensemble du Tournage, REDUIRE le referme. Seuls les <p> sous le h4
-   "Tournage" (avant le hr suivant) sont concernes. */
+/* ===== A PROPOS : TOURNAGE A DIMENSION FIXE ===== */
+/* La section garde par defaut la taille necessaire pour afficher TOUT le
+   paragraphe Tournage (hauteur mesuree une fois). Par defaut, seules les 2
+   premieres lignes sont visibles ; le reste est masque par un voile dans la
+   MEME boite. Le bouton LIRE LA SUITE ne redimensionne PAS la section : la
+   hauteur reste constante, le contenu masque s'affiche dans l'espace deja
+   reserve (defilement interne leger). */
 document.addEventListener("DOMContentLoaded", function() {
-  var container = document.querySelector(".a_propos_container");
-  if (!container || container.classList.contains("a_propos-truncate-managed")) return;
-  container.classList.add("a_propos-truncate-managed");
-  function inTournage(block) {
-    var el = block.previousElementSibling;
-    while (el) {
-      if (el.tagName === "HR") return false;
-      if (el.tagName === "H4") return /tournage/i.test(el.textContent);
-      el = el.previousElementSibling;
-    }
-    return false;
-  }
-  var paragraphs = Array.prototype.slice.call(container.querySelectorAll("p")).filter(inTournage);
-  if (!paragraphs.length) return;
+  var zone = document.querySelector(".tournage-zone");
+  if (!zone || zone.classList.contains("tournage-managed")) return;
+  zone.classList.add("tournage-managed");
+  var paragraphs = Array.prototype.slice.call(zone.querySelectorAll("p"));
+  if (paragraphs.length < 3) return;
   var expanded = false;
-  function lineH(p) { return parseFloat(getComputedStyle(p).lineHeight) || 20; }
-  function apply() {
-    paragraphs.forEach(function(p, i) {
-      if (expanded) {
-        p.classList.remove("a_propos_truncated");
-        p.style.maxHeight = "";
-        p.style.display = "";
-      } else if (i < 2) {
-        /* les 2 premiers paragraphes restent integralement visibles (les 2 lignes) */
-        p.classList.remove("a_propos_truncated");
-        p.style.maxHeight = "";
-      } else {
-        p.style.display = "none";
-      }
-    });
-    btn.style.display = "";
-    btn.textContent = expanded ? "REDUIRE" : "LIRE LA SUITE";
-  }
+  /* hauteur totale, mesuree une fois quand tout est visible */
+  zone.style.height = "auto";
+  var fullHeight = zone.offsetHeight;
+  zone.style.height = fullHeight + "px";
+  zone.classList.add("tournage-collapsed");
+  var veil = document.createElement("div");
+  veil.className = "tournage-veil";
+  veil.innerHTML = "<span>...</span>";
+  zone.appendChild(veil);
   var btn = document.createElement("button");
   btn.type = "button";
-  btn.className = "a_propos_more-btn";
+  btn.className = "a_propos_more-btn tournage-btn";
   btn.textContent = "LIRE LA SUITE";
+  zone.appendChild(btn);
+  function apply() {
+    if (expanded) {
+      zone.classList.remove("tournage-collapsed");
+      zone.classList.add("tournage-open");
+    } else {
+      zone.classList.add("tournage-collapsed");
+      zone.classList.remove("tournage-open");
+    }
+    btn.textContent = expanded ? "REDUIRE" : "LIRE LA SUITE";
+  }
   btn.addEventListener("click", function() { expanded = !expanded; apply(); });
-  var last = paragraphs[paragraphs.length - 1];
-  last.parentNode.insertBefore(btn, last.nextSibling);
   apply();
+  /* la hauteur fixe est remesuree si la largeur change (responsive) */
+  var rTimer = null;
+  window.addEventListener("resize", function() {
+    if (rTimer) clearTimeout(rTimer);
+    rTimer = setTimeout(function() {
+      zone.style.height = "auto";
+      fullHeight = zone.offsetHeight;
+      zone.style.height = fullHeight + "px";
+    }, 200);
+  });
 });
+
 /* ===== CITATIONS INVENTEES : MENTION "citation inventee" ===== */
 function markFictionalQuote(authorEl) {
   if (!authorEl) return;

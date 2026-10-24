@@ -3480,3 +3480,144 @@ footer.footer-container {  margin-top: 0; }
   .feed-visitor-notes { gap: 4px 14px; }
   .feed-visitor-note { font-size: 0.85em; }
 }
+/* ===== FEED INTRO : SECTION ENTIÈREMENT VISIBLE A L'ECRAN ===== */
+/* Le tableau est dimensionne pour que la 1ere section (bandeau + tableau) tienne
+   dans le viewport sur les ecrans qui le permettent. */
+.feed-intro {
+  height: calc(100vh - var(--navbar-height, 76px));
+  min-height: 480px;
+  overflow: visible;
+}
+/* hauteur du tableau pilotee par le viewport : bandeau ~90px + marges */
+.feed-evidence-slot--lille { width: min(1080px, 97%); height: clamp(300px, calc(100vh - 76px - 200px), 520px); }
+@media (max-width: 900px) { .feed-evidence-slot--lille { width: 96%; height: clamp(280px, calc(100vh - 76px - 190px), 440px); } }
+@media (max-width: 700px) { .feed-evidence-slot--lille { width: 94%; height: clamp(260px, calc(100vh - 76px - 180px), 400px); } }
+
+/* ===== FICHES D'EQUIPES : dispersees autour du tableau, formes elaborees ===== */
+/* cartes inclinees, papier kraft, punaisees autour du tableau (gauche et droite) */
+.feed-fiche-cards {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 6;
+}
+.feed-fiche-card {
+  position: absolute;
+  width: clamp(96px, 11vw, 138px);
+  padding: 10px 10px 12px;
+  font-family: "ArsenalSC", sans-serif;
+  font-size: 0.6rem;
+  line-height: 1.3;
+  letter-spacing: 0.3px;
+  color: #2b2018;
+  background:
+    repeating-linear-gradient(0deg, rgba(93, 66, 38, 0.05) 0 1px, transparent 1px 7px),
+    linear-gradient(160deg, #f4ecdc 0%, #eadfc6 100%);
+  border-radius: 2px 8px 3px 7px / 6px 3px 7px 2px;
+  box-shadow: 2px 4px 12px rgba(0, 0, 0, 0.5), 1px 1px 0 rgba(255,255,255,0.35) inset;
+  border-left: 3px solid #8a2b2b;
+  transform: rotate(-3deg);
+  pointer-events: auto;
+}
+.feed-fiche-card i {
+  display: block;
+  font-size: 0.95rem;
+  color: #8a2b2b;
+  margin-bottom: 3px;
+  opacity: 0.85;
+}
+.feed-fiche-card strong { font-family: "ArsenalSC-Fat", "ArsenalSC", sans-serif; letter-spacing: 0.5px; color: #3a2c22; }
+/* punaise rouge */
+.feed-fiche-card::before {
+  content: "";
+  position: absolute;
+  top: -5px;
+  left: 50%;
+  transform: translateX(-50%) rotate(8deg);
+  width: 9px; height: 9px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, #ff9d9d, #a4243b 60%, #6d1425);
+  box-shadow: 0 2px 3px rgba(0,0,0,0.55);
+}
+/* dispersion autour du tableau : gauche haut/bas, droite haut/bas, coins */
+.feed-fiche-card--1 { top: 4%; left: 1%; transform: rotate(-4deg); }
+.feed-fiche-card--2 { top: 12%; left: 9%; transform: rotate(2.5deg); z-index: 7; }
+.feed-fiche-card--3 { top: 3%; right: 8%; transform: rotate(3deg); }
+.feed-fiche-card--4 { top: 12%; right: 1%; transform: rotate(-2.5deg); }
+.feed-fiche-card--5 { bottom: 5%; left: 6%; transform: rotate(2deg); }
+.feed-fiche-card--6 { bottom: 3%; right: 10%; transform: rotate(-3deg); }
+.feed-fiche-card--7 { bottom: 10%; left: 26%; transform: rotate(1.5deg); }
+/* responsive : les fiches passent en flux (grille horizontale scrollable) sous 1100px */
+@media (max-width: 1100px) {
+  .feed-fiche-cards {
+    position: static;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+    padding: 8px 0;
+    margin-bottom: 8px;
+  }
+  .feed-fiche-card { position: static; transform: rotate(-1.5deg); }
+  .feed-fiche-card:nth-child(even) { transform: rotate(1.5deg); }
+}
+@media (max-width: 700px) {
+  .feed-fiche-card { width: min(130px, 44%); font-size: 0.55rem; }
+}
+
+/* ===== A PROPOS / RECOMPENSES : PAS DE FOND COLORE ===== */
+.a_propos .section_container,
+.a_propos_article,
+.a_propos_container {
+  background: none;
+  background-color: transparent;
+  background-image: none;
+}
+/* blocs internes (listes, hr) : pas de fond beige herite */
+.a_propos_container ul,
+.a_propos_container li,
+.a_propos_container hr,
+.awards-list,
+.award-item,
+.award-text {
+  background: none;
+  background-color: transparent;
+  background-image: none;
+}
+/* TOURNAGE : dimension fixe — la section garde la taille maximale par defaut ;
+   le bouton LIRE LA SUITE ne redimensionne pas la section : le texte masque
+   s'affiche dans la meme boite, la hauteur ne bouge pas. */
+.a_propos_container { min-height: 0; }
+.tournage-zone { position: relative; }
+.tournage-collapsed { overflow: hidden; }
+
+/* ===== TOURNAGE : voile + bouton dans la boite a hauteur fixe ===== */
+/* La hauteur de .tournage-zone est fixee en JS (hauteur du texte complet) ;
+   le voile masque le texte au-dela des 2 premieres lignes SANS changer la
+   hauteur : le contenu reste dans la meme boite. */
+.tournage-zone { position: relative; transition: none; }
+.tournage-collapsed { overflow: hidden; }
+.tournage-collapsed p:nth-child(n+3) { visibility: hidden; }
+.tournage-open p { visibility: visible; }
+.tournage-veil {
+  position: absolute;
+  left: 0; right: 0;
+  top: calc(2 * (1.55em + 0.5em) + 0.3em);
+  bottom: 34px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding-bottom: 6px;
+  background: linear-gradient(180deg, rgba(34, 28, 28, 0) 0%, rgba(34, 28, 28, 0.85) 30%, #221c1c 100%);
+  pointer-events: none;
+}
+.tournage-veil span {
+  font-family: "Caveat", "ArsenalSC", sans-serif;
+  color: #ea9ef0;
+  font-size: 1.15em;
+  letter-spacing: 2px;
+  opacity: 0.75;
+}
+.tournage-open .tournage-veil { display: none; }
+.tournage-btn { position: absolute; right: 6px; bottom: 2px; }
+.tournage-collapsed .tournage-btn { right: 6px; bottom: 2px; }
