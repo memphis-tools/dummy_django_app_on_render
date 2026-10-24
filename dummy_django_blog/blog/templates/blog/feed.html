@@ -21,14 +21,14 @@
                 <i class="fa-solid fa-hand-point-down"></i>
                 <span>Le commissaire sort les pi&egrave;ces &agrave; conviction, une par une...</span>
             </div>
-            <!-- Notes a la craie pour les visiteurs : HORS du tableau, en travers au-dessus -->
-            <div class="feed-visitor-notes" aria-label="Elements techniques de la serie, pour les visiteurs">
-                <span class="feed-visitor-note feed-visitor-note--a">TITRE&nbsp;: LES PETITS MEURTRES D'AGATHA CHRISTIE</span>
-                <span class="feed-visitor-note feed-visitor-note--b">PRODUCTION&nbsp;: ESCAZAL FILMS / FRANCE T&Eacute;L&Eacute;VISIONS</span>
-                <span class="feed-visitor-note feed-visitor-note--c">DISTRIBUTION&nbsp;: FRANCE 2 &mdash; 1<sup>re</sup> DIFF. 09/01/2009</span>
-                <span class="feed-visitor-note feed-visitor-note--d">FORMAT&nbsp;: COULEUR 16/9 HD ST&Eacute;R&Eacute;O &mdash; 90 MIN</span>
-                <span class="feed-visitor-note feed-visitor-note--e">PUBLIC&nbsp;: D&Eacute;CONSEILL&Eacute; -10 ANS</span>
-                <span class="feed-visitor-note feed-visitor-note--f">PAYS&nbsp;: FRANCE &mdash; LANGUE&nbsp;: FRAN&Ccedil;AIS</span>
+            <!-- Notes a la craie que le detective se laisse sur son tableau d'enquete -->
+            <div class="feed-visitor-notes" aria-label="Notes a la craie du detective">
+                <span class="feed-visitor-note feed-visitor-note--a"><i class="fa-solid fa-thumbtack"></i> TITRE&nbsp;: LES PETITS MEURTRES D'AGATHA CHRISTIE</span>
+                <span class="feed-visitor-note feed-visitor-note--b"><i class="fa-solid fa-clapperboard"></i> PRODUCTION&nbsp;: ESCAZAL FILMS / FRANCE T&Eacute;L&Eacute;VISIONS</span>
+                <span class="feed-visitor-note feed-visitor-note--c"><i class="fa-solid fa-tv"></i> FRANCE 2 &mdash; 1<sup>re</sup> DIFF. 09/01/2009</span>
+                <span class="feed-visitor-note feed-visitor-note--d"><i class="fa-solid fa-film"></i> COULEUR 16/9 HD ST&Eacute;R&Eacute;O &mdash; 90 MIN</span>
+                <span class="feed-visitor-note feed-visitor-note--e"><i class="fa-solid fa-triangle-exclamation"></i> PUBLIC&nbsp;: D&Eacute;CONSEILL&Eacute; -10 ANS</span>
+                <span class="feed-visitor-note feed-visitor-note--f"><i class="fa-solid fa-earth-europe"></i> FRANCE &mdash; FRAN&Ccedil;AIS</span>
             </div>
             <!-- equipes techniques : fiches d'enquete inclinees, dispersees autour du tableau -->
             <div class="feed-fiche-cards" aria-label="Equipes de la serie">
@@ -44,8 +44,8 @@
                 <div class="feed-evidence-slot feed-evidence-slot--lille">
                     <!-- carte de l'agglomeration Lille-Roubaix-Tourcoing (vers 1930), CC BY-SA 4.0, Nanzig - Wikimedia Commons -->
                     <figure class="feed-lille-map" id="feed-lille-map">
-                        <img class="feed-lille-plan" id="feed-lille-plan-img" src="{% static 'vendors/img/carte_elrt_1930.jpg' %}" alt="Carte de l'agglomeration de Lille" loading="eager" decoding="async">
-                        <figcaption id="feed-lille-map-caption">LILLE &mdash; ROUBAIX &mdash; TOURCOING, VERS 1930<br><small>Carte : Nanzig, Wikimedia Commons (CC BY-SA 4.0)</small></figcaption>
+                        <img class="feed-lille-plan" id="feed-lille-plan-img" src="{% static 'vendors/img/carte_lieux_cles.svg' %}" alt="Croquis stylise des lieux cles des episodes de la serie" loading="eager" decoding="async">
+                        <figcaption id="feed-lille-map-caption">CROQUIS DES LIEUX CL&Eacute;S DES ENQU&Ecirc;TES &mdash; LE NORD, ANN&Eacute;ES 1950<br><small>Carte stylis&eacute;e originale, libre d'usage</small></figcaption>
                     </figure>
                     <div class="feed-lille-plan-loader" aria-hidden="true"><span class="feed-lille-plan-loader-inner"></span></div>
                     <!-- FICHE TECHNIQUE : annotations a la craie autour de la carte centree -->
@@ -53,7 +53,11 @@
                     <div class="feed-fiche-people">
                         <figure class="feed-fiche-person feed-fiche-person--creation">
                             <span class="feed-fiche-photo feed-fiche-photo--unknown"><span>?</span></span>
-                            <figcaption><a href="https://fr.wikipedia.org/wiki/Anne_Giafferi" target="_blank" rel="noopener">A. GIAFFERI</a> / <a href="https://fr.wikipedia.org/wiki/Murielle_Magellan" target="_blank" rel="noopener">M. MAGELLAN</a><br>CR&Eacute;ATION</figcaption>
+                            <figcaption><a href="https://fr.wikipedia.org/wiki/Anne_Giafferi" target="_blank" rel="noopener">A. GIAFFERI</a><br>CR&Eacute;ATION</figcaption>
+                        </figure>
+                        <figure class="feed-fiche-person feed-fiche-person--creation2">
+                            <span class="feed-fiche-photo feed-fiche-photo--unknown"><span>?</span></span>
+                            <figcaption><a href="https://fr.wikipedia.org/wiki/Murielle_Magellan" target="_blank" rel="noopener">M. MAGELLAN</a><br>CR&Eacute;ATION</figcaption>
                         </figure>
                         <figure class="feed-fiche-person feed-fiche-person--real">
                             <span class="feed-fiche-photo feed-fiche-photo--unknown"><span>?</span></span>
@@ -73,7 +77,11 @@
                         </figure>
                         <figure class="feed-fiche-person feed-fiche-person--production">
                             <span class="feed-fiche-photo feed-fiche-photo--unknown"><span>?</span></span>
-                            <figcaption><a href="https://fr.wikipedia.org/wiki/Sophie_R%C3%A9vil" target="_blank" rel="noopener">S. R&Eacute;VIL</a> / D. CAROT<br>PRODUCTION</figcaption>
+                            <figcaption><a href="https://fr.wikipedia.org/wiki/Sophie_R%C3%A9vil" target="_blank" rel="noopener">S. R&Eacute;VIL</a><br>PRODUCTION</figcaption>
+                        </figure>
+                        <figure class="feed-fiche-person feed-fiche-person--production2">
+                            <span class="feed-fiche-photo feed-fiche-photo--unknown"><span>?</span></span>
+                            <figcaption><span>D. CAROT</span><br>PRODUCTION</figcaption>
                         </figure>
                     </div>
                     <!-- decorations 1950s : regle, loupe, tasse, trombone punaises -->

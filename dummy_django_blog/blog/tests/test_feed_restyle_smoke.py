@@ -23,7 +23,7 @@ def test_feed_desk_and_sections_restyled(client, django_user_model):
     assert b"a_propos_container" in r.content
     assert b"Tournage" in r.content and b"Fiche technique" not in r.content
     # tableau d'enquete : plan de Lille + personnes de la fiche technique punaisees
-    assert b"feed-lille-plan" in r.content and b"carte_elrt_1930.jpg" in r.content
+    assert b"feed-lille-plan" in r.content and b"carte_lieux_cles.svg" in r.content
     assert b"wikipedia.org" in r.content  # noms de la fiche technique lies vers Wikipedia
     assert b"feed-fiche-people" in r.content
     assert b"feed-fiche-photo--unknown" in r.content
