@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1500 1100" width="1500" height="1100">
-  <title>Croquis des enquêtes — commissariat au centre, domiciles et lieux de crime reliés ; Marlène en bus, Alice en scooter, Laurence en Facel Vega</title>
+  <title>Croquis des enquêtes — commissariat au centre, domiciles et lieux de crime reliés ; agglomération lilloise vue de haut</title>
   <defs>
     <filter id="paper" x="0" y="0" width="100%" height="100%">
       <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" result="noise"/>
@@ -58,45 +58,18 @@
        TRAJETS QUOTIDIENS — un trait par personnage, avec son "véhicule"
        ============================================================ -->
   <!-- Laurence : Facel Vega rouge, trait plein double -->
-  <g stroke="#a4243b" stroke-width="6" fill="none" opacity="0.9" stroke-linecap="round">
+  <g stroke="#a4243b" stroke-width="5.5" fill="none" opacity="0.9" stroke-linecap="round">
     <path d="M 420 290 C 500 330, 580 380, 650 460" marker-end="url(#arrow-red)"/>
-  </g>
-  <g stroke="#a4243b" stroke-width="2" fill="none" opacity="0.5" stroke-dasharray="2 6" stroke-linecap="round">
-    <path d="M 420 300 C 500 340, 580 390, 650 470"/>
-  </g>
-  <!-- coupé 2+2 stylisé (silhouette craie) -->
-  <g transform="translate(520,352) rotate(24)" fill="none" stroke="#a4243b" stroke-width="3.5" stroke-linecap="round" opacity="0.9">
-    <path d="M -34 6 C -26 -10, -10 -14, 0 -14 C 10 -14, 22 -10, 30 -2"/>
-    <path d="M -34 6 L 30 4"/>
-    <circle cx="-20" cy="8" r="7" fill="#f0e6cf" stroke="#a4243b" stroke-width="3"/>
-    <circle cx="18" cy="7" r="7" fill="#f0e6cf" stroke="#a4243b" stroke-width="3"/>
-    <path d="M 30 4 L 38 3"/>
   </g>
 
   <!-- Alice : scooter, trait tireté -->
   <g stroke="#8a2b2b" stroke-width="5" fill="none" opacity="0.85" stroke-dasharray="12 10" stroke-linecap="round">
     <path d="M 1080 290 C 990 330, 900 390, 850 470" marker-end="url(#arrow-red)"/>
   </g>
-  <!-- scooter stylisé -->
-  <g transform="translate(975,352) rotate(28)" fill="none" stroke="#8a2b2b" stroke-width="3.5" stroke-linecap="round" opacity="0.9">
-    <path d="M -20 0 C -12 -12, 0 -16, 12 -14"/>
-    <path d="M 12 -14 L 20 -8 L 14 0"/>
-    <circle cx="-14" cy="4" r="6" fill="#f0e6cf" stroke="#8a2b2b" stroke-width="3"/>
-    <circle cx="16" cy="2" r="6" fill="#f0e6cf" stroke="#8a2b2b" stroke-width="3"/>
-    <path d="M -6 -4 L -2 -14 L 4 -14"/>
-  </g>
 
   <!-- Marlène : bus puis à pied, trait pointillé fin -->
   <g stroke="#6b5335" stroke-width="4.5" fill="none" opacity="0.8" stroke-dasharray="4 10" stroke-linecap="round">
     <path d="M 750 860 C 760 800, 770 720, 762 640" marker-end="url(#arrow-sepia)"/>
-  </g>
-  <!-- bus stylisé -->
-  <g transform="translate(778,760)" fill="none" stroke="#6b5335" stroke-width="3.5" stroke-linecap="round" opacity="0.85">
-    <rect x="-26" y="-14" width="52" height="24" rx="4"/>
-    <line x1="-8" y1="-14" x2="-8" y2="10"/>
-    <line x1="10" y1="-14" x2="10" y2="10"/>
-    <circle cx="-14" cy="12" r="5" fill="#f0e6cf" stroke="#6b5335" stroke-width="3"/>
-    <circle cx="16" cy="12" r="5" fill="#f0e6cf" stroke="#6b5335" stroke-width="3"/>
   </g>
 
   <!-- ============================================================
@@ -111,37 +84,41 @@
     <path d="M 1020 910 C 970 820, 900 730, 810 630" marker-end="url(#arrow-sepia)"/>
   </g>
 
+  <!-- faubourgs et communes voisines : quadrillages de rues vus de haut -->
+  <g stroke="#8a7a5c" stroke-width="1.6" fill="none" opacity="0.5" stroke-linecap="round">
+    <!-- Roubaix/Tourcoing (NE) -->
+    <path d="M 1150 180 L 1420 180 M 1150 240 L 1420 240 M 1150 300 L 1380 300"/>
+    <path d="M 1180 140 L 1180 320 M 1260 140 L 1260 320 M 1340 150 L 1340 300"/>
+    <!-- Lambersart/Wambrechies (NW) -->
+    <path d="M 120 380 L 350 380 M 130 440 L 340 440"/>
+    <path d="M 180 340 L 180 460 M 260 350 L 260 460"/>
+    <!-- Villeneuve-d'Ascq / Hellemmes (SE) -->
+    <path d="M 1120 500 L 1400 500 M 1140 570 L 1420 570 M 1160 640 L 1400 640"/>
+    <path d="M 1220 460 L 1220 680 M 1310 470 L 1310 690"/>
+    <!-- Lens/Loos bassin (SW) -->
+    <path d="M 120 560 L 380 560 M 140 640 L 400 640"/>
+    <path d="M 200 520 L 200 700 M 300 530 L 300 690"/>
+  </g>
+  <!-- coron et ruelles ouvrieres (petits rectangles serres), typique du Nord vu de haut -->
+  <g fill="#7d6242" opacity="0.35">
+    <rect x="1190" y="200" width="16" height="10"/><rect x="1212" y="200" width="16" height="10"/><rect x="1234" y="200" width="16" height="10"/>
+    <rect x="1190" y="260" width="16" height="10"/><rect x="1212" y="260" width="16" height="10"/><rect x="1234" y="260" width="16" height="10"/>
+    <rect x="1240" y="510" width="14" height="9"/><rect x="1260" y="510" width="14" height="9"/><rect x="1280" y="510" width="14" height="9"/>
+    <rect x="1240" y="580" width="14" height="9"/><rect x="1260" y="580" width="14" height="9"/><rect x="1280" y="580" width="14" height="9"/>
+    <rect x="200" y="580" width="14" height="9"/><rect x="220" y="580" width="14" height="9"/><rect x="240" y="580" width="14" height="9"/>
+  </g>
+
   <!-- ============================================================
        LE COMMISSAIRT : pièce centrale
        ============================================================ -->
   <g transform="translate(750,550)">
-    <!-- batiment du commissariat dessine : beffroi d'entree + ailes symetriques -->
-    <rect x="-150" y="-10" width="300" height="70" fill="#b0906c" stroke="#3a2c22" stroke-width="3.5" rx="3"/>
-    <!-- avant-corps central -->
-    <rect x="-40" y="-30" width="80" height="90" fill="#c4a37c" stroke="#3a2c22" stroke-width="3.5" rx="3"/>
-    <path d="M -40 -30 L 0 -55 L 40 -30 Z" fill="#8a2b2b" stroke="#3a2c22" stroke-width="3"/>
-    <!-- horloge du beffroi -->
-    <circle cx="0" cy="-18" r="12" fill="#f0e6cf" stroke="#3a2c22" stroke-width="2.5"/>
-    <line x1="0" y1="-18" x2="0" y2="-26" stroke="#3a2c22" stroke-width="2"/>
-    <line x1="0" y1="-18" x2="6" y2="-16" stroke="#3a2c22" stroke-width="2"/>
-    <!-- porte -->
-    <rect x="-12" y="30" width="24" height="30" fill="#3a2c22" rx="2"/>
-    <!-- fenetres regulieres -->
-    <g fill="#f0e6cf" stroke="#3a2c22" stroke-width="2">
-      <rect x="-130" y="8" width="20" height="24" rx="10"/>
-      <rect x="-95" y="8" width="20" height="24" rx="10"/>
-      <rect x="75" y="8" width="20" height="24" rx="10"/>
-      <rect x="110" y="8" width="20" height="24" rx="10"/>
-      <rect x="-30" y="0" width="14" height="18" rx="7"/>
-      <rect x="16" y="0" width="14" height="18" rx="7"/>
-    </g>
-    <!-- fanion tricolore sur le beffroi -->
-    <line x1="0" y1="-55" x2="0" y2="-86" stroke="#3a2c22" stroke-width="3"/>
-    <rect x="0" y="-86" width="26" height="14" fill="#3a4a8a"/>
-    <rect x="0" y="-72" width="26" height="14" fill="#f0e6cf"/>
-    <rect x="0" y="-58" width="26" height="14" fill="#a4243b"/>
-    <text y="100" text-anchor="middle" font-family="serif" font-size="34" font-weight="bold" fill="#3a2c22" letter-spacing="2">COMMISSARIAT</text>
-    <text y="134" text-anchor="middle" font-family="'Caveat', cursive" font-size="28" fill="#8a2b2b" font-weight="bold">LILLE — ANNÉES 1950</text>
+    <!-- icone simple du commissariat : ecusson police + etoile -->
+    <circle r="64" fill="#2c4a70" stroke="#f0e6cf" stroke-width="5"/>
+    <circle r="52" fill="none" stroke="#f0e6cf" stroke-width="2" opacity="0.8"/>
+    <path d="M 0 -34 L 10 -10 L 36 -10 L 15 6 L 23 30 L 0 16 L -23 30 L -15 6 L -36 -10 L -10 -10 Z"
+          fill="#f0e6cf"/>
+    <text y="96" text-anchor="middle" font-family="serif" font-size="32" font-weight="bold" fill="#3a2c22" letter-spacing="2">COMMISSARIAT</text>
+    <text y="130" text-anchor="middle" font-family="'Caveat', cursive" font-size="27" fill="#2c4a70" font-weight="bold">LILLE — ANNÉES 1950</text>
   </g>
 
   <!-- ============================================================
@@ -234,19 +211,6 @@
     <use href="#pin" fill="#5a4632" stroke="#f0e6cf" stroke-width="3"/>
     <text y="-20" text-anchor="middle" font-family="serif" font-size="22" font-weight="bold" fill="#f0e6cf">10</text>
     <text y="-42" text-anchor="middle" font-family="serif" font-size="24" font-weight="bold" fill="#3a2c22">CHÂTEAU DE WAMBRECHIES</text>
-  </g>
-  <!-- annotations à la craie, limitées et cohérentes -->
-  <g font-family="'Caveat', cursive" fill="#3a2c22" opacity="0.9">
-    <text x="230" y="180" font-size="34" transform="rotate(-3 230 180)">le trio file au commissariat…</text>
-    <text x="1060" y="180" font-size="34" transform="rotate(2 1060 180)">…puis repart sur les lieux du crime</text>
-    <text x="300" y="1020" font-size="30" transform="rotate(-2 300 1020)">indices au bureau, vérité sur place</text>
-  </g>
-
-  <!-- tampon d'époque -->
-  <g transform="translate(1340,160) rotate(-8)" opacity="0.8">
-    <rect x="-90" y="-38" width="180" height="76" fill="none" stroke="#8a2b2b" stroke-width="5" rx="8"/>
-    <text text-anchor="middle" font-family="serif" font-size="22" font-weight="bold" fill="#8a2b2b">CABINE DE</text>
-    <text y="28" text-anchor="middle" font-family="serif" font-size="22" font-weight="bold" fill="#8a2b2b">POLICE</text>
   </g>
 
 </svg>

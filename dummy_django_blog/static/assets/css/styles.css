@@ -4312,3 +4312,19 @@ footer.footer-container {  margin-top: 0; }
 .feed-evidence-slot--lille .feed-fiche-person figcaption { font-size: 0.6rem; }
 /* plateau : laisser deborder les post-it a cheval sur les marges */
 .feed-evidence-slot--lille { overflow: visible !important; }
+
+/* ===== CROQUIS #189 : fiches collees au plateau, miniaturisation revue ===== */
+.feed-evidence-slot--lille .feed-fiche-people .feed-fiche-person.person-rest.person-mini {
+  max-width: 106px !important;
+  min-width: 86px !important;
+  padding: 6px 6px 5px !important;
+}
+.feed-evidence-slot--lille .feed-fiche-people .feed-fiche-person.person-rest.person-mini img,
+.feed-evidence-slot--lille .feed-fiche-people .feed-fiche-person.person-rest.person-mini .feed-fiche-photo {
+  width: 72px !important;
+  height: 86px !important;
+}
+.feed-evidence-slot--lille .feed-fiche-people .feed-fiche-person.person-rest.person-mini figcaption {
+  font-size: 0.58rem !important;
+  line-height: 1.4 !important;
+}
