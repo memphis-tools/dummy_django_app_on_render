@@ -948,9 +948,9 @@ document.addEventListener("DOMContentLoaded", function() {
     /* 3 fiches eparpillees a gauche et a droite du tableau, HORS de la carte
        (bandes laterales du plateau : approx. 0-15% et 85-97% de largeur) */
     var zones = [
-      { top: [8, 16], left: [8.5, 15] },   /* gauche haut, colle le plateau */
-      { top: [42, 58], left: [85.5, 92] }, /* droite, bande laterale */
-      { top: [76, 88], left: [8.5, 15] }   /* gauche bas, colle le plateau */
+      { top: [10, 20], left: [6, 12] },     /* gauche haut, groupe autour du plateau */
+      { top: [42, 58], left: [86, 92] },   /* droite, groupe autour du plateau */
+      { top: [72, 84], left: [6, 12] }      /* gauche bas, groupe autour du plateau */
     ];
     people.forEach(function(el, n) {
       if (picked.indexOf(n) === -1) el.style.display = "none";

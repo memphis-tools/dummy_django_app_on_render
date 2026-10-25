@@ -52,7 +52,6 @@
     <path d="M 140 300 C 400 380, 700 430, 1000 400 C 1180 385, 1330 420, 1440 470"/>
     <path d="M 140 300 C 200 420, 240 560, 260 720"/>
   </g>
-  <ellipse cx="180" cy="830" rx="90" ry="55" fill="#5f7d8c" opacity="0.35"/>
 
   <!-- ============================================================
        TRAJETS QUOTIDIENS — un trait par personnage, avec son "véhicule"
@@ -84,6 +83,30 @@
     <path d="M 1020 910 C 970 820, 900 730, 810 630" marker-end="url(#arrow-sepia)"/>
   </g>
 
+  <!-- sites emblematiques dessines a la main -->
+  <!-- Grand'Place et Vieille Bourse -->
+  <g transform="translate(680,470)" fill="none" stroke="#3a2c22" stroke-width="3" stroke-linecap="round" opacity="0.85">
+    <path d="M -46 10 C -40 -22, 40 -22, 46 10 C 40 40, -40 40, -46 10 Z"/>
+    <path d="M -28 12 L -28 -8 M -10 12 L -10 -8 M 8 12 L 8 -8 M 26 12 L 26 -8"/>
+    <path d="M -46 10 L 46 10"/>
+  </g>
+  <text x="680" y="530" text-anchor="middle" font-family="serif" font-size="21" font-weight="bold" fill="#3a2c22">GRAND'PLACE</text>
+  <!-- Porte de Paris (arc de triomphe lillois) -->
+  <g transform="translate(950,750)" fill="none" stroke="#3a2c22" stroke-width="3" stroke-linecap="round" opacity="0.85">
+    <path d="M -34 24 L -34 -20 C -34 -38, 34 -38, 34 -20 L 34 24"/>
+    <path d="M -12 24 L -12 -10 M 12 24 L 12 -10"/>
+    <path d="M -34 -20 C -20 -34, 20 -34, 34 -20"/>
+  </g>
+  <text x="950" y="800" text-anchor="middle" font-family="serif" font-size="21" font-weight="bold" fill="#3a2c22">PORTE DE PARIS</text>
+  <!-- Citadelle (pentagone) -->
+  <g transform="translate(300,470)" fill="none" stroke="#3a2c22" stroke-width="3" stroke-linejoin="round" opacity="0.85">
+    <path d="M 0 -30 L 28 -8 L 18 26 L -18 26 L -28 -8 Z"/>
+    <path d="M 0 -14 L 13 -5 L 8 12 L -8 12 L -13 -5 Z"/>
+  </g>
+  <text x="300" y="520" text-anchor="middle" font-family="serif" font-size="21" font-weight="bold" fill="#3a2c22">CITADELLE</text>
+  <!-- beffri mini + Maisons du Nord -->
+  <text x="400" y="470" font-family="'Caveat', cursive" font-size="24" fill="#6b5335" opacity="0.9" transform="rotate(-4 400 470)">quartier des manufactures</text>
+
   <!-- faubourgs et communes voisines : quadrillages de rues vus de haut -->
   <g stroke="#8a7a5c" stroke-width="1.6" fill="none" opacity="0.5" stroke-linecap="round">
     <!-- Roubaix/Tourcoing (NE) -->
@@ -112,11 +135,9 @@
        LE COMMISSAIRT : pièce centrale
        ============================================================ -->
   <g transform="translate(750,550)">
-    <!-- icone simple du commissariat : ecusson police + etoile -->
-    <circle r="64" fill="#2c4a70" stroke="#f0e6cf" stroke-width="5"/>
-    <circle r="52" fill="none" stroke="#f0e6cf" stroke-width="2" opacity="0.8"/>
-    <path d="M 0 -34 L 10 -10 L 36 -10 L 15 6 L 23 30 L 0 16 L -23 30 L -15 6 L -36 -10 L -10 -10 Z"
-          fill="#f0e6cf"/>
+    <!-- commissariat : grande pastille "C" du meme style que les lieux, dessinee main -->
+    <use href="#pin" transform="scale(2.1)" fill="#2c4a70" stroke="#f0e6cf" stroke-width="2.5"/>
+    <text y="-44" text-anchor="middle" font-family="serif" font-size="30" font-weight="bold" fill="#f0e6cf">C</text>
     <text y="96" text-anchor="middle" font-family="serif" font-size="32" font-weight="bold" fill="#3a2c22" letter-spacing="2">COMMISSARIAT</text>
     <text y="130" text-anchor="middle" font-family="'Caveat', cursive" font-size="27" fill="#2c4a70" font-weight="bold">LILLE — ANNÉES 1950</text>
   </g>
