@@ -4554,3 +4554,29 @@ footer.footer-container {  margin-top: 0; }
     left: auto !important;
   }
 }
+
+/* ===== #197 : loupe et regle supprimees du plateau ===== */
+.feed-evidence-slot--lille .feed-desk-deco--ruler,
+.feed-evidence-slot--lille .feed-desk-deco--magnifier { display: none !important; }
+
+/* ===== #197 : post-its de gauche debordent le plateau (a cheval sur les marges) ===== */
+.feed-evidence-slot--lille .feed-visitor-note.feed-visitor-note--a { top: 2.5% !important; left: -3% !important; right: auto !important; }
+.feed-evidence-slot--lille .feed-visitor-note.feed-visitor-note--c { top: 21% !important; left: -3.5% !important; right: auto !important; }
+.feed-evidence-slot--lille .feed-visitor-note.feed-visitor-note--e { top: 50% !important; left: -3.5% !important; right: auto !important; }
+.feed-evidence-slot--lille .feed-visitor-note.feed-visitor-note--f { top: 74% !important; left: -3% !important; right: auto !important; }
+/* les 2 de droite visibles, hors carte */
+.feed-evidence-slot--lille .feed-visitor-note.feed-visitor-note--b { top: 3% !important; right: -2.5% !important; left: auto !important; }
+.feed-evidence-slot--lille .feed-visitor-note.feed-visitor-note--d { top: 40% !important; right: -2.5% !important; left: auto !important; }
+
+/* ===== #197 : fiches membres en BAS de la carte, cote a cote horizontalement ===== */
+.feed-evidence-slot--lille .feed-fiche-people .feed-fiche-person.person-rest.person-mini {
+  max-width: 118px !important;
+  min-width: 96px !important;
+  right: auto !important;
+  z-index: 7 !important;
+}
+.feed-evidence-slot--lille .feed-fiche-people .feed-fiche-person.person-rest.person-mini img,
+.feed-evidence-slot--lille .feed-fiche-people .feed-fiche-person.person-rest.person-mini .feed-fiche-photo {
+  width: 82px !important;
+  height: 96px !important;
+}
