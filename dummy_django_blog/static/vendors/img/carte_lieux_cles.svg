@@ -66,38 +66,19 @@
     <path d="M 820 560 C 800 640, 780 690, 750 740"/>
   </g>
 
-  <!-- faubourgs / communes : quadrillages légers -->
-  <g stroke="#8a7a5c" stroke-width="1.6" fill="none" opacity="0.45" stroke-linecap="round">
-    <path d="M 1150 180 L 1420 180 M 1150 240 L 1420 240 M 1150 300 L 1380 300"/>
-    <path d="M 1180 140 L 1180 320 M 1260 140 L 1260 320 M 1340 150 L 1340 300"/>
-    <path d="M 120 380 L 350 380 M 130 440 L 340 440"/>
-    <path d="M 180 340 L 180 460 M 260 350 L 260 460"/>
-    <path d="M 1120 500 L 1400 500 M 1140 570 L 1420 570 M 1160 640 L 1400 640"/>
-    <path d="M 1220 460 L 1220 680 M 1310 470 L 1310 690"/>
-    <path d="M 120 560 L 380 560 M 140 640 L 400 640"/>
-    <path d="M 200 520 L 200 700 M 300 530 L 300 690"/>
-  </g>
-
   <!-- ============================================================
        COUCHE 2 — ESPACES VERTS ET ZONES (une seule passe,
        formes pleines, pas de hachures parasites)
        ============================================================ -->
-  <g fill="#6d7a4f" opacity="0.45">
-    <ellipse cx="560" cy="680" rx="55" ry="38" transform="rotate(-8 560 680)"/>
-    <ellipse cx="920" cy="470" rx="42" ry="28" transform="rotate(6 920 470)"/>
-    <rect x="1120" y="720" width="80" height="50" rx="18"/>
+  <!-- parcs : contours dessines a la main, arbres en cercles-craie -->
+  <g fill="none" stroke="#6d7a4f" stroke-width="3" opacity="0.6" stroke-linecap="round">
+    <path d="M 505 690 C 530 655, 585 650, 615 680 C 585 710, 530 712, 505 690 Z"/>
+    <path d="M 885 470 C 905 445, 945 448, 960 470 C 940 492, 900 490, 885 470 Z"/>
   </g>
-  <!-- zone industrielle près de Roubaix : hachures sobres, limitée à un cadre -->
-  <g stroke="#5a4632" stroke-width="2" opacity="0.35">
-    <rect x="1240" y="170" width="80" height="60" fill="none"/>
-    <path d="M 1245 225 L 1295 175 M 1260 225 L 1310 175 M 1275 225 L 1320 180"/>
+  <g fill="#6d7a4f" opacity="0.5">
+    <circle cx="530" cy="678" r="7"/><circle cx="560" cy="665" r="8"/><circle cx="590" cy="680" r="7"/>
+    <circle cx="905" cy="465" r="6"/><circle cx="930" cy="472" r="7"/><circle cx="948" cy="458" r="6"/>
   </g>
-  <!-- coron : deux rangées seulement, alignées -->
-  <g fill="#7d6242" opacity="0.35">
-    <rect x="1190" y="200" width="16" height="10"/><rect x="1212" y="200" width="16" height="10"/><rect x="1234" y="200" width="16" height="10"/>
-    <rect x="1190" y="260" width="16" height="10"/><rect x="1212" y="260" width="16" height="10"/><rect x="1234" y="260" width="16" height="10"/>
-  </g>
-
   <!-- ============================================================
        COUCHE 3 — SITES EMBLÉMATIQUES (traits nets, encadrés)
        ============================================================ -->

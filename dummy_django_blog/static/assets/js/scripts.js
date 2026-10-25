@@ -359,7 +359,7 @@ document.addEventListener("DOMContentLoaded", function() {
       hideCallout();
       row.classList.remove("feed-audiences-row-glow");
       if (done) done();
-    }, 5000);
+    }, 10000);
   }
 
   function runTour(token) {
@@ -442,7 +442,7 @@ document.addEventListener("DOMContentLoaded", function() {
       hideCallout();
       row.classList.remove("feed-audiences-row-glow");
       lastGlowRow = null;
-    }, 5000);
+    }, 10000);
   }
   audiencesSection.querySelectorAll(".topblog_tr").forEach(function(row) {
     row.classList.add("feed-audiences-row-click");
@@ -949,11 +949,11 @@ document.addEventListener("DOMContentLoaded", function() {
        (bandes laterales du plateau : approx. 0-15% et 85-97% de largeur) */
     /* toutes les fiches deposees a DROITE du croquis (bande laterale droite),
        empilees une a une sous le postit du haut, effet jeter/deposer conserve */
-    /* decalees a gauche : le flanc droit des fiches ne doit plus etre tronque */
+    /* fiches membres : en BAS de la carte, cote a cote horizontalement */
     var zones = [
-      { top: [42, 54], left: [78, 84] },
-      { top: [58, 70], left: [78, 84] },
-      { top: [74, 86], left: [78, 84] }
+      { top: [78, 84], left: [26, 40] },
+      { top: [78, 84], left: [41, 55] },
+      { top: [78, 84], left: [56, 70] }
     ];
     people.forEach(function(el, n) {
       if (picked.indexOf(n) === -1) el.style.display = "none";
