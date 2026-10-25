@@ -1175,3 +1175,17 @@ function markFictionalQuote(authorEl) {
   note.textContent = "citation invent\u00e9e \u2014 le personnage et le m\u00e9dia sont fictifs";
   authorEl.insertAdjacentElement("afterend", note);
 }
+
+/* ===== #198 : fiches membres centrees sous la carte (bas de la section) ===== */
+document.addEventListener("DOMContentLoaded", function() {
+  var slot = document.querySelector(".feed-evidence-slot--lille");
+  if (!slot) return;
+  var people = slot.querySelector(".feed-fiche-people");
+  if (!people || people.classList.contains("people-bottom-managed")) return;
+  people.classList.add("people-bottom-managed");
+  /* deplacer le conteneur apres la carte : bande dediee centree sous le croquis */
+  var wrap = document.createElement("div");
+  wrap.className = "feed-fiche-people-bottom";
+  slot.appendChild(wrap);
+  wrap.appendChild(people);
+});

@@ -1,175 +1,230 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1500 1100" width="1500" height="1100">
-  <title>Croquis des enquêtes — commissariat au centre, domiciles et lieux de crime reliés ; agglomération lilloise vue de haut</title>
+  <title>Pseudo-carte de l'agglomération — domicile des héros, commissariat, lieux d'enquêtes et liaisons de chacun</title>
   <defs>
     <filter id="paper" x="0" y="0" width="100%" height="100%">
       <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" result="noise"/>
-      <feColorMatrix in="noise" type="matrix" values="0 0 0 0 0.55  0 0 0 0 0.45  0 0 0 0 0.32  0 0 0 0.35 0"/>
+      <feColorMatrix in="noise" type="matrix" values="0 0 0 0 0.55  0 0 0 0 0.45  0 0 0 0 0.32  0 0 0 0.28 0"/>
       <feComposite in2="SourceGraphic" operator="in" result="top"/>
       <feMerge><feMergeNode in="SourceGraphic"/><feMergeNode in="top"/></feMerge>
     </filter>
-    <pattern id="grid" width="75" height="75" patternUnits="userSpaceOnUse">
-      <path d="M 75 0 L 0 0 0 75" fill="none" stroke="#5a4632" stroke-width="1" opacity="0.35"/>
-    </pattern>
-    <!-- pastille-craie : goutte de cartes, pointe en bas, contour double -->
+    <!-- pastille-craie : goutte de cartes, pointe en bas -->
     <g id="pin">
       <path d="M 0 0 C -10 -8, -18 -16, -18 -26 A 18 18 0 1 1 18 -26 C 18 -16, 10 -8, 0 0 Z"/>
     </g>
-    <marker id="arrow-red" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+    <!-- marqueurs par personne : formes clairement symbolisees -->
+    <g id="mk-alice"><!-- Alice : cercle (scooter) -->
+      <circle cy="-26" r="15"/>
+    </g>
+    <g id="mk-marlene"><!-- Marlène : hexagone (bus) -->
+      <path d="M -13 -20 L 0 -29 L 13 -20 L 13 -33 L 0 -42 L -13 -33 Z" transform="translate(0,7)"/>
+    </g>
+    <g id="mk-laurence"><!-- Laurence : losange (Facel Vega) -->
+      <path d="M 0 -44 L 15 -27 L 0 -10 L -15 -27 Z"/>
+    </g>
+    <g id="mk-tricar"><!-- Tricar : chevron (commandement) -->
+      <path d="M -13 -12 L 0 -30 L 13 -12 L 13 -22 L 0 -40 L -13 -22 Z"/>
+    </g>
+    <g id="mk-legiste"><!-- légiste : croix (médecine) -->
+      <path d="M -5 -14 L -5 -40 M -18 -27 L 8 -27" stroke-width="10" stroke-linecap="round"/>
+    </g>
+    <g id="mk-gendarme"><!-- gendarme : rectangle (Marianne) -->
+      <rect x="-12" y="-40" width="24" height="17" rx="2"/>
+    </g>
+    <marker id="ah-red" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
       <path d="M 0 0 L 10 5 L 0 10 z" fill="#8a2b2b"/>
     </marker>
-    <marker id="arrow-sepia" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+    <marker id="ah-sepia" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
       <path d="M 0 0 L 10 5 L 0 10 z" fill="#6b5335"/>
     </marker>
   </defs>
 
   <!-- fond parchemin -->
   <rect width="1500" height="1100" fill="#f0e6cf"/>
-  <rect width="1500" height="1100" fill="url(#grid)" filter="url(#paper)"/>
+  <rect width="1500" height="1100" filter="url(#paper)"/>
 
   <!-- ============================================================
-       COUCHE 1 — STRUCTURE URBAINE (hiérarchie nette : axes >
-       boulevards > rues). Traits cohérents, aucune superposition.
+       LA VILLE ET SON AGGLOMÉRATION (grand Lille vu de haut)
+       — centre dense + ceinture + communes en tissu simple
        ============================================================ -->
-  <!-- axes/entités géographiques : canal, voie ferrée -->
-  <g stroke="#5f7d8c" stroke-width="10" fill="none" opacity="0.5" stroke-linecap="round">
-    <path d="M 140 300 C 400 380, 700 430, 1000 400 C 1180 385, 1330 420, 1440 470"/>
-    <path d="M 140 300 C 200 420, 240 560, 260 720"/>
-  </g>
-  <g stroke="#5a4632" stroke-width="2.5" fill="none" opacity="0.6">
-    <path d="M 950 740 L 1150 850 L 1400 940"/>
-    <path d="M 960 720 L 1160 830 L 1400 920"/>
-    <path d="M 980 745 L 988 737 M 1030 775 L 1038 767 M 1080 805 L 1088 797 M 1130 835 L 1138 827 M 1180 862 L 1188 854 M 1230 885 L 1238 877 M 1280 905 L 1288 897 M 1330 922 L 1338 914" stroke-width="2"/>
-  </g>
-
-  <!-- boulevards : ceinture du centre, épaisseur maîtresse -->
-  <g stroke="#8a7a5c" stroke-width="4" fill="none" opacity="0.65" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M 560 380 L 940 380"/>
-    <path d="M 940 380 L 1000 470 L 1000 650 L 940 740"/>
-    <path d="M 940 740 L 560 740"/>
-    <path d="M 560 740 L 500 650 L 500 470 L 560 380"/>
-    <!-- axes rayonnants (jonction propre aux angles) -->
-    <path d="M 560 380 C 480 340, 400 320, 300 330"/>
+  <!-- ceinture boulevards + autoroutes (axes majeurs, épais) -->
+  <g stroke="#7d6d4f" stroke-width="6" fill="none" opacity="0.55" stroke-linecap="round">
+    <path d="M 560 380 L 940 380 L 1000 470 L 1000 650 L 940 740 L 560 740 L 500 650 L 500 470 Z"/>
+    <path d="M 300 330 C 430 320, 520 350, 560 380"/>
     <path d="M 940 380 C 1030 340, 1120 330, 1220 350"/>
     <path d="M 560 740 C 470 790, 390 830, 300 850"/>
     <path d="M 940 740 C 1030 790, 1120 830, 1220 850"/>
-    <path d="M 750 380 C 750 300, 748 220, 750 150"/>
-    <path d="M 750 740 C 750 800, 752 830, 750 860"/>
+    <path d="M 750 380 L 750 150"/>
+    <path d="M 750 740 L 750 860"/>
   </g>
-
-  <!-- rues intérieures : épaisseur secondaire -->
-  <g stroke="#8a7a5c" stroke-width="2" fill="none" opacity="0.45" stroke-linecap="round">
-    <path d="M 750 380 L 750 740"/>
-    <path d="M 500 560 L 1000 560"/>
+  <!-- rues du centre (médianes) -->
+  <g stroke="#8a7a5c" stroke-width="2" fill="none" opacity="0.5" stroke-linecap="round">
+    <path d="M 750 380 L 750 740 M 500 560 L 1000 560"/>
     <path d="M 630 380 C 640 460, 650 520, 680 560"/>
     <path d="M 870 380 C 860 460, 850 520, 820 560"/>
     <path d="M 680 560 C 700 640, 720 690, 750 740"/>
     <path d="M 820 560 C 800 640, 780 690, 750 740"/>
   </g>
-
-  <!-- ============================================================
-       COUCHE 2 — ESPACES VERTS ET ZONES (une seule passe,
-       formes pleines, pas de hachures parasites)
-       ============================================================ -->
-  <!-- parcs : contours dessines a la main, arbres en cercles-craie -->
+  <!-- canal de la Deûle -->
+  <g stroke="#5f7d8c" stroke-width="10" fill="none" opacity="0.5" stroke-linecap="round">
+    <path d="M 140 300 C 400 380, 700 430, 1000 400 C 1180 385, 1330 420, 1440 470"/>
+    <path d="M 140 300 C 200 420, 240 560, 260 720"/>
+  </g>
+  <!-- voie ferrée vers le sud -->
+  <g stroke="#5a4632" stroke-width="3" fill="none" opacity="0.6">
+    <path d="M 950 740 L 1150 850 L 1400 940"/>
+    <path d="M 960 720 L 1160 830 L 1400 920"/>
+  </g>
+  <!-- communes voisines : toits vus de haut, rangées simples et lisibles -->
+  <g fill="#7d6242" opacity="0.4">
+    <!-- Lambersart / Wambrechies (NW) -->
+    <rect x="150" y="400" width="18" height="11"/><rect x="175" y="400" width="18" height="11"/><rect x="200" y="400" width="18" height="11"/>
+    <rect x="150" y="425" width="18" height="11"/><rect x="175" y="425" width="18" height="11"/><rect x="200" y="425" width="18" height="11"/>
+    <rect x="150" y="450" width="18" height="11"/><rect x="175" y="450" width="18" height="11"/><rect x="200" y="450" width="18" height="11"/>
+    <!-- Roubaix / Tourcoing (NE) -->
+    <rect x="1180" y="180" width="18" height="11"/><rect x="1205" y="180" width="18" height="11"/><rect x="1230" y="180" width="18" height="11"/>
+    <rect x="1180" y="205" width="18" height="11"/><rect x="1205" y="205" width="18" height="11"/><rect x="1230" y="205" width="18" height="11"/>
+    <rect x="1180" y="230" width="18" height="11"/><rect x="1205" y="230" width="18" height="11"/><rect x="1230" y="230" width="18" height="11"/>
+    <!-- Villeneuve-d'Ascq (E) -->
+    <rect x="1210" y="510" width="18" height="11"/><rect x="1235" y="510" width="18" height="11"/><rect x="1260" y="510" width="18" height="11"/>
+    <rect x="1210" y="535" width="18" height="11"/><rect x="1235" y="535" width="18" height="11"/><rect x="1260" y="535" width="18" height="11"/>
+    <!-- Loos / Lens (SW) -->
+    <rect x="170" y="600" width="18" height="11"/><rect x="195" y="600" width="18" height="11"/><rect x="220" y="600" width="18" height="11"/>
+    <rect x="170" y="625" width="18" height="11"/><rect x="195" y="625" width="18" height="11"/><rect x="220" y="625" width="18" height="11"/>
+    <!-- Armentières (W) -->
+    <rect x="120" y="330" width="18" height="11"/><rect x="145" y="330" width="18" height="11"/><rect x="120" y="355" width="18" height="11"/><rect x="145" y="355" width="18" height="11"/>
+    <!-- Tourcoing haut -->
+    <rect x="1270" y="150" width="18" height="11"/><rect x="1295" y="150" width="18" height="11"/><rect x="1270" y="175" width="18" height="11"/><rect x="1295" y="175" width="18" height="11"/>
+  </g>
+  <!-- parcs dessinés à la main -->
   <g fill="none" stroke="#6d7a4f" stroke-width="3" opacity="0.6" stroke-linecap="round">
     <path d="M 505 690 C 530 655, 585 650, 615 680 C 585 710, 530 712, 505 690 Z"/>
     <path d="M 885 470 C 905 445, 945 448, 960 470 C 940 492, 900 490, 885 470 Z"/>
+    <path d="M 1110 700 C 1130 675, 1170 678, 1185 700 C 1165 722, 1125 720, 1110 700 Z"/>
   </g>
   <g fill="#6d7a4f" opacity="0.5">
     <circle cx="530" cy="678" r="7"/><circle cx="560" cy="665" r="8"/><circle cx="590" cy="680" r="7"/>
     <circle cx="905" cy="465" r="6"/><circle cx="930" cy="472" r="7"/><circle cx="948" cy="458" r="6"/>
+    <circle cx="1130" cy="695" r="6"/><circle cx="1155" cy="705" r="7"/>
   </g>
-  <!-- ============================================================
-       COUCHE 3 — SITES EMBLÉMATIQUES (traits nets, encadrés)
-       ============================================================ -->
-  <!-- Grand'Place et Vieille Bourse -->
+  <!-- Grand'Place, Porte de Paris, Citadelle -->
   <g transform="translate(680,470)" fill="none" stroke="#3a2c22" stroke-width="3" stroke-linecap="round" opacity="0.85">
     <path d="M -46 10 C -40 -22, 40 -22, 46 10 C 40 40, -40 40, -46 10 Z"/>
-    <path d="M -28 12 L -28 -8 M -10 12 L -10 -8 M 8 12 L 8 -8 M 26 12 L 26 -8"/>
     <path d="M -46 10 L 46 10"/>
   </g>
   <text x="680" y="530" text-anchor="middle" font-family="serif" font-size="21" font-weight="bold" fill="#3a2c22">GRAND'PLACE</text>
-  <!-- Porte de Paris -->
   <g transform="translate(950,750)" fill="none" stroke="#3a2c22" stroke-width="3" stroke-linecap="round" opacity="0.85">
     <path d="M -34 24 L -34 -20 C -34 -38, 34 -38, 34 -20 L 34 24"/>
-    <path d="M -12 24 L -12 -10 M 12 24 L 12 -10"/>
-    <path d="M -34 -20 C -20 -34, 20 -34, 34 -20"/>
   </g>
   <text x="950" y="800" text-anchor="middle" font-family="serif" font-size="21" font-weight="bold" fill="#3a2c22">PORTE DE PARIS</text>
-  <!-- Citadelle -->
   <g transform="translate(300,470)" fill="none" stroke="#3a2c22" stroke-width="3" stroke-linejoin="round" opacity="0.85">
     <path d="M 0 -30 L 28 -8 L 18 26 L -18 26 L -28 -8 Z"/>
-    <path d="M 0 -14 L 13 -5 L 8 12 L -8 12 L -13 -5 Z"/>
   </g>
   <text x="300" y="520" text-anchor="middle" font-family="serif" font-size="21" font-weight="bold" fill="#3a2c22">CITADELLE</text>
 
   <!-- ============================================================
-       COUCHE 4 — TRAJETS QUOTIDIENS (un trait par personnage)
+       LIAISONS (toutes convergent vers le COMMISSARIAT)
+       Chaque héros a son type de trait — simple à interpréter
        ============================================================ -->
-  <!-- Laurence : Facel Vega rouge -->
-  <g stroke="#a4243b" stroke-width="5.5" fill="none" opacity="0.9" stroke-linecap="round">
-    <path d="M 420 290 C 500 330, 580 380, 650 460" marker-end="url(#arrow-red)"/>
+  <!-- Alice (rouge tirété) : elle ↔ travail ↔ commissariat ↔ enquêtes -->
+  <g stroke="#a4243b" stroke-width="4" fill="none" opacity="0.8" stroke-dasharray="14 9" stroke-linecap="round">
+    <path d="M 1080 290 C 1000 330, 950 380, 900 470" marker-end="url(#ah-red)"/><!-- chez elle → bureau VdN -->
+    <path d="M 900 470 C 860 530, 820 545, 780 550"/><!-- bureau → commissariat -->
+    <path d="M 780 570 C 800 600, 830 620, 855 660" marker-end="url(#ah-red)"/><!-- commissariat → crime (Styles) -->
   </g>
-  <!-- Alice : scooter -->
-  <g stroke="#8a2b2b" stroke-width="5" fill="none" opacity="0.85" stroke-dasharray="12 10" stroke-linecap="round">
-    <path d="M 1080 290 C 990 330, 900 390, 850 470" marker-end="url(#arrow-red)"/>
+  <!-- Marlène (sepia pointillé) : elle ↔ commissariat, accompagne les 2 -->
+  <g stroke="#6b5335" stroke-width="4" fill="none" opacity="0.75" stroke-dasharray="4 9" stroke-linecap="round">
+    <path d="M 750 860 C 755 800, 758 720, 752 640" marker-end="url(#ah-sepia)"/><!-- bus → commissariat -->
+    <path d="M 760 620 C 830 640, 1000 700, 1070 850" marker-end="url(#ah-sepia)"/><!-- accompagne → Malo -->
+    <path d="M 740 620 C 640 660, 480 690, 320 690" marker-end="url(#ah-sepia)"/><!-- accompagne → Cavrois -->
   </g>
-  <!-- Marlène : bus puis à pied -->
-  <g stroke="#6b5335" stroke-width="4.5" fill="none" opacity="0.8" stroke-dasharray="4 10" stroke-linecap="round">
-    <path d="M 750 860 C 760 800, 770 720, 762 640" marker-end="url(#arrow-sepia)"/>
+  <!-- Laurence (rouge plein) : lui ↔ commissariat ↔ crimes ↔ Alice/Marlène -->
+  <g stroke="#a4243b" stroke-width="5" fill="none" opacity="0.85" stroke-linecap="round">
+    <path d="M 420 290 C 520 330, 620 420, 690 500" marker-end="url(#ah-red)"/><!-- Facel Vega → commissariat -->
+    <path d="M 690 590 C 600 660, 480 690, 350 695" marker-end="url(#ah-red)"/><!-- → crime Cavrois -->
+    <path d="M 800 590 C 900 660, 1030 780, 1090 860" marker-end="url(#ah-red)"/><!-- → crime Malo -->
+    <path d="M 700 540 C 840 420, 1000 330, 1075 300" marker-end="url(#ah-red)"/><!-- → chez Alice -->
+    <path d="M 750 640 C 750 720, 750 790, 750 830" marker-end="url(#ah-red)"/><!-- → chez Marlène -->
   </g>
-
-  <!-- allers-retours commissariat <-> lieux de crime -->
-  <g stroke="#6b5335" stroke-width="4.5" fill="none" opacity="0.8" stroke-dasharray="20 10" stroke-linecap="round">
-    <path d="M 640 560 C 520 590, 400 640, 300 700" marker-end="url(#arrow-sepia)"/>
-    <path d="M 330 660 C 430 610, 540 575, 660 548" marker-end="url(#arrow-sepia)"/>
-    <path d="M 830 610 C 930 700, 1020 800, 1070 890" marker-end="url(#arrow-sepia)"/>
-    <path d="M 1020 910 C 970 820, 900 730, 810 630" marker-end="url(#arrow-sepia)"/>
+  <!-- Tricar (bleu-nuit, large) : lui ↔ commissariat ↔ enquêtes -->
+  <g stroke="#2c4a70" stroke-width="4.5" fill="none" opacity="0.7" stroke-dasharray="22 8" stroke-linecap="round">
+    <path d="M 470 880 C 570 820, 660 720, 715 640" marker-end="url(#ah-sepia)"/><!-- domicile → commissariat -->
+  </g>
+  <!-- légiste (vert sombre) : lui ↔ commissariat -->
+  <g stroke="#2e4a3f" stroke-width="4" fill="none" opacity="0.7" stroke-dasharray="9 7" stroke-linecap="round">
+    <path d="M 1060 760 C 980 700, 900 650, 820 610" marker-end="url(#ah-sepia)"/><!-- domicile → commissariat -->
+  </g>
+  <!-- gendarme Martin (brun) : lui ↔ commissariat, parfois enquêtes -->
+  <g stroke="#7d6242" stroke-width="4" fill="none" opacity="0.7" stroke-dasharray="17 7" stroke-linecap="round">
+    <path d="M 190 780 C 330 750, 520 700, 680 635" marker-end="url(#ah-sepia)"/><!-- domicile → commissariat -->
+    <path d="M 210 800 C 260 760, 250 730, 255 705" marker-end="url(#ah-sepia)"/><!-- → crime Cavrois (proche) -->
   </g>
 
   <!-- ============================================================
-       LE COMMISSARIAT : pièce centrale
+       LÉGENDE DES LIAISONS (bord bas gauche, lisible)
        ============================================================ -->
-  <g transform="translate(750,550)">
-    <use href="#pin" transform="scale(2.1)" fill="#2c4a70" stroke="#f0e6cf" stroke-width="2.5"/>
-    <text y="-44" text-anchor="middle" font-family="serif" font-size="30" font-weight="bold" fill="#f0e6cf">C</text>
-    <text y="96" text-anchor="middle" font-family="serif" font-size="32" font-weight="bold" fill="#3a2c22" letter-spacing="2">COMMISSARIAT</text>
-    <text y="130" text-anchor="middle" font-family="'Caveat', cursive" font-size="27" fill="#2c4a70" font-weight="bold">LILLE — ANNÉES 1950</text>
+  <g transform="translate(60,930)" font-family="'Caveat', cursive" font-size="22" fill="#3a2c22">
+    <text x="0" y="0" font-weight="bold">LIAISONS :</text>
+    <text x="120" y="0" fill="#a4243b">— rouge plein : le commissaire (Facel Vega)</text>
+    <text x="120" y="28" fill="#a4243b">-- rouge tirété : Alice (scooter)</text>
+    <text x="120" y="56" fill="#6b5335">··· sépia : Marlène (bus, à pied)</text>
+    <text x="120" y="84" fill="#2c4a70">-- – bleu : com. divisionnaire Tricar</text>
+    <text x="120" y="112" fill="#2e4a3f">-·- vert : légiste</text>
+    <text x="120" y="140" fill="#7d6242">-- brun : gendarme Martin</text>
   </g>
 
   <!-- ============================================================
-       LES 3 DOMICILES
+       LE COMMISSARIAT : centre névralgique
+       ============================================================ -->
+  <g transform="translate(750,590)">
+    <use href="#pin" transform="scale(2.4)" fill="#2c4a70" stroke="#f0e6cf" stroke-width="2.5"/>
+    <text y="-46" text-anchor="middle" font-family="serif" font-size="32" font-weight="bold" fill="#f0e6cf">C</text>
+    <text y="104" text-anchor="middle" font-family="serif" font-size="30" font-weight="bold" fill="#3a2c22" letter-spacing="2">COMMISSARIAT</text>
+    <text y="134" text-anchor="middle" font-family="'Caveat', cursive" font-size="25" fill="#2c4a70" font-weight="bold">le QG des enquêtes</text>
+  </g>
+
+  <!-- ============================================================
+       DOMICILES (marqueurs symbolisés par personne)
        ============================================================ -->
   <g transform="translate(420,290)">
-    <use href="#pin" fill="#2e4a3f" stroke="#f0e6cf" stroke-width="3"/>
-    <circle cy="-26" r="10" fill="#f0e6cf"/>
-    <text y="-58" text-anchor="middle" font-family="serif" font-size="26" font-weight="bold" fill="#3a2c22">DOMICILE SWAN LAURENCE</text>
+    <use href="#pin" fill="#a4243b" stroke="#f0e6cf" stroke-width="3"/>
+    <text y="-58" text-anchor="middle" font-family="serif" font-size="26" font-weight="bold" fill="#3a2c22">CHEZ LE COMMISSAIRE LAURENCE</text>
     <text y="30" text-anchor="middle" font-family="'Caveat', cursive" font-size="24" fill="#a4243b" font-weight="bold">Facel Vega Facellia rouge</text>
   </g>
   <g transform="translate(1080,290)">
-    <use href="#pin" fill="#2e4a3f" stroke="#f0e6cf" stroke-width="3"/>
-    <circle cy="-26" r="10" fill="#f0e6cf"/>
-    <text y="-58" text-anchor="middle" font-family="serif" font-size="26" font-weight="bold" fill="#3a2c22">DOMICILE ALICE AVRIL</text>
+    <use href="#pin" fill="#a4243b" stroke="#f0e6cf" stroke-width="3"/>
+    <text y="-58" text-anchor="middle" font-family="serif" font-size="26" font-weight="bold" fill="#3a2c22">CHEZ ALICE AVRIL</text>
     <text y="30" text-anchor="middle" font-family="'Caveat', cursive" font-size="24" fill="#8a2b2b" font-weight="bold">son scooter emblématique</text>
   </g>
   <g transform="translate(750,860)">
-    <use href="#pin" fill="#2e4a3f" stroke="#f0e6cf" stroke-width="3"/>
-    <circle cy="-26" r="10" fill="#f0e6cf"/>
-    <text y="-58" text-anchor="middle" font-family="serif" font-size="26" font-weight="bold" fill="#3a2c22">DOMICILE MARLÈNE LEROY</text>
+    <use href="#pin" fill="#6b5335" stroke="#f0e6cf" stroke-width="3"/>
+    <text y="-58" text-anchor="middle" font-family="serif" font-size="26" font-weight="bold" fill="#3a2c22">CHEZ MARLÈNE LEROY</text>
     <text y="30" text-anchor="middle" font-family="'Caveat', cursive" font-size="24" fill="#6b5335" font-weight="bold">en bus, puis à pied</text>
+  </g>
+  <!-- Tricar, légiste, gendarme -->
+  <g transform="translate(470,880)">
+    <use href="#pin" fill="#2c4a70" stroke="#f0e6cf" stroke-width="3"/>
+    <text y="34" text-anchor="middle" font-family="serif" font-size="22" font-weight="bold" fill="#2c4a70">CHEZ LE COM. DIVISIONNAIRE TRICAR</text>
+  </g>
+  <g transform="translate(1060,760)">
+    <use href="#pin" fill="#2e4a3f" stroke="#f0e6cf" stroke-width="3"/>
+    <text y="34" text-anchor="middle" font-family="serif" font-size="22" font-weight="bold" fill="#2e4a3f">CHEZ LE LÉGISTE</text>
+  </g>
+  <g transform="translate(190,780)">
+    <use href="#pin" fill="#7d6242" stroke="#f0e6cf" stroke-width="3"/>
+    <text y="34" text-anchor="middle" font-family="serif" font-size="22" font-weight="bold" fill="#7d6242">CHEZ LE GENDARME MARTIN</text>
   </g>
 
   <!-- ============================================================
-       LIEUX CLÉS : pastilles goutte numérotées
+       LIEUX CLÉS : pastilles numérotées (éparses et logiques)
        ============================================================ -->
-  <!-- 1 Villa Cavrois (crime) -->
-  <g transform="translate(250,700)">
+  <!-- 1 Villa Cavrois (crime, Croix NE) -->
+  <g transform="translate(320,690)">
     <use href="#pin" fill="#a4243b" stroke="#f0e6cf" stroke-width="3"/>
     <text y="-20" text-anchor="middle" font-family="serif" font-size="22" font-weight="bold" fill="#f0e6cf">1</text>
     <text y="34" text-anchor="middle" font-family="serif" font-size="24" font-weight="bold" fill="#3a2c22">VILLA CAVROIS — CROIX</text>
     <text y="64" text-anchor="middle" font-family="'Caveat', cursive" font-size="23" fill="#a4243b">lieu de crime</text>
   </g>
-  <!-- 2 Plage de Malo (crime) -->
+  <!-- 2 Malo-les-Bains (crime, SE) -->
   <g transform="translate(1120,910)">
     <use href="#pin" fill="#a4243b" stroke="#f0e6cf" stroke-width="3"/>
     <text y="-20" text-anchor="middle" font-family="serif" font-size="22" font-weight="bold" fill="#f0e6cf">2</text>
@@ -188,13 +243,13 @@
     <text y="-20" text-anchor="middle" font-family="serif" font-size="22" font-weight="bold" fill="#f0e6cf">4</text>
     <text y="-42" text-anchor="middle" font-family="serif" font-size="24" font-weight="bold" fill="#3a2c22">VIEUX-LILLE, RUE DE LA MONNAIE</text>
   </g>
-  <!-- 5 Gare Lille-Flandres -->
+  <!-- 5 Gare -->
   <g transform="translate(610,660)">
     <use href="#pin" fill="#5a4632" stroke="#f0e6cf" stroke-width="3"/>
     <text y="-20" text-anchor="middle" font-family="serif" font-size="22" font-weight="bold" fill="#f0e6cf">5</text>
     <text y="34" text-anchor="middle" font-family="serif" font-size="24" font-weight="bold" fill="#3a2c22">GARE LILLE-FLANDRES</text>
   </g>
-  <!-- 6 Opéra de Lille -->
+  <!-- 6 Opéra -->
   <g transform="translate(900,620)">
     <use href="#pin" fill="#5a4632" stroke="#f0e6cf" stroke-width="3"/>
     <text y="-20" text-anchor="middle" font-family="serif" font-size="22" font-weight="bold" fill="#f0e6cf">6</text>
@@ -206,46 +261,46 @@
     <text y="-20" text-anchor="middle" font-family="serif" font-size="22" font-weight="bold" fill="#f0e6cf">7</text>
     <text y="34" text-anchor="middle" font-family="serif" font-size="24" font-weight="bold" fill="#3a2c22">RUE NATIONALE</text>
   </g>
-  <!-- 8 Le Kursaal -->
+  <!-- 8 Kursaal -->
   <g transform="translate(1290,860)">
     <use href="#pin" fill="#5a4632" stroke="#f0e6cf" stroke-width="3"/>
     <text y="-20" text-anchor="middle" font-family="serif" font-size="22" font-weight="bold" fill="#f0e6cf">8</text>
     <text y="-42" text-anchor="middle" font-family="serif" font-size="24" font-weight="bold" fill="#3a2c22">LE KURSAAL</text>
   </g>
-  <!-- 9 Château d'Écou à Tilques -->
+  <!-- 9 Château d'Écou -->
   <g transform="translate(1310,660)">
     <use href="#pin" fill="#5a4632" stroke="#f0e6cf" stroke-width="3"/>
     <text y="-20" text-anchor="middle" font-family="serif" font-size="22" font-weight="bold" fill="#f0e6cf">9</text>
     <text y="-42" text-anchor="middle" font-family="serif" font-size="24" font-weight="bold" fill="#3a2c22">CHÂTEAU D'ÉCOU — TILQUES</text>
   </g>
-  <!-- 10 Château de Wambrechies -->
+  <!-- 10 Wambrechies -->
   <g transform="translate(190,440)">
     <use href="#pin" fill="#5a4632" stroke="#f0e6cf" stroke-width="3"/>
     <text y="-20" text-anchor="middle" font-family="serif" font-size="22" font-weight="bold" fill="#f0e6cf">10</text>
     <text y="-42" text-anchor="middle" font-family="serif" font-size="24" font-weight="bold" fill="#3a2c22">CHÂTEAU DE WAMBRECHIES</text>
   </g>
-  <!-- 11 Château de Steene (ép. 3, Témoin muet) — nord-est, vers Dunkerque -->
+  <!-- 11 Steene -->
   <g transform="translate(1252,200)">
     <use href="#pin" fill="#a4243b" stroke="#f0e6cf" stroke-width="3"/>
     <text y="-20" text-anchor="middle" font-family="serif" font-size="22" font-weight="bold" fill="#f0e6cf">11</text>
     <text y="-42" text-anchor="middle" font-family="serif" font-size="24" font-weight="bold" fill="#3a2c22">CHÂTEAU DE STEENE</text>
     <text y="34" text-anchor="middle" font-family="'Caveat', cursive" font-size="23" fill="#a4243b">ép. 3 — Témoin muet</text>
   </g>
-  <!-- 12 Grand-Place de Béthune (ép. 21) — sud-ouest -->
+  <!-- 12 Béthune -->
   <g transform="translate(232,756)">
     <use href="#pin" fill="#5a4632" stroke="#f0e6cf" stroke-width="3"/>
     <text y="-20" text-anchor="middle" font-family="serif" font-size="22" font-weight="bold" fill="#f0e6cf">12</text>
     <text y="34" text-anchor="middle" font-family="serif" font-size="24" font-weight="bold" fill="#3a2c22">BÉTHUNE — GRAND-PLACE</text>
     <text y="64" text-anchor="middle" font-family="'Caveat', cursive" font-size="23" fill="#5a4632">ép. 21 — Drame en trois actes</text>
   </g>
-  <!-- 13 La Voix du Nord (rédaction d'Alice) — centre-ville, près Grand'Place -->
+  <!-- 13 La Voix du Nord (rédaction) -->
   <g transform="translate(645,500)">
     <use href="#pin" fill="#2e4a3f" stroke="#f0e6cf" stroke-width="3"/>
     <text y="-20" text-anchor="middle" font-family="serif" font-size="22" font-weight="bold" fill="#f0e6cf">13</text>
     <text y="34" text-anchor="middle" font-family="serif" font-size="24" font-weight="bold" fill="#3a2c22">LA VOIX DU NORD</text>
     <text y="64" text-anchor="middle" font-family="'Caveat', cursive" font-size="23" fill="#2e4a3f">la rédaction d'Alice</text>
   </g>
-  <!-- 14 Bureau d'Alice — La Voix du Nord -->
+  <!-- 14 Bureau d'Alice -->
   <g transform="translate(712,522)">
     <use href="#pin" fill="#2e4a3f" stroke="#f0e6cf" stroke-width="3"/>
     <text y="-20" text-anchor="middle" font-family="serif" font-size="22" font-weight="bold" fill="#f0e6cf">14</text>
@@ -257,13 +312,7 @@
     <text y="-20" text-anchor="middle" font-family="serif" font-size="22" font-weight="bold" fill="#f0e6cf">15</text>
     <text y="34" text-anchor="middle" font-family="serif" font-size="24" font-weight="bold" fill="#3a2c22">CHEZ ALICE</text>
   </g>
-  <!-- 16 Chez le commissaire Laurence -->
-  <g transform="translate(825,325)">
-    <use href="#pin" fill="#2e4a3f" stroke="#f0e6cf" stroke-width="3"/>
-    <text y="-20" text-anchor="middle" font-family="serif" font-size="22" font-weight="bold" fill="#f0e6cf">16</text>
-    <text y="-42" text-anchor="middle" font-family="serif" font-size="24" font-weight="bold" fill="#3a2c22">CHEZ LE COMMISSAIRE LAURENCE</text>
-  </g>
-  <!-- 17 Manoir de Styles (ép. 15) -->
+  <!-- 17 Manoir de Styles -->
   <g transform="translate(855,700)">
     <use href="#pin" fill="#a4243b" stroke="#f0e6cf" stroke-width="3"/>
     <text y="-20" text-anchor="middle" font-family="serif" font-size="22" font-weight="bold" fill="#f0e6cf">17</text>
