@@ -333,8 +333,16 @@ header { height: 0; }
 }
 
 .nav-link a:hover,
-.nav-link a:active{
-  color: blue;
+.nav-link a:active {
+  color: #ea9ef0;
+}
+/* survol des boutons navbar : police rose */
+.navbar .nav-link:hover,
+.navbar .nav-link:focus-visible,
+.navbar .dropdown-toggle:hover,
+.navbar-cta-button:hover a,
+.navbar .dropdown-item:hover {
+  color: #ea9ef0 !important;
 }
 
 .dropdown-item {
@@ -4410,4 +4418,31 @@ footer.footer-container {  margin-top: 0; }
   overflow: auto !important;
   visibility: visible !important;
   opacity: 1 !important;
+}
+
+/* ===== LAYOUT #192 : post-it angles (4 gauche / 2 droite) + fiches a droite ===== */
+/* post-it : profondeur la plus basse, jamais tronques (dans le plateau, hors carte) */
+.feed-evidence-slot--lille .feed-visitor-notes { z-index: 1 !important; }
+.feed-evidence-slot--lille .feed-visitor-note { z-index: 1 !important; }
+/* 4 a gauche (colonne), 2 a droite : angles et bords du plateau, jamais sur la carte */
+.feed-evidence-slot--lille .feed-visitor-note.feed-visitor-note--a { top: 2% !important; left: 1% !important; right: auto !important; }
+.feed-evidence-slot--lille .feed-visitor-note.feed-visitor-note--c { top: 20% !important; left: 0.4% !important; right: auto !important; }
+.feed-evidence-slot--lille .feed-visitor-note.feed-visitor-note--e { top: 52% !important; left: 0.4% !important; right: auto !important; bottom: auto !important; }
+.feed-evidence-slot--lille .feed-visitor-note.feed-visitor-note--f { top: 76% !important; left: 1% !important; right: auto !important; bottom: auto !important; }
+.feed-evidence-slot--lille .feed-visitor-note.feed-visitor-note--b { top: 2% !important; right: 1% !important; left: auto !important; }
+.feed-evidence-slot--lille .feed-visitor-note.feed-visitor-note--d { top: 30% !important; right: 0.4% !important; left: auto !important; }
+/* fiches membres : deposees a DROITE du croquis (bande laterale droite, sous les 2 post-it) */
+/* les zones JS sont reglees en consequence ; les fiches restent au-dessus des post-it (z-index 7) */
+/* password_change : div pre-dimensionnee, allongement vertical uniquement */
+.action-page .action-card { width: min(560px, 96%) !important; max-width: min(560px, 96%) !important; }
+.action-page .action-encart { width: min(560px, 96%) !important; max-width: min(560px, 96%) !important; }
+
+/* carte legerement reduite et recentree a gauche pour liberer la bande droite aux fiches */
+.feed-evidence-slot--lille .feed-lille-map {
+  width: min(76%, 830px) !important;
+  left: 46% !important;
+}
+.feed-evidence-slot--lille .feed-map-hotspots {
+  width: min(76%, 830px) !important;
+  left: 46% !important;
 }

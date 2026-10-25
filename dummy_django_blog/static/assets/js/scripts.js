@@ -947,10 +947,12 @@ document.addEventListener("DOMContentLoaded", function() {
     var picked = order.slice(0, 3);
     /* 3 fiches eparpillees a gauche et a droite du tableau, HORS de la carte
        (bandes laterales du plateau : approx. 0-15% et 85-97% de largeur) */
+    /* toutes les fiches deposees a DROITE du croquis (bande laterale droite),
+       empilees une a une sous le postit du haut, effet jeter/deposer conserve */
     var zones = [
-      { top: [10, 20], left: [6, 12] },     /* gauche haut, groupe autour du plateau */
-      { top: [42, 58], left: [86, 92] },   /* droite, groupe autour du plateau */
-      { top: [72, 84], left: [6, 12] }      /* gauche bas, groupe autour du plateau */
+      { top: [44, 56], left: [84, 91] },
+      { top: [60, 72], left: [84, 91] },
+      { top: [76, 88], left: [84, 91] }
     ];
     people.forEach(function(el, n) {
       if (picked.indexOf(n) === -1) el.style.display = "none";
