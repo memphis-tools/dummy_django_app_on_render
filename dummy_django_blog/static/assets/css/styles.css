@@ -4580,3 +4580,32 @@ footer.footer-container {  margin-top: 0; }
   width: 82px !important;
   height: 96px !important;
 }
+
+/* ===== #198 : les 2 post-it de droite rapproches du bord droit du plateau ===== */
+.feed-evidence-slot--lille .feed-visitor-note.feed-visitor-note--b { top: 2.5% !important; right: 0.5% !important; left: auto !important; }
+.feed-evidence-slot--lille .feed-visitor-note.feed-visitor-note--d { top: 38% !important; right: 0.5% !important; left: auto !important; }
+
+/* ===== #198 : bande fiches membres centreee sous la carte, bas de la section ===== */
+.feed-fiche-people-bottom {
+  position: relative;
+  width: 100%;
+  margin-top: 10px;
+  display: flex;
+  justify-content: center;
+  z-index: 7;
+}
+.feed-fiche-people-bottom .feed-fiche-people {
+  position: static !important;
+  inset: auto !important;
+  display: flex !important;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-content: center;
+  gap: 10px 12px;
+  width: auto;
+  padding: 4px 8px 8px;
+  pointer-events: auto;
+}
+/* les 3 fiches tirees au sort restent cote a cote, centrees */
+.feed-fiche-people-bottom .feed-fiche-people .feed-fiche-person { position: static !important; }
+.feed-fiche-people-bottom .feed-fiche-people .feed-fiche-person[style] { top: auto !important; left: auto !important; }
