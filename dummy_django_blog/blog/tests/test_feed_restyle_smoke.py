@@ -40,3 +40,28 @@ def test_feed_desk_and_sections_restyled(client, django_user_model):
     assert b"commissariat_lille.jpg" in r.content and b"chateau_tilques.jpg" in r.content and b"chateau_wambrechies.jpg" in r.content
     # nouvelles photos libres fournies (Opéra, Woreth, Magellan)
     assert b"opera_lille.jpg" in r.content and b"eric_woreth.jpg" in r.content and b"murielle_magellan.jpg" in r.content
+
+@pytest.mark.django_db
+def test_feed_croquis_new_locations_and_no_label(client, django_user_model):
+    user = django_user_model.objects.create_user(username="testu2", password="pass12345")
+    other = django_user_model.objects.create_user(username="otheru2", password="pass12345")
+    client.force_login(user)
+    user.follows.add(other)
+    from blog.models import Photo
+    Photo.objects.create(title_photo="photo1", caption="cap", image="images_echantillons/4.jpg", uploader=other)
+    r = client.get("/feed/")
+    assert r.status_code == 200
+    # feed-interrogation-label supprime
+    assert b"feed-interrogation-label" not in r.content
+    # nouveaux lieux fournis par l'utilisateur : pastilles interactives
+    assert b"chateau_steene.jpg" in r.content
+    assert b"bethune_grand_place.jpg" in r.content
+    assert b"voix_du_nord.jpg" in r.content and b"bureau_alice.jpg" in r.content
+    assert b"chez_alice.jpg" in r.content and b"chez_laurence.jpg" in r.content
+    assert b"styles_manoir.jpg" in r.content
+    # fichiers statiques reels
+    import os
+    img_dir = os.path.join(os.path.dirname(__file__), "..", "..", "static", "vendors", "img")
+    for f in ("chateau_steene.jpg", "bethune_grand_place.jpg", "voix_du_nord.jpg",
+              "bureau_alice.jpg", "chez_alice.jpg", "chez_laurence.jpg", "styles_manoir.jpg"):
+        assert os.path.exists(os.path.join(img_dir, f)), f

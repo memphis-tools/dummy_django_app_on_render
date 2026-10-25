@@ -949,10 +949,11 @@ document.addEventListener("DOMContentLoaded", function() {
        (bandes laterales du plateau : approx. 0-15% et 85-97% de largeur) */
     /* toutes les fiches deposees a DROITE du croquis (bande laterale droite),
        empilees une a une sous le postit du haut, effet jeter/deposer conserve */
+    /* decalees a gauche : le flanc droit des fiches ne doit plus etre tronque */
     var zones = [
-      { top: [44, 56], left: [84, 91] },
-      { top: [60, 72], left: [84, 91] },
-      { top: [76, 88], left: [84, 91] }
+      { top: [42, 54], left: [78, 84] },
+      { top: [58, 70], left: [78, 84] },
+      { top: [74, 86], left: [78, 84] }
     ];
     people.forEach(function(el, n) {
       if (picked.indexOf(n) === -1) el.style.display = "none";
