@@ -4328,3 +4328,86 @@ footer.footer-container {  margin-top: 0; }
   font-size: 0.58rem !important;
   line-height: 1.4 !important;
 }
+
+/* ===== FICHES/DECOS #190 ===== */
+/* loupe du tableau : bas a gauche du croquis */
+.feed-evidence-slot--lille .feed-desk-deco--magnifier {
+  top: auto !important;
+  bottom: 3% !important;
+  left: 3% !important;
+  right: auto !important;
+  z-index: 5;
+}
+/* fiches membres : groupees autour du plateau, plus grandes, lisibles */
+.feed-evidence-slot--lille .feed-fiche-people .feed-fiche-person.person-rest.person-mini {
+  max-width: 128px !important;
+  min-width: 104px !important;
+  padding: 7px 7px 6px !important;
+}
+.feed-evidence-slot--lille .feed-fiche-people .feed-fiche-person.person-rest.person-mini img,
+.feed-evidence-slot--lille .feed-fiche-people .feed-fiche-person.person-rest.person-mini .feed-fiche-photo {
+  width: 86px !important;
+  height: 102px !important;
+}
+.feed-evidence-slot--lille .feed-fiche-people .feed-fiche-person.person-rest.person-mini figcaption {
+  font-size: 0.64rem !important;
+  line-height: 1.45 !important;
+}
+/* petits ecrans : la carte puis les 6 encarts en dessous (flux vertical) */
+@media (max-width: 1400px) {
+  .feed-evidence-slot--lille .feed-visitor-notes {
+    position: static !important;
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 8px !important;
+    padding: 8px 8px 4px !important;
+    pointer-events: auto !important;
+  }
+  .feed-evidence-slot--lille .feed-visitor-note { position: static !important; width: 100% !important; }
+}
+@media (max-width: 700px) {
+  .feed-evidence-slot--lille .feed-visitor-notes { grid-template-columns: 1fr !important; }
+}
+/* ===== A PROPOS : Tournage dimension fixe + Reompenses texte agrandi ===== */
+.tournage-zone { width: 100% !important; max-width: 100% !important; }
+.tournage-zone .tournage-hidden { display: none; }
+.tournage-zone.tournage-open .tournage-hidden { display: block; }
+.awards-list, .awards-list * {
+  font-size: 1rem;
+}
+.awards-list .award-label, .awards-list strong {
+  font-size: 1.06rem !important;
+}
+.awards-list small, .awards-list .award-detail {
+  font-size: 0.92rem !important;
+}
+/* ===== PRESS-MOTTO : style thematique unifie (home, signin, photos, posts) ===== */
+.press-motto {
+  font-family: "Caveat", cursive;
+  font-size: clamp(1.25rem, 2.6vw, 2rem);
+  color: #ea9ef0;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.55);
+  letter-spacing: 0.5px;
+  line-height: 1.35;
+  border-left: 3px solid #ea9ef0;
+  padding-left: 14px;
+  margin: 10px auto 16px;
+  max-width: min(720px, 94%);
+}
+.press-motto::before {
+  content: "\201C";
+  font-size: 1.4em;
+  color: #f8ede3;
+  margin-right: 4px;
+}
+/* ===== id_follows visible sur tous ecrans ===== */
+#id_follows {
+  display: block !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  min-height: 132px !important;
+  height: auto !important;
+  overflow: auto !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+}

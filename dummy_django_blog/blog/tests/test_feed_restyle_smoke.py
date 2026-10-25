@@ -38,3 +38,5 @@ def test_feed_desk_and_sections_restyled(client, django_user_model):
     assert b"malo_plage.jpg" in r.content and b"beffroi_lille.jpg" in r.content and b"vieux_lille_maison.jpg" in r.content
     # commissariat et lieux de tournage : miniatures au survol
     assert b"commissariat_lille.jpg" in r.content and b"chateau_tilques.jpg" in r.content and b"chateau_wambrechies.jpg" in r.content
+    # nouvelles photos libres fournies (Opéra, Woreth, Magellan)
+    assert b"opera_lille.jpg" in r.content and b"eric_woreth.jpg" in r.content and b"murielle_magellan.jpg" in r.content
