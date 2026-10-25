@@ -83,6 +83,42 @@
     <path d="M 1020 910 C 970 820, 900 730, 810 630" marker-end="url(#arrow-sepia)"/>
   </g>
 
+  <!-- VIE DU PLAN : parcs, voies ferrees, quais, sens de circulation, zones -->
+  <!-- parcs et squares (vert, vu de haut) -->
+  <g fill="#6d7a4f" opacity="0.5">
+    <ellipse cx="560" cy="680" rx="55" ry="38" transform="rotate(-8 560 680)"/>
+    <ellipse cx="920" cy="470" rx="42" ry="28" transform="rotate(6 920 470)"/>
+    <rect x="1120" y="720" width="80" height="50" rx="18"/>
+  </g>
+  <!-- voies ferrees (double trait + traverses) vers Paris et la cote -->
+  <g stroke="#5a4632" stroke-width="2.5" fill="none" opacity="0.65">
+    <path d="M 950 740 L 1150 850 L 1400 940"/>
+    <path d="M 960 720 L 1160 830 L 1400 920"/>
+    <g stroke-width="2">
+      <path d="M 980 745 L 988 737 M 1030 775 L 1038 767 M 1080 805 L 1088 797 M 1130 835 L 1138 827 M 1180 862 L 1188 854 M 1230 885 L 1238 877 M 1280 905 L 1288 897 M 1330 922 L 1338 914"/>
+    </g>
+  </g>
+  <!-- quais de la Deule (hachures) -->
+  <g stroke="#5f7d8c" stroke-width="2" opacity="0.4">
+    <path d="M 640 415 L 640 445 M 700 422 L 700 452 M 760 424 L 760 454 M 820 420 L 820 450 M 880 412 L 880 442 M 940 405 L 940 435"/>
+  </g>
+  <!-- sens de circulation sur les boulevards (fleches) -->
+  <g fill="#8a7a5c" opacity="0.75">
+    <path d="M 700 380 L 690 372 L 692 384 Z" transform="rotate(180 700 380)"/>
+    <path d="M 880 740 L 890 748 L 888 736 Z"/>
+    <path d="M 940 470 L 932 478 L 946 480 Z"/>
+    <path d="M 500 600 L 508 592 L 494 590 Z"/>
+  </g>
+  <!-- places carrees au centre (pavages) -->
+  <g fill="none" stroke="#8a7a5c" stroke-width="2" opacity="0.6">
+    <rect x="700" y="600" width="60" height="44" rx="4"/>
+    <rect x="712" y="612" width="36" height="20" rx="2"/>
+  </g>
+  <!-- zone industrielle (hachures obliques) pres de Roubaix -->
+  <g stroke="#5a4632" stroke-width="2" opacity="0.3">
+    <path d="M 1240 180 L 1290 230 M 1255 175 L 1305 225 M 1270 170 L 1320 220"/>
+  </g>
+
   <!-- sites emblematiques dessines a la main -->
   <!-- Grand'Place et Vieille Bourse -->
   <g transform="translate(680,470)" fill="none" stroke="#3a2c22" stroke-width="3" stroke-linecap="round" opacity="0.85">

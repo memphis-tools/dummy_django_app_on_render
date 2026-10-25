@@ -965,7 +965,11 @@ document.addEventListener("DOMContentLoaded", function() {
       el.style.setProperty("--px", (z.left[0] + Math.random() * (z.left[1] - z.left[0])).toFixed(1) + "%");
       el.style.setProperty("--toss-spin", (Math.random() * 20 - 10).toFixed(1) + "deg");
       el.classList.add("person-dropped");
-      setTimeout(function(elm) { elm.classList.add("person-rest"); }.bind(null, el), 250 + n * 480);
+      /* effet jeter/deposer identique aux photos : le toss part au moment du depot */
+      setTimeout(function(elm) {
+        elm.classList.add("person-toss");
+        elm.classList.add("person-rest");
+      }.bind(null, el), 250 + n * 480);
     });
     /* au survol d'une fiche : encart standard plus lisible (texte + photo reduite),
        comme pour les lieux ; repli au leave */

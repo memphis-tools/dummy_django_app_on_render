@@ -4446,3 +4446,46 @@ footer.footer-container {  margin-top: 0; }
   width: min(76%, 830px) !important;
   left: 46% !important;
 }
+
+/* ===== #194 : croquis vivant, fiches 1-a-1 disparition progressive, post-it hors carte, styles ===== */
+/* password_change : ul/li des exigences mot de passe au style du site */
+.action-page .action-card ul {
+  font-family: "ArsenalSC", sans-serif;
+  color: #f8ede3;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  list-style: none;
+  padding: 0;
+  margin: 6px 0 12px;
+}
+.action-page .action-card ul li {
+  position: relative;
+  padding-left: 20px;
+  margin: 3px 0;
+  letter-spacing: 0.4px;
+}
+.action-page .action-card ul li::before {
+  content: "\2713";
+  position: absolute;
+  left: 0;
+  color: #ea9ef0;
+  font-weight: bold;
+}
+.action-page .action-card ul li a { color: #ea9ef0; }
+/* petits ecrans : feed-condense-nav masque (le menu deroulant suffit) */
+@media (max-width: 991px) {
+  .feed-condense-nav { display: none !important; }
+}
+/* post-it jaunes : debordent legerement le plateau, jamais sur la carte
+   (carte 76% calee a gauche => zone sure a droite >= 58% du plateau) */
+.feed-evidence-slot--lille .feed-visitor-note.feed-visitor-note--d { top: 34% !important; right: -2% !important; }
+.feed-evidence-slot--lille .feed-visitor-note.feed-visitor-note--b { top: 3% !important; right: -2% !important; }
+/* fiches : apparition/disparition progressive comme les photos */
+.feed-evidence-slot--lille .feed-fiche-people .feed-fiche-person.person-dropped {
+  opacity: 0;
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+.feed-evidence-slot--lille .feed-fiche-people .feed-fiche-person.person-dropped.person-rest {
+  opacity: 1;
+}
+.feed-evidence-slot--lille .feed-fiche-people .feed-fiche-person.person-mini { opacity: 1; }
