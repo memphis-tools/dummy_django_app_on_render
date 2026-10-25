@@ -4489,3 +4489,68 @@ footer.footer-container {  margin-top: 0; }
   opacity: 1;
 }
 .feed-evidence-slot--lille .feed-fiche-people .feed-fiche-person.person-mini { opacity: 1; }
+
+/* ===== #196 : navbar user-dropdown margin-right 2% (grand ecran) ===== */
+@media (min-width: 992px) {
+  #navbar-nav .nav-link.navbar-nav-right,
+  .navbar-nav .navbar-nav-right,
+  .navbar-nav .nav-item.navbar-nav-right {
+    margin-right: 2% !important;
+  }
+}
+
+/* ===== #196 : fiches membres jamais tronquees a droite ===== */
+.feed-evidence-slot--lille .feed-fiche-people .feed-fiche-person.person-rest.person-mini {
+  max-width: 112px !important;
+  min-width: 92px !important;
+  padding: 6px 6px 5px !important;
+  right: auto !important;
+}
+.feed-evidence-slot--lille .feed-fiche-people .feed-fiche-person.person-rest.person-mini img,
+.feed-evidence-slot--lille .feed-fiche-people .feed-fiche-person.person-rest.person-mini .feed-fiche-photo {
+  width: 78px !important;
+  height: 92px !important;
+}
+
+/* ===== #196 : les 2 post-it de droite visibles, hors carte (bord droit de la carte = 46%+76% = 84%) ===== */
+.feed-evidence-slot--lille .feed-visitor-note.feed-visitor-note--b { top: 2.5% !important; right: 0.6% !important; left: auto !important; }
+.feed-evidence-slot--lille .feed-visitor-note.feed-visitor-note--d { top: 38% !important; right: 0.6% !important; left: auto !important; }
+
+/* ===== #196 : Tournage aussi large par defaut qu'apres LIRE LA SUITE ===== */
+.tournage-zone.tournage-managed,
+.tournage-zone {
+  width: 100% !important;
+  max-width: 100% !important;
+  min-height: 0;
+  container-type: inline-size;
+}
+/* hauteur fixe, calculee sur le contenu complet, jamais de resize horizontal */
+.tournage-zone.tournage-managed .tournage-hidden { visibility: hidden; position: absolute; width: 100%; pointer-events: none; }
+.tournage-zone.tournage-managed.tournage-open .tournage-hidden { visibility: visible; position: static; pointer-events: auto; }
+
+/* ===== #196 : petits ecrans — le plateau se met en flux, les 6 encarts passent en dessous ===== */
+@media (max-width: 991px) {
+  .feed-evidence-slot--lille .feed-visitor-notes {
+    position: static !important;
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 8px !important;
+    padding: 8px 8px 4px !important;
+    width: 100% !important;
+    height: auto !important;
+    pointer-events: auto !important;
+    z-index: 1 !important;
+  }
+  .feed-evidence-slot--lille .feed-visitor-note {
+    position: static !important;
+    width: 100% !important;
+    height: auto !important;
+    min-height: 60px !important;
+    margin: 0 !important;
+  }
+  .feed-evidence-slot--lille .feed-visitor-note.feed-visitor-note--b,
+  .feed-evidence-slot--lille .feed-visitor-note.feed-visitor-note--d {
+    right: auto !important;
+    left: auto !important;
+  }
+}
