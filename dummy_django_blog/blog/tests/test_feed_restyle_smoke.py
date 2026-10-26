@@ -71,3 +71,9 @@ def test_feed_sophie_revil_photo(client_dummy=None):
     from pathlib import Path
     img = Path(__file__).resolve().parents[2] / "static" / "vendors" / "img" / "sophie_revil.jpg"
     assert img.exists()
+
+def test_feed_suspects_press_and_mouly(client_dummy=None):
+    import os
+    from pathlib import Path
+    img = Path(__file__).resolve().parents[2] / "static" / "vendors" / "img" / "bertrand_mouly.jpg"
+    assert img.exists()
