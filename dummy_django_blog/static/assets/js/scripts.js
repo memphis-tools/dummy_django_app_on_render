@@ -344,7 +344,7 @@ document.addEventListener("DOMContentLoaded", function() {
     row.classList.add("feed-audiences-row-scan");
     scanRowTimer = setTimeout(function() {
       scanRowsUp(rows, index - 1, token, done);
-    }, 150);
+    }, 420);
   }
 
   /* affiche l'encart pendant 5 secondes pour une ligne donnee */
