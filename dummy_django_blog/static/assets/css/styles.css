@@ -3413,7 +3413,6 @@ footer.footer-container {  margin-top: 0; }
 /* indications a la craie en travers, au-dessus du tableau : pour les visiteurs */
 .feed-visitor-notes {
   position: relative;
-  width: min(1080px, 97%);
   margin: 0 auto 10px;
   display: flex;
   flex-wrap: wrap;
@@ -4729,4 +4728,25 @@ footer.footer-container {  margin-top: 0; }
 .feed-evidence-slot--lille .feed-fiche-people .feed-fiche-person.person-rest .feed-fiche-photo {
   width: 74px !important;
   height: 88px !important;
+}
+
+/* ===== #205 : navbar/sous-menus — survol fond rose, police BLANCHE ===== */
+.navbar .nav-link:hover,
+.navbar .nav-link:focus,
+.navbar .dropdown-item:hover,
+.navbar .dropdown-item:focus,
+.navbar .dropdown-menu a:hover,
+.navbar .dropdown-menu a:focus,
+#navbar-nav a:hover,
+#navbar-nav a:focus {
+  background-color: #ea9ef0 !important;
+  color: #ffffff !important;
+}
+
+/* ===== #205 : liens hypertexte — police rose du site au survol ===== */
+a:hover, a:focus,
+.post-container a:hover, .post-container a:focus,
+.blog a:hover, .blog a:focus,
+body a:hover, body a:focus {
+  color: #ea9ef0 !important;
 }
