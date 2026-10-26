@@ -3,7 +3,7 @@
   <defs>
     <filter id="paper" x="0" y="0" width="100%" height="100%">
       <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" result="noise"/>
-      <feColorMatrix in="noise" type="matrix" values="0 0 0 0 0.55  0 0 0 0 0.45  0 0 0 0 0.32  0 0 0 0.28 0"/>
+      <feColorMatrix in="noise" type="matrix" values="0 0 0 0 0.85  0 0 0 0 0.75  0 0 0 0 0.62  0 0 0 0.18 0"/>
       <feComposite in2="SourceGraphic" operator="in" result="top"/>
       <feMerge><feMergeNode in="SourceGraphic"/><feMergeNode in="top"/></feMerge>
     </filter>
@@ -34,12 +34,12 @@
       <path d="M 0 0 L 10 5 L 0 10 z" fill="#8a2b2b"/>
     </marker>
     <marker id="ah-sepia" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-      <path d="M 0 0 L 10 5 L 0 10 z" fill="#6b5335"/>
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#e0c9a2"/>
     </marker>
   </defs>
 
   <!-- fond parchemin -->
-  <rect width="1500" height="1100" fill="#f0e6cf"/>
+  <rect width="1500" height="1100" fill="#221c1c"/>
   <rect width="1500" height="1100" filter="url(#paper)"/>
 
   <!-- ============================================================
@@ -47,7 +47,7 @@
        — centre dense + ceinture + communes en tissu simple
        ============================================================ -->
   <!-- ceinture boulevards + autoroutes (axes majeurs, épais) -->
-  <g stroke="#7d6d4f" stroke-width="6" fill="none" opacity="0.55" stroke-linecap="round">
+  <g stroke="#a89878" stroke-width="6" fill="none" opacity="0.55" stroke-linecap="round">
     <path d="M 560 380 L 940 380 L 1000 470 L 1000 650 L 940 740 L 560 740 L 500 650 L 500 470 Z"/>
     <path d="M 300 330 C 430 320, 520 350, 560 380"/>
     <path d="M 940 380 C 1030 340, 1120 330, 1220 350"/>
@@ -57,7 +57,7 @@
     <path d="M 750 740 L 750 860"/>
   </g>
   <!-- rues du centre (médianes) -->
-  <g stroke="#8a7a5c" stroke-width="2" fill="none" opacity="0.5" stroke-linecap="round">
+  <g stroke="#b9a98c" stroke-width="2" fill="none" opacity="0.5" stroke-linecap="round">
     <path d="M 750 380 L 750 740 M 500 560 L 1000 560"/>
     <path d="M 630 380 C 640 460, 650 520, 680 560"/>
     <path d="M 870 380 C 860 460, 850 520, 820 560"/>
@@ -65,17 +65,17 @@
     <path d="M 820 560 C 800 640, 780 690, 750 740"/>
   </g>
   <!-- canal de la Deûle -->
-  <g stroke="#5f7d8c" stroke-width="10" fill="none" opacity="0.5" stroke-linecap="round">
+  <g stroke="#8fb6c9" stroke-width="10" fill="none" opacity="0.5" stroke-linecap="round">
     <path d="M 140 300 C 400 380, 700 430, 1000 400 C 1180 385, 1330 420, 1440 470"/>
     <path d="M 140 300 C 200 420, 240 560, 260 720"/>
   </g>
   <!-- voie ferrée vers le sud -->
-  <g stroke="#5a4632" stroke-width="3" fill="none" opacity="0.6">
+  <g stroke="#c9b48f" stroke-width="3" fill="none" opacity="0.6">
     <path d="M 950 740 L 1150 850 L 1400 940"/>
     <path d="M 960 720 L 1160 830 L 1400 920"/>
   </g>
   <!-- communes voisines : toits vus de haut, rangées simples et lisibles -->
-  <g fill="#7d6242" opacity="0.4">
+  <g fill="#d9c9a8" opacity="0.4">
     <!-- Lambersart / Wambrechies (NW) -->
     <rect x="150" y="400" width="18" height="11"/><rect x="175" y="400" width="18" height="11"/><rect x="200" y="400" width="18" height="11"/>
     <rect x="150" y="425" width="18" height="11"/><rect x="175" y="425" width="18" height="11"/><rect x="200" y="425" width="18" height="11"/>
@@ -96,30 +96,30 @@
     <rect x="1270" y="150" width="18" height="11"/><rect x="1295" y="150" width="18" height="11"/><rect x="1270" y="175" width="18" height="11"/><rect x="1295" y="175" width="18" height="11"/>
   </g>
   <!-- parcs dessinés à la main -->
-  <g fill="none" stroke="#6d7a4f" stroke-width="3" opacity="0.6" stroke-linecap="round">
+  <g fill="none" stroke="#a3bd7e" stroke-width="3" opacity="0.6" stroke-linecap="round">
     <path d="M 505 690 C 530 655, 585 650, 615 680 C 585 710, 530 712, 505 690 Z"/>
     <path d="M 885 470 C 905 445, 945 448, 960 470 C 940 492, 900 490, 885 470 Z"/>
     <path d="M 1110 700 C 1130 675, 1170 678, 1185 700 C 1165 722, 1125 720, 1110 700 Z"/>
   </g>
-  <g fill="#6d7a4f" opacity="0.5">
+  <g fill="#a3bd7e" opacity="0.5">
     <circle cx="530" cy="678" r="7"/><circle cx="560" cy="665" r="8"/><circle cx="590" cy="680" r="7"/>
     <circle cx="905" cy="465" r="6"/><circle cx="930" cy="472" r="7"/><circle cx="948" cy="458" r="6"/>
     <circle cx="1130" cy="695" r="6"/><circle cx="1155" cy="705" r="7"/>
   </g>
   <!-- Grand'Place, Porte de Paris, Citadelle -->
-  <g transform="translate(680,470)" fill="none" stroke="#3a2c22" stroke-width="3" stroke-linecap="round" opacity="0.85">
+  <g transform="translate(680,470)" fill="none" stroke="#ea9ef0" stroke-width="3" stroke-linecap="round" opacity="0.85">
     <path d="M -46 10 C -40 -22, 40 -22, 46 10 C 40 40, -40 40, -46 10 Z"/>
     <path d="M -46 10 L 46 10"/>
   </g>
-  <text x="680" y="530" text-anchor="middle" font-family="serif" font-size="21" font-weight="bold" fill="#3a2c22">GRAND'PLACE</text>
-  <g transform="translate(950,750)" fill="none" stroke="#3a2c22" stroke-width="3" stroke-linecap="round" opacity="0.85">
+  <text x="680" y="530" text-anchor="middle" font-family="serif" font-size="21" font-weight="bold" fill="#ea9ef0">GRAND'PLACE</text>
+  <g transform="translate(950,750)" fill="none" stroke="#ea9ef0" stroke-width="3" stroke-linecap="round" opacity="0.85">
     <path d="M -34 24 L -34 -20 C -34 -38, 34 -38, 34 -20 L 34 24"/>
   </g>
-  <text x="950" y="800" text-anchor="middle" font-family="serif" font-size="21" font-weight="bold" fill="#3a2c22">PORTE DE PARIS</text>
-  <g transform="translate(300,470)" fill="none" stroke="#3a2c22" stroke-width="3" stroke-linejoin="round" opacity="0.85">
+  <text x="950" y="800" text-anchor="middle" font-family="serif" font-size="21" font-weight="bold" fill="#ea9ef0">PORTE DE PARIS</text>
+  <g transform="translate(300,470)" fill="none" stroke="#ea9ef0" stroke-width="3" stroke-linejoin="round" opacity="0.85">
     <path d="M 0 -30 L 28 -8 L 18 26 L -18 26 L -28 -8 Z"/>
   </g>
-  <text x="300" y="520" text-anchor="middle" font-family="serif" font-size="21" font-weight="bold" fill="#3a2c22">CITADELLE</text>
+  <text x="300" y="520" text-anchor="middle" font-family="serif" font-size="21" font-weight="bold" fill="#ea9ef0">CITADELLE</text>
 
   <!-- ============================================================
        LIAISONS (toutes convergent vers le COMMISSARIAT)
@@ -162,56 +162,56 @@
   <!-- ============================================================
        LÉGENDE DES LIAISONS (bord bas gauche, lisible)
        ============================================================ -->
-  <g transform="translate(60,930)" font-family="'Caveat', cursive" font-size="22" fill="#3a2c22">
+  <g transform="translate(60,930)" font-family="'Caveat', cursive" font-size="22" fill="#ea9ef0">
     <text x="0" y="0" font-weight="bold">LIAISONS :</text>
-    <text x="120" y="0" fill="#a4243b">— rouge plein : le commissaire (Facel Vega)</text>
-    <text x="120" y="28" fill="#a4243b">-- rouge tirété : Alice (scooter)</text>
-    <text x="120" y="56" fill="#6b5335">··· sépia : Marlène (bus, à pied)</text>
-    <text x="120" y="84" fill="#2c4a70">-- – bleu : com. divisionnaire Tricar</text>
-    <text x="120" y="112" fill="#2e4a3f">-·- vert : légiste</text>
-    <text x="120" y="140" fill="#7d6242">-- brun : gendarme Martin</text>
+    <text x="120" y="0" fill="#d97a8a">— rouge plein : le commissaire (Facel Vega)</text>
+    <text x="120" y="28" fill="#d97a8a">-- rouge tirété : Alice (scooter)</text>
+    <text x="120" y="56" fill="#e0c9a2">··· sépia : Marlène (bus, à pied)</text>
+    <text x="120" y="84" fill="#9fc4f0">-- – bleu : com. divisionnaire Tricar</text>
+    <text x="120" y="112" fill="#8fd0b0">-·- vert : légiste</text>
+    <text x="120" y="140" fill="#d9c9a8">-- brun : gendarme Martin</text>
   </g>
 
   <!-- ============================================================
        LE COMMISSARIAT : centre névralgique
        ============================================================ -->
   <g transform="translate(750,590)">
-    <use href="#pin" transform="scale(2.4)" fill="#2c4a70" stroke="#f0e6cf" stroke-width="2.5"/>
-    <text y="-46" text-anchor="middle" font-family="serif" font-size="32" font-weight="bold" fill="#f0e6cf">C</text>
-    <text y="104" text-anchor="middle" font-family="serif" font-size="30" font-weight="bold" fill="#3a2c22" letter-spacing="2">COMMISSARIAT</text>
-    <text y="134" text-anchor="middle" font-family="'Caveat', cursive" font-size="25" fill="#2c4a70" font-weight="bold">le QG des enquêtes</text>
+    <use href="#pin" transform="scale(2.4)" fill="#9fc4f0" stroke="#f8ede3" stroke-width="2.5"/>
+    <text y="-46" text-anchor="middle" font-family="serif" font-size="32" font-weight="bold" fill="#f8ede3">C</text>
+    <text y="104" text-anchor="middle" font-family="serif" font-size="30" font-weight="bold" fill="#ea9ef0" letter-spacing="2">COMMISSARIAT</text>
+    <text y="134" text-anchor="middle" font-family="'Caveat', cursive" font-size="25" fill="#9fc4f0" font-weight="bold">le QG des enquêtes</text>
   </g>
 
   <!-- ============================================================
        DOMICILES (marqueurs symbolisés par personne)
        ============================================================ -->
   <g transform="translate(420,290)">
-    <use href="#pin" fill="#a4243b" stroke="#f0e6cf" stroke-width="3"/>
-    <text y="-58" text-anchor="middle" font-family="serif" font-size="26" font-weight="bold" fill="#3a2c22">CHEZ LE COMMISSAIRE LAURENCE</text>
-    <text y="30" text-anchor="middle" font-family="'Caveat', cursive" font-size="24" fill="#a4243b" font-weight="bold">Facel Vega Facellia rouge</text>
+    <use href="#pin" fill="#d97a8a" stroke="#f8ede3" stroke-width="3"/>
+    <text y="-58" text-anchor="middle" font-family="serif" font-size="26" font-weight="bold" fill="#ea9ef0">CHEZ LE COMMISSAIRE LAURENCE</text>
+    <text y="30" text-anchor="middle" font-family="'Caveat', cursive" font-size="24" fill="#d97a8a" font-weight="bold">Facel Vega Facellia rouge</text>
   </g>
   <g transform="translate(1080,290)">
-    <use href="#pin" fill="#a4243b" stroke="#f0e6cf" stroke-width="3"/>
-    <text y="-58" text-anchor="middle" font-family="serif" font-size="26" font-weight="bold" fill="#3a2c22">CHEZ ALICE AVRIL</text>
-    <text y="30" text-anchor="middle" font-family="'Caveat', cursive" font-size="24" fill="#8a2b2b" font-weight="bold">son scooter emblématique</text>
+    <use href="#pin" fill="#d97a8a" stroke="#f8ede3" stroke-width="3"/>
+    <text y="-58" text-anchor="middle" font-family="serif" font-size="26" font-weight="bold" fill="#ea9ef0">CHEZ ALICE AVRIL</text>
+    <text y="30" text-anchor="middle" font-family="'Caveat', cursive" font-size="24" fill="#f8ede3" font-weight="bold">son scooter emblématique</text>
   </g>
   <g transform="translate(750,860)">
-    <use href="#pin" fill="#6b5335" stroke="#f0e6cf" stroke-width="3"/>
-    <text y="-58" text-anchor="middle" font-family="serif" font-size="26" font-weight="bold" fill="#3a2c22">CHEZ MARLÈNE LEROY</text>
-    <text y="30" text-anchor="middle" font-family="'Caveat', cursive" font-size="24" fill="#6b5335" font-weight="bold">en bus, puis à pied</text>
+    <use href="#pin" fill="#e0c9a2" stroke="#f8ede3" stroke-width="3"/>
+    <text y="-58" text-anchor="middle" font-family="serif" font-size="26" font-weight="bold" fill="#ea9ef0">CHEZ MARLÈNE LEROY</text>
+    <text y="30" text-anchor="middle" font-family="'Caveat', cursive" font-size="24" fill="#e0c9a2" font-weight="bold">en bus, puis à pied</text>
   </g>
   <!-- Tricar, légiste, gendarme -->
   <g transform="translate(470,880)">
-    <use href="#pin" fill="#2c4a70" stroke="#f0e6cf" stroke-width="3"/>
-    <text y="34" text-anchor="middle" font-family="serif" font-size="22" font-weight="bold" fill="#2c4a70">CHEZ LE COM. DIVISIONNAIRE TRICAR</text>
+    <use href="#pin" fill="#9fc4f0" stroke="#f8ede3" stroke-width="3"/>
+    <text y="34" text-anchor="middle" font-family="serif" font-size="22" font-weight="bold" fill="#9fc4f0">CHEZ LE COM. DIVISIONNAIRE TRICAR</text>
   </g>
   <g transform="translate(1060,760)">
-    <use href="#pin" fill="#2e4a3f" stroke="#f0e6cf" stroke-width="3"/>
-    <text y="34" text-anchor="middle" font-family="serif" font-size="22" font-weight="bold" fill="#2e4a3f">CHEZ LE LÉGISTE</text>
+    <use href="#pin" fill="#8fd0b0" stroke="#f8ede3" stroke-width="3"/>
+    <text y="34" text-anchor="middle" font-family="serif" font-size="22" font-weight="bold" fill="#8fd0b0">CHEZ LE LÉGISTE</text>
   </g>
   <g transform="translate(190,780)">
-    <use href="#pin" fill="#7d6242" stroke="#f0e6cf" stroke-width="3"/>
-    <text y="34" text-anchor="middle" font-family="serif" font-size="22" font-weight="bold" fill="#7d6242">CHEZ LE GENDARME MARTIN</text>
+    <use href="#pin" fill="#d9c9a8" stroke="#f8ede3" stroke-width="3"/>
+    <text y="34" text-anchor="middle" font-family="serif" font-size="22" font-weight="bold" fill="#d9c9a8">CHEZ LE GENDARME MARTIN</text>
   </g>
 
   <!-- ============================================================
@@ -219,104 +219,104 @@
        ============================================================ -->
   <!-- 1 Villa Cavrois (crime, Croix NE) -->
   <g transform="translate(320,690)">
-    <use href="#pin" fill="#a4243b" stroke="#f0e6cf" stroke-width="3"/>
-    <text y="-20" text-anchor="middle" font-family="serif" font-size="22" font-weight="bold" fill="#f0e6cf">1</text>
-    <text y="34" text-anchor="middle" font-family="serif" font-size="24" font-weight="bold" fill="#3a2c22">VILLA CAVROIS — CROIX</text>
-    <text y="64" text-anchor="middle" font-family="'Caveat', cursive" font-size="23" fill="#a4243b">lieu de crime</text>
+    <use href="#pin" fill="#d97a8a" stroke="#f8ede3" stroke-width="3"/>
+    <text y="-20" text-anchor="middle" font-family="serif" font-size="22" font-weight="bold" fill="#f8ede3">1</text>
+    <text y="34" text-anchor="middle" font-family="serif" font-size="24" font-weight="bold" fill="#ea9ef0">VILLA CAVROIS — CROIX</text>
+    <text y="64" text-anchor="middle" font-family="'Caveat', cursive" font-size="23" fill="#d97a8a">lieu de crime</text>
   </g>
   <!-- 2 Malo-les-Bains (crime, SE) -->
   <g transform="translate(1120,910)">
-    <use href="#pin" fill="#a4243b" stroke="#f0e6cf" stroke-width="3"/>
-    <text y="-20" text-anchor="middle" font-family="serif" font-size="22" font-weight="bold" fill="#f0e6cf">2</text>
-    <text y="-40" text-anchor="middle" font-family="serif" font-size="24" font-weight="bold" fill="#3a2c22">MALO-LES-BAINS</text>
-    <text y="66" text-anchor="middle" font-family="'Caveat', cursive" font-size="23" fill="#a4243b">lieu de crime</text>
+    <use href="#pin" fill="#d97a8a" stroke="#f8ede3" stroke-width="3"/>
+    <text y="-20" text-anchor="middle" font-family="serif" font-size="22" font-weight="bold" fill="#f8ede3">2</text>
+    <text y="-40" text-anchor="middle" font-family="serif" font-size="24" font-weight="bold" fill="#ea9ef0">MALO-LES-BAINS</text>
+    <text y="66" text-anchor="middle" font-family="'Caveat', cursive" font-size="23" fill="#d97a8a">lieu de crime</text>
   </g>
   <!-- 3 Beffroi -->
   <g transform="translate(600,430)">
-    <use href="#pin" fill="#5a4632" stroke="#f0e6cf" stroke-width="3"/>
-    <text y="-20" text-anchor="middle" font-family="serif" font-size="22" font-weight="bold" fill="#f0e6cf">3</text>
-    <text y="-42" text-anchor="middle" font-family="serif" font-size="24" font-weight="bold" fill="#3a2c22">BEFFROI — HÔTEL DE VILLE</text>
+    <use href="#pin" fill="#5a4632" stroke="#f8ede3" stroke-width="3"/>
+    <text y="-20" text-anchor="middle" font-family="serif" font-size="22" font-weight="bold" fill="#f8ede3">3</text>
+    <text y="-42" text-anchor="middle" font-family="serif" font-size="24" font-weight="bold" fill="#ea9ef0">BEFFROI — HÔTEL DE VILLE</text>
   </g>
   <!-- 4 Vieux-Lille -->
   <g transform="translate(890,440)">
-    <use href="#pin" fill="#5a4632" stroke="#f0e6cf" stroke-width="3"/>
-    <text y="-20" text-anchor="middle" font-family="serif" font-size="22" font-weight="bold" fill="#f0e6cf">4</text>
-    <text y="-42" text-anchor="middle" font-family="serif" font-size="24" font-weight="bold" fill="#3a2c22">VIEUX-LILLE, RUE DE LA MONNAIE</text>
+    <use href="#pin" fill="#5a4632" stroke="#f8ede3" stroke-width="3"/>
+    <text y="-20" text-anchor="middle" font-family="serif" font-size="22" font-weight="bold" fill="#f8ede3">4</text>
+    <text y="-42" text-anchor="middle" font-family="serif" font-size="24" font-weight="bold" fill="#ea9ef0">VIEUX-LILLE, RUE DE LA MONNAIE</text>
   </g>
   <!-- 5 Gare -->
   <g transform="translate(610,660)">
-    <use href="#pin" fill="#5a4632" stroke="#f0e6cf" stroke-width="3"/>
-    <text y="-20" text-anchor="middle" font-family="serif" font-size="22" font-weight="bold" fill="#f0e6cf">5</text>
-    <text y="34" text-anchor="middle" font-family="serif" font-size="24" font-weight="bold" fill="#3a2c22">GARE LILLE-FLANDRES</text>
+    <use href="#pin" fill="#5a4632" stroke="#f8ede3" stroke-width="3"/>
+    <text y="-20" text-anchor="middle" font-family="serif" font-size="22" font-weight="bold" fill="#f8ede3">5</text>
+    <text y="34" text-anchor="middle" font-family="serif" font-size="24" font-weight="bold" fill="#ea9ef0">GARE LILLE-FLANDRES</text>
   </g>
   <!-- 6 Opéra -->
   <g transform="translate(900,620)">
-    <use href="#pin" fill="#5a4632" stroke="#f0e6cf" stroke-width="3"/>
-    <text y="-20" text-anchor="middle" font-family="serif" font-size="22" font-weight="bold" fill="#f0e6cf">6</text>
-    <text y="-42" text-anchor="middle" font-family="serif" font-size="24" font-weight="bold" fill="#3a2c22">OPÉRA DE LILLE</text>
+    <use href="#pin" fill="#5a4632" stroke="#f8ede3" stroke-width="3"/>
+    <text y="-20" text-anchor="middle" font-family="serif" font-size="22" font-weight="bold" fill="#f8ede3">6</text>
+    <text y="-42" text-anchor="middle" font-family="serif" font-size="24" font-weight="bold" fill="#ea9ef0">OPÉRA DE LILLE</text>
   </g>
   <!-- 7 Rue Nationale -->
   <g transform="translate(750,730)">
-    <use href="#pin" fill="#5a4632" stroke="#f0e6cf" stroke-width="3"/>
-    <text y="-20" text-anchor="middle" font-family="serif" font-size="22" font-weight="bold" fill="#f0e6cf">7</text>
-    <text y="34" text-anchor="middle" font-family="serif" font-size="24" font-weight="bold" fill="#3a2c22">RUE NATIONALE</text>
+    <use href="#pin" fill="#5a4632" stroke="#f8ede3" stroke-width="3"/>
+    <text y="-20" text-anchor="middle" font-family="serif" font-size="22" font-weight="bold" fill="#f8ede3">7</text>
+    <text y="34" text-anchor="middle" font-family="serif" font-size="24" font-weight="bold" fill="#ea9ef0">RUE NATIONALE</text>
   </g>
   <!-- 8 Kursaal -->
   <g transform="translate(1290,860)">
-    <use href="#pin" fill="#5a4632" stroke="#f0e6cf" stroke-width="3"/>
-    <text y="-20" text-anchor="middle" font-family="serif" font-size="22" font-weight="bold" fill="#f0e6cf">8</text>
-    <text y="-42" text-anchor="middle" font-family="serif" font-size="24" font-weight="bold" fill="#3a2c22">LE KURSAAL</text>
+    <use href="#pin" fill="#5a4632" stroke="#f8ede3" stroke-width="3"/>
+    <text y="-20" text-anchor="middle" font-family="serif" font-size="22" font-weight="bold" fill="#f8ede3">8</text>
+    <text y="-42" text-anchor="middle" font-family="serif" font-size="24" font-weight="bold" fill="#ea9ef0">LE KURSAAL</text>
   </g>
   <!-- 9 Château d'Écou -->
   <g transform="translate(1310,660)">
-    <use href="#pin" fill="#5a4632" stroke="#f0e6cf" stroke-width="3"/>
-    <text y="-20" text-anchor="middle" font-family="serif" font-size="22" font-weight="bold" fill="#f0e6cf">9</text>
-    <text y="-42" text-anchor="middle" font-family="serif" font-size="24" font-weight="bold" fill="#3a2c22">CHÂTEAU D'ÉCOU — TILQUES</text>
+    <use href="#pin" fill="#5a4632" stroke="#f8ede3" stroke-width="3"/>
+    <text y="-20" text-anchor="middle" font-family="serif" font-size="22" font-weight="bold" fill="#f8ede3">9</text>
+    <text y="-42" text-anchor="middle" font-family="serif" font-size="24" font-weight="bold" fill="#ea9ef0">CHÂTEAU D'ÉCOU — TILQUES</text>
   </g>
   <!-- 10 Wambrechies -->
   <g transform="translate(190,440)">
-    <use href="#pin" fill="#5a4632" stroke="#f0e6cf" stroke-width="3"/>
-    <text y="-20" text-anchor="middle" font-family="serif" font-size="22" font-weight="bold" fill="#f0e6cf">10</text>
-    <text y="-42" text-anchor="middle" font-family="serif" font-size="24" font-weight="bold" fill="#3a2c22">CHÂTEAU DE WAMBRECHIES</text>
+    <use href="#pin" fill="#5a4632" stroke="#f8ede3" stroke-width="3"/>
+    <text y="-20" text-anchor="middle" font-family="serif" font-size="22" font-weight="bold" fill="#f8ede3">10</text>
+    <text y="-42" text-anchor="middle" font-family="serif" font-size="24" font-weight="bold" fill="#ea9ef0">CHÂTEAU DE WAMBRECHIES</text>
   </g>
   <!-- 11 Steene -->
   <g transform="translate(1252,200)">
-    <use href="#pin" fill="#a4243b" stroke="#f0e6cf" stroke-width="3"/>
-    <text y="-20" text-anchor="middle" font-family="serif" font-size="22" font-weight="bold" fill="#f0e6cf">11</text>
-    <text y="-42" text-anchor="middle" font-family="serif" font-size="24" font-weight="bold" fill="#3a2c22">CHÂTEAU DE STEENE</text>
-    <text y="34" text-anchor="middle" font-family="'Caveat', cursive" font-size="23" fill="#a4243b">ép. 3 — Témoin muet</text>
+    <use href="#pin" fill="#d97a8a" stroke="#f8ede3" stroke-width="3"/>
+    <text y="-20" text-anchor="middle" font-family="serif" font-size="22" font-weight="bold" fill="#f8ede3">11</text>
+    <text y="-42" text-anchor="middle" font-family="serif" font-size="24" font-weight="bold" fill="#ea9ef0">CHÂTEAU DE STEENE</text>
+    <text y="34" text-anchor="middle" font-family="'Caveat', cursive" font-size="23" fill="#d97a8a">ép. 3 — Témoin muet</text>
   </g>
   <!-- 12 Béthune -->
   <g transform="translate(232,756)">
-    <use href="#pin" fill="#5a4632" stroke="#f0e6cf" stroke-width="3"/>
-    <text y="-20" text-anchor="middle" font-family="serif" font-size="22" font-weight="bold" fill="#f0e6cf">12</text>
-    <text y="34" text-anchor="middle" font-family="serif" font-size="24" font-weight="bold" fill="#3a2c22">BÉTHUNE — GRAND-PLACE</text>
-    <text y="64" text-anchor="middle" font-family="'Caveat', cursive" font-size="23" fill="#5a4632">ép. 21 — Drame en trois actes</text>
+    <use href="#pin" fill="#5a4632" stroke="#f8ede3" stroke-width="3"/>
+    <text y="-20" text-anchor="middle" font-family="serif" font-size="22" font-weight="bold" fill="#f8ede3">12</text>
+    <text y="34" text-anchor="middle" font-family="serif" font-size="24" font-weight="bold" fill="#ea9ef0">BÉTHUNE — GRAND-PLACE</text>
+    <text y="64" text-anchor="middle" font-family="'Caveat', cursive" font-size="23" fill="#f2b8d4">ép. 21 — Drame en trois actes</text>
   </g>
   <!-- 13 La Voix du Nord (rédaction) -->
   <g transform="translate(645,500)">
-    <use href="#pin" fill="#2e4a3f" stroke="#f0e6cf" stroke-width="3"/>
-    <text y="-20" text-anchor="middle" font-family="serif" font-size="22" font-weight="bold" fill="#f0e6cf">13</text>
-    <text y="34" text-anchor="middle" font-family="serif" font-size="24" font-weight="bold" fill="#3a2c22">LA VOIX DU NORD</text>
-    <text y="64" text-anchor="middle" font-family="'Caveat', cursive" font-size="23" fill="#2e4a3f">la rédaction d'Alice</text>
+    <use href="#pin" fill="#8fd0b0" stroke="#f8ede3" stroke-width="3"/>
+    <text y="-20" text-anchor="middle" font-family="serif" font-size="22" font-weight="bold" fill="#f8ede3">13</text>
+    <text y="34" text-anchor="middle" font-family="serif" font-size="24" font-weight="bold" fill="#ea9ef0">LA VOIX DU NORD</text>
+    <text y="64" text-anchor="middle" font-family="'Caveat', cursive" font-size="23" fill="#8fd0b0">la rédaction d'Alice</text>
   </g>
   <!-- 14 Bureau d'Alice -->
   <g transform="translate(712,522)">
-    <use href="#pin" fill="#2e4a3f" stroke="#f0e6cf" stroke-width="3"/>
-    <text y="-20" text-anchor="middle" font-family="serif" font-size="22" font-weight="bold" fill="#f0e6cf">14</text>
-    <text y="34" text-anchor="middle" font-family="serif" font-size="24" font-weight="bold" fill="#3a2c22">BUREAU D'ALICE</text>
+    <use href="#pin" fill="#8fd0b0" stroke="#f8ede3" stroke-width="3"/>
+    <text y="-20" text-anchor="middle" font-family="serif" font-size="22" font-weight="bold" fill="#f8ede3">14</text>
+    <text y="34" text-anchor="middle" font-family="serif" font-size="24" font-weight="bold" fill="#ea9ef0">BUREAU D'ALICE</text>
   </g>
   <!-- 15 Chez Alice -->
   <g transform="translate(960,382)">
-    <use href="#pin" fill="#2e4a3f" stroke="#f0e6cf" stroke-width="3"/>
-    <text y="-20" text-anchor="middle" font-family="serif" font-size="22" font-weight="bold" fill="#f0e6cf">15</text>
-    <text y="34" text-anchor="middle" font-family="serif" font-size="24" font-weight="bold" fill="#3a2c22">CHEZ ALICE</text>
+    <use href="#pin" fill="#8fd0b0" stroke="#f8ede3" stroke-width="3"/>
+    <text y="-20" text-anchor="middle" font-family="serif" font-size="22" font-weight="bold" fill="#f8ede3">15</text>
+    <text y="34" text-anchor="middle" font-family="serif" font-size="24" font-weight="bold" fill="#ea9ef0">CHEZ ALICE</text>
   </g>
   <!-- 17 Manoir de Styles -->
   <g transform="translate(855,700)">
-    <use href="#pin" fill="#a4243b" stroke="#f0e6cf" stroke-width="3"/>
-    <text y="-20" text-anchor="middle" font-family="serif" font-size="22" font-weight="bold" fill="#f0e6cf">17</text>
-    <text y="-42" text-anchor="middle" font-family="serif" font-size="24" font-weight="bold" fill="#3a2c22">MANOIR DE STYLES</text>
-    <text y="64" text-anchor="middle" font-family="'Caveat', cursive" font-size="23" fill="#a4243b">ép. 15 — La Mystérieuse Affaire de Styles</text>
+    <use href="#pin" fill="#d97a8a" stroke="#f8ede3" stroke-width="3"/>
+    <text y="-20" text-anchor="middle" font-family="serif" font-size="22" font-weight="bold" fill="#f8ede3">17</text>
+    <text y="-42" text-anchor="middle" font-family="serif" font-size="24" font-weight="bold" fill="#ea9ef0">MANOIR DE STYLES</text>
+    <text y="64" text-anchor="middle" font-family="'Caveat', cursive" font-size="23" fill="#d97a8a">ép. 15 — La Mystérieuse Affaire de Styles</text>
   </g>
 </svg>
