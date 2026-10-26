@@ -4633,3 +4633,14 @@ footer.footer-container {  margin-top: 0; }
 .feed-map-hotspot .feed-map-tip,
 .feed-map-hotspot .feed-map-tip strong { color: #ea9ef0 !important; }
 .feed-lille-plan { filter: sepia(0.5) contrast(1.1) brightness(0.72) saturate(0.85); }
+
+/* ===== #200 : post-its --b/--d AU-DESSUS de la carte, pleinement visibles a droite ===== */
+.feed-evidence-slot--lille .feed-visitor-note.feed-visitor-note--b { top: 2% !important; right: 0% !important; left: auto !important; z-index: 9 !important; }
+.feed-evidence-slot--lille .feed-visitor-note.feed-visitor-note--d { top: 40% !important; right: 0% !important; left: auto !important; z-index: 9 !important; }
+
+/* ===== #200 : fiches membres A DROITE de la carte, jamais masquees par la carte ===== */
+.feed-evidence-slot--lille .feed-fiche-people .feed-fiche-person.person-rest {
+  z-index: 10 !important;
+}
+.feed-evidence-slot--lille .feed-map-hotspots { z-index: 3; }
+.feed-evidence-slot--lille .feed-lille-map { z-index: 2; }

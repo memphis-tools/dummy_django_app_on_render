@@ -949,11 +949,11 @@ document.addEventListener("DOMContentLoaded", function() {
        (bandes laterales du plateau : approx. 0-15% et 85-97% de largeur) */
     /* toutes les fiches deposees a DROITE du croquis (bande laterale droite),
        empilees une a une sous le postit du haut, effet jeter/deposer conserve */
-    /* fiches membres : en BAS de la carte, cote a cote horizontalement */
+    /* fiches membres : a DROITE de la carte/croquis, visibles, debordement autorise */
     var zones = [
-      { top: [78, 84], left: [26, 40] },
-      { top: [78, 84], left: [41, 55] },
-      { top: [78, 84], left: [56, 70] }
+      { top: [16, 30], left: [87, 94] },
+      { top: [38, 52], left: [87, 94] },
+      { top: [60, 74], left: [87, 94] }
     ];
     people.forEach(function(el, n) {
       if (picked.indexOf(n) === -1) el.style.display = "none";
@@ -1176,16 +1176,3 @@ function markFictionalQuote(authorEl) {
   authorEl.insertAdjacentElement("afterend", note);
 }
 
-/* ===== #198 : fiches membres centrees sous la carte (bas de la section) ===== */
-document.addEventListener("DOMContentLoaded", function() {
-  var slot = document.querySelector(".feed-evidence-slot--lille");
-  if (!slot) return;
-  var people = slot.querySelector(".feed-fiche-people");
-  if (!people || people.classList.contains("people-bottom-managed")) return;
-  people.classList.add("people-bottom-managed");
-  /* deplacer le conteneur apres la carte : bande dediee centree sous le croquis */
-  var wrap = document.createElement("div");
-  wrap.className = "feed-fiche-people-bottom";
-  slot.appendChild(wrap);
-  wrap.appendChild(people);
-});
