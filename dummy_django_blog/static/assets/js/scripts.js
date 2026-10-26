@@ -1200,21 +1200,34 @@ document.addEventListener("DOMContentLoaded", function() {
     return idx.slice(0, 3);
   }
   function showThree() {
+    /* disparition glissee vers la droite + fondu des cartes affichees */
     cards.forEach(function(c) {
-      c.classList.remove("suspect-dropped", "suspect-toss", "suspect-rest");
-      c.classList.add("suspect-hidden");
+      if (!c.classList.contains("suspect-hidden")) {
+        c.classList.add("suspect-out");
+        (function(cc) {
+          setTimeout(function() {
+            cc.classList.remove("suspect-out", "suspect-dropped", "suspect-toss", "suspect-rest");
+            cc.classList.add("suspect-hidden");
+          }, 620);
+        })(c);
+      } else {
+        c.classList.remove("suspect-dropped", "suspect-toss", "suspect-rest", "suspect-out");
+      }
     });
-    pick3().forEach(function(n, pos) {
-      var c = cards[n];
-      setTimeout(function() {
-        c.classList.remove("suspect-hidden");
-        c.classList.add("suspect-dropped");
+    /* les 3 nouvelles cartes arrivent de gauche, une par une (pos*350) */
+    setTimeout(function() {
+      pick3().forEach(function(n, pos) {
+        var c = cards[n];
         setTimeout(function() {
-          c.classList.add("suspect-toss");
-          c.classList.add("suspect-rest");
-        }, 220);
-      }, pos * 350);
-    });
+          c.classList.remove("suspect-hidden");
+          c.classList.add("suspect-dropped");
+          /* glisse gauche -> droite + fondu transparent -> opaque */
+          setTimeout(function() {
+            c.classList.add("suspect-rest");
+          }, 60);
+        }, pos * 420);
+      });
+    }, 660);
     /* apres les 3 apparitions : pause de 15 s puis nouvelle passe */
     setTimeout(showThree, 15000);
   }
