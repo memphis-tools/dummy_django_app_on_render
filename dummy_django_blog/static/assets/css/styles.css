@@ -4609,3 +4609,27 @@ footer.footer-container {  margin-top: 0; }
 /* les 3 fiches tirees au sort restent cote a cote, centrees */
 .feed-fiche-people-bottom .feed-fiche-people .feed-fiche-person { position: static !important; }
 .feed-fiche-people-bottom .feed-fiche-people .feed-fiche-person[style] { top: auto !important; left: auto !important; }
+
+/* ===== #199 : effet jeter/deposer des fiches Fiche Technique SOUS la carte ===== */
+.feed-fiche-people-bottom .feed-fiche-people .feed-fiche-person.person-dropped {
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+.feed-fiche-people-bottom .feed-fiche-people .feed-fiche-person.person-dropped.person-rest {
+  opacity: 1;
+  animation: person-toss-anim 0.62s cubic-bezier(0.3, 0.7, 0.4, 1.15);
+}
+@media (prefers-reduced-motion: reduce) {
+  .feed-fiche-people-bottom .feed-fiche-people .feed-fiche-person.person-dropped.person-rest { animation: none; }
+}
+
+/* ===== #199 : post-it de droite bien visibles (decales vers la droite du plateau) ===== */
+.feed-evidence-slot--lille .feed-visitor-note.feed-visitor-note--b { top: 2.5% !important; right: 1% !important; left: auto !important; z-index: 6 !important; }
+.feed-evidence-slot--lille .feed-visitor-note.feed-visitor-note--d { top: 38% !important; right: 1% !important; left: auto !important; z-index: 6 !important; }
+
+/* ===== #199 : textes/icones/symboles du croquis lisibles, style du site ===== */
+.feed-lille-map figcaption,
+.feed-lille-map figcaption small { color: #ea9ef0 !important; }
+.feed-map-hotspot .feed-map-tip,
+.feed-map-hotspot .feed-map-tip strong { color: #ea9ef0 !important; }
+.feed-lille-plan { filter: sepia(0.5) contrast(1.1) brightness(0.72) saturate(0.85); }
