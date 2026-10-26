@@ -4644,3 +4644,27 @@ footer.footer-container {  margin-top: 0; }
 }
 .feed-evidence-slot--lille .feed-map-hotspots { z-index: 3; }
 .feed-evidence-slot--lille .feed-lille-map { z-index: 2; }
+
+/* ===== #201 : section 100vh visible en entier, fiches jamais rognees ===== */
+/* plus aucune coupe : les elements qui debordent restent visibles */
+.feed-intro { overflow: visible !important; }
+
+/* la carte occupe la partie GAUCHE du plateau : bande droite dediee aux fiches */
+.feed-evidence-slot--lille .feed-lille-map { width: min(64%, 720px) !important; left: 34% !important; }
+.feed-evidence-slot--lille .feed-map-hotspots { width: min(64%, 720px) !important; left: 34% !important; }
+
+/* les 2 post-it de droite : dans la bande libre, collés au bord du plateau */
+.feed-evidence-slot--lille .feed-visitor-note.feed-visitor-note--b { top: 1.5% !important; right: 0.5% !important; left: auto !important; z-index: 9 !important; }
+.feed-evidence-slot--lille .feed-visitor-note.feed-visitor-note--d { top: 44% !important; right: 0.5% !important; left: auto !important; z-index: 9 !important; }
+
+/* ===== #201 : effet jeter/deposer TOUJOURS visible sur les fiches ===== */
+/* l'ancien override .person-mini { opacity: 1 } court-circuitait le fondu :
+   la fiche apparaissait avant le toss. On laisse person-dropped/person-rest piloter. */
+.feed-evidence-slot--lille .feed-fiche-people .feed-fiche-person.person-mini { opacity: 0; }
+.feed-evidence-slot--lille .feed-fiche-people .feed-fiche-person.person-dropped.person-rest.person-mini { opacity: 1; }
+.feed-evidence-slot--lille .feed-fiche-people .feed-fiche-person.person-rest {
+  animation: person-toss-anim 0.62s cubic-bezier(0.3, 0.7, 0.4, 1.15) both;
+}
+@media (prefers-reduced-motion: reduce) {
+  .feed-evidence-slot--lille .feed-fiche-people .feed-fiche-person.person-rest { animation: none; }
+}
