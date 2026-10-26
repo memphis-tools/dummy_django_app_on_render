@@ -4949,3 +4949,21 @@ body a:hover, body a:focus {
   transform: translateX(46px);
   transition: opacity 0.6s ease, transform 0.6s ease;
 }
+
+/* ===== #210 : post-its de droite a right -6.2% ===== */
+.feed-evidence-slot--lille .feed-visitor-note.feed-visitor-note--b { top: 2% !important; right: -6.2% !important; left: auto !important; }
+.feed-evidence-slot--lille .feed-visitor-note.feed-visitor-note--d { top: 26% !important; right: -6.2% !important; left: auto !important; }
+.feed-evidence-slot--lille .feed-visitor-note.feed-visitor-note--f { top: 50% !important; right: -6.2% !important; left: auto !important; }
+
+/* ===== #210 : suspects — apparition/disparition VIVES, aucun redimensionnement ===== */
+/* on retire tout effet de scale/toss sur les cartes suspects : uniquement
+   translation horizontale + fondu, transitions courtes et snapped */
+.suspect-card.suspect-dropped.suspect-toss { animation: none !important; }
+.suspect-card.suspect-toss { animation: none !important; }
+.suspect-card {
+  transition: opacity 0.35s ease-out, transform 0.35s cubic-bezier(0.2, 0.8, 0.3, 1);
+  will-change: opacity, transform;
+}
+.suspect-card.suspect-dropped { opacity: 0; transform: translateX(-38px); transition: none; }
+.suspect-card.suspect-dropped.suspect-rest { opacity: 1; transform: translateX(0); }
+.suspect-card.suspect-out { opacity: 0; transform: translateX(38px); }
