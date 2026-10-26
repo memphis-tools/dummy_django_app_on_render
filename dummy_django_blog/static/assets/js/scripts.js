@@ -944,11 +944,11 @@ document.addEventListener("DOMContentLoaded", function() {
       var k = Math.floor(Math.random() * (j + 1));
       var t = order[j]; order[j] = order[k]; order[k] = t;
     }
-    /* BOUCLE INFINIE : 5 fiches tirées au sort, apparaitres/disparaitres
-       une a une toutes les 4 secondes par l'effet jeter/deposer (photos
-       section 2), puis retour a la premiere : la boucle ne s'arrete jamais.
-       Toutes les fiches de la liste sont masquees par defaut. */
-    var pool = order.slice(0, 5);
+    /* BOUCLE 1 -> n -> 1 : on parcourt TOUTE la liste des fiches dans
+       l'ordre ; on depose la 1re image, on la fait disparaitre, puis la
+       2de, etc. Arrive au dernier element on revient au 1er. Delai de
+       4 secondes par fiche, effet jeter/deposer (photos section 2). */
+    var pool = order.slice();
     var zone = { top: [30, 70], left: [70, 78] };
     people.forEach(function(el, n) {
       if (pool.indexOf(n) === -1) el.style.display = "none";
