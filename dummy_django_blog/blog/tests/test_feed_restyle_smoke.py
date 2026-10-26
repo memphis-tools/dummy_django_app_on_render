@@ -69,5 +69,5 @@ def test_feed_croquis_new_locations_and_no_label(client, django_user_model):
 def test_feed_sophie_revil_photo(client_dummy=None):
     import os
     from pathlib import Path
-    img = Path(__file__).resolve().parents[1] / "static" / "vendors" / "img" / "sophie_revil.jpg"
+    img = Path(__file__).resolve().parents[2] / "static" / "vendors" / "img" / "sophie_revil.jpg"
     assert img.exists()
