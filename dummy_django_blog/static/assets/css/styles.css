@@ -4750,3 +4750,90 @@ a:hover, a:focus,
 body a:hover, body a:focus {
   color: #ea9ef0 !important;
 }
+
+/* ===== #206 : /home bouton signin — survol police BLANCHE ===== */
+.btn.btn-primary.home-content-cta.home-signin-button:hover,
+.btn.btn-primary.home-content-cta.home-signin-button:hover a {
+  color: #ffffff !important;
+}
+/* navbar-cta-button : meme style, effets correspondants */
+.navbar-cta-button {
+  font-family: "ArsenalSC", sans-serif;
+  color: #ffffff;
+  background-color: #221c1cd9;
+  border: 1px solid #ea9ef066;
+  border-radius: 10px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
+  padding: 8px 16px;
+  white-space: normal;
+  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease, transform 0.15s ease;
+}
+.navbar-cta-button a { color: #ffffff !important; text-decoration: none; }
+.navbar-cta-button:hover,
+.navbar-cta-button:hover a {
+  background-color: #ea9ef0 !important;
+  color: #ffffff !important;
+  border-color: #ea9ef0;
+  box-shadow: 0 6px 18px #ea9ef047;
+  transform: translateY(-2px);
+}
+.navbar-cta-button:focus-visible { outline: 2px dashed #ea9ef0; outline-offset: 2px; }
+
+/* ===== #206 : boutons de validation bootstrap, style /password_reset =====
+   Alterner noir (repos) / blanc... sur fond rose au survol, police noire puis blanche */
+.btn, .btn-primary {
+  font-family: "ArsenalSC", sans-serif;
+  color: #f8ede3 !important;
+  background-color: #221c1cd9 !important;
+  border: 1px solid #ea9ef066 !important;
+  border-radius: 10px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
+  padding: 8px 16px;
+  white-space: normal;
+  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease, transform 0.15s ease;
+}
+.btn a, .btn-primary a { color: #f8ede3 !important; text-decoration: none; }
+.btn:hover, .btn-primary:hover,
+.btn:hover a, .btn-primary:hover a {
+  background-color: #ea9ef0 !important;
+  color: #ffffff !important;
+  border-color: #ea9ef0 !important;
+  box-shadow: 0 6px 18px #ea9ef047;
+  transform: translateY(-2px);
+}
+.btn:focus-visible, .btn-primary:focus-visible { outline: 2px dashed #ea9ef0; outline-offset: 2px; }
+.btn:active, .btn-primary:active { transform: translateY(0); }
+
+/* ===== #206 : navbar — seuls les elements des SOUS-MENUS changent de couleur au survol ===== */
+/* on retire l'effet sur les onglets eux-memes (nav-link de premier niveau) */
+.navbar .nav-link:hover,
+.navbar .nav-link:focus,
+#navbar-nav a:hover,
+#navbar-nav a:focus,
+.navbar .nav-link:hover {
+  background-color: transparent !important;
+  color: inherit !important;
+}
+/* seuls les items de sous-menu gardent fond rose + police blanche */
+.navbar .dropdown-item:hover,
+.navbar .dropdown-item:focus,
+.navbar .dropdown-menu a:hover,
+.navbar .dropdown-menu a:focus {
+  background-color: #ea9ef0 !important;
+  color: #ffffff !important;
+}
+
+/* ===== #206 : post-its --b/--d a right -5.2% ===== */
+.feed-evidence-slot--lille .feed-visitor-note.feed-visitor-note--b { top: 2% !important; right: -5.2% !important; left: auto !important; z-index: 9 !important; }
+.feed-evidence-slot--lille .feed-visitor-note.feed-visitor-note--d { top: 44% !important; right: -5.2% !important; left: auto !important; z-index: 9 !important; }
+
+/* ===== #206 : croquis — libelles plus grands, lisibles sans zoom ===== */
+.feed-evidence-slot--lille .feed-lille-map { overflow: visible !important; }
+.feed-lille-plan { image-rendering: auto; }
+
+/* ===== #206 : rotation des fiches — disparition progressive (effet photos section 2) ===== */
+.feed-evidence-slot--lille .feed-fiche-people .feed-fiche-person.person-gone {
+  opacity: 0 !important;
+  transform: translate(-50%, -80%) rotate(calc(var(--toss-spin, 4deg) * 1.5)) scale(0.9);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}

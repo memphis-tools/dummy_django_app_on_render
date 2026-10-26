@@ -359,7 +359,7 @@ document.addEventListener("DOMContentLoaded", function() {
       hideCallout();
       row.classList.remove("feed-audiences-row-glow");
       if (done) done();
-    }, 10000);
+    }, 12000);
   }
 
   function runTour(token) {
@@ -372,7 +372,7 @@ document.addEventListener("DOMContentLoaded", function() {
     }
     var allRows = Array.prototype.slice.call(audiencesSection.querySelectorAll(".topblog_tr"));
     // descente rapide et stylisee vers la section audiences
-    smoothScrollTo(audiencesSection.getBoundingClientRect().top + window.scrollY - 70, 1200, function() {
+    smoothScrollTo(audiencesSection.getBoundingClientRect().top + window.scrollY - 70, 2000, function() {
       if (token !== tourToken) return;
       // UN SEUL balayage : episodes parcourus par AUDIENCE DECROISSANTE (du moins bon vers le meilleur), successifs, une fois
       var rankedOrder = ranked.map(function(e) { return e.row; });
@@ -385,7 +385,7 @@ document.addEventListener("DOMContentLoaded", function() {
         spotlightRow(elected.row, token, function() {
           if (token !== tourToken) return;
           // retour a la position de l'utilisateur
-          smoothScrollTo(userScrollY, 1200, function() {
+          smoothScrollTo(userScrollY, 2000, function() {
             if (token !== tourToken) return;
             clearRowEffects();
             running = false;
@@ -414,7 +414,7 @@ document.addEventListener("DOMContentLoaded", function() {
     clearTimeout(scanRowTimer);
     clearTimeout(calloutTimer);
     clearRowEffects();
-    smoothScrollTo(userScrollY, 900, null, tourToken);
+    smoothScrollTo(userScrollY, 1600, null, tourToken);
   }
 
   var userEvents = ["mousemove", "mousedown", "touchstart", "keydown", "wheel", "scroll"];
@@ -442,7 +442,7 @@ document.addEventListener("DOMContentLoaded", function() {
       hideCallout();
       row.classList.remove("feed-audiences-row-glow");
       lastGlowRow = null;
-    }, 10000);
+    }, 12000);
   }
   audiencesSection.querySelectorAll(".topblog_tr").forEach(function(row) {
     row.classList.add("feed-audiences-row-click");
@@ -944,16 +944,16 @@ document.addEventListener("DOMContentLoaded", function() {
       var k = Math.floor(Math.random() * (j + 1));
       var t = order[j]; order[j] = order[k]; order[k] = t;
     }
-    var picked = order.slice(0, 3);
-    /* 3 fiches eparpillees a gauche et a droite du tableau, HORS de la carte
-       (bandes laterales du plateau : approx. 0-15% et 85-97% de largeur) */
-    /* toutes les fiches deposees a DROITE du croquis (bande laterale droite),
-       empilees une a une sous le postit du haut, effet jeter/deposer conserve */
-    /* fiches membres : bande droite LIBREE par la carte (66%), jamais rognees */
+    /* 5 fiches jouees en rotation : chacune apparait par l'effet jeter/deposer
+       (identique aux photos de la section 2) puis disparait, laissant place
+       a la suivante ; la derniere reste affichee. */
+    var picked = order.slice(0, 5);
     var zones = [
-      { top: [14, 26], left: [74, 80] },
-      { top: [38, 50], left: [74, 80] },
-      { top: [62, 74], left: [74, 80] }
+      { top: [30, 44], left: [70, 78] },
+      { top: [46, 60], left: [70, 78] },
+      { top: [62, 76], left: [70, 78] },
+      { top: [38, 52], left: [70, 78] },
+      { top: [54, 68], left: [70, 78] }
     ];
     people.forEach(function(el, n) {
       if (picked.indexOf(n) === -1) el.style.display = "none";
@@ -961,21 +961,24 @@ document.addEventListener("DOMContentLoaded", function() {
     picked.forEach(function(idx, n) {
       var el = people[idx];
       el.style.display = "";
-      var z = zones[n % 3];
+      var z = zones[n % zones.length];
       el.style.setProperty("--py", (z.top[0] + Math.random() * (z.top[1] - z.top[0])).toFixed(1) + "%");
       el.style.setProperty("--px", (z.left[0] + Math.random() * (z.left[1] - z.left[0])).toFixed(1) + "%");
       el.style.setProperty("--toss-spin", (Math.random() * 20 - 10).toFixed(1) + "deg");
+      /* effet jeter/deposer identique aux photos section 2 : apparition ... */
       el.classList.add("person-dropped");
-      /* effet jeter/deposer identique aux photos : le toss part au moment du depot */
       setTimeout(function(elm) {
         elm.classList.add("person-toss");
         elm.classList.add("person-rest");
-      }.bind(null, el), 250 + n * 480);
-    });
-    /* au survol d'une fiche : encart standard plus lisible (texte + photo reduite),
-       comme pour les lieux ; repli au leave */
-    picked.forEach(function(idx) {
-      var el = people[idx];
+      }.bind(null, el), 250 + n * 900);
+      /* ... puis disparition progressive, SAUF la derniere (elle reste posee) */
+      if (n < picked.length - 1) {
+        setTimeout(function(elm) {
+          elm.classList.add("person-gone");
+          setTimeout(function(e2) { e2.style.display = "none"; e2.classList.remove("person-gone"); }, 600);
+        }.bind(null, el), 250 + (n + 1) * 900);
+      }
+      /* au survol d'une fiche posee : encart plus lisible */
       el.classList.add("person-mini");
       el.setAttribute("tabindex", "0");
       el.addEventListener("mouseenter", function() { el.classList.add("person-focus"); });
