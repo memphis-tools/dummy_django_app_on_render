@@ -4837,3 +4837,93 @@ body a:hover, body a:focus {
   transform: translate(-50%, -80%) rotate(calc(var(--toss-spin, 4deg) * 1.5)) scale(0.9);
   transition: opacity 0.5s ease, transform 0.5s ease;
 }
+
+/* ===== #207 : /login — labels du formulaire stylisés ===== */
+.login-form label {
+  font-family: "ArsenalSC", sans-serif;
+  color: #ea9ef0;
+  font-size: 0.95rem;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  margin: 10px 0 4px;
+}
+.login-form input {
+  background-color: #170f0fd9;
+  border: 1px solid #ea9ef066;
+  border-radius: 8px;
+  color: #f8ede3;
+  padding: 9px 12px;
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+.login-form input:focus {
+  border-color: #ea9ef0;
+  box-shadow: 0 0 0 3px #ea9ef033;
+}
+.login-form p { color: #d97a8a; font-family: "ArsenalSC", sans-serif; }
+
+/* ===== #207 : plateau agrandi (largeur + hauteur, redimensionne vers le bas) ===== */
+.feed-evidence-slot--lille {
+  margin-top: 1% !important;
+  width: min(1340px, 98.5%) !important;
+  height: clamp(420px, calc(100vh - 76px - 120px), 640px) !important;
+}
+@media (max-width: 991px) {
+  .feed-evidence-slot--lille { height: clamp(340px, calc(100vh - 76px - 160px), 480px) !important; }
+}
+/* la carte profite du plateau agrandi */
+.feed-evidence-slot--lille .feed-lille-map,
+.feed-evidence-slot--lille .feed-map-hotspots {
+  width: min(72%, 820px) !important;
+  left: 42% !important;
+}
+
+/* ===== #207 : fiches Fiche Technique : margin-left 5% (ecran grand) ===== */
+.feed-evidence-slot--lille .feed-fiche-people { margin-left: 5% !important; }
+
+/* ===== #207 : post-its de droite a right -10.2% ; gauche en escalier ===== */
+.feed-evidence-slot--lille .feed-visitor-note.feed-visitor-note--b { top: 2% !important; right: -10.2% !important; left: auto !important; }
+.feed-evidence-slot--lille .feed-visitor-note.feed-visitor-note--d { top: 44% !important; right: -10.2% !important; left: auto !important; }
+/* les 4 de gauche : right en ordre haut -> bas (1.8 / 8.8 / 4.8 / 2.8) */
+.feed-evidence-slot--lille .feed-visitor-note.feed-visitor-note--a { top: 2% !important; left: auto !important; right: 1.8% !important; }
+.feed-evidence-slot--lille .feed-visitor-note.feed-visitor-note--c { top: 26% !important; left: auto !important; right: 8.8% !important; }
+.feed-evidence-slot--lille .feed-visitor-note.feed-visitor-note--e { top: 50% !important; left: auto !important; right: 4.8% !important; }
+.feed-evidence-slot--lille .feed-visitor-note.feed-visitor-note--f { top: 74% !important; left: auto !important; right: 2.8% !important; }
+
+/* ===== #207 : citations presse des suspects + badge fiction ===== */
+.suspect-press {
+  font-family: "ArsenalSC", sans-serif;
+  font-size: 0.8rem;
+  color: #f8ede3;
+  border-left: 3px solid #ea9ef0;
+  padding: 4px 8px;
+  margin: 8px 0 0;
+  background: #170f0f66;
+  border-radius: 0 8px 8px 0;
+}
+.suspect-press em { color: #ea9ef0; }
+.press-source { color: #b9a98c; display: block; margin-top: 2px; font-size: 0.72rem; }
+.press-badge-fiction {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px; height: 18px;
+  border-radius: 50%;
+  background: #ea9ef0;
+  color: #221c1c;
+  font-size: 0.6rem;
+  margin-right: 6px;
+  box-shadow: 0 2px 6px #ea9ef066;
+  cursor: help;
+}
+
+/* ===== #207 : suspects — rotation 3 par 3, effet jeter/deposer ===== */
+.suspect-card.suspect-hidden { display: none !important; }
+.suspect-card.suspect-dropped { opacity: 0; }
+.suspect-card.suspect-dropped.suspect-rest { opacity: 1; }
+.suspect-card.suspect-toss { animation: person-toss-anim 0.62s cubic-bezier(0.3, 0.7, 0.4, 1.15); }
+.suspect-card { transform-origin: 50% 0%; }
+@media (prefers-reduced-motion: reduce) {
+  .suspect-card.suspect-toss { animation: none; }
+  .suspect-card.suspect-hidden { display: none !important; }
+}

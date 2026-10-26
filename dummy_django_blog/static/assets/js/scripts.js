@@ -944,41 +944,17 @@ document.addEventListener("DOMContentLoaded", function() {
       var k = Math.floor(Math.random() * (j + 1));
       var t = order[j]; order[j] = order[k]; order[k] = t;
     }
-    /* 5 fiches jouees en rotation : chacune apparait par l'effet jeter/deposer
-       (identique aux photos de la section 2) puis disparait, laissant place
-       a la suivante ; la derniere reste affichee. */
-    var picked = order.slice(0, 5);
-    var zones = [
-      { top: [30, 44], left: [70, 78] },
-      { top: [46, 60], left: [70, 78] },
-      { top: [62, 76], left: [70, 78] },
-      { top: [38, 52], left: [70, 78] },
-      { top: [54, 68], left: [70, 78] }
-    ];
+    /* BOUCLE INFINIE : 5 fiches tirées au sort, apparaitres/disparaitres
+       une a une toutes les 4 secondes par l'effet jeter/deposer (photos
+       section 2), puis retour a la premiere : la boucle ne s'arrete jamais.
+       Toutes les fiches de la liste sont masquees par defaut. */
+    var pool = order.slice(0, 5);
+    var zone = { top: [30, 70], left: [70, 78] };
     people.forEach(function(el, n) {
-      if (picked.indexOf(n) === -1) el.style.display = "none";
+      if (pool.indexOf(n) === -1) el.style.display = "none";
     });
-    picked.forEach(function(idx, n) {
+    pool.forEach(function(idx) {
       var el = people[idx];
-      el.style.display = "";
-      var z = zones[n % zones.length];
-      el.style.setProperty("--py", (z.top[0] + Math.random() * (z.top[1] - z.top[0])).toFixed(1) + "%");
-      el.style.setProperty("--px", (z.left[0] + Math.random() * (z.left[1] - z.left[0])).toFixed(1) + "%");
-      el.style.setProperty("--toss-spin", (Math.random() * 20 - 10).toFixed(1) + "deg");
-      /* effet jeter/deposer identique aux photos section 2 : apparition ... */
-      el.classList.add("person-dropped");
-      setTimeout(function(elm) {
-        elm.classList.add("person-toss");
-        elm.classList.add("person-rest");
-      }.bind(null, el), 250 + n * 900);
-      /* ... puis disparition progressive, SAUF la derniere (elle reste posee) */
-      if (n < picked.length - 1) {
-        setTimeout(function(elm) {
-          elm.classList.add("person-gone");
-          setTimeout(function(e2) { e2.style.display = "none"; e2.classList.remove("person-gone"); }, 600);
-        }.bind(null, el), 250 + (n + 1) * 900);
-      }
-      /* au survol d'une fiche posee : encart plus lisible */
       el.classList.add("person-mini");
       el.setAttribute("tabindex", "0");
       el.addEventListener("mouseenter", function() { el.classList.add("person-focus"); });
@@ -986,6 +962,29 @@ document.addEventListener("DOMContentLoaded", function() {
       el.addEventListener("mouseleave", function() { el.classList.remove("person-focus"); });
       el.addEventListener("blur", function() { el.classList.remove("person-focus"); });
     });
+    var loopIdx = 0;
+    function dropNext() {
+      var el = people[pool[loopIdx % pool.length]];
+      /* reposition + effet jeter/deposer */
+      el.style.display = "";
+      el.style.setProperty("--py", (zone.top[0] + Math.random() * (zone.top[1] - zone.top[0])).toFixed(1) + "%");
+      el.style.setProperty("--px", (zone.left[0] + Math.random() * (zone.left[1] - zone.left[0])).toFixed(1) + "%");
+      el.style.setProperty("--toss-spin", (Math.random() * 20 - 10).toFixed(1) + "deg");
+      el.classList.remove("person-gone", "person-rest", "person-toss");
+      el.classList.add("person-dropped");
+      setTimeout(function() {
+        el.classList.add("person-toss");
+        el.classList.add("person-rest");
+      }, 250);
+      /* 3.4 s plus tard : disparition progressive, puis fiche suivante */
+      setTimeout(function() {
+        el.classList.add("person-gone");
+        setTimeout(function() { el.style.display = "none"; el.classList.remove("person-gone"); }, 600);
+      }, 3400);
+      loopIdx += 1;
+      setTimeout(dropNext, 4000);
+    }
+    setTimeout(dropNext, 600);
   }
 
   /* encarts publicitaires visiteurs : ordre aleatoire gauche/droite */
@@ -1179,3 +1178,45 @@ function markFictionalQuote(authorEl) {
   authorEl.insertAdjacentElement("afterend", note);
 }
 
+
+/* ===== FICHES SUSPECTS : rotation 3 par 3 (effet photos section 2) ===== */
+/* Les 6 personnages apparaissent 3 par 3, au hasard, avec l'effet
+   jeter/deposer de la section photos ; apres chaque passe on attend
+   15 secondes puis on affiche 3 autres personnages au hasard, en boucle. */
+document.addEventListener("DOMContentLoaded", function() {
+  var board = document.querySelector(".suspects-grid");
+  if (!board || board.classList.contains("suspects-loop-managed")) return;
+  board.classList.add("suspects-loop-managed");
+  var cards = Array.prototype.slice.call(board.querySelectorAll(".suspect-card"));
+  if (cards.length < 3) return;
+  cards.forEach(function(c) { c.classList.add("suspect-hidden"); });
+  function pick3() {
+    var idx = [];
+    for (var i = 0; i < cards.length; i++) idx.push(i);
+    for (var j = idx.length - 1; j > 0; j--) {
+      var k = Math.floor(Math.random() * (j + 1));
+      var t = idx[j]; idx[j] = idx[k]; idx[k] = t;
+    }
+    return idx.slice(0, 3);
+  }
+  function showThree() {
+    cards.forEach(function(c) {
+      c.classList.remove("suspect-dropped", "suspect-toss", "suspect-rest");
+      c.classList.add("suspect-hidden");
+    });
+    pick3().forEach(function(n, pos) {
+      var c = cards[n];
+      setTimeout(function() {
+        c.classList.remove("suspect-hidden");
+        c.classList.add("suspect-dropped");
+        setTimeout(function() {
+          c.classList.add("suspect-toss");
+          c.classList.add("suspect-rest");
+        }, 220);
+      }, pos * 350);
+    });
+    /* apres les 3 apparitions : pause de 15 s puis nouvelle passe */
+    setTimeout(showThree, 15000);
+  }
+  setTimeout(showThree, 500);
+});
