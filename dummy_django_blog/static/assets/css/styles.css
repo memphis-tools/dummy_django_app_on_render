@@ -4668,3 +4668,65 @@ footer.footer-container {  margin-top: 0; }
 @media (prefers-reduced-motion: reduce) {
   .feed-evidence-slot--lille .feed-fiche-people .feed-fiche-person.person-rest { animation: none; }
 }
+
+/* ===== #202 : carte/croquis sans marge blanche, centree au milieu du bureau ===== */
+.feed-evidence-slot--lille .feed-lille-map {
+  border: none !important;
+  background: #221c1c !important;
+  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.55) !important;
+}
+.feed-evidence-slot--lille .feed-lille-map figcaption {
+  background: #221c1c !important;
+  color: #ea9ef0 !important;
+  border-top: 1px solid #3a3131 !important;
+}
+.feed-evidence-slot--lille .feed-lille-plan { filter: sepia(0.5) contrast(1.1) brightness(0.72) saturate(0.85) !important; }
+
+/* ===== #202 : encadres jaunes de part et d'autre du bureau, colonnes verticales
+       alignees a partir des coins superieurs gauche et droit ===== */
+/* 4 a gauche : colonne partant du coin superieur gauche */
+.feed-evidence-slot--lille .feed-visitor-note.feed-visitor-note--a { top: 2% !important; left: 0.8% !important; right: auto !important; }
+.feed-evidence-slot--lille .feed-visitor-note.feed-visitor-note--c { top: 26% !important; left: 0.8% !important; right: auto !important; }
+.feed-evidence-slot--lille .feed-visitor-note.feed-visitor-note--e { top: 50% !important; left: 0.8% !important; right: auto !important; }
+.feed-evidence-slot--lille .feed-visitor-note.feed-visitor-note--f { top: 74% !important; left: 0.8% !important; right: auto !important; }
+/* 2 a droite : colonne partant du coin superieur droit */
+.feed-evidence-slot--lille .feed-visitor-note.feed-visitor-note--b { top: 2% !important; right: 0.8% !important; left: auto !important; }
+.feed-evidence-slot--lille .feed-visitor-note.feed-visitor-note--d { top: 26% !important; right: 0.8% !important; left: auto !important; }
+
+/* ===== #202 : carte au MILIEU du bureau, fiches personnes en bas de la section ===== */
+/* la carte est centree et redimensionnee pour ne toucher ni les colonnes jaunes
+   (~160px de chaque cote) ni la bande du bas des fiches (~150px) */
+.feed-evidence-slot--lille .feed-lille-map,
+.feed-evidence-slot--lille .feed-map-hotspots {
+  width: min(58%, 640px) !important;
+  left: 50% !important;
+}
+/* fiches equipe technique : bande en bas de la section, sous le plateau */
+.feed-evidence-slot--lille .feed-fiche-people {
+  position: absolute !important;
+  inset: auto 0 0 0 !important;
+  top: auto !important;
+  height: 150px !important;
+  display: flex !important;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-end;
+  align-content: flex-end;
+  gap: 8px 10px;
+  padding: 4px 8px 6px;
+  z-index: 10 !important;
+  pointer-events: auto !important;
+}
+/* les fiches ne recouvrent ni la carte ni les encadres jaunes :
+   elles vivent dans la bande basse dediee */
+.feed-evidence-slot--lille .feed-fiche-people .feed-fiche-person.person-rest {
+  top: auto !important;
+  bottom: 6px !important;
+  max-width: 104px !important;
+  min-width: 84px !important;
+}
+.feed-evidence-slot--lille .feed-fiche-people .feed-fiche-person.person-rest img,
+.feed-evidence-slot--lille .feed-fiche-people .feed-fiche-person.person-rest .feed-fiche-photo {
+  width: 74px !important;
+  height: 88px !important;
+}
