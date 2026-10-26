@@ -949,11 +949,11 @@ document.addEventListener("DOMContentLoaded", function() {
        (bandes laterales du plateau : approx. 0-15% et 85-97% de largeur) */
     /* toutes les fiches deposees a DROITE du croquis (bande laterale droite),
        empilees une a une sous le postit du haut, effet jeter/deposer conserve */
-    /* fiches membres : a DROITE de la carte/croquis, visibles, debordement autorise */
+    /* fiches membres : bande droite LIBREE par la carte (66%), jamais rognees */
     var zones = [
-      { top: [16, 30], left: [87, 94] },
-      { top: [38, 52], left: [87, 94] },
-      { top: [60, 74], left: [87, 94] }
+      { top: [14, 26], left: [74, 80] },
+      { top: [38, 50], left: [74, 80] },
+      { top: [62, 74], left: [74, 80] }
     ];
     people.forEach(function(el, n) {
       if (picked.indexOf(n) === -1) el.style.display = "none";
