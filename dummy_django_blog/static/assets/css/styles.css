@@ -5080,3 +5080,74 @@ body a:hover, body a:focus {
 @media (prefers-reduced-motion: reduce) {
   .suspect-card.suspect-dropped, .suspect-card.suspect-out { animation-duration: 0.01s; }
 }
+
+/* ===== #213 : navbar submenus — survol fond rose du site + police BLANCHE
+       (regle finale maximale, cible uniquement les items de sous-menu) ===== */
+.navbar .dropdown-menu.show .dropdown-item:hover,
+.navbar .dropdown-menu.show .dropdown-item:focus,
+.navbar .dropdown-menu.show .dropdown-item.active:hover,
+.navbar-nav .dropdown-menu .dropdown-item:hover,
+.navbar-nav .dropdown-menu .dropdown-item:focus,
+.navbar-nav .show > .nav-link.dropdown-item:hover,
+.navbar .dropdown-menu.show a:hover,
+.navbar .dropdown-menu.show a:focus {
+  background-color: #ea9ef0 !important;
+  background: #ea9ef0 !important;
+  color: #ffffff !important;
+}
+/* les icones des items suivent la police blanche au survol */
+.navbar .dropdown-menu .dropdown-item:hover i,
+.navbar .dropdown-menu .dropdown-item:focus i { color: #ffffff !important; }
+
+/* ===== #213 : feed-interrogation-desk margin-top 5% ===== */
+.feed-interrogation-desk { margin-top: 5% !important; }
+
+/* ===== #213 : petits ecrans — encadres jaunes masques en 1ere section,
+       Fiche Technique deplacee dans A PROPS ===== */
+@media (max-width: 991px) {
+  /* les 6 encadres jaunes n'apparaissent pas dans la 1ere section */
+  .feed-evidence-slot--lille .feed-visitor-notes { display: none !important; }
+}
+/* la Fiche Technique (fiches membres) n'est visible dans A PROPOS
+   que sur petits ecrans ; sur grand ecran elle reste sur le plateau */
+.feed-fiche-people-a-propos { display: none; }
+@media (max-width: 991px) {
+  .feed-fiche-people-a-propos {
+    display: flex !important;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px 12px;
+    padding: 10px 0 16px;
+    max-width: 720px;
+    margin: 0 auto;
+  }
+  .feed-fiche-people-a-propos .feed-fiche-person {
+    position: static !important;
+    width: 96px;
+  }
+  /* et le plateau n'affiche plus les fiches (deplacees) */
+  .feed-evidence-slot--lille .feed-fiche-people { display: none !important; }
+}
+
+/* ===== #213 : suspects — apparition/disparition ADUCIEES ===== */
+@keyframes suspect-soft-in {
+  0%   { opacity: 0; transform: translate3d(-34px, 8px, 0) scale(0.985); }
+  60%  { opacity: 1; }
+  100% { opacity: 1; transform: translate3d(0, 0, 0) scale(1); }
+}
+@keyframes suspect-soft-out {
+  0%   { opacity: 1; transform: translate3d(0, 0, 0) scale(1); }
+  40%  { opacity: 0.45; }
+  100% { opacity: 0; transform: translate3d(30px, -14px, 0) scale(0.985); }
+}
+.suspect-card.suspect-dropped,
+.suspect-card.suspect-dropped.suspect-rest {
+  animation: suspect-soft-in 0.85s cubic-bezier(0.25, 0.8, 0.3, 1) both;
+  transform: none;
+}
+.suspect-card.suspect-out {
+  animation: suspect-soft-out 0.7s cubic-bezier(0.4, 0, 0.2, 1) both;
+}
+@media (prefers-reduced-motion: reduce) {
+  .suspect-card.suspect-dropped, .suspect-card.suspect-out { animation-duration: 0.01s; }
+}
