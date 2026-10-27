@@ -962,25 +962,28 @@ document.addEventListener("DOMContentLoaded", function() {
       el.addEventListener("mouseleave", function() { el.classList.remove("person-focus"); });
       el.addEventListener("blur", function() { el.classList.remove("person-focus"); });
     });
+    /* effet IDENTIQUE a la pile de photos (section 2) : evidence-toss,
+       chute + rebond + rotation, puis glissement de sortie comme la plus
+       ancienne photo de la pile. */
     var loopIdx = 0;
     function dropNext() {
       var el = people[pool[loopIdx % pool.length]];
-      /* reposition + effet jeter/deposer */
       el.style.display = "";
       el.style.setProperty("--py", (zone.top[0] + Math.random() * (zone.top[1] - zone.top[0])).toFixed(1) + "%");
       el.style.setProperty("--px", (zone.left[0] + Math.random() * (zone.left[1] - zone.left[0])).toFixed(1) + "%");
       el.style.setProperty("--toss-spin", (Math.random() * 20 - 10).toFixed(1) + "deg");
-      el.classList.remove("person-gone", "person-rest", "person-toss");
+      el.classList.remove("person-gone", "person-rest", "person-pile-toss");
       el.classList.add("person-dropped");
       setTimeout(function() {
-        el.classList.add("person-toss");
+        el.classList.add("person-pile-toss");
         el.classList.add("person-rest");
       }, 250);
-      /* 3.4 s plus tard : disparition progressive, puis fiche suivante */
+      /* disparition : glisse hors du plateau comme la photo la plus ancienne */
       setTimeout(function() {
+        el.classList.remove("person-rest", "person-pile-toss");
         el.classList.add("person-gone");
-        setTimeout(function() { el.style.display = "none"; el.classList.remove("person-gone"); }, 600);
-      }, 3400);
+        setTimeout(function() { el.style.display = "none"; el.classList.remove("person-gone"); }, 640);
+      }, 3200);
       loopIdx += 1;
       setTimeout(dropNext, 4000);
     }
@@ -1221,11 +1224,14 @@ document.addEventListener("DOMContentLoaded", function() {
         setTimeout(function() {
           c.classList.remove("suspect-hidden");
           c.classList.add("suspect-dropped");
-          /* glisse gauche -> droite + fondu transparent -> opaque */
+          /* 1) la carte glisse horizontalement INVISIBLE ;
+             2) une fois positionnee (horizontal termine), elle devient
+                visible et commence son recentrage vertical. */
           setTimeout(function() {
             c.classList.add("suspect-rest");
-          }, 60);
-        }, pos * 420);
+            setTimeout(function() { c.classList.add("suspect-settled"); }, 320);
+          }, 420);
+        }, pos * 460);
       });
     }, 660);
     /* apres les 3 apparitions : pause de 15 s puis nouvelle passe */
