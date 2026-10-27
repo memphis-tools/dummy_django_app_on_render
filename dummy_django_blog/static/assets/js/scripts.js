@@ -1206,25 +1206,31 @@ document.addEventListener("DOMContentLoaded", function() {
      en spring par carte ; timing orchestre pour un enchainement fluide. */
   function showThree() {
     var shown = cards.filter(function(c) { return !c.classList.contains("suspect-hidden"); });
-    /* 1) sortie cascade : 90 ms entre chaque carte, 500 ms d'anim */
+    /* 1) sortie en cascade douce (140 ms entre cartes, 750 ms d'anim),
+       avec legere perspective + fondu, jamais de display brutal */
     shown.forEach(function(c, i) {
-      setTimeout(function() { c.classList.add("suspect-out"); }, i * 90);
+      setTimeout(function() { c.classList.add("suspect-out"); }, i * 140);
     });
+    /* 2) apres la sortie : on masque puis la nouvelle passe entre en
+       fondu croise (les nouvelles cartes montent pendant que le layout
+       se stabilise) */
+    var settleDelay = 640 + shown.length * 140;
     setTimeout(function() {
       shown.forEach(function(c) {
         c.classList.remove("suspect-out", "suspect-dropped", "suspect-toss", "suspect-rest", "suspect-settled");
         c.classList.add("suspect-hidden");
       });
-      /* 2) entree : 3 nouvelles cartes, cascade 130 ms, spring 700 ms */
       pick3().forEach(function(n, pos) {
         var c = cards[n];
+        /* entree en cascade : la 1re carte part de suite, les suivantes
+           la suivaient avec 170 ms de retard — fondu croise naturel */
         setTimeout(function() {
           c.classList.remove("suspect-hidden");
           c.classList.add("suspect-dropped");
           c.classList.add("suspect-rest");
-        }, 120 + pos * 130);
+        }, pos * 170);
       });
-    }, 520 + shown.length * 90);
+    }, settleDelay);
     /* apres les 3 apparitions : pause de 15 s puis nouvelle passe */
     setTimeout(showThree, 15000);
   }
