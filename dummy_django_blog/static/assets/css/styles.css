@@ -5151,3 +5151,48 @@ body a:hover, body a:focus {
 @media (prefers-reduced-motion: reduce) {
   .suspect-card.suspect-dropped, .suspect-card.suspect-out { animation-duration: 0.01s; }
 }
+
+/* ===== #215 : navbar dropdown-item — hover fond rose, police blanche ===== */
+.dropdown-menu .dropdown-item:hover,
+.dropdown-menu .dropdown-item:focus,
+.dropdown-menu .dropdown-item:active {
+  background-color: #ea9ef0 !important;
+  color: #ffffff !important;
+}
+.dropdown-menu .dropdown-item:hover *,
+.dropdown-menu .dropdown-item:hover i { color: #ffffff !important; }
+
+/* ===== #215 : suspects — magnification des encarts + marges ===== */
+.suspects-grid { gap: 22px 26px !important; padding: 18px 10px 24px !important; }
+.suspect-card {
+  transform-origin: 50% 40%;
+  backface-visibility: hidden;
+  transition: opacity 0.4s ease, transform 0.4s ease, filter 0.4s ease;
+}
+
+/* ===== #215 : suspects — apparition/disparition fluides et pro ===== */
+/* Le probleme : entre la sortie et l'entree, les cartes reaparaissaient
+   brutalement (rectangles qui "se forment"). On garde TOUJOURS les cartes
+   dans le flux (pas de display:none en pleine animation) et on pilote
+   opacite + scale + rotation legeres, avec un vrai fondu croise. */
+@keyframes suspect-fluid-in {
+  0%   { opacity: 0; transform: perspective(700px) translate3d(-42px, 14px, 0) rotateX(18deg) scale(0.94); filter: blur(2.5px); }
+  55%  { opacity: 0.85; filter: blur(0.4px); }
+  78%  { transform: perspective(700px) translate3d(2px, -2px, 0) rotateX(-2deg) scale(1.015); }
+  100% { opacity: 1; transform: perspective(700px) translate3d(0, 0, 0) rotateX(0) scale(1); filter: blur(0); }
+}
+@keyframes suspect-fluid-out {
+  0%   { opacity: 1; transform: perspective(700px) translate3d(0, 0, 0) rotateX(0) scale(1); filter: blur(0); }
+  45%  { opacity: 0.5; }
+  100% { opacity: 0; transform: perspective(700px) translate3d(38px, -20px, 0) rotateX(-14deg) scale(0.93); filter: blur(2px); }
+}
+.suspect-card.suspect-dropped,
+.suspect-card.suspect-dropped.suspect-rest {
+  animation: suspect-fluid-in 0.9s cubic-bezier(0.24, 0.74, 0.32, 1) both;
+}
+.suspect-card.suspect-out {
+  animation: suspect-fluid-out 0.75s cubic-bezier(0.5, 0, 0.4, 1) both;
+}
+@media (prefers-reduced-motion: reduce) {
+  .suspect-card.suspect-dropped, .suspect-card.suspect-out { animation-duration: 0.01s; }
+}
