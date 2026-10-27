@@ -1202,38 +1202,29 @@ document.addEventListener("DOMContentLoaded", function() {
     }
     return idx.slice(0, 3);
   }
+  /* rendu PRO : disparition en cascade (decalee par carte), puis entree
+     en spring par carte ; timing orchestre pour un enchainement fluide. */
   function showThree() {
-    /* disparition glissee vers la droite + fondu des cartes affichees */
-    cards.forEach(function(c) {
-      if (!c.classList.contains("suspect-hidden")) {
-        c.classList.add("suspect-out");
-        (function(cc) {
-          setTimeout(function() {
-            cc.classList.remove("suspect-out", "suspect-dropped", "suspect-toss", "suspect-rest");
-            cc.classList.add("suspect-hidden");
-          }, 620);
-        })(c);
-      } else {
-        c.classList.remove("suspect-dropped", "suspect-toss", "suspect-rest", "suspect-out");
-      }
+    var shown = cards.filter(function(c) { return !c.classList.contains("suspect-hidden"); });
+    /* 1) sortie cascade : 90 ms entre chaque carte, 500 ms d'anim */
+    shown.forEach(function(c, i) {
+      setTimeout(function() { c.classList.add("suspect-out"); }, i * 90);
     });
-    /* les 3 nouvelles cartes arrivent de gauche, une par une (pos*350) */
     setTimeout(function() {
+      shown.forEach(function(c) {
+        c.classList.remove("suspect-out", "suspect-dropped", "suspect-toss", "suspect-rest", "suspect-settled");
+        c.classList.add("suspect-hidden");
+      });
+      /* 2) entree : 3 nouvelles cartes, cascade 130 ms, spring 700 ms */
       pick3().forEach(function(n, pos) {
         var c = cards[n];
         setTimeout(function() {
           c.classList.remove("suspect-hidden");
           c.classList.add("suspect-dropped");
-          /* 1) la carte glisse horizontalement INVISIBLE ;
-             2) une fois positionnee (horizontal termine), elle devient
-                visible et commence son recentrage vertical. */
-          setTimeout(function() {
-            c.classList.add("suspect-rest");
-            setTimeout(function() { c.classList.add("suspect-settled"); }, 320);
-          }, 420);
-        }, pos * 460);
+          c.classList.add("suspect-rest");
+        }, 120 + pos * 130);
       });
-    }, 660);
+    }, 520 + shown.length * 90);
     /* apres les 3 apparitions : pause de 15 s puis nouvelle passe */
     setTimeout(showThree, 15000);
   }

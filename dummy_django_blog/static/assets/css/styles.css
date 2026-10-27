@@ -5025,3 +5025,58 @@ body a:hover, body a:focus {
   font-style: italic;
 }
 .suspects-press-legend i { color: #ea9ef0; font-size: 0.72rem; }
+
+/* ===== #212 : petits/moyens ecrans — encadres jaunes EN DESSOUS du tableau,
+       disposes en colonnes (flux vertical sous le plateau) ===== */
+@media (max-width: 1199px) {
+  .feed-evidence-slot--lille .feed-visitor-notes {
+    position: static !important;
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 8px !important;
+    padding: 10px 8px 4px !important;
+    width: 100% !important;
+    height: auto !important;
+    pointer-events: auto !important;
+    z-index: 1 !important;
+  }
+  .feed-evidence-slot--lille .feed-visitor-note {
+    position: static !important;
+    width: 100% !important;
+    height: auto !important;
+    min-height: 64px !important;
+    margin: 0 !important;
+  }
+  .feed-evidence-slot--lille .feed-visitor-note em { font-size: 0.72rem; }
+}
+@media (max-width: 600px) {
+  .feed-evidence-slot--lille .feed-visitor-notes {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* ===== #212 : suspects — apparition/disparition PRO (spring, fondu,
+       rien de sacade) ===== */
+@keyframes suspect-pro-in {
+  0%   { opacity: 0; transform: translate3d(-56px, 0, 0) scale(0.96); }
+  55%  { opacity: 1; }
+  72%  { transform: translate3d(6px, 0, 0) scale(1.012); }
+  100% { opacity: 1; transform: translate3d(0, 0, 0) scale(1); }
+}
+@keyframes suspect-pro-out {
+  0%   { opacity: 1; transform: translate3d(0, 0, 0) scale(1); }
+  30%  { opacity: 0.6; }
+  100% { opacity: 0; transform: translate3d(52px, -10px, 0) scale(0.95); }
+}
+.suspect-card.suspect-dropped {
+  animation: suspect-pro-in 0.7s cubic-bezier(0.22, 0.9, 0.28, 1.06) both;
+}
+.suspect-card.suspect-out {
+  animation: suspect-pro-out 0.5s cubic-bezier(0.4, 0, 0.6, 1) both;
+}
+/* on retire les anciennes transitions redondantes pour ne garder que l'anim */
+.suspect-card.suspect-dropped.suspect-rest { animation: suspect-pro-in 0.7s cubic-bezier(0.22, 0.9, 0.28, 1.06) both; transform: none; }
+.suspect-card.suspect-dropped.suspect-settled { transform: none; }
+@media (prefers-reduced-motion: reduce) {
+  .suspect-card.suspect-dropped, .suspect-card.suspect-out { animation-duration: 0.01s; }
+}
