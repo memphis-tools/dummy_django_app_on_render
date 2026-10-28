@@ -19,9 +19,11 @@ def test_feed_desk_and_sections_restyled(client, django_user_model):
     assert b"COMMISSARIAT DE LILLE" in r.content
     # section personnages : fiches suspects
     assert b"suspects-board" in r.content and b"suspect-card" in r.content
-    # section a propos : Tournage present, Fiche technique retiree (deplacee sur le plan de Lille)
+    # section a propos : Tournage present ; Fiche technique affichee dans A PROPOS
+    # (petits ecrans) en plus du plateau de la 1ere section
     assert b"a_propos_container" in r.content
-    assert b"Tournage" in r.content and b"Fiche technique" not in r.content
+    assert b"Tournage" in r.content
+    assert b"feed-fiche-people-a-propos" in r.content
     # tableau d'enquete : plan de Lille + personnes de la fiche technique punaisees
     assert b"feed-lille-plan" in r.content and b"carte_lieux_cles.svg" in r.content
     assert b"wikipedia.org" in r.content  # noms de la fiche technique lies vers Wikipedia
@@ -56,12 +58,24 @@ def test_feed_croquis_new_locations_and_no_label(client, django_user_model):
     # nouveaux lieux fournis par l'utilisateur : pastilles interactives
     assert b"chateau_steene.jpg" in r.content
     assert b"bethune_grand_place.jpg" in r.content
-    assert b"voix_du_nord.jpg" in r.content and b"bureau_alice.jpg" in r.content
-    assert b"chez_alice.jpg" in r.content and b"chez_laurence.jpg" in r.content
+    assert b"voix_du_nord.jpg" in r.content
+    assert b"kursaal.jpg" in r.content and b"citadelle_lille.jpg" in r.content and b"hotel_de_ville_lille.jpg" in r.content
     assert b"styles_manoir.jpg" in r.content
     # fichiers statiques reels
     import os
     img_dir = os.path.join(os.path.dirname(__file__), "..", "..", "static", "vendors", "img")
     for f in ("chateau_steene.jpg", "bethune_grand_place.jpg", "voix_du_nord.jpg",
-              "bureau_alice.jpg", "chez_alice.jpg", "chez_laurence.jpg", "styles_manoir.jpg"):
+              "kursaal.jpg", "citadelle_lille.jpg", "hotel_de_ville_lille.jpg", "styles_manoir.jpg"):
         assert os.path.exists(os.path.join(img_dir, f)), f
+
+def test_feed_sophie_revil_photo(client_dummy=None):
+    import os
+    from pathlib import Path
+    img = Path(__file__).resolve().parents[2] / "static" / "vendors" / "img" / "sophie_revil.jpg"
+    assert img.exists()
+
+def test_feed_suspects_press_and_mouly(client_dummy=None):
+    import os
+    from pathlib import Path
+    img = Path(__file__).resolve().parents[2] / "static" / "vendors" / "img" / "bertrand_mouly.jpg"
+    assert img.exists()

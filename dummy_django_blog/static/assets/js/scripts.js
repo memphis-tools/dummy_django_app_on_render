@@ -344,7 +344,7 @@ document.addEventListener("DOMContentLoaded", function() {
     row.classList.add("feed-audiences-row-scan");
     scanRowTimer = setTimeout(function() {
       scanRowsUp(rows, index - 1, token, done);
-    }, 150);
+    }, 420);
   }
 
   /* affiche l'encart pendant 5 secondes pour une ligne donnee */
@@ -359,7 +359,7 @@ document.addEventListener("DOMContentLoaded", function() {
       hideCallout();
       row.classList.remove("feed-audiences-row-glow");
       if (done) done();
-    }, 10000);
+    }, 12000);
   }
 
   function runTour(token) {
@@ -372,7 +372,7 @@ document.addEventListener("DOMContentLoaded", function() {
     }
     var allRows = Array.prototype.slice.call(audiencesSection.querySelectorAll(".topblog_tr"));
     // descente rapide et stylisee vers la section audiences
-    smoothScrollTo(audiencesSection.getBoundingClientRect().top + window.scrollY - 70, 1200, function() {
+    smoothScrollTo(audiencesSection.getBoundingClientRect().top + window.scrollY - 70, 2000, function() {
       if (token !== tourToken) return;
       // UN SEUL balayage : episodes parcourus par AUDIENCE DECROISSANTE (du moins bon vers le meilleur), successifs, une fois
       var rankedOrder = ranked.map(function(e) { return e.row; });
@@ -385,7 +385,7 @@ document.addEventListener("DOMContentLoaded", function() {
         spotlightRow(elected.row, token, function() {
           if (token !== tourToken) return;
           // retour a la position de l'utilisateur
-          smoothScrollTo(userScrollY, 1200, function() {
+          smoothScrollTo(userScrollY, 2000, function() {
             if (token !== tourToken) return;
             clearRowEffects();
             running = false;
@@ -414,7 +414,7 @@ document.addEventListener("DOMContentLoaded", function() {
     clearTimeout(scanRowTimer);
     clearTimeout(calloutTimer);
     clearRowEffects();
-    smoothScrollTo(userScrollY, 900, null, tourToken);
+    smoothScrollTo(userScrollY, 1600, null, tourToken);
   }
 
   var userEvents = ["mousemove", "mousedown", "touchstart", "keydown", "wheel", "scroll"];
@@ -442,7 +442,7 @@ document.addEventListener("DOMContentLoaded", function() {
       hideCallout();
       row.classList.remove("feed-audiences-row-glow");
       lastGlowRow = null;
-    }, 10000);
+    }, 12000);
   }
   audiencesSection.querySelectorAll(".topblog_tr").forEach(function(row) {
     row.classList.add("feed-audiences-row-click");
@@ -944,37 +944,16 @@ document.addEventListener("DOMContentLoaded", function() {
       var k = Math.floor(Math.random() * (j + 1));
       var t = order[j]; order[j] = order[k]; order[k] = t;
     }
-    var picked = order.slice(0, 3);
-    /* 3 fiches eparpillees a gauche et a droite du tableau, HORS de la carte
-       (bandes laterales du plateau : approx. 0-15% et 85-97% de largeur) */
-    /* toutes les fiches deposees a DROITE du croquis (bande laterale droite),
-       empilees une a une sous le postit du haut, effet jeter/deposer conserve */
-    /* fiches membres : bande droite LIBREE par la carte (66%), jamais rognees */
-    var zones = [
-      { top: [14, 26], left: [74, 80] },
-      { top: [38, 50], left: [74, 80] },
-      { top: [62, 74], left: [74, 80] }
-    ];
+    /* BOUCLE 1 -> n -> 1 : on parcourt TOUTE la liste des fiches dans
+       l'ordre ; on depose la 1re image, on la fait disparaitre, puis la
+       2de, etc. Arrive au dernier element on revient au 1er. Delai de
+       4 secondes par fiche, effet jeter/deposer (photos section 2). */
+    var pool = order.slice();
+    var zone = { top: [30, 70], left: [70, 78] };
     people.forEach(function(el, n) {
-      if (picked.indexOf(n) === -1) el.style.display = "none";
+      if (pool.indexOf(n) === -1) el.style.display = "none";
     });
-    picked.forEach(function(idx, n) {
-      var el = people[idx];
-      el.style.display = "";
-      var z = zones[n % 3];
-      el.style.setProperty("--py", (z.top[0] + Math.random() * (z.top[1] - z.top[0])).toFixed(1) + "%");
-      el.style.setProperty("--px", (z.left[0] + Math.random() * (z.left[1] - z.left[0])).toFixed(1) + "%");
-      el.style.setProperty("--toss-spin", (Math.random() * 20 - 10).toFixed(1) + "deg");
-      el.classList.add("person-dropped");
-      /* effet jeter/deposer identique aux photos : le toss part au moment du depot */
-      setTimeout(function(elm) {
-        elm.classList.add("person-toss");
-        elm.classList.add("person-rest");
-      }.bind(null, el), 250 + n * 480);
-    });
-    /* au survol d'une fiche : encart standard plus lisible (texte + photo reduite),
-       comme pour les lieux ; repli au leave */
-    picked.forEach(function(idx) {
+    pool.forEach(function(idx) {
       var el = people[idx];
       el.classList.add("person-mini");
       el.setAttribute("tabindex", "0");
@@ -983,6 +962,32 @@ document.addEventListener("DOMContentLoaded", function() {
       el.addEventListener("mouseleave", function() { el.classList.remove("person-focus"); });
       el.addEventListener("blur", function() { el.classList.remove("person-focus"); });
     });
+    /* effet IDENTIQUE a la pile de photos (section 2) : evidence-toss,
+       chute + rebond + rotation, puis glissement de sortie comme la plus
+       ancienne photo de la pile. */
+    var loopIdx = 0;
+    function dropNext() {
+      var el = people[pool[loopIdx % pool.length]];
+      el.style.display = "";
+      el.style.setProperty("--py", (zone.top[0] + Math.random() * (zone.top[1] - zone.top[0])).toFixed(1) + "%");
+      el.style.setProperty("--px", (zone.left[0] + Math.random() * (zone.left[1] - zone.left[0])).toFixed(1) + "%");
+      el.style.setProperty("--toss-spin", (Math.random() * 20 - 10).toFixed(1) + "deg");
+      el.classList.remove("person-gone", "person-rest", "person-pile-toss");
+      el.classList.add("person-dropped");
+      setTimeout(function() {
+        el.classList.add("person-pile-toss");
+        el.classList.add("person-rest");
+      }, 250);
+      /* disparition : glisse hors du plateau comme la photo la plus ancienne */
+      setTimeout(function() {
+        el.classList.remove("person-rest", "person-pile-toss");
+        el.classList.add("person-gone");
+        setTimeout(function() { el.style.display = "none"; el.classList.remove("person-gone"); }, 640);
+      }, 3200);
+      loopIdx += 1;
+      setTimeout(dropNext, 4000);
+    }
+    setTimeout(dropNext, 600);
   }
 
   /* encarts publicitaires visiteurs : ordre aleatoire gauche/droite */
@@ -1176,3 +1181,58 @@ function markFictionalQuote(authorEl) {
   authorEl.insertAdjacentElement("afterend", note);
 }
 
+
+/* ===== FICHES SUSPECTS : rotation 3 par 3 (effet photos section 2) ===== */
+/* Les 6 personnages apparaissent 3 par 3, au hasard, avec l'effet
+   jeter/deposer de la section photos ; apres chaque passe on attend
+   15 secondes puis on affiche 3 autres personnages au hasard, en boucle. */
+document.addEventListener("DOMContentLoaded", function() {
+  var board = document.querySelector(".suspects-grid");
+  if (!board || board.classList.contains("suspects-loop-managed")) return;
+  board.classList.add("suspects-loop-managed");
+  var cards = Array.prototype.slice.call(board.querySelectorAll(".suspect-card"));
+  if (cards.length < 3) return;
+  cards.forEach(function(c) { c.classList.add("suspect-hidden"); });
+  function pick3() {
+    var idx = [];
+    for (var i = 0; i < cards.length; i++) idx.push(i);
+    for (var j = idx.length - 1; j > 0; j--) {
+      var k = Math.floor(Math.random() * (j + 1));
+      var t = idx[j]; idx[j] = idx[k]; idx[k] = t;
+    }
+    return idx.slice(0, 3);
+  }
+  /* rendu PRO : disparition en cascade (decalee par carte), puis entree
+     en spring par carte ; timing orchestre pour un enchainement fluide. */
+  function showThree() {
+    var shown = cards.filter(function(c) { return !c.classList.contains("suspect-hidden"); });
+    /* 1) sortie en cascade douce (140 ms entre cartes, 750 ms d'anim),
+       avec legere perspective + fondu, jamais de display brutal */
+    shown.forEach(function(c, i) {
+      setTimeout(function() { c.classList.add("suspect-out"); }, i * 140);
+    });
+    /* 2) apres la sortie : on masque puis la nouvelle passe entre en
+       fondu croise (les nouvelles cartes montent pendant que le layout
+       se stabilise) */
+    var settleDelay = 640 + shown.length * 140;
+    setTimeout(function() {
+      shown.forEach(function(c) {
+        c.classList.remove("suspect-out", "suspect-dropped", "suspect-toss", "suspect-rest", "suspect-settled");
+        c.classList.add("suspect-hidden");
+      });
+      pick3().forEach(function(n, pos) {
+        var c = cards[n];
+        /* entree en cascade : la 1re carte part de suite, les suivantes
+           la suivaient avec 170 ms de retard — fondu croise naturel */
+        setTimeout(function() {
+          c.classList.remove("suspect-hidden");
+          c.classList.add("suspect-dropped");
+          c.classList.add("suspect-rest");
+        }, pos * 170);
+      });
+    }, settleDelay);
+    /* apres les 3 apparitions : pause de 15 s puis nouvelle passe */
+    setTimeout(showThree, 15000);
+  }
+  setTimeout(showThree, 500);
+});

@@ -14,6 +14,8 @@ def test_action_pages_have_encart_and_card(client, django_user_model):
         "photos_add": "/photos/add/",
         "photos_add_multiple": "/photos/add-multiple/",
     }
+    # signin : encart retire volontairement (demande utilisateur) ; l'action-card suffit
+    routes.pop("signin", None)
     missing = []
     for name, url in routes.items():
         r = client.get(url)
