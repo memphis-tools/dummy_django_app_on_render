@@ -23,6 +23,9 @@
                       <div class="feed-item-detail">
                           <p class="photos-grid-title">{{ photo.title_photo }}</p>
                           <p class="photos-grid-meta">Proposée par {% get_poster photo.uploader %}</p>
+                          <figure class="photos-grid-figure">
+                          <img class="" src="{{ photo.image.url }}" alt="a dummy photo">
+                      </figure>
                           <p class="photos-grid-meta">{{ photo.created_at }}</p>
                           <div class="photos-grid-quote" data-quote-index="{{ forloop.counter0 }}">
                               <span class="detective-magnifier">{% bs_icon 'chat-quote' %}</span>

@@ -57,7 +57,7 @@ jobs:
       - run:
           name: Run Tests
           command: |
-            export IS_TESTING=True
+            export RUNNING_ENV='test'
             poetry run coverage run -m pytest ./dummy_django_blog/
             poetry run coverage report
             poetry run coverage html

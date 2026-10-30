@@ -162,7 +162,7 @@ def purge_external_storage_content():
 def remove_local_media_files():
     pattern = r"photo_.*|billet_.*"
     regex = re.compile(pattern)
-    if os.getenv("IS_TESTING") == "True":
+    if os.getenv("RUNNING_ENV") == "test" or os.getenv("RUNNING_ENV") == "dev" or os.getenv("RUNNING_ENV") == "prod":
         try:
             for filename in os.listdir("./dummy_django_blog/media"):
                 if regex.match(filename):
@@ -228,8 +228,11 @@ def save_a_s3_media_file(file_path, file_name, uploaders_list):
 
 def create_dummy_photos(uploaders_list):
     for photo_id in range(1, TOTAL_PHOTOS + 1):
-        if os.getenv("IS_TESTING") == "True":
+        if os.getenv("RUNNING_ENV") == "test":
             file_name = f"./dummy_django_blog/images_echantillons/photo_{photo_id}.jpg"
+            save_a_local_media_file(file_name, uploaders_list)
+        elif os.getenv("RUNNING_ENV") == "prod" or os.getenv("RUNNING_ENV") == "dev":
+            file_name = f"./images_echantillons/photo_{photo_id}.jpg"
             save_a_local_media_file(file_name, uploaders_list)
         else:
             file_path = f"./images_echantillons/photo_{photo_id}.jpg"
@@ -238,8 +241,12 @@ def create_dummy_photos(uploaders_list):
 
 
 def save_dummy_default_profile(uploaders_list):
-    if os.getenv("IS_TESTING") == "True":
+    if os.getenv("RUNNING_ENV") == "test":
         file_name = "./dummy_django_blog/images_echantillons/default_profile.png"
+        img = Image.open(file_name)
+        img = img.save(fp=file_name)
+    elif os.getenv("RUNNING_ENV") == "prod" or os.getenv("RUNNING_ENV") == "dev":
+        file_name = "./images_echantillons/default_profile.png"
         img = Image.open(file_name)
         img = img.save(fp=file_name)
     else:
@@ -256,16 +263,22 @@ def save_dummy_default_profile(uploaders_list):
             # Create ContentFile for the image
             image_file = ContentFile(img_io.getvalue(), "default_profile.png")
 
-            # Manually upload the file to S3
-            s3_storage.save(file_key, image_file)
-
 
 def create_dummy_posts(uploaders_list):
-    if os.getenv("IS_TESTING") == "True":
+    if os.getenv("RUNNING_ENV") == "test":
         file_name = "./dummy_django_blog/images_echantillons/billet_1.jpg"
         photo_billet_1 = save_a_local_media_file(file_name, uploaders_list)
         file_name = "./dummy_django_blog/images_echantillons/billet_2.jpg"
         photo_billet_2 = save_a_local_media_file(file_name, uploaders_list)
+        file_name = "./dummy_django_blog/images_echantillons/billet_3.jpg"
+        photo_billet_3 = save_a_local_media_file(file_name, uploaders_list)
+    elif os.getenv("RUNNING_ENV") == "prod" or os.getenv("RUNNING_ENV") == "dev":
+        file_name = "./images_echantillons/billet_1.jpg"
+        photo_billet_1 = save_a_local_media_file(file_name, uploaders_list)
+        file_name = "./images_echantillons/billet_2.jpg"
+        photo_billet_2 = save_a_local_media_file(file_name, uploaders_list)
+        file_name = "./images_echantillons/billet_3.jpg"
+        photo_billet_3 = save_a_local_media_file(file_name, uploaders_list)
     else:
         file_path = "./images_echantillons/billet_1.jpg"
         file_name = "billet_1.jpg"
@@ -273,6 +286,9 @@ def create_dummy_posts(uploaders_list):
         file_path = "./images_echantillons/billet_2.jpg"
         file_name = "billet_2.jpg"
         photo_billet_2 = save_a_s3_media_file(file_path, file_name, uploaders_list)
+        file_path = "./images_echantillons/billet_3.jpg"
+        file_name = "billet_3.jpg"
+        photo_billet_3 = save_a_s3_media_file(file_path, file_name, uploaders_list)
 
     post = Post.objects.create(
         title="Épisode 1 : Jeux de glaces",
@@ -297,6 +313,19 @@ def create_dummy_posts(uploaders_list):
     )
     post.contributors.set([uploaders_list[1]])
     post.image = photo_billet_2
+    post.save()
+
+    post = Post.objects.create(
+        title="Épisode 14 : L'Affaire Protheroe",
+        content="""Une jeune secrétaire est retrouvée pendue dans l'entrée de l'agence de publicité où elle travaillait. 
+        Laurence s'intéresse au patron de la société, Alexandre Protheroe, qu'il soupçonne de harcèlement sexuel envers 
+        ses jeunes et jolies employées. 
+        Alice Avril parvient alors à se faire engager comme secrétaire afin de servir d'appât. 
+        Elle ne tarde pas à subir à son tour les avances du directeur. 
+        Mais avant qu'elle n'ait pu découvrir le moindre secret sur lui, il est assassiné dans son bureau.""",
+    )
+    post.contributors.set([uploaders_list[1]])
+    post.image = photo_billet_3
     post.save()
 
 

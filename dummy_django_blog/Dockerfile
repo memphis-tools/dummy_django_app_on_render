@@ -1,4 +1,4 @@
-FROM python:3.15-rc-alpine3.22 AS builder
+FROM python:3.14.8-alpine AS builder
 
 RUN apk add --no-cache \
     libpq \
@@ -6,7 +6,6 @@ RUN apk add --no-cache \
     sqlite \
     gcc \
     musl-dev \
-    python3-dev \
     make
 
 WORKDIR /build
@@ -17,12 +16,11 @@ RUN pip install -U pip \
     && pip install --no-cache-dir --prefix=/install -r requirements.txt
 
 
-FROM python:3.15-rc-alpine3.22
+FROM python:3.14.8-alpine
 
 RUN apk add --no-cache libpq bash sqlite
 
-RUN mkdir -p /home/dummy-operator \
-    && addgroup -S dummy-operator \
+RUN addgroup -S dummy-operator \
     && adduser -S dummy-operator -G dummy-operator
 
 ENV HOME=/home/dummy-operator

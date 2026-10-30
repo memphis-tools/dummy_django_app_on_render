@@ -35,7 +35,7 @@ services:
         value: admin@bluelake.fr
       - key: DEBUG
         value: 0
-      - key: IS_TESTING
-        value: False
+      - key: RUNNING_ENV
+        value: prod
       - key: TIME_ZONE
         value: Europe/Paris

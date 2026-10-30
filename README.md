@@ -4,9 +4,9 @@
 ![Screenshot](https://img.shields.io/badge/gunicorn-v26.2.0-blue?logo=gunicorn&logoColor=yellow)
 ![Screenshot](https://img.shields.io/badge/render--blue?logo=render&logoColor=yellow)
 ![Screenshot](https://img.shields.io/badge/circleci--blue?logo=circleci&logoColor=yellow)
+[![CircleCI](https://dl.circleci.com/status-badge/img/gh/memphis-tools/dummy_django_app_on_render/tree/main.svg?style=svg)](https://dl.circleci.com/status-badge/redirect/gh/memphis-tools/dummy_django_app_on_render/tree/main)
 ![Screenshot](https://img.shields.io/badge/coveralls--blue?logo=coveralls&logoColor=yellow)
 [![Coverage Status](https://coveralls.io/repos/github/memphis-tools/dummy_django_app_on_render/badge.svg?branch=main)](https://coveralls.io/github/memphis-tools/dummy_django_app_on_render?branch=main)
-[![CircleCI](https://dl.circleci.com/status-badge/img/gh/memphis-tools/dummy_django_app_on_render/tree/main.svg?style=svg)](https://dl.circleci.com/status-badge/redirect/gh/memphis-tools/dummy_django_app_on_render/tree/main)
 ![Known Vulnerabilities](https://snyk.io/test/github/memphis-tools/dummy_django_app_on_render/badge.svg)
 [![CodeQL](https://github.com/memphis-tools/dummy_django_app_on_render/actions/workflows/github-code-scanning/codeql/badge.svg?branch=main)](https://github.com/memphis-tools/dummy_django_app_on_render/actions/workflows/github-code-scanning/codeql)
 [![GitHub Advanced Security](https://github.com/memphis-tools/dummy_django_app_on_render/actions/workflows/agents/github-advanced-security/badge.svg?branch=main)](https://github.com/memphis-tools/dummy_django_app_on_render/actions/workflows/agents/github-advanced-security)
@@ -21,9 +21,7 @@ Locally you will run the application using Docker (with Gunicorn and Nginx).
 
 The CI-CD chain consists in using [Circle-ci](https://circleci.com/).
 
-A dummy Django application for learning purposes, to practise. Focus is set on the backend, do not pay attention to the frontend (HTML, CSS & Javascript).
-
-Also more tests and logging will be added later on.
+A dummy Django application for learning purposes, to practise. All the front-end styling was adapted from an existing source and laid out using Vibe Mistral AI.
 
 You can find this dummy blog app at https://dummy-django-app-on-render.onrender.com/
 
@@ -57,13 +55,13 @@ Coveralls
 ## EXECUTION PREQUISITES
 For a local usage set a .env file such like this:
 
+    export RUNNING_ENV='prod|dev|test'
+    export DEBUG=0
     export SECRET_KEY="superSecretKey"
     export ALLOWED_HOSTS="localhost,127.0.0.1"
-    export DEBUG=0
     export TIME_ZONE="Europe/Paris"
     export DOCKER_HUB_USER='yourDockerhubUsername'
     export DOCKER_HUB_PASSWORD='yourDockerhubPassword'
-    export IS_TESTING=False
     export AWS_ACCESS_KEY_ID="your_aws_access_key_id"
     export AWS_SECRET_ACCESS_KEY="your_aws_secret_access_key"
     export AWS_DEFAULT_REGION="your_aws_region"
@@ -75,7 +73,7 @@ For a local usage set a .env file such like this:
 
 The Django settings.py will load the file (with load_dotenv).
 
-## RUN IT
+## TO RUN IT
 To avoid manual commands, use the dummy "docker-compose-deployment.sh".
 
 To build the images locally:
@@ -86,17 +84,11 @@ To publish the built images on Dockerhub:
 
     ./docker-compose-deployment.sh publish
 
-To run the local images and stop app:
+To run the local images or run the Dockerhub images (think about publish first) and stop app:
 
-    ./docker-compose-deployment.sh run_dev
+    ./docker-compose-deployment.sh run
 
-    ./docker-compose-deployment.sh down_dev
-
-To run the Dockerhub images and stop app:
-
-    ./docker-compose-deployment.sh run_prod
-
-    ./docker-compose-deployment.sh down_prod
+    ./docker-compose-deployment.sh down
 
 Notice: the './docker-compose-deployment.sh cloud' command is only run by Render.
 

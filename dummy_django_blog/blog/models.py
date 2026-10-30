@@ -10,7 +10,7 @@ from .validators import MustContainsDigit
 
 
 def get_upload_to(instance, filename):
-    if os.getenv("IS_TESTING") == "True":
+    if os.getenv("RUNNING_ENV") == "test":
         return os.path.join("dummy_django_blog/media/", filename)
     else:
         return os.path.join("media/", filename)
@@ -48,7 +48,7 @@ class Photo(models.Model):
         Photo.objects.filter(id=photo_id).update(image=file_key)
 
     def save(self, *args, **kwargs):
-        if self.image and os.getenv("IS_TESTING") == "False":
+        if self.image and not(os.getenv("RUNNING_ENV") == "test"):
             # Resize the image and set it to the field
             resized_image = self._resize_image()
             self.image = resized_image

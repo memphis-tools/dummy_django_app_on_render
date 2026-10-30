@@ -151,10 +151,6 @@ AWS_DEFAULT_ACL = None
 AWS_S3_OBJECT_PARAMETERS = {"CacheControl": "max-age=86400"}
 
 # Media files settings
-DEFAULT_FILE_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
-MEDIA_URL = f"https://{AWS_S3_CUSTOM_DOMAIN}/"
-
-
 if not DEBUG and RENDER_EXTERNAL_HOSTNAME is not None:
     STORAGES = {
         "default": {
@@ -170,45 +166,57 @@ if not DEBUG and RENDER_EXTERNAL_HOSTNAME is not None:
             ),
         },
     }
-
-elif os.getenv("IS_TESTING") == "True":
-    STORAGES = {
-        "default": {
-            "BACKEND": "django.core.files.storage.FileSystemStorage",
-        },
-        "staticfiles": {
-            "BACKEND": (
-                "django.contrib.staticfiles.storage.StaticFilesStorage"
-            ),
-        },
-    }
-    MEDIA_ROOT = os.path.join(BASE_DIR, "media")
-
+    MEDIA_URL = f"https://{AWS_S3_CUSTOM_DOMAIN}/"
 else:
-    STORAGES = {
-        "default": {
-            "BACKEND": "storages.backends.s3boto3.S3Boto3Storage",
-            "OPTIONS": {
-                "bucket_name": AWS_STORAGE_BUCKET_NAME,
-                "custom_domain": AWS_S3_CUSTOM_DOMAIN,
+    if os.getenv("RUNNING_ENV") == "test":
+        STORAGES = {
+            "default": {
+                "BACKEND": "django.core.files.storage.FileSystemStorage",
             },
-        },
-        "staticfiles": {
-            "BACKEND": (
-                "django.contrib.staticfiles.storage.StaticFilesStorage"
-            ),
-        },
-    }
+            "staticfiles": {
+                "BACKEND": (
+                    "django.contrib.staticfiles.storage.StaticFilesStorage"
+                ),
+            },
+        }
+        MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+    else:
+        STORAGES = {
+            "default": {
+                "BACKEND": "django.core.files.storage.FileSystemStorage",
+            },
+            "staticfiles": {
+                "BACKEND": (
+                    "django.contrib.staticfiles.storage.StaticFilesStorage"
+                ),
+            },
+        }
+       
 
 # Default primary key field type
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
-EMAIL_HOST = os.getenv("EMAIL_HOST", "localhost")
-EMAIL_PORT = os.getenv("EMAIL_PORT", 25)
-EMAIL_USE_TLS = os.getenv("EMAIL_USE_TLS", False) in ["1", "true"]
-EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER", "")
-EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD", "")
-DEFAULT_FROM_EMAIL = os.getenv("DEFAULT_FROM_EMAIL", "noreply@dummy-django.dev")
-
 IMAGE_PREFERED_SIZE = (600, 400)
+
+MAILERS = {
+    "default": {
+        "BACKEND": "django.core.mail.backends.smtp.EmailBackend",
+        "OPTIONS": {
+            "host": os.getenv("EMAIL_HOST", "localhost"),
+            "port": int(os.getenv("EMAIL_PORT", "25")),
+            "use_tls": os.getenv("EMAIL_USE_TLS", "false").lower()
+            in ("1", "true"),
+            "username": os.getenv("EMAIL_HOST_USER", ""),
+            "password": os.getenv("EMAIL_HOST_PASSWORD", ""),
+        },
+    },
+}
+
+DEFAULT_FROM_EMAIL = os.getenv(
+    "DEFAULT_FROM_EMAIL",
+    "noreply@localhost",
+)
+
+
+
+
