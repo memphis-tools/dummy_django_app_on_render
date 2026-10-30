@@ -2,6 +2,8 @@
 
 set -eu
 
+args=("$@")
+
 if [[ "$RUNNING_ENV" == "dev" ]] || [[ "$RUNNING_ENV" == "prod" ]] || [[ "$RUNNING_ENV" == "test" ]]; then
   source .env
 fi
