@@ -2,7 +2,9 @@
 
 set -eu
 
-source .env
+if [[ "$RUNNING_ENV" == "dev" ]] || [[ "$RUNNING_ENV" == "prod" ]] || [[ "$RUNNING_ENV" == "test" ]]; then
+  source .env
+fi
 IMAGE_NAME="$DOCKER_HUB_USER/public_repo"
 
 function display_arg_error {
