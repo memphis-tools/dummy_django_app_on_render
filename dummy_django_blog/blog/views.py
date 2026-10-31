@@ -93,12 +93,10 @@ def contact_admin_confirm(request, token):
             "Le lien de confirmation a expire, merci de remplir a nouveau "
             "le formulaire.",
         )
-        logs_context = {
-            "current_user": f"{data['username']}",
-            "email": f"{data['email']}",
-            "contact_message": f"{data['message']}",
-        }
-        log_events.log_event("INFO - Lien de confirmation expiré pour contact.", logs_context)
+        log_events.log_event(
+            "INFO - Lien de confirmation expire pour contact.",
+            {"token_prefix": token[:20]},   # data n'existe pas : on logge autre chose
+        )
         return redirect("contact_admin")
     except (BadSignature, json.JSONDecodeError):
         messages.add_message(
@@ -106,12 +104,10 @@ def contact_admin_confirm(request, token):
             messages.ERROR,
             "Lien de confirmation invalide.",
         )
-        logs_context = {
-            "current_user": f"{data['username']}",
-            "email": f"{data['email']}",
-            "contact_message": f"{data['message']}",
-        }
-        log_events.log_event("INFO - Lien de confirmation invalide pour contact.", logs_context)
+        log_events.log_event(
+            "INFO - Lien de confirmation invalide pour contact.",
+            {"token_prefix": token[:20]},
+        )
         return redirect("contact_admin")
 
     # L'adresse email du visiteur est désormais prouvée : envoi réel.
