@@ -40,15 +40,15 @@ def contact_admin(request):
         if form.is_valid():
             username = form.cleaned_data["username"]
             email = form.cleaned_data["email"]
-            message = form.cleaned_data["message"]
+            contact_message = form.cleaned_data["message"]
 
             # Le message n'est PAS encore envoyé : il est signé dans un token
             # et le visiteur doit confirmer via le lien reçu dans sa boîte.
             payload = json.dumps(
-                {"username": username, "email": email, "message": message}
+                {"username": username, "email": email, "message": contact_message}
             )
             token = dumps(
-                {"username": username, "email": email, "message": message},
+                {"username": username, "email": email, "message": contact_message},
                 salt="contact_admin",  # optionnel mais propre
             )
             
@@ -77,9 +77,9 @@ def contact_admin(request):
                 "cliquez sur le lien pour transmettre votre message.",
             )
             logs_context = {
-                "current_user": f"{username}",
-                "email": f"{email}",
-                "contact_message": f"{message}",
+                "contact_user": username,
+                "contact_email": email,
+                "contact_message": message,
             }
             log_events.log_event("INFO - Envoi d'un lien de confirmation pour contact.", logs_context)
             return redirect("feed")
