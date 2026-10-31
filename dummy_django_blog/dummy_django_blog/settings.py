@@ -227,21 +227,6 @@ SITE_URL = os.getenv("SITE_URL", "http://localhost:5555")
 LOGGING = {
     "version": 1,
     "disable_existing_loggers": False,
-    "formatters": {
-        "simple": {"format": "{levelname} {asctime} {name} {message}", "style": "{"},
-    },
-    "handlers": {
-        "console": {"class": "logging.StreamHandler", "formatter": "simple"},
-    },
-    "root": {
-        "handlers": ["console"],
-        "level": "INFO",   # ← c'est ici que ça se joue
-    },
-}
-
-LOGGING = {
-    "version": 1,
-    "disable_existing_loggers": False,
     'handlers': {
         'logtail': {
             'class': 'logtail.LogtailHandler',
