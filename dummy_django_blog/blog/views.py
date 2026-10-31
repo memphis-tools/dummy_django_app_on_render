@@ -24,6 +24,16 @@ CONFIRMATION_TIMEOUT = 30 * 60
 
 def contact_admin(request):
     """Contact form with a signed double opt-in confirmation link"""
+    # blog/views.py — dans contact_admin, tout en haut de la vue
+    import logging
+    logging.getLogger("debug_env").error(
+        "ENV CHECK host=%s port=%s user=%s tls=%s site_url=%s",
+        os.getenv("EMAIL_HOST"),
+        os.getenv("EMAIL_PORT"),
+        os.getenv("EMAIL_HOST_USER"),
+        os.getenv("EMAIL_USE_TLS"),
+        settings.SITE_URL,
+    )
     form = forms.ContactForm()
     if request.method == "POST":
         form = forms.ContactForm(request.POST)

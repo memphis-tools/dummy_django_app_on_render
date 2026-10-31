@@ -1,12 +1,12 @@
 databases:
-  - name: dummy_django_blog_on_render
+  - name: dummy_django_app_on_render
     user: admin
     plan: free
     region: frankfurt
 
 services:
   - type: web
-    name: dummy_django_blog_on_render
+    name: dummy_django_app_on_render
     plan: free
     region: frankfurt
     runtime: python
@@ -15,7 +15,7 @@ services:
     envVars:
       - key: DATABASE_URL
         fromDatabase:
-          name: dummy_django_blog_on_render
+          name: dummy_django_app_on_render
           property: connectionString
       - key: WEB_CONCURRENCY
         value: 4
@@ -39,3 +39,4 @@ services:
         value: cloud
       - key: TIME_ZONE
         value: Europe/Paris
+      
