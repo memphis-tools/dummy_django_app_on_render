@@ -8,11 +8,8 @@ from datetime import timedelta
 import dj_database_url
 
 
-try:
+if os.path.exists(".env"):
     load_dotenv(".env")
-except FileNotFoundError as err:
-    print("File .env not found sir")
-    sys.exit(1)
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
