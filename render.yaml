@@ -36,6 +36,6 @@ services:
       - key: DEBUG
         value: 0
       - key: RUNNING_ENV
-        value: prod
+        value: cloud
       - key: TIME_ZONE
         value: Europe/Paris
