@@ -1,45 +1,144 @@
 """The dummy blog routes"""
 
 import os
+import json
 import random
 from itertools import chain
 from django.db.models import Q
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required, permission_required
-from django.core.mail import send_mail
+from django.core.mail import send_mail, EmailMessage
+from django.core.signing import TimestampSigner, BadSignature, SignatureExpired, dumps, loads
 from django.contrib import messages
-from django.forms import formset_factory
+from django.forms import formset_factory    
 from django.core.paginator import Paginator
 from django.conf import settings
+from django.urls import reverse
 
+from . import log_events
 from . import forms
 from . import models
 
+# lien valide 30 minutes
+CONFIRMATION_TIMEOUT = 30 * 60
 
 def contact_admin(request):
-    """A dummy contact_admin route"""
+    """Contact form with a signed double opt-in confirmation link"""
     form = forms.ContactForm()
     if request.method == "POST":
         form = forms.ContactForm(request.POST)
         if form.is_valid():
+            username = form.cleaned_data["username"]
+            email = form.cleaned_data["email"]
+            message = form.cleaned_data["message"]
+
+            # Le message n'est PAS encore envoyé : il est signé dans un token
+            # et le visiteur doit confirmer via le lien reçu dans sa boîte.
+            payload = json.dumps(
+                {"username": username, "email": email, "message": message}
+            )
+            token = dumps(
+                {"username": username, "email": email, "message": message},
+                salt="contact_admin",  # optionnel mais propre
+            )
+            
+            confirm_url = f"{settings.SITE_URL}{reverse('contact_admin_confirm', args=[token])}"
+
+            # DEFAULT_FROM_EMAIL must be a real authenticated sender set on twilio sendgrid;
             send_mail(
-                subject=f"Email from {form.cleaned_data['username']}",
-                from_email=form.cleaned_data["email"],
-                message=form.cleaned_data["message"],
-                recipient_list=["sanjuro@localhost"],
+                subject="Confirmez votre message",
+                message=(
+                    f"Bonjour {username},\n\n"
+                    f"Pour transmettre votre message a l'administrateur, "
+                    f"merci de confirmer votre demande en cliquant sur ce lien "
+                    f"(valide {CONFIRMATION_TIMEOUT // 60} minutes) :\n\n"
+                    f"{confirm_url}\n\n"
+                    f"Si vous n'etes pas a l'origine de cette demande, "
+                    f"ignorez simplement cet email."
+                ),
+                from_email=settings.DEFAULT_FROM_EMAIL,
+                recipient_list=[email],
                 fail_silently=False,
             )
             messages.add_message(
-                request, messages.INFO, "Mail envoyé vous aurez vite un retour"
+                request,
+                messages.INFO,
+                "Un email de confirmation vous a ete envoye : "
+                "cliquez sur le lien pour transmettre votre message.",
             )
+            logs_context = {
+                "current_user": f"{username}",
+                "email": f"{email}",
+                "contact_message": f"{message}",
+            }
+            log_events.log_event("INFO - Envoi d'un lien de confirmation pour contact.", logs_context)
             return redirect("feed")
         else:
             messages.add_message(
                 request,
                 messages.ERROR,
-                "Mail n'a pas pu être envoyé, merci d'essayer de nouveau",
+                "Mail n'a pas pu etre envoye, merci d'essayer de nouveau",
             )
     return render(request, "blog/contact_admin.html", context={"form": form})
+
+
+def contact_admin_confirm(request, token):
+    """Confirm the signed token then forward the message to the admin"""
+    try:
+        data = loads(token, max_age=CONFIRMATION_TIMEOUT, salt="contact_admin")
+    except SignatureExpired:
+        messages.add_message(
+            request,
+            messages.ERROR,
+            "Le lien de confirmation a expire, merci de remplir a nouveau "
+            "le formulaire.",
+        )
+        logs_context = {
+            "current_user": f"{data['username']}",
+            "email": f"{data['email']}",
+            "contact_message": f"{data['message']}",
+        }
+        log_events.log_event("INFO - Lien de confirmation expiré pour contact.", logs_context)
+        return redirect("contact_admin")
+    except (BadSignature, json.JSONDecodeError):
+        messages.add_message(
+            request,
+            messages.ERROR,
+            "Lien de confirmation invalide.",
+        )
+        logs_context = {
+            "current_user": f"{data['username']}",
+            "email": f"{data['email']}",
+            "contact_message": f"{data['message']}",
+        }
+        log_events.log_event("INFO - Lien de confirmation invalide pour contact.", logs_context)
+        return redirect("contact_admin")
+
+    # L'adresse email du visiteur est désormais prouvée : envoi réel.
+    EmailMessage(
+        subject=(
+            f"[Contact confirme] Message de "
+            f"{data['username']} <{data['email']}>"
+        ),
+        body=data["message"],
+        from_email=settings.DEFAULT_FROM_EMAIL,
+        to=[settings.DEFAULT_TO_EMAIL],
+        reply_to=[data["email"]],
+    ).send(fail_silently=False)
+
+    logs_context = {
+            "current_user": f"{data['username']}",
+            "email": f"{data['email']}",
+            "contact_message": f"{data['message']}",
+    }
+    log_events.log_event("INFO - Transmission d'un message de contact.", logs_context)
+
+    messages.add_message(
+        request,
+        messages.SUCCESS,
+        "Votre message a bien ete transmis. Merci !",
+    )
+    return redirect("feed")
 
 
 def home(request):

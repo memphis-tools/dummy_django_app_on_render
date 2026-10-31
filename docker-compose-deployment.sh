@@ -2,9 +2,8 @@
 
 set -eu
 
-args=("$@")
-
-if [[ "$RUNNING_ENV" == "dev" ]] || [[ "$RUNNING_ENV" == "prod" ]] || [[ "$RUNNING_ENV" == "test" ]]; then
+ARGS=("$@")
+if [[ -e ./.env ]]; then
   source .env
 fi
 IMAGE_NAME="$DOCKER_HUB_USER/public_repo"
@@ -27,7 +26,7 @@ function update_application {
   docker compose -f docker-compose.dev.yml exec django python manage.py init_app 
 }
 
-if [ ${#args[@]} -eq 0 ]
+if [ ${#ARGS[@]} -eq 0 ]
 then
   display_arg_error
 else

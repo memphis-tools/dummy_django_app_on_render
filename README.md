@@ -43,6 +43,10 @@ Circle-CI
 
 Coveralls
 
+Twilio SendGrid
+
+Betterstack
+
 # HOW USE IT ?
     git clone https://github.com/memphis-tools/dummy_django_app_on_render.git
 
@@ -53,9 +57,9 @@ Coveralls
     source $(poetry env info --path)/bin/activate
 
 ## EXECUTION PREQUISITES
-For a local usage set a .env file such like this:
+For a **local** usage set a .env file such like this (EMAIL_HOST_USER=apikey mandatory for SendGrid usage):
 
-    export RUNNING_ENV='prod|dev|test'
+    export RUNNING_ENV='dev|test'
     export DEBUG=0
     export SECRET_KEY="superSecretKey"
     export ALLOWED_HOSTS="localhost,127.0.0.1"
@@ -65,11 +69,17 @@ For a local usage set a .env file such like this:
     export AWS_ACCESS_KEY_ID="your_aws_access_key_id"
     export AWS_SECRET_ACCESS_KEY="your_aws_secret_access_key"
     export AWS_DEFAULT_REGION="your_aws_region"
+    export SENDGRID_API_KEY="yourSendGridApiKey"
     export EMAIL_HOST="localhost"
     export EMAIL_PORT=25
     export EMAIL_USE_TLS=False
-    export EMAIL_HOST_USER="admin@django_app_on_render.dev"
-    export EMAIL_HOST_PASSWORD=""
+    export DEFAULT_FROM_EMAIL="theFromValue"
+    export DEFAULT_TO_EMAIL="aValidSendGridSenderEmail"
+    export EMAIL_HOST_USER=apikey
+    export EMAIL_HOST_PASSWORD=$SENDGRID_API_KEY
+    export BETTERSTACK_SOURCE_TOKEN="yourBetterstackSourceToken"
+    export BETTERSTACK_INGESTING_HOST="yourBetterstackIngestionHostURL"
+    export SITE_URL=""
 
 The Django settings.py will load the file (with load_dotenv).
 

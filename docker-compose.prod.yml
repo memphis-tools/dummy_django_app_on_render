@@ -17,12 +17,15 @@ services:
       - EMAIL_PORT
       - EMAIL_USE_TLS
       - DEFAULT_FROM_EMAIL
+      - DEFAULT_TO_EMAIL
       - EMAIL_HOST_USER
       - EMAIL_HOST_PASSWORD
       - AWS_ACCESS_KEY_ID
       - AWS_SECRET_ACCESS_KEY
       - AWS_DEFAULT_REGION
       - SENDGRID_API_KEY
+      - BETTERSTACK_SOURCE_TOKEN
+      - BETTERSTACK_INGESTING_HOST
 
   nginx:
     image: memphistools/public_repo:dummy_django_app_on_render_nginx

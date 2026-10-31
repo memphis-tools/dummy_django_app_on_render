@@ -73,7 +73,7 @@ def test_contact_admin_post_with_invalid_form(authenticate_user):
     assert "blog/contact_admin.html" in templates
     assert response.status_code == 200
     assert (
-        "Mail n&#x27;a pas pu être envoyé, merci d&#x27;essayer de nouveau"
+        "Mail n&#x27;a pas pu etre envoye"
         in response.content.decode("utf-8")
     )
 
@@ -92,7 +92,7 @@ def test_contact_admin_post_with_valid_form(authenticate_user):
     templates = [template.name for template in response.templates]
     assert "blog/feed.html" in templates
     assert response.status_code == 200
-    assert "Mail envoyé vous aurez vite un retour" in response.content.decode("utf-8")
+    assert "Un email de confirmation vous a ete envoye" in response.content.decode("utf-8")
 
 
 @pytest.mark.django_db

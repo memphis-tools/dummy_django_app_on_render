@@ -44,6 +44,11 @@ urlpatterns = [
     path("users/follow/", blog.views.follow_user, name="follow_user"),
     path("feed/", blog.views.feed, name="feed"),
     path("contact_admin/", blog.views.contact_admin, name="contact_admin"),
+    path(
+        "contact_admin/confirm/<str:token>/",
+        blog.views.contact_admin_confirm,
+        name="contact_admin_confirm",
+    ),
     path("signin/", authentication.views.signin, name="signin"),
     path(
         "profile/update/",
