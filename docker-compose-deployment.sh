@@ -75,10 +75,8 @@ else
       python manage.py init_app
       gunicorn dummy_django_blog.wsgi:application --bind 0.0.0.0:8000
       ;;
-    "down_dev" )
+    "down" )
       docker compose -f docker-compose.dev.yml down -v
-      ;;
-    "down_prod" )
       docker compose -f docker-compose.prod.yml down -v
       ;;
   esac
