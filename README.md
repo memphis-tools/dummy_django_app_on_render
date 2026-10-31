@@ -57,9 +57,9 @@ Betterstack
     source $(poetry env info --path)/bin/activate
 
 ## EXECUTION PREQUISITES
-For a **local** usage set a .env file such like this (EMAIL_HOST_USER=apikey mandatory for SendGrid usage):
+For a **local** usage set a .env file such like this :
 
-    export RUNNING_ENV='dev|test'
+    export RUNNING_ENV='dev|prod|test'
     export DEBUG=0
     export SECRET_KEY="superSecretKey"
     export ALLOWED_HOSTS="localhost,127.0.0.1"
@@ -70,9 +70,9 @@ For a **local** usage set a .env file such like this (EMAIL_HOST_USER=apikey man
     export AWS_SECRET_ACCESS_KEY="your_aws_secret_access_key"
     export AWS_DEFAULT_REGION="your_aws_region"
     export SENDGRID_API_KEY="yourSendGridApiKey"
-    export EMAIL_HOST="localhost"
-    export EMAIL_PORT=25
-    export EMAIL_USE_TLS=False
+    export EMAIL_HOST="smtp.sendgrid.net"
+    export EMAIL_PORT=587
+    export EMAIL_USE_TLS=True
     export DEFAULT_FROM_EMAIL="theFromValue"
     export DEFAULT_TO_EMAIL="aValidSendGridSenderEmail"
     export EMAIL_HOST_USER=apikey
@@ -80,6 +80,10 @@ For a **local** usage set a .env file such like this (EMAIL_HOST_USER=apikey man
     export BETTERSTACK_SOURCE_TOKEN="yourBetterstackSourceToken"
     export BETTERSTACK_INGESTING_HOST="yourBetterstackIngestionHostURL"
     export SITE_URL=""
+
+EMAIL_HOST_USER=apikey mandatory for SendGrid usage.
+
+SITE_URL="https://dummy-django-app-on-render.onrender.com" (for example).
 
 The Django settings.py will load the file (with load_dotenv).
 
