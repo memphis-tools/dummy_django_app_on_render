@@ -79,7 +79,7 @@ def contact_admin(request):
             logs_context = {
                 "contact_user": username,
                 "contact_email": email,
-                "contact_message": message,
+                "contact_message": contact_message,
             }
             log_events.log_event("INFO - Envoi d'un lien de confirmation pour contact.", logs_context)
             return redirect("feed")
