@@ -58,6 +58,8 @@ jobs:
           name: Run Tests
           command: |
             export RUNNING_ENV='test'
+            export BETTERSTACK_SOURCE_TOKEN='nothingelsematters'
+            export BETTERSTACK_INGESTING_HOST='nothingmorematters'
             poetry run coverage run -m pytest ./dummy_django_blog/
             poetry run coverage report
             poetry run coverage html
