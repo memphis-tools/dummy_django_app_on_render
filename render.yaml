@@ -18,7 +18,7 @@ services:
           name: dummy_django_app_on_render
           property: connectionString
       - key: WEB_CONCURRENCY
-        value: 4
+        value: 2
       - key: PYTHON_VERSION
         value: 3.14.8
       - key: POETRY_VERSION
