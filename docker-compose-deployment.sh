@@ -73,7 +73,7 @@ else
       python manage.py migrate --noinput
       python manage.py collectstatic --no-input --clear
       python manage.py init_app
-      gunicorn dummy_django_blog.wsgi:application --bind 0.0.0.0:8000
+      # gunicorn dummy_django_blog.wsgi:application --bind 0.0.0.0:8000
       ;;
     "down" )
       docker compose -f docker-compose.dev.yml down -v
