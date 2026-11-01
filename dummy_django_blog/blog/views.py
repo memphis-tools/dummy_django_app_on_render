@@ -18,6 +18,7 @@ from django.urls import reverse
 from . import log_events
 from . import forms
 from . import models
+from . import sendgrid_via_https
 
 # lien valide 30 minutes
 CONFIRMATION_TIMEOUT = 30 * 60
@@ -53,23 +54,25 @@ def contact_admin(request):
             )
             
             confirm_url = f"{settings.SITE_URL}{reverse('contact_admin_confirm', args=[token])}"
-
-            # DEFAULT_FROM_EMAIL must be a real authenticated sender set on twilio sendgrid;
-            send_mail(
-                subject="Confirmez votre message",
-                message=(
-                    f"Bonjour {username},\n\n"
-                    f"Pour transmettre votre message a l'administrateur, "
-                    f"merci de confirmer votre demande en cliquant sur ce lien "
-                    f"(valide {CONFIRMATION_TIMEOUT // 60} minutes) :\n\n"
-                    f"{confirm_url}\n\n"
-                    f"Si vous n'etes pas a l'origine de cette demande, "
-                    f"ignorez simplement cet email."
-                ),
-                from_email=settings.DEFAULT_FROM_EMAIL,
-                recipient_list=[email],
-                fail_silently=False,
+            confirmation_body = (
+                f"Bonjour {username},\n\n"
+                f"Pour transmettre votre message a l'administrateur, "
+                f"merci de confirmer votre demande en cliquant sur ce lien "
+                f"(valide {CONFIRMATION_TIMEOUT // 60} minutes) :\n\n"
+                f"{confirm_url}\n\n"
+                f"Si vous n'etes pas a l'origine de cette demande, "
+                f"ignorez simplement cet email."
             )
+            if os.getenv("RUNNING_ENV") == "cloud":
+                send_via_sendgrid(email, "Confirmez votre message", confirmation_body)
+            else:
+                send_mail(
+                    subject="Confirmez votre message",
+                    message=confirmation_body,
+                    from_email=settings.DEFAULT_FROM_EMAIL,
+                    recipient_list=[email],
+                    fail_silently=False,
+                )
             messages.add_message(
                 request,
                 messages.INFO,
@@ -120,22 +123,26 @@ def contact_admin_confirm(request, token):
         )
         return redirect("contact_admin")
 
-    # L'adresse email du visiteur est désormais prouvée : envoi réel.
-    EmailMessage(
-        subject=(
-            f"[Contact confirme] Message de "
-            f"{data['username']} <{data['email']}>"
-        ),
-        body=data["message"],
-        from_email=settings.DEFAULT_FROM_EMAIL,
-        to=[settings.DEFAULT_TO_EMAIL],
-        reply_to=[data["email"]],
-    ).send(fail_silently=False)
+    contact_subject = (
+        f"[Contact confirme] Message de "
+        f"{data['username']} <{data['email']}>"
+    )
+    if os.getenv("RUNNING_ENV") == "cloud":
+        send_via_sendgrid(email, contact_subject, data["message"], reply_to=data["email"])
+    else:
+        # L'adresse email du visiteur est désormais prouvée : envoi réel.
+        EmailMessage(
+            subject=contact_subject,
+            body=data["message"],
+            from_email=settings.DEFAULT_FROM_EMAIL,
+            to=[settings.DEFAULT_TO_EMAIL],
+            reply_to=[data["email"]],
+        ).send(fail_silently=False)
 
     logs_context = {
-            "current_user": f"{data['username']}",
-            "email": f"{data['email']}",
-            "contact_message": f"{data['message']}",
+        "current_user": f"{data['username']}",
+        "email": f"{data['email']}",
+        "contact_message": f"{data['message']}",
     }
     log_events.log_event("INFO - Transmission d'un message de contact.", logs_context)
 
