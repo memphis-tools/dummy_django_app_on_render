@@ -240,3 +240,5 @@ LOGGING = {
         },
     },
 }
+
+SENDGRID_API_KEY = os.getenv("SENDGRID_API_KEY", "")
