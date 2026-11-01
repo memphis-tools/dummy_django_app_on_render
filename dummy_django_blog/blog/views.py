@@ -18,7 +18,7 @@ from django.urls import reverse
 from . import log_events
 from . import forms
 from . import models
-from . import sendgrid_via_https
+from . import sendgrid
 
 # lien valide 30 minutes
 CONFIRMATION_TIMEOUT = 30 * 60
@@ -64,7 +64,7 @@ def contact_admin(request):
                 f"ignorez simplement cet email."
             )
             if os.getenv("RUNNING_ENV") == "cloud":
-                send_via_sendgrid(email, "Confirmez votre message", confirmation_body)
+                sendgrid.send_via_sendgrid(email, "Confirmez votre message", confirmation_body)
             else:
                 send_mail(
                     subject="Confirmez votre message",
@@ -128,7 +128,7 @@ def contact_admin_confirm(request, token):
         f"{data['username']} <{data['email']}>"
     )
     if os.getenv("RUNNING_ENV") == "cloud":
-        send_via_sendgrid(email, contact_subject, data["message"], reply_to=data["email"])
+        sendgrid.send_via_sendgrid(email, contact_subject, data["message"], reply_to=data["email"])
     else:
         # L'adresse email du visiteur est désormais prouvée : envoi réel.
         EmailMessage(
