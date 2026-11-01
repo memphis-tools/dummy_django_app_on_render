@@ -128,7 +128,7 @@ def contact_admin_confirm(request, token):
         f"{data['username']} <{data['email']}>"
     )
     if os.getenv("RUNNING_ENV") == "cloud":
-        sendgrid.send_via_sendgrid(email, contact_subject, data["message"], reply_to=data["email"])
+        sendgrid.send_via_sendgrid(settings.DEFAULT_TO_EMAIL, contact_subject, data["message"], reply_to=data["email"])
     else:
         # L'adresse email du visiteur est désormais prouvée : envoi réel.
         EmailMessage(
