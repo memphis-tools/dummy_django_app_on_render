@@ -949,11 +949,12 @@ document.addEventListener("DOMContentLoaded", function() {
        sa propre lane verticale -> jamais superposees. Une fois les 3
        posees, on attend 4 secondes puis on en affiche 3 autres avec le
        meme deroule, en boucle. */
-    /* lanes calees sur le coin bas gauche du plateau (colonne des post-its) */
+    /* coin bas gauche : les 3 fiches cote a cote, espacees (cliquables),
+       sous le 3e post-it (conteneur a top 72%) */
     var lanes = [
-      { top: [2, 14], left: [10, 42] },
-      { top: [36, 48], left: [10, 42] },
-      { top: [70, 82], left: [10, 42] }
+      { top: [10, 22], left: [3, 9] },
+      { top: [10, 22], left: [36, 42] },
+      { top: [10, 22], left: [69, 75] }
     ];
     people.forEach(function(el) { el.style.display = "none"; });
     order.forEach(function(idx) {
