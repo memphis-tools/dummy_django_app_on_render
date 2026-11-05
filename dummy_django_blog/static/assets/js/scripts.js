@@ -949,11 +949,11 @@ document.addEventListener("DOMContentLoaded", function() {
        sa propre lane verticale -> jamais superposees. Une fois les 3
        posees, on attend 4 secondes puis on en affiche 3 autres avec le
        meme deroule, en boucle. */
-    /* lanes calees sur la colonne gauche (4e ligne sous les 3 post-its) */
+    /* lanes calees sur le coin bas gauche du plateau (colonne des post-its) */
     var lanes = [
-      { top: [8, 26], left: [6, 32] },
-      { top: [36, 54], left: [6, 32] },
-      { top: [62, 80], left: [6, 32] }
+      { top: [2, 14], left: [10, 42] },
+      { top: [36, 48], left: [10, 42] },
+      { top: [70, 82], left: [10, 42] }
     ];
     people.forEach(function(el) { el.style.display = "none"; });
     order.forEach(function(idx) {
