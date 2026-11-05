@@ -5293,90 +5293,20 @@ body a:hover, body a:focus {
   .feed-fiche-people-a-propos { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
 }
 
-/* ===== #218 : 1ere section en GRILLE 3 COLONNES — plateau et post-its au
-       meme niveau de profondeur : [3 post-its] [CARTE] [3 post-its] ===== */
-.feed-evidence-slot--lille {
-  display: grid !important;
-  grid-template-columns: minmax(168px, 1fr) minmax(0, 5fr) minmax(168px, 1fr) !important;
-  gap: 14px;
-  align-items: start;
-  height: auto !important;
-  max-height: none !important;
-}
-/* colonne du milieu : le plateau (carte + pastilles + loader superposes) */
-.feed-plateau-center { grid-column: 2; grid-row: 1; position: relative; }
-.feed-plateau-center .feed-lille-map {
-  position: static !important;
-  width: 100% !important;
-  max-width: none !important;
-  left: auto !important;
-  margin: 0 !important;
-}
-.feed-plateau-center .feed-lille-plan-loader {
-  position: absolute !important;
-  inset: 0 !important;
-  left: 0 !important;
-  width: 100% !important;
-}
-.feed-plateau-center .feed-map-hotspots {
-  position: absolute !important;
-  inset: 0 !important;
-  left: 0 !important;
-  width: 100% !important;
-}
-/* colonnes laterales : 3 post-its empiles chacun */
-.feed-visitor-col { display: flex; flex-direction: column; gap: 12px; min-width: 0; }
-.feed-visitor-col--left  { grid-column: 1; grid-row: 1; }
-.feed-visitor-col--right { grid-column: 3; grid-row: 1; }
-.feed-visitor-col .feed-visitor-note {
-  position: static !important;
-  width: 100% !important;
-  height: auto !important;
-  min-height: 66px;
-  margin: 0 !important;
-  left: auto !important;
-  right: auto !important;
-  top: auto !important;
-}
-/* Fiche technique : 4e ligne, sous les 3 post-its de gauche */
-.feed-fiche-zone { position: relative; min-height: 320px; flex: 1 1 auto; }
-.feed-visitor-col--left .feed-fiche-people {
-  position: absolute !important;
-  inset: 0 !important;
-  left: 0 !important;
-  width: auto !important;
-}
-
-/* ===== #218 : des que le cote a cote n'est plus possible (<=1199px) :
-       le plateau passe en pleine largeur (ligne 1), les colonnes de
-       post-its passent aux lignes suivantes, CHACUNE DANS SA COLONNE ===== */
-@media (max-width: 1199px) {
-  .feed-evidence-slot--lille {
-    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
-  }
-  .feed-plateau-center { grid-column: 1 / -1; grid-row: 1; }
-  .feed-visitor-col--left  { grid-column: 1; grid-row: 2; }
-  .feed-visitor-col--right { grid-column: 2; grid-row: 2; }
-  /* fiches reportees en A PROPOS : la zone reste vide sur le plateau */
-  .feed-visitor-col--left .feed-fiche-zone { display: none; }
-}
-@media (max-width: 600px) {
-  .feed-evidence-slot--lille { grid-template-columns: 1fr !important; }
-  .feed-visitor-col--left  { grid-column: 1; grid-row: 2; }
-  .feed-visitor-col--right { grid-column: 1; grid-row: 3; }
-}
-
-/* ===== #218 : A PROPOS <1200px — fiches SOUS la ligne "Fiche technique",
-       ensemble coherent avec le reste de la section ===== */
+/* ===== #219 : A PROPOS <1200px — fiches SOUS la ligne "Fiche technique",
+       avant "Tournage", ensemble coherent avec le reste de la section ===== */
 @media (max-width: 1199px) {
   .a_propos_container h4:first-of-type { margin-bottom: 4px; }
   .feed-fiche-people-a-propos {
     margin-top: 6px;
-    padding-top: 10px;
+    padding-top: 12px;
     border-top: 1px dashed #ea9ef05e;
+    margin-bottom: 18px;
   }
+  .feed-fiche-people-a-propos .feed-fiche-person { text-align: center; }
   .feed-fiche-people-a-propos .feed-fiche-person figcaption {
     font-size: 0.66rem;
+    line-height: 1.35;
   }
   .feed-fiche-people-a-propos .feed-fiche-person img,
   .feed-fiche-people-a-propos .feed-fiche-photo {
@@ -5384,5 +5314,6 @@ body a:hover, body a:focus {
     height: auto !important;
     aspect-ratio: 4 / 5;
     object-fit: cover;
+    border-radius: 4px;
   }
 }
