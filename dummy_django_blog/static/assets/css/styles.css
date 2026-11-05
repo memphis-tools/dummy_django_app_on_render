@@ -5196,3 +5196,49 @@ body a:hover, body a:focus {
 @media (prefers-reduced-motion: reduce) {
   .suspect-card.suspect-dropped, .suspect-card.suspect-out { animation-duration: 0.01s; }
 }
+
+/* ===== #216 : navbar sous-menus — hover : fond rose, police BLANCHE ===== */
+.navbar ul.dropdown-menu li a.dropdown-item:hover,
+.navbar ul.dropdown-menu li a.dropdown-item:focus,
+.navbar ul.dropdown-menu li a.dropdown-item:active,
+.navbar .custom-dropdown ul.dropdown-menu a.dropdown-item:hover,
+.navbar .custom-dropdown ul.dropdown-menu a.dropdown-item:focus,
+.navbar .custom-dropdown ul.dropdown-menu a.dropdown-item:active {
+  background-color: #ea9ef0 !important;
+  background: #ea9ef0 !important;
+  color: #ffffff !important;
+  text-decoration: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+.navbar ul.dropdown-menu li a.dropdown-item:hover i,
+.navbar ul.dropdown-menu li a.dropdown-item:focus i,
+.navbar ul.dropdown-menu li a.dropdown-item:hover * {
+  color: #ffffff !important;
+  text-decoration: none !important;
+}
+
+/* ===== #216 : A PROPOS — Fiche technique grille 4/ligne, petits ecrans seulement ===== */
+@media (min-width: 992px) {
+  .feed-fiche-people-a-propos { display: none !important; }
+}
+@media (max-width: 991px) {
+  .feed-fiche-people-a-propos {
+    display: grid !important;
+    grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+    gap: 12px 10px !important;
+    width: 100% !important;
+    max-width: 760px;
+    margin: 0 auto;
+  }
+  .feed-fiche-people-a-propos .feed-fiche-person { width: 100% !important; }
+}
+@media (max-width: 700px) {
+  .feed-fiche-people-a-propos { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
+}
+
+/* ===== #216 : award-text en blanc ===== */
+.award-text, .award-text * { color: #ffffff !important; }
+
+/* ===== #216 : /photos/ — icone de profil du proposeur ===== */
+.photos-poster-icon { color: #ea9ef0; margin-right: 4px; font-size: 0.9em; }
