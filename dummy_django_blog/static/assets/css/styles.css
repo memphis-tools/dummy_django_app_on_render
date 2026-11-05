@@ -5242,3 +5242,53 @@ body a:hover, body a:focus {
 
 /* ===== #216 : /photos/ — icone de profil du proposeur ===== */
 .photos-poster-icon { color: #ea9ef0; margin-right: 4px; font-size: 0.9em; }
+
+/* ===== #217 : post-its — des que l'ecran ne permet plus le cote a cote avec
+       le plateau, ils passent EN DESSOUS en lignes/colonnes, jamais superposes ===== */
+/* (annule le masquage <=991px de #213 : ils restent visibles, en flux) */
+@media (max-width: 991px) {
+  .feed-evidence-slot--lille .feed-visitor-notes {
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+}
+
+/* ===== #217 : feed-fiche-people — bande droite bornee, ne deborde plus
+       sur le bureau/plateau ni sur la carte ===== */
+.feed-evidence-slot--lille .feed-fiche-people {
+  inset: auto !important;
+  top: 0 !important;
+  bottom: 0 !important;
+  left: 77% !important;
+  right: 0 !important;
+  width: 23% !important;
+}
+
+/* ===== #217 : fiches peoples — sous 1200px, reportees en section A PROPOS ===== */
+@media (max-width: 1199px) {
+  /* le plateau n'affiche plus les fiches (deplacees en A PROPOS) */
+  .feed-evidence-slot--lille .feed-fiche-people { display: none !important; }
+  /* la Fiche technique apparait en A PROPOS : grille centree dans la div */
+  .feed-fiche-people-a-propos {
+    display: grid !important;
+    grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+    gap: 14px 12px !important;
+    width: 100% !important;
+    max-width: 760px;
+    margin: 0 auto;
+    justify-content: center;
+    padding: 12px 8px 20px;
+  }
+  .feed-fiche-people-a-propos .feed-fiche-person {
+    position: static !important;
+    width: 100% !important;
+    margin: 0 !important;
+  }
+}
+@media (min-width: 1200px) {
+  /* grand ecran : la copie A PROPOS reste masquee, fiches sur le plateau */
+  .feed-fiche-people-a-propos { display: none !important; }
+}
+@media (max-width: 700px) {
+  .feed-fiche-people-a-propos { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
+}
