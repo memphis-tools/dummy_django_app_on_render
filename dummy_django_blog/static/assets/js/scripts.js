@@ -944,16 +944,18 @@ document.addEventListener("DOMContentLoaded", function() {
       var k = Math.floor(Math.random() * (j + 1));
       var t = order[j]; order[j] = order[k]; order[k] = t;
     }
-    /* BOUCLE 1 -> n -> 1 : on parcourt TOUTE la liste des fiches dans
-       l'ordre ; on depose la 1re image, on la fait disparaitre, puis la
-       2de, etc. Arrive au dernier element on revient au 1er. Delai de
-       4 secondes par fiche, effet jeter/deposer (photos section 2). */
-    var pool = order.slice();
-    var zone = { top: [30, 70], left: [70, 78] };
-    people.forEach(function(el, n) {
-      if (pool.indexOf(n) === -1) el.style.display = "none";
-    });
-    pool.forEach(function(idx) {
+    /* LOTS DE 3 FICHES ALEATOIRES : 3 fiches tirees au sort apparaissent
+       successivement (effet jeter/deposer de la pile photos), chacune dans
+       sa propre lane verticale -> jamais superposees. Une fois les 3
+       posees, on attend 4 secondes puis on en affiche 3 autres avec le
+       meme deroule, en boucle. */
+    var lanes = [
+      { top: [26, 38], left: [12, 62] },
+      { top: [42, 54], left: [12, 62] },
+      { top: [58, 70], left: [12, 62] }
+    ];
+    people.forEach(function(el) { el.style.display = "none"; });
+    order.forEach(function(idx) {
       var el = people[idx];
       el.classList.add("person-mini");
       el.setAttribute("tabindex", "0");
@@ -962,32 +964,46 @@ document.addEventListener("DOMContentLoaded", function() {
       el.addEventListener("mouseleave", function() { el.classList.remove("person-focus"); });
       el.addEventListener("blur", function() { el.classList.remove("person-focus"); });
     });
-    /* effet IDENTIQUE a la pile de photos (section 2) : evidence-toss,
-       chute + rebond + rotation, puis glissement de sortie comme la plus
-       ancienne photo de la pile. */
-    var loopIdx = 0;
-    function dropNext() {
-      var el = people[pool[loopIdx % pool.length]];
-      el.style.display = "";
-      el.style.setProperty("--py", (zone.top[0] + Math.random() * (zone.top[1] - zone.top[0])).toFixed(1) + "%");
-      el.style.setProperty("--px", (zone.left[0] + Math.random() * (zone.left[1] - zone.left[0])).toFixed(1) + "%");
-      el.style.setProperty("--toss-spin", (Math.random() * 20 - 10).toFixed(1) + "deg");
-      el.classList.remove("person-gone", "person-rest", "person-pile-toss");
-      el.classList.add("person-dropped");
-      setTimeout(function() {
-        el.classList.add("person-pile-toss");
-        el.classList.add("person-rest");
-      }, 250);
-      /* disparition : glisse hors du plateau comme la photo la plus ancienne */
-      setTimeout(function() {
-        el.classList.remove("person-rest", "person-pile-toss");
-        el.classList.add("person-gone");
-        setTimeout(function() { el.style.display = "none"; el.classList.remove("person-gone"); }, 640);
-      }, 3200);
-      loopIdx += 1;
-      setTimeout(dropNext, 4000);
+    function pickBatch() {
+      var idx = order.slice();
+      for (var j = idx.length - 1; j > 0; j--) {
+        var k = Math.floor(Math.random() * (j + 1));
+        var t = idx[j]; idx[j] = idx[k]; idx[k] = t;
+      }
+      return idx.slice(0, 3);
     }
-    setTimeout(dropNext, 600);
+    function dropBatch() {
+      var batch = pickBatch();
+      /* les 3 fiches apparaissent successivement, une par lane */
+      batch.forEach(function(n, pos) {
+        setTimeout(function() {
+          var el = people[n];
+          var lane = lanes[pos];
+          el.style.display = "";
+          el.style.setProperty("--py", (lane.top[0] + Math.random() * (lane.top[1] - lane.top[0])).toFixed(1) + "%");
+          el.style.setProperty("--px", (lane.left[0] + Math.random() * (lane.left[1] - lane.left[0])).toFixed(1) + "%");
+          el.style.setProperty("--toss-spin", (Math.random() * 20 - 10).toFixed(1) + "deg");
+          el.classList.remove("person-gone", "person-rest", "person-pile-toss");
+          el.classList.add("person-dropped");
+          setTimeout(function() {
+            el.classList.add("person-pile-toss");
+            el.classList.add("person-rest");
+          }, 250);
+        }, pos * 500);
+      });
+      /* les 3 posees (cascade 1 s + toss 0,25 s) -> pause de 4 s apres la
+         3e fiche posee, puis sortie glissee et lot suivant */
+      setTimeout(function() {
+        batch.forEach(function(n) {
+          var el = people[n];
+          el.classList.remove("person-rest", "person-pile-toss");
+          el.classList.add("person-gone");
+          setTimeout(function() { el.style.display = "none"; el.classList.remove("person-gone"); }, 640);
+        });
+        setTimeout(dropBatch, 700);
+      }, 5300);
+    }
+    setTimeout(dropBatch, 600);
   }
 
   /* encarts publicitaires visiteurs : ordre aleatoire gauche/droite */
