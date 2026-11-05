@@ -286,7 +286,10 @@
                   <!-- FICHE TECHNIQUE (visible sur petits ecrans uniquement,
                        remplacee depuis le plateau de la 1ere section) -->
                   <h4>Fiche technique</h4>
-<div class="feed-fiche-people-a-propos feed-fiche-people" aria-label="Equipe technique de la serie">
+                  <!-- CARROUSEL des fiches (petits ecrans) : entre Fiche technique et Tournage -->
+                  <div class="a-propos-fiche-carousel">
+                  <button type="button" class="fiche-carousel-btn fiche-carousel-btn--prev" aria-label="Fiches precedentes"><i class="fa-solid fa-chevron-left"></i></button>
+                  <div class="feed-fiche-people-a-propos feed-fiche-people" aria-label="Equipe technique de la serie">
                                   <figure class="feed-fiche-person feed-fiche-person--creation"><span class="feed-fiche-photo feed-fiche-photo--unknown"><span>?</span></span><figcaption><a href="https://fr.wikipedia.org/wiki/Anne_Giafferi" target="_blank" rel="noopener">A. GIAFFERI</a><br>CR&Eacute;ATION</figcaption></figure>
                                   <figure class="feed-fiche-person feed-fiche-person--creation"><img src="{% static 'vendors/img/murielle_magellan.jpg' %}" alt="Murielle Magellan, creatrice"><figcaption><a href="https://fr.wikipedia.org/wiki/Murielle_Magellan" target="_blank" rel="noopener">M. MAGELLAN</a><br>CR&Eacute;ATION</figcaption></figure>
                                   <figure class="feed-fiche-person feed-fiche-person--real"><img src="{% static 'vendors/img/eric_woreth.jpg' %}" alt="Eric Woreth, realisateur"><figcaption><a href="https://fr.wikipedia.org/wiki/%C3%89ric_Woreth" target="_blank" rel="noopener">E. WORETH</a><br>R&Eacute;ALISATION</figcaption></figure>
@@ -311,7 +314,8 @@
                                   <figure class="feed-fiche-person feed-fiche-person--musique"><span class="feed-fiche-photo feed-fiche-photo--unknown"><span>?</span></span><figcaption><span>M. COUTURE</span><br>D&Eacute;CORS</figcaption></figure>
                                   <figure class="feed-fiche-person feed-fiche-person--musique"><span class="feed-fiche-photo feed-fiche-photo--unknown"><span>?</span></span><figcaption><span>S. DUSSAUD</span><br>COSTUMES</figcaption></figure>
                               </div>
-                              
+                  <button type="button" class="fiche-carousel-btn fiche-carousel-btn--next" aria-label="Fiches suivantes"><i class="fa-solid fa-chevron-right"></i></button>
+                  </div><!-- /a-propos-fiche-carousel -->
                   <h4>Tournage</h4>
                   <div class="tournage-zone">
                   <p>
