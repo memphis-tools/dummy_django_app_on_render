@@ -79,9 +79,14 @@ For a **local** usage set a .env file such like this :
     export EMAIL_HOST_PASSWORD=$SENDGRID_API_KEY
     export BETTERSTACK_SOURCE_TOKEN="yourBetterstackSourceToken"
     export BETTERSTACK_INGESTING_HOST="yourBetterstackIngestionHostURL"
+    export HCAPTCHA_SITE_KEY="yourHcaptchaSitekey"
+    export HCAPTCHA_SITE_SECRET="yourHcaptchaSecret"
+    export HCAPTCHA_VERIFY_URL="https://api.hcaptcha.com/siteverify"
     export SITE_URL=""
 
-EMAIL_HOST_USER=apikey mandatory for SendGrid usage.
+EMAIL_HOST_USER=apikey: mandatory keyword for SendGrid usage.
+
+Basically, either you run application locally
 
 SITE_URL="https://dummy-django-app-on-render.onrender.com" (for example).
 

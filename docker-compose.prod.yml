@@ -26,6 +26,7 @@ services:
       - SENDGRID_API_KEY
       - BETTERSTACK_SOURCE_TOKEN
       - BETTERSTACK_INGESTING_HOST
+      - HCAPTCHA_SITE_SECRET
 
   nginx:
     image: memphistools/public_repo:dummy_django_app_on_render_nginx

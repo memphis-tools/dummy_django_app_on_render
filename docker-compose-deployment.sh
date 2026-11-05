@@ -39,7 +39,7 @@ else
       sleep 1s
       ;;
     "publish" )
-      echo "[INFO] We tag and (re)publish images on DockerHub."
+      echo "[INFO] We tag and (re)publish images on DockerHub. "
       docker login -u $DOCKER_HUB_USER docker.io --password $DOCKER_HUB_PASSWORD
       docker tag dummy_django_app_on_render-nginx:latest $IMAGE_NAME:dummy_django_app_on_render_nginx
       docker tag dummy_django_app_on_render-django:latest $IMAGE_NAME:dummy_django_app_on_render_django
@@ -63,7 +63,7 @@ else
       fi
     	;;
     "cloud" )
-      # Création d'un environnement virtuel qui pourra être utilisé par Render
+      # Création d'un environnement virtuel qui pourra être utilisé pour un build fait par Render
       python -m venv venv
       source venv/bin/activate
       pip install -r dummy_django_blog/requirements.txt
@@ -73,7 +73,6 @@ else
       python manage.py migrate --noinput
       python manage.py collectstatic --no-input --clear
       python manage.py init_app
-      # gunicorn dummy_django_blog.wsgi:application --bind 0.0.0.0:8000
       ;;
     "down" )
       docker compose -f docker-compose.dev.yml down -v

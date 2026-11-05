@@ -4,14 +4,6 @@ from django.contrib.auth import get_user_model
 from . import models
 
 
-class ContactForm(forms.Form):
-    username = forms.CharField(label="Nom d'utilisateur", max_length=125)
-    email = forms.EmailField(label="Email utilisateur")
-    message = forms.CharField(
-        label="Votre message", max_length=1200, widget=forms.TextInput
-    )
-
-
 class PhotoForm(forms.ModelForm):
     edit_photo = forms.BooleanField(widget=forms.HiddenInput, initial=True)
 

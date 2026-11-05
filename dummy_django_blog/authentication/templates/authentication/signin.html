@@ -10,6 +10,7 @@
         <form class="form d-flex flex-column" action="" method="post">
             {% csrf_token %}
             {{ form.as_p }}
+            <div class="h-captcha" data-sitekey="eb6aad90-5b42-4404-a14c-e69c805615c0"></div>
             <button type="submit" class="btn btn-primary">S'INSCRIRE</button>
         </form>
         <div class="action-actions">

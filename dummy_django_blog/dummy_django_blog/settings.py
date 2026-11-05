@@ -242,3 +242,6 @@ LOGGING = {
 }
 
 SENDGRID_API_KEY = os.getenv("SENDGRID_API_KEY", "")
+HCAPTCHA_SITE_KEY = os.getenv("HCAPTCHA_SITE_KEY")
+HCAPTCHA_SITE_SECRET = os.getenv("HCAPTCHA_SITE_SECRET")
+HCAPTCHA_VERIFY_URL = "https://hcaptcha.com/siteverify"

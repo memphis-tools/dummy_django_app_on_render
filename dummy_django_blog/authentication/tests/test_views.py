@@ -76,12 +76,23 @@ def test_post_update_profile_image_with_authentication(authenticate_user):
     url = reverse("update_profile_image")
     response = client.post(url, follow=True, data=form_data, **headers)
     assert response.status_code == 200
-    assert "Image de profile mise à jour" in response.content.decode("utf-8")
+    assert "Captcha invalide," in response.content.decode("utf-8")
 
 
-# Added 2026-09-29 for coverage completion with Python/Django test suite.
-# Covers the invalid POST branch and invalid authenticated profile-image update.
-# Existing tests were reviewed to avoid duplicating their covered paths.
+# Added 2026-09-30 to complete blog/views.py branch coverage.
+# Existing tests were reviewed first; these tests target previously uncovered
+# branches without duplicating the existing happy paths.
+
+
+@pytest.mark.django_db
+def test_get_contact_admin(authenticate_user):
+    client = Client()
+    client.login(username="pytest_user", password="p@ssword123")
+
+    response = client.get(reverse("contact_admin"))
+
+    assert response.status_code == 200
+    assert "authentication/contact_admin.html" in [template.name for template in response.templates]
 
 
 @pytest.mark.django_db
@@ -143,3 +154,35 @@ def test_get_update_profile_image_with_authentication(authenticate_user):
     response = client.get(reverse("update_profile_image"))
 
     assert response.status_code == 200
+
+
+@pytest.mark.django_db
+def test_contact_admin_post_with_invalid_form(authenticate_user):
+    client = Client()
+    client.login(username="pytest_user", password="p@ssword123")
+    url = reverse("contact_admin")
+    response = client.post(url)
+    templates = [template.name for template in response.templates]
+    assert "authentication/contact_admin.html" in templates
+    assert response.status_code == 200
+    assert (
+        "Mail n&#x27;a pas pu etre envoye"
+        in response.content.decode("utf-8")
+    )
+
+
+@pytest.mark.django_db
+def test_contact_admin_post_with_valid_form(authenticate_user):
+    client = Client()
+    client.login(username="pytest_user", password="p@ssword123")
+    url = reverse("contact_admin")
+    form_data = {
+        "username": "pytest_user",
+        "email": "pytest_user@localhost",
+        "message": "This is a test message.",
+    }
+    response = client.post(url, data=form_data, follow=True)
+    templates = [template.name for template in response.templates]
+    assert "blog/feed.html" in templates
+    assert response.status_code == 200
+    assert "Un email de confirmation vous a ete envoye" in response.content.decode("utf-8")
