@@ -5405,16 +5405,16 @@ body a:hover, body a:focus {
   .a-propos-fiche-list { display: none !important; }
 }
 
-/* ===== #225 : 1ere section <1200px — 2 div affiches EN LIGNE :
-       [ bureau/tableau + carte ]  [ post-its ] ===== */
+/* ===== #226 : 1ere section <1200px — 2 div affiches EN COLONNES :
+       1) bureau/tableau avec carte  2) post-its ===== */
 @media (max-width: 1199px) {
   .feed-evidence-slot--lille {
     display: grid !important;
-    grid-template-columns: minmax(0, 2.4fr) minmax(150px, 1fr) !important;
+    grid-template-columns: minmax(0, 1fr) !important;
     gap: 14px;
     align-items: start;
   }
-  /* 1ere div : le plateau avec la carte (reprend le flux, colonne gauche) */
+  /* DIV 1 : le plateau avec la carte (en haut, pleine largeur) */
   .feed-evidence-slot--lille .feed-lille-map {
     grid-column: 1;
     grid-row: 1;
@@ -5438,13 +5438,13 @@ body a:hover, body a:focus {
     left: 0 !important;
     width: 100% !important;
   }
-  /* 2nde div : les post-its, colonne droite, 1 par ligne */
+  /* DIV 2 : les post-its, en dessous, 2 par ligne */
   .feed-evidence-slot--lille .feed-visitor-notes {
-    grid-column: 2;
-    grid-row: 1;
+    grid-column: 1;
+    grid-row: 2;
     position: static !important;
     display: grid !important;
-    grid-template-columns: 1fr !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
     gap: 10px !important;
     width: 100% !important;
     height: auto !important;
@@ -5462,9 +5462,6 @@ body a:hover, body a:focus {
   }
   .feed-evidence-slot--lille .feed-visitor-note em { font-size: 0.72rem; }
 }
-@media (max-width: 700px) {
-  /* tres petits ecrans : les 2 div repassent l'une sous l'autre */
-  .feed-evidence-slot--lille { grid-template-columns: 1fr !important; }
-  .feed-evidence-slot--lille .feed-lille-map { grid-column: 1; grid-row: 1; }
-  .feed-evidence-slot--lille .feed-visitor-notes { grid-column: 1; grid-row: 2; margin-top: 4px; }
+@media (max-width: 600px) {
+  .feed-evidence-slot--lille .feed-visitor-notes { grid-template-columns: 1fr !important; }
 }
