@@ -5372,39 +5372,6 @@ body a:hover, body a:focus {
 
 
 
-/* ===== #224 : 1ere section <1200px — plateau en HAUT, post-its ENSUITE ===== */
-@media (max-width: 1199px) {
-  .feed-evidence-slot--lille {
-    display: grid !important;
-    grid-template-columns: minmax(0, 1fr) !important;
-  }
-  /* la carte reprend le flux en 1re ligne, pleine largeur */
-  .feed-evidence-slot--lille .feed-lille-map {
-    position: relative !important;
-    width: 100% !important;
-    max-width: none !important;
-    left: auto !important;
-    top: auto !important;
-    margin: 0 0 12px 0 !important;
-    grid-row: 1;
-  }
-  /* loader + pastilles : superposes EXACTEMENT sur la carte (conteneur = carte) */
-  .feed-evidence-slot--lille .feed-lille-plan-loader {
-    position: absolute !important;
-    inset: 0 !important;
-    left: 0 !important;
-    width: 100% !important;
-  }
-  .feed-evidence-slot--lille .feed-map-hotspots {
-    position: absolute !important;
-    inset: 0 !important;
-    left: 0 !important;
-    width: 100% !important;
-  }
-  /* les post-its suivent, en 2e ligne */
-  .feed-evidence-slot--lille .feed-visitor-notes { grid-row: 2; margin-top: 4px; }
-}
-
 /* ===== #224 : A PROPOS <1200px — Fiche technique en LISTE simple
        (noms + roles), pas de carrousel ni de fiches ===== */
 @media (max-width: 1199px) {
@@ -5436,4 +5403,68 @@ body a:hover, body a:focus {
 }
 @media (min-width: 1200px) {
   .a-propos-fiche-list { display: none !important; }
+}
+
+/* ===== #225 : 1ere section <1200px — 2 div affiches EN LIGNE :
+       [ bureau/tableau + carte ]  [ post-its ] ===== */
+@media (max-width: 1199px) {
+  .feed-evidence-slot--lille {
+    display: grid !important;
+    grid-template-columns: minmax(0, 2.4fr) minmax(150px, 1fr) !important;
+    gap: 14px;
+    align-items: start;
+  }
+  /* 1ere div : le plateau avec la carte (reprend le flux, colonne gauche) */
+  .feed-evidence-slot--lille .feed-lille-map {
+    grid-column: 1;
+    grid-row: 1;
+    position: relative !important;
+    width: 100% !important;
+    max-width: none !important;
+    left: auto !important;
+    top: auto !important;
+    margin: 0 !important;
+  }
+  /* loader + pastilles : superposes EXACTEMENT sur la carte (conteneur = carte) */
+  .feed-evidence-slot--lille .feed-lille-plan-loader {
+    position: absolute !important;
+    inset: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+  }
+  .feed-evidence-slot--lille .feed-map-hotspots {
+    position: absolute !important;
+    inset: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+  }
+  /* 2nde div : les post-its, colonne droite, 1 par ligne */
+  .feed-evidence-slot--lille .feed-visitor-notes {
+    grid-column: 2;
+    grid-row: 1;
+    position: static !important;
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 10px !important;
+    width: 100% !important;
+    height: auto !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    pointer-events: auto !important;
+    z-index: 1 !important;
+  }
+  .feed-evidence-slot--lille .feed-visitor-note {
+    position: static !important;
+    width: 100% !important;
+    height: auto !important;
+    min-height: 64px !important;
+    margin: 0 !important;
+  }
+  .feed-evidence-slot--lille .feed-visitor-note em { font-size: 0.72rem; }
+}
+@media (max-width: 700px) {
+  /* tres petits ecrans : les 2 div repassent l'une sous l'autre */
+  .feed-evidence-slot--lille { grid-template-columns: 1fr !important; }
+  .feed-evidence-slot--lille .feed-lille-map { grid-column: 1; grid-row: 1; }
+  .feed-evidence-slot--lille .feed-visitor-notes { grid-column: 1; grid-row: 2; margin-top: 4px; }
 }
