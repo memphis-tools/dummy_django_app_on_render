@@ -5405,63 +5405,8 @@ body a:hover, body a:focus {
   .a-propos-fiche-list { display: none !important; }
 }
 
-/* ===== #226 : 1ere section <1200px — 2 div affiches EN COLONNES :
-       1) bureau/tableau avec carte  2) post-its ===== */
+/* ===== #227 : 1ere section <1200px — disposition precedente annulee,
+       les post-its n'apparaissent pas sur petits ecrans ===== */
 @media (max-width: 1199px) {
-  .feed-evidence-slot--lille {
-    display: grid !important;
-    grid-template-columns: minmax(0, 1fr) !important;
-    gap: 14px;
-    align-items: start;
-  }
-  /* DIV 1 : le plateau avec la carte (en haut, pleine largeur) */
-  .feed-evidence-slot--lille .feed-lille-map {
-    grid-column: 1;
-    grid-row: 1;
-    position: relative !important;
-    width: 100% !important;
-    max-width: none !important;
-    left: auto !important;
-    top: auto !important;
-    margin: 0 !important;
-  }
-  /* loader + pastilles : superposes EXACTEMENT sur la carte (conteneur = carte) */
-  .feed-evidence-slot--lille .feed-lille-plan-loader {
-    position: absolute !important;
-    inset: 0 !important;
-    left: 0 !important;
-    width: 100% !important;
-  }
-  .feed-evidence-slot--lille .feed-map-hotspots {
-    position: absolute !important;
-    inset: 0 !important;
-    left: 0 !important;
-    width: 100% !important;
-  }
-  /* DIV 2 : les post-its, en dessous, 2 par ligne */
-  .feed-evidence-slot--lille .feed-visitor-notes {
-    grid-column: 1;
-    grid-row: 2;
-    position: static !important;
-    display: grid !important;
-    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
-    gap: 10px !important;
-    width: 100% !important;
-    height: auto !important;
-    padding: 0 !important;
-    margin: 0 !important;
-    pointer-events: auto !important;
-    z-index: 1 !important;
-  }
-  .feed-evidence-slot--lille .feed-visitor-note {
-    position: static !important;
-    width: 100% !important;
-    height: auto !important;
-    min-height: 64px !important;
-    margin: 0 !important;
-  }
-  .feed-evidence-slot--lille .feed-visitor-note em { font-size: 0.72rem; }
-}
-@media (max-width: 600px) {
-  .feed-evidence-slot--lille .feed-visitor-notes { grid-template-columns: 1fr !important; }
+  .feed-evidence-slot--lille .feed-visitor-notes { display: none !important; }
 }
