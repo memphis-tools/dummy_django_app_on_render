@@ -1255,46 +1255,4 @@ document.addEventListener("DOMContentLoaded", function() {
   setTimeout(showThree, 500);
 });
 
-/* ===== A PROPOS : CARROUSEL des fiches (petits ecrans) ===== */
-/* fleches precedent/suivant + defilement fluide ; auto-avance toutes les
-   5 s, en pause au survol ou pendant une interaction. */
-document.addEventListener("DOMContentLoaded", function() {
-  var track = document.querySelector(".feed-fiche-people-a-propos");
-  var wrap = document.querySelector(".a-propos-fiche-carousel");
-  if (!track || !wrap || wrap.classList.contains("carousel-managed")) return;
-  wrap.classList.add("carousel-managed");
-  var prev = wrap.querySelector(".fiche-carousel-btn--prev");
-  var next = wrap.querySelector(".fiche-carousel-btn--next");
-  function page() { return Math.max(200, track.clientWidth - 20); }
-  function go(dir) {
-    var max = track.scrollWidth - track.clientWidth;
-    if (max <= 0) return;
-    var target = track.scrollLeft + dir * page();
-    if (target >= max - 4) target = 0;            /* boucle : fin -> debut */
-    else if (target < 0) target = max;            /* boucle : debut -> fin */
-    track.scrollTo({ left: target, behavior: "smooth" });
-  }
-  if (prev) prev.addEventListener("click", function() { go(-1); bump(); });
-  if (next) next.addEventListener("click", function() { go(1); bump(); });
-  /* auto-avance douce, en pause au survol/toucher */
-  var timer = null;
-  function start() {
-    stop();
-    timer = setInterval(function() { go(1); }, 5000);
-  }
-  function stop() { if (timer) { clearInterval(timer); timer = null; } }
-  var bumpDelay = null;
-  function bump() {
-    stop();
-    if (bumpDelay) clearTimeout(bumpDelay);
-    bumpDelay = setTimeout(start, 9000);
-  }
-  wrap.addEventListener("mouseenter", stop);
-  wrap.addEventListener("mouseleave", start);
-  wrap.addEventListener("touchstart", stop, { passive: true });
-  wrap.addEventListener("touchend", bump);
-  if (window.matchMedia("(max-width: 1199px)").matches) start();
-  window.addEventListener("resize", function() {
-    if (window.matchMedia("(max-width: 1199px)").matches) start(); else stop();
-  });
-});
+
