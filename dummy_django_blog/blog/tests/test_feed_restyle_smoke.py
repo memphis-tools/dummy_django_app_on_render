@@ -23,7 +23,7 @@ def test_feed_desk_and_sections_restyled(client, django_user_model):
     # (petits ecrans) en plus du plateau de la 1ere section
     assert b"a_propos_container" in r.content
     assert b"Tournage" in r.content
-    assert b"feed-fiche-people-a-propos" in r.content
+    assert b"a-propos-fiche-list" in r.content
     # tableau d'enquete : plan de Lille + personnes de la fiche technique punaisees
     assert b"feed-lille-plan" in r.content and b"carte_lieux_cles.svg" in r.content
     assert b"wikipedia.org" in r.content  # noms de la fiche technique lies vers Wikipedia
