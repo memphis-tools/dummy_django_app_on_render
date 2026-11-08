@@ -61,16 +61,9 @@ def update_profile_image(request):
             request.POST, request.FILES, instance=request.user
         )
         if form.is_valid():
-            if hcaptcha_valid(request):
-                form.save()
-                messages.add_message(request, messages.INFO, "Image de profile mise à jour")
-                return redirect("feed")
-            else:
-                messages.add_message(
-                    request,
-                    messages.ERROR,
-                    "Captcha invalide, merci d'essayer de nouveau",
-                )
+            form.save()
+            messages.add_message(request, messages.INFO, "Image de profile mise à jour")
+            return redirect("feed")
         else:
             messages.add_message(
                 request,

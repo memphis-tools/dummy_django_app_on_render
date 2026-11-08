@@ -69,7 +69,7 @@ def photos_view(request):
     photos = models.Photo.objects.filter(
         uploader__in=request.user.follows.all()
     ).order_by("-created_at")
-    paginator = Paginator(photos, 5)
+    paginator = Paginator(photos, 8)
     page = request.GET.get("page")
     page_obj = paginator.get_page(page)
     return render(request, "blog/photos_view.html", context={"page_obj": page_obj})
