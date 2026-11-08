@@ -5242,3 +5242,171 @@ body a:hover, body a:focus {
 
 /* ===== #216 : /photos/ — icone de profil du proposeur ===== */
 .photos-poster-icon { color: #ea9ef0; margin-right: 4px; font-size: 0.9em; }
+
+/* ===== #217 : post-its — des que l'ecran ne permet plus le cote a cote avec
+       le plateau, ils passent EN DESSOUS en lignes/colonnes, jamais superposes ===== */
+/* (annule le masquage <=991px de #213 : ils restent visibles, en flux) */
+@media (max-width: 991px) {
+  .feed-evidence-slot--lille .feed-visitor-notes {
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+}
+
+/* ===== #217 : feed-fiche-people — bande droite bornee, ne deborde plus
+       sur le bureau/plateau ni sur la carte ===== */
+.feed-evidence-slot--lille .feed-fiche-people {
+  inset: auto !important;
+  top: 0 !important;
+  bottom: 0 !important;
+  left: 77% !important;
+  right: 0 !important;
+  width: 23% !important;
+}
+
+/* ===== #217 : fiches peoples — sous 1200px, reportees en section A PROPOS ===== */
+@media (max-width: 1199px) {
+  /* le plateau n'affiche plus les fiches (deplacees en A PROPOS) */
+  .feed-evidence-slot--lille .feed-fiche-people { display: none !important; }
+  /* la Fiche technique apparait en A PROPOS : grille centree dans la div */
+  .feed-fiche-people-a-propos {
+    display: grid !important;
+    grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+    gap: 14px 12px !important;
+    width: 100% !important;
+    max-width: 760px;
+    margin: 0 auto;
+    justify-content: center;
+    padding: 12px 8px 20px;
+  }
+  .feed-fiche-people-a-propos .feed-fiche-person {
+    position: static !important;
+    width: 100% !important;
+    margin: 0 !important;
+  }
+}
+@media (min-width: 1200px) {
+  /* grand ecran : la copie A PROPOS reste masquee, fiches sur le plateau */
+  .feed-fiche-people-a-propos { display: none !important; }
+}
+@media (max-width: 700px) {
+  .feed-fiche-people-a-propos { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
+}
+
+/* ===== #219 : A PROPOS <1200px — fiches SOUS la ligne "Fiche technique",
+       avant "Tournage", ensemble coherent avec le reste de la section ===== */
+@media (max-width: 1199px) {
+  .a_propos_container h4:first-of-type { margin-bottom: 4px; }
+  .feed-fiche-people-a-propos {
+    margin-top: 6px;
+    padding-top: 12px;
+    border-top: 1px dashed #ea9ef05e;
+    margin-bottom: 18px;
+  }
+  .feed-fiche-people-a-propos .feed-fiche-person { text-align: center; }
+  .feed-fiche-people-a-propos .feed-fiche-person figcaption {
+    font-size: 0.66rem;
+    line-height: 1.35;
+  }
+  .feed-fiche-people-a-propos .feed-fiche-person img,
+  .feed-fiche-people-a-propos .feed-fiche-photo {
+    width: 100% !important;
+    height: auto !important;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+    border-radius: 4px;
+  }
+}
+
+/* ===== #221 : feed-fiche-people — COIN BAS GAUCHE du bureau/plateau,
+       meme espace vertical (colonne) que les 3 post-its de gauche ===== */
+.feed-evidence-slot--lille .feed-fiche-people {
+  inset: auto !important;
+  top: 58% !important;
+  bottom: 0 !important;
+  left: 0.8% !important;
+  right: auto !important;
+  width: 20% !important;
+}
+/* fiches compactes pour tenir dans le coin (photo 64x76 + legende) */
+.feed-evidence-slot--lille .feed-fiche-people .feed-fiche-person.person-mini {
+  width: 72px !important;
+}
+.feed-evidence-slot--lille .feed-fiche-people .feed-fiche-person.person-mini img,
+.feed-evidence-slot--lille .feed-fiche-people .feed-fiche-person.person-mini .feed-fiche-photo {
+  width: 72px !important;
+  height: 86px !important;
+}
+.feed-evidence-slot--lille .feed-fiche-people .feed-fiche-person.person-mini figcaption {
+  font-size: 0.56rem !important;
+  line-height: 1.25 !important;
+}
+/* hover : agrandissement lisible sans quitter le coin */
+.feed-evidence-slot--lille .feed-fiche-people .feed-fiche-person.person-focus {
+  width: 150px !important;
+  z-index: 9;
+}
+.feed-evidence-slot--lille .feed-fiche-people .feed-fiche-person.person-focus img,
+.feed-evidence-slot--lille .feed-fiche-people .feed-fiche-person.person-focus .feed-fiche-photo {
+  width: 150px !important;
+  height: 178px !important;
+}
+.feed-evidence-slot--lille .feed-fiche-people .feed-fiche-person.person-focus figcaption {
+  font-size: 0.72rem !important;
+}
+
+/* ===== #222 : coin bas gauche — top > 70% (aucune superposition avec le
+       3e post-it de gauche), fiches plus espacees donc cliquables ===== */
+.feed-evidence-slot--lille .feed-fiche-people {
+  top: 72% !important;
+  bottom: 0.5% !important;
+  left: 0.8% !important;
+  width: 26% !important;
+}
+
+/* ===== #223 : coin bas gauche — top 84%, left 10% ===== */
+.feed-evidence-slot--lille .feed-fiche-people {
+  top: 84% !important;
+  left: 10% !important;
+}
+
+
+
+/* ===== #224 : A PROPOS <1200px — Fiche technique en LISTE simple
+       (noms + roles), pas de carrousel ni de fiches ===== */
+@media (max-width: 1199px) {
+  .a-propos-fiche-list {
+    list-style: none;
+    margin: 6px 0 18px 0;
+    padding: 10px 0 0 0;
+    border-top: 1px dashed #ea9ef05e;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 4px 18px;
+    font-family: "ArsenalSC", sans-serif;
+    font-size: 0.85rem;
+    color: #f8ede3;
+  }
+  .a-propos-fiche-list li::before {
+    content: "\2713";
+    color: #ea9ef0;
+    margin-right: 7px;
+  }
+  .a-propos-fiche-list a {
+    color: #ea9ef0;
+    text-decoration: none;
+  }
+  .a-propos-fiche-list a:hover { color: #f8ede3; text-decoration: underline; }
+}
+@media (max-width: 600px) {
+  .a-propos-fiche-list { grid-template-columns: 1fr; }
+}
+@media (min-width: 1200px) {
+  .a-propos-fiche-list { display: none !important; }
+}
+
+/* ===== #227 : 1ere section <1200px — disposition precedente annulee,
+       les post-its n'apparaissent pas sur petits ecrans ===== */
+@media (max-width: 1199px) {
+  .feed-evidence-slot--lille .feed-visitor-notes { display: none !important; }
+}
