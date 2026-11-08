@@ -76,7 +76,7 @@ def test_post_update_profile_image_with_authentication(authenticate_user):
     url = reverse("update_profile_image")
     response = client.post(url, follow=True, data=form_data, **headers)
     assert response.status_code == 200
-    assert "Captcha invalide," in response.content.decode("utf-8")
+    assert "Image de profile mise" in response.content.decode("utf-8")
 
 
 # Added 2026-09-30 to complete blog/views.py branch coverage.
