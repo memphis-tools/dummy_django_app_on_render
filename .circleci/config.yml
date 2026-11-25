@@ -116,23 +116,6 @@ jobs:
       - run:
           name: push web image on dockerhub
           command: docker push memphistools/public_repo:dummy_django_app_on_render_django
-  deploy:
-    docker:
-      - image: docker:29.0
-    steps:
-      - checkout
-      - setup_remote_docker:
-          version: default
-      - run:
-          name: Install dependencies
-          command: |
-            apk update && \
-            apk upgrade && \
-            apk add --no-cache \
-              curl
-      - run:
-          name: order render to rebuild application
-          command: curl $RENDER_DEPLOY_HOOK_URL
   healthcheck:
     docker:
       - image: cimg/base:stable
