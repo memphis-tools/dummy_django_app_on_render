@@ -73,6 +73,7 @@ services:
     sync: false
   - key: SECRET_KEY
     generateValue: true
+  - fromGroup: render_applications
   region: frankfurt
   buildCommand: ./docker-compose-deployment.sh cloud
   startCommand: cd dummy_django_blog && ../venv/bin/python -m gunicorn -b :8000 dummy_django_blog.wsgi:application
