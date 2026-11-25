@@ -15,7 +15,9 @@ services:
   envVars:
   - fromGroup: render_applications
   - key: DATABASE_URL
-    sync: false
+    fromDatabase:
+      name: dummy_django_blog_on_render
+      property: connectionString
   - key: HCAPTCHA_SITE_SECRET
     sync: false
   - key: HCAPTCHA_SITE_KEY
