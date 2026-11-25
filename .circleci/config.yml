@@ -28,13 +28,6 @@ workflows:
                only:
                 - development
                 - main
-      - deploy:
-          requires:
-            - build_and_publish
-          filters:
-            branches:
-               only:
-                - main
   healthcheck:
     triggers:
       - schedule:
