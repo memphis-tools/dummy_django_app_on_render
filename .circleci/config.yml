@@ -28,13 +28,6 @@ workflows:
                only:
                 - development
                 - main
-      - deploy:
-          requires:
-            - build_and_publish
-          filters:
-            branches:
-               only:
-                - main
   healthcheck:
     triggers:
       - schedule:
@@ -118,7 +111,7 @@ jobs:
           command: docker push memphistools/public_repo:dummy_django_app_on_render_django
   deploy:
     docker:
-      - image: docker:29.0
+      - image: docker:25.0
     steps:
       - checkout
       - setup_remote_docker:
@@ -133,6 +126,7 @@ jobs:
       - run:
           name: order render to rebuild application
           command: curl $RENDER_DEPLOY_HOOK_URL
+  healthcheck:
   healthcheck:
     docker:
       - image: cimg/base:stable

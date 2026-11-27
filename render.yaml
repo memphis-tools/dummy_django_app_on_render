@@ -1,5 +1,9 @@
+
+# Exported from Render on 2026-11-25T16:32:12Z
+version: "1"
+
 databases:
-  - name: dummy_django_app_on_render
+  - name: dummy_django_app
     user: admin
     plan: free
     region: frankfurt
@@ -7,39 +11,98 @@ databases:
 services:
   - type: web
     name: dummy_django_app_on_render
-    plan: free
-    region: frankfurt
     runtime: python
-    buildCommand: "./docker-compose-deployment.sh cloud"
-    startCommand: "cd dummy_django_blog && ../venv/bin/python -m gunicorn -b :8000 dummy_django_blog.wsgi:application"
+    repo: https://github.com/memphis-tools/dummy_django_app_on_render
+    plan: free
+
     envVars:
-      - key: TIME_ZONE
-        value: Europe/Paris
       - key: DATABASE_URL
         fromDatabase:
-          name: dummy_django_app_on_render
+          name: dummy_django_app
           property: connectionString
+
+      - key: HCAPTCHA_SITE_SECRET
+        sync: false
+
+      - key: HCAPTCHA_SITE_KEY
+        sync: false
+
       - key: WEB_CONCURRENCY
-        value: 2
-      - key: PYTHON_VERSION
-        value: 3.14.8
-      - key: POETRY_VERSION
-        value: 2.3.1
+        value: "2"
+
+      - key: TIME_ZONE
+        value: "Europe/Paris"
+
+      - key: DJANGO_ADMIN_EMAIL
+        value: "admin@bluelake.fr"
+
+      - key: DJANGO_ADMIN_LOGIN
+        value: "admin"
+
       - key: PORT
-        value: 8000
+        value: "8000"
+
+      - key: POETRY_VERSION
+        value: "2.3.1"
+
+      - key: RUNNING_ENV
+        value: "cloud"
+
+      - key: DEFAULT_TO_EMAIL
+        sync: false
+
+      - key: DEBUG
+        value: "0"
+
+      - key: SITE_URL
+        value: "https://dummy-django-app-on-render.onrender.com"
+
+      - key: SENDGRID_API_KEY
+        sync: false
+
+      - key: DEFAULT_FROM_EMAIL
+        value: "contact-render-app@dummy-ops.dev"
+
+      - key: PYTHON_VERSION
+        value: "3.14.8"
+
+      - key: EMAIL_USE_TLS
+        value: "True"
+
+      - key: EMAIL_PORT
+        value: "587"
+
+      - key: EMAIL_HOST_USER
+        value: "apikey"
+
+      - key: EMAIL_HOST_PASSWORD
+        sync: false
+
+      - key: EMAIL_HOST
+        value: "smtp.sendgrid.net"
+
+      - key: DOCKER_HUB_USER
+        value: "memphistools"
+
+      - key: BETTERSTACK_SOURCE_TOKEN
+        sync: false
+
+      - key: BETTERSTACK_INGESTING_HOST
+        sync: false
+
+      - key: AWS_SECRET_ACCESS_KEY
+        sync: false
+
+      - key: AWS_DEFAULT_REGION
+        value: "eu-west-3"
+
+      - key: AWS_ACCESS_KEY_ID
+        sync: false
+
       - key: SECRET_KEY
         generateValue: true
-      - key: DJANGO_ADMIN_LOGIN
-        value: admin
-      - key: DJANGO_ADMIN_PASSWORD
-        generateValue: true
-      - key: DJANGO_ADMIN_EMAIL
-        value: admin@bluelake.fr
-      - key: DEBUG
-        value: 0
-      - key: RUNNING_ENV
-        value: cloud
-      - key: SITE_URL
-        sync: False 
 
-      
+    region: frankfurt
+    buildCommand: "./docker-compose-deployment.sh cloud"
+    startCommand: "cd dummy_django_blog && ../venv/bin/python -m gunicorn -b :8000 dummy_django_blog.wsgi:application"
+    autoDeployTrigger: commit
